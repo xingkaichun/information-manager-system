@@ -73,7 +73,7 @@ public class CategoryController {
             QueryCategoryResponse queryCategoryResponse= categoryService.queryCategoryReturnHierarchicalStructure(queryCategoryRequest);
             return ServiceResult.createSuccessServiceResult(queryCategoryResponse);
         } catch (Exception e){
-            String message = "新增分类失败";
+            String message = "查询分类失败";
             LOGGER.error(message,e);
             return ServiceResult.createFailServiceResult(message);
         }
