@@ -50,7 +50,7 @@ public class CommonUtilsCategoryDTO {
                 List<CategoryDTO> childList = rootCategoryDTO.getChildCategoryDTOList();
                 if(!CommonUtils.isNUllOrEmpty(childList)){
                     CategoryDTO parentFind = findParentCategoryDTO(childList,categoryDTO);
-                    if(rootCategoryDTO!=null){
+                    if(parentFind != null){
                         return parentFind;
                     }
                 }
