@@ -1,6 +1,7 @@
 package com.xingkaichun.information.dto.category.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.information.dto.CategoryDTO;
 
 import java.util.List;
 

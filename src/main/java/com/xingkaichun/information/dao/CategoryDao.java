@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public interface CategoryDao {
 
@@ -15,4 +16,6 @@ public interface CategoryDao {
     List<CategoryDomain> queryCategory(QueryCategoryRequest queryCategoryRequest);
 
     int deleteCategory(DeleteCategoryRequest deleteCategoryRequest);
+
+    List<CategoryDomain> queryCategoryByIds(Set<String> Ids);
 }

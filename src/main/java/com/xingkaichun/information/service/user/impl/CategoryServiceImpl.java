@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @Service(value = "categoryService")
 public class CategoryServiceImpl implements CategoryService {
@@ -30,46 +31,27 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public QueryCategoryResponse queryCategoryReturnHierarchicalStructure(QueryCategoryRequest queryCategoryRequest) {
         List<CategoryDomain> categoryDomainList = categoryDao.queryCategory(queryCategoryRequest);
+
         if(CommonUtils.isNUllOrEmpty(categoryDomainList)){
             return null;
         }
-        Map<String,ParentChildCategoryDTO> parentCategoryId_ParentChildCategoryDTO_Map = new HashMap<>();
-        categoryDomainList.forEach(categoryDomain -> {
-            CategoryDTO categoryDTO = classCastCategoryDomain2CategoryDTO(categoryDomain);
-            String categoryId = categoryDTO.getCategoryId();
-            String parentCategoryId = categoryDTO.getParentCategoryId();
-            if(CommonUtils.isNUllOrEmpty(parentCategoryId)){
-                //一级分类
-                if(!parentCategoryId_ParentChildCategoryDTO_Map.containsKey(categoryId)){
-                    parentCategoryId_ParentChildCategoryDTO_Map.put(categoryId,new ParentChildCategoryDTO(categoryDTO,new ArrayList<>()));
-                }
+        while(true){
+            Stream<String > categoryIdStream = categoryDomainList.stream()
+                    .map(categoryDomain -> categoryDomain.getCategoryId());
+            Set<String> categoryIdSet = CommonUtils.Stream2Set(categoryIdStream);
+
+            Stream<String > parentCategoryIdStream = categoryDomainList.stream().filter(categoryDomain -> !CommonUtils.isNUllOrEmpty(categoryDomain.getParentCategoryId()))
+                    .map(categoryDomain -> categoryDomain.getParentCategoryId());
+            Set<String> parentCategoryIdSet = CommonUtils.Stream2Set(parentCategoryIdStream);
+
+            parentCategoryIdSet.removeAll(categoryIdSet);
+            if(parentCategoryIdSet.size()==0){
+                break;
             }
-        });
-        categoryDomainList.forEach(categoryDomain -> {
-            CategoryDTO categoryDTO = classCastCategoryDomain2CategoryDTO(categoryDomain);
-            String categoryId = categoryDTO.getCategoryId();
-            String parentCategoryId = categoryDTO.getParentCategoryId();
-            if(!CommonUtils.isNUllOrEmpty(parentCategoryId)){
-                //二级分类
-                ParentChildCategoryDTO parentChildCategoryDTO = parentCategoryId_ParentChildCategoryDTO_Map.get(parentCategoryId);
-                if(parentChildCategoryDTO != null){
-                    parentChildCategoryDTO.getChildCategoryDTOList().add(categoryDTO);
-                }else{
-                    List<CategoryDTO> childCategoryDTOList = new ArrayList<>();
-                    childCategoryDTOList.add(categoryDTO);
-
-                    QueryCategoryRequest qRequest = new QueryCategoryRequest();
-                    qRequest.setCategoryId(parentCategoryId);
-                    List<CategoryDomain> cdList = categoryDao.queryCategory(qRequest);
-                    CategoryDTO parentCategoryDTO = classCastCategoryDomain2CategoryDTO(cdList.get(0));
-
-                    parentCategoryId_ParentChildCategoryDTO_Map.put(categoryId,new ParentChildCategoryDTO(parentCategoryDTO,childCategoryDTOList));
-                }
-            }
-        });
-
-        List<ParentChildCategoryDTO> parentChildCategoryDTOList = new ArrayList<>(parentCategoryId_ParentChildCategoryDTO_Map.values());
-        return new QueryCategoryResponse(parentChildCategoryDTOList);
+            List<CategoryDomain> categoryDomainListFindByIds = categoryDao.queryCategoryByIds(parentCategoryIdSet);
+            categoryDomainList.addAll(categoryDomainListFindByIds);
+        }
+        return new QueryCategoryResponse(ParentChildCategoryDTO.parentChildCategoryDTOList(classCastCategoryDomain2CategoryDTO(categoryDomainList)));
     }
 
     @Override
