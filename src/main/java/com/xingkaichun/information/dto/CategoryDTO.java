@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDTO {
@@ -21,6 +22,13 @@ public class CategoryDTO {
     private Date lastEditTime;
     @JsonProperty("UserId")
     private String userId;
+
+    @JsonProperty("ChildCategoryDTOList")
+    private List<CategoryDTO> childCategoryDTOList;
+
+    public CategoryDTO() {
+        childCategoryDTOList = new ArrayList<>();
+    }
 
     public String getCategoryId() {
         return categoryId;
@@ -60,5 +68,13 @@ public class CategoryDTO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<CategoryDTO> getChildCategoryDTOList() {
+        return childCategoryDTOList;
+    }
+
+    public void setChildCategoryDTOList(List<CategoryDTO> childCategoryDTOList) {
+        this.childCategoryDTOList = childCategoryDTOList;
     }
 }

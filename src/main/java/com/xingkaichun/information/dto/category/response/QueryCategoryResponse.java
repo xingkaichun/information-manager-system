@@ -7,18 +7,18 @@ import java.util.List;
 
 public class QueryCategoryResponse {
 
-    @JsonProperty("ParentChildCategoryDTOList")
-    private List<ParentChildCategoryDTO> parentChildCategoryDTOList;
+    @JsonProperty("CategoryDTOList")
+    private List<CategoryDTO> categoryDTOList;
 
-    public QueryCategoryResponse(List<ParentChildCategoryDTO> parentChildCategoryDTOList) {
-        this.parentChildCategoryDTOList = parentChildCategoryDTOList;
+    public QueryCategoryResponse(List<CategoryDTO> categoryDTOList) {
+        this.categoryDTOList = categoryDTOList;
     }
 
-    public List<ParentChildCategoryDTO> getParentChildCategoryDTOList() {
-        return parentChildCategoryDTOList;
+    public List<CategoryDTO> getCategoryDTOList() {
+        return categoryDTOList;
     }
 
-    public void setParentChildCategoryDTOList(List<ParentChildCategoryDTO> parentChildCategoryDTOList) {
-        this.parentChildCategoryDTOList = parentChildCategoryDTOList;
+    public void setCategoryDTOList(List<CategoryDTO> categoryDTOList) {
+        this.categoryDTOList = categoryDTOList;
     }
 }
