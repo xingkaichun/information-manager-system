@@ -1,6 +1,7 @@
 package com.xingkaichun.information.model;
 
 public class UserDomain {
+
     private Integer userId;
 
     private String userName;

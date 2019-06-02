@@ -4,6 +4,7 @@ import com.xingkaichun.information.dto.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
+import com.xingkaichun.information.dto.category.request.UpdateCategoryRequest;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface CategoryService {
     List<CategoryDTO> queryCategoryReturnList(QueryCategoryRequest queryCategoryRequest);
 
     int deleteCategory(DeleteCategoryRequest deleteCategoryRequest);
+
+    int updateCategory(UpdateCategoryRequest updateCategoryRequest);
 }

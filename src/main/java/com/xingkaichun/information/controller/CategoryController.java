@@ -6,6 +6,7 @@ import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
+import com.xingkaichun.information.dto.category.request.UpdateCategoryRequest;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.service.user.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
@@ -99,6 +100,23 @@ public class CategoryController {
             return FreshServiceResult.createSuccessFreshServiceResult("删除分类成功");
         } catch (Exception e){
             String message = "删除分类失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/UpdateCategory")
+    public FreshServiceResult updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest){
+        String categoryId = updateCategoryRequest.getCategoryId();
+        if(CommonUtils.isNUllOrEmpty(categoryId)){
+            return FreshServiceResult.createFailFreshServiceResult("CategoryId不能为空");
+        }
+        try{
+            categoryService.updateCategory(updateCategoryRequest);
+            return FreshServiceResult.createSuccessFreshServiceResult("更新分类成功");
+        } catch (Exception e){
+            String message = "更新分类失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }

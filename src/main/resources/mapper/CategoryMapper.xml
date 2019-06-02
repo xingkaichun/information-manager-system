@@ -51,4 +51,14 @@
             #{item}
         </foreach>
     </select>
+
+    <update id="updateCategory" parameterType="com.xingkaichun.information.model.CategoryDomain">
+        update <include refid="BASE_TABLE"/>
+        set
+        <if test="categoryName != null">
+            CategoryName = #{categoryName, jdbcType=VARCHAR},
+        </if>
+        categoryId = #{categoryId, jdbcType=VARCHAR}
+        where categoryId = #{categoryId, jdbcType=VARCHAR}
+    </update>
 </mapper>

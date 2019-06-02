@@ -5,6 +5,7 @@ import com.xingkaichun.information.dto.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
+import com.xingkaichun.information.dto.category.request.UpdateCategoryRequest;
 import com.xingkaichun.information.utils.CommonUtilsCategoryDTO;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.model.CategoryDomain;
@@ -63,6 +64,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int deleteCategory(DeleteCategoryRequest deleteCategoryRequest) {
         return categoryDao.deleteCategory(deleteCategoryRequest);
+    }
+
+    @Override
+    public int updateCategory(UpdateCategoryRequest updateCategoryRequest) {
+        CategoryDomain CategoryDomain = classCastCategoryDTO2CategoryDomain(updateCategoryRequest);
+        return categoryDao.updateCategory(CategoryDomain);
     }
 
     private List<CategoryDTO> classCastCategoryDomain2CategoryDTO(List<CategoryDomain> categoryDomainList) {

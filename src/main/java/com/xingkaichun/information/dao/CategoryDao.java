@@ -18,4 +18,6 @@ public interface CategoryDao {
     int deleteCategory(DeleteCategoryRequest deleteCategoryRequest);
 
     List<CategoryDomain> queryCategoryByIds(Set<String> Ids);
+
+    int updateCategory(CategoryDomain categoryDomain);
 }
