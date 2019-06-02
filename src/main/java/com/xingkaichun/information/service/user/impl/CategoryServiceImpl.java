@@ -5,7 +5,7 @@ import com.xingkaichun.information.dto.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
-import com.xingkaichun.information.dto.category.response.ParentChildCategoryDTO;
+import com.xingkaichun.information.utils.CommonUtilsCategoryDTO;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.model.CategoryDomain;
 import com.xingkaichun.information.service.user.CategoryService;
@@ -51,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
             List<CategoryDomain> categoryDomainListFindByIds = categoryDao.queryCategoryByIds(parentCategoryIdSet);
             categoryDomainList.addAll(categoryDomainListFindByIds);
         }
-        return new QueryCategoryResponse(ParentChildCategoryDTO.parentChildCategoryDTOList(classCastCategoryDomain2CategoryDTO(categoryDomainList)));
+        return new QueryCategoryResponse(CommonUtilsCategoryDTO.parentChildCategoryDTOList(classCastCategoryDomain2CategoryDTO(categoryDomainList)));
     }
 
     @Override

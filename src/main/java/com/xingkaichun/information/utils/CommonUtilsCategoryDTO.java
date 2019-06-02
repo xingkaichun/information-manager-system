@@ -1,4 +1,4 @@
-package com.xingkaichun.information.dto.category.response;
+package com.xingkaichun.information.utils;
 
 import com.xingkaichun.information.dto.CategoryDTO;
 import com.xingkaichun.information.utils.CommonUtils;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ParentChildCategoryDTO {
+public class CommonUtilsCategoryDTO {
 
     public static List<CategoryDTO> parentChildCategoryDTOList(List<CategoryDTO> categoryDTOList) {
         if(CommonUtils.isNUllOrEmpty(categoryDTOList)){
