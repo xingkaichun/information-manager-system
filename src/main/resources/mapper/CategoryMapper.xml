@@ -46,9 +46,9 @@
 
     <select id="queryCategoryByIds" parameterType="java.util.Collection" resultType="com.xingkaichun.information.model.CategoryDomain">
         select * from <include refid="BASE_TABLE"/>
-        where id in
-        <foreach collection="set" item="id" index="index" open="(" close=")" separator=",">
-            #{id}
+        where categoryId in
+        <foreach collection="collection" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
         </foreach>
     </select>
 </mapper>
