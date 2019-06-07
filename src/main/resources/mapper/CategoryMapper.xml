@@ -18,7 +18,7 @@
       #{categoryName, jdbcType=VARCHAR},
       #{parentCategoryId, jdbcType=VARCHAR},
       #{userId, jdbcType=VARCHAR},
-      #{lastEditTime, jdbcType=DATE}
+      #{lastEditTime, jdbcType=TIMESTAMP}
     )
   </insert>
 
@@ -60,5 +60,6 @@
         </if>
         categoryId = #{categoryId, jdbcType=VARCHAR}
         where categoryId = #{categoryId, jdbcType=VARCHAR}
+
     </update>
 </mapper>

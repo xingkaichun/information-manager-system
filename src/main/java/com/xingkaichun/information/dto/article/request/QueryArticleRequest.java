@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class QueryArticleRequest extends ArticleDTO {
 

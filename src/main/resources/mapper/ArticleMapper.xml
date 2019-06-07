@@ -44,10 +44,10 @@
           <bind name="bind_content" value="'%' + content + '%'" />
           and Content like #{bind_content}
       </if>
-      <if test="createTimeStart != null">AND CreateTime <![CDATA[>=]]> #{createTimeStart, jdbcType=DATE}</if>
-      <if test="createTimeEnd != null">AND CreateTime <![CDATA[<=]]>#{createTimeEnd, jdbcType=DATE}</if>
-      <if test="lastEditTimeStart != null">AND LastEditTime <![CDATA[>=]]> #{lastEditTimeStart, jdbcType=DATE}</if>
-      <if test="lastEditTimeEnd != null">AND LastEditTime <![CDATA[<=]]>#{lastEditTimeEnd, jdbcType=DATE}</if>
+      <if test="createTimeStart != null">AND CreateTime <![CDATA[>=]]> #{createTimeStart, jdbcType=TIMESTAMP}</if>
+      <if test="createTimeEnd != null">AND CreateTime <![CDATA[<=]]>#{createTimeEnd, jdbcType=TIMESTAMP}</if>
+      <if test="lastEditTimeStart != null">AND LastEditTime <![CDATA[>=]]> #{lastEditTimeStart, jdbcType=TIMESTAMP}</if>
+      <if test="lastEditTimeEnd != null">AND LastEditTime <![CDATA[<=]]>#{lastEditTimeEnd, jdbcType=TIMESTAMP}</if>
   </select>
 
     <delete id="deleteArticle" parameterType="com.xingkaichun.information.dto.article.request.DeleteArticleRequest">
