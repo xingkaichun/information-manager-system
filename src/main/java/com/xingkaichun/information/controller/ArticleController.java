@@ -5,11 +5,13 @@ import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
+import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.article.response.QueryArticleResponse;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
+import com.xingkaichun.information.dto.category.request.UpdateCategoryRequest;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.service.user.ArticleService;
 import com.xingkaichun.information.service.user.CategoryService;
@@ -37,7 +39,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @ResponseBody
     @PostMapping("/AddArticle")
@@ -99,6 +101,34 @@ public class ArticleController {
             String message = "查询文章失败";
             LOGGER.error(message,e);
             return ServiceResult.createFailServiceResult(message);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/UpdateArticle")
+    public FreshServiceResult updateArticle(@RequestBody UpdateArticleRequest updateArticleRequest){
+        String articleId = updateArticleRequest.getArticleId();
+        if(CommonUtils.isNUllOrEmpty(articleId)){
+            return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
+        }
+        try{
+            if(CommonUtils.isNUllOrEmpty(updateArticleRequest.getCategoryId())){
+                return FreshServiceResult.createFailFreshServiceResult("文章类别不能为空");
+            }else{
+                QueryCategoryRequest queryCategoryRequest = new QueryCategoryRequest();
+                queryCategoryRequest.setCategoryId(updateArticleRequest.getCategoryId());
+                List<CategoryDTO> categoryDTOList = categoryService.queryCategoryReturnList(queryCategoryRequest);
+                if(CommonUtils.isNUllOrEmpty(categoryDTOList)){
+                    return FreshServiceResult.createFailFreshServiceResult("文章类别不存在");
+                }
+            }
+
+            articleService.updateArticle(updateArticleRequest);
+            return FreshServiceResult.createSuccessFreshServiceResult("更新文章成功");
+        } catch (Exception e){
+            String message = "更新文章失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
         }
     }
 }

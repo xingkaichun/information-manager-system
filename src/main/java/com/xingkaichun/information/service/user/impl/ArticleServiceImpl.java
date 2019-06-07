@@ -5,6 +5,7 @@ import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
+import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.model.ArticleDomain;
 import com.xingkaichun.information.service.user.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest) {
         List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
         return classCast(articleDomainList);
+    }
+
+    @Override
+    public int updateArticle(UpdateArticleRequest updateArticleRequest) {
+        return articleDao.updateArticle(classCast(updateArticleRequest));
     }
 
     private List<ArticleDTO> classCast(List<ArticleDomain> articleDomainList) {

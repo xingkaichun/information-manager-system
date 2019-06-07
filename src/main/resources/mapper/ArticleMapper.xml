@@ -55,13 +55,28 @@
         where articleId = #{articleId, jdbcType=VARCHAR}
     </delete>
 
-    <update id="updateArticle" parameterType="com.xingkaichun.information.model.CategoryDomain">
+    <update id="updateArticle" parameterType="com.xingkaichun.information.model.ArticleDomain">
         update <include refid="BASE_TABLE"/>
         set
-        <if test="categoryName != null">
-            CategoryName = #{categoryName, jdbcType=VARCHAR},
+        <if test="articleId != null">
+            ArticleId = #{articleId, jdbcType=VARCHAR},
         </if>
-        categoryId = #{categoryId, jdbcType=VARCHAR}
-        where categoryId = #{categoryId, jdbcType=VARCHAR}
+        <if test="categoryId != null">
+            CategoryId = #{categoryId, jdbcType=VARCHAR},
+        </if>
+        <if test="userId != null">
+            UserId = #{userId, jdbcType=VARCHAR},
+        </if>
+        <if test="title != null">
+            Title = #{title, jdbcType=VARCHAR},
+        </if>
+        <if test="content != null">
+            Content = #{content, jdbcType=VARCHAR},
+        </if>
+        <if test="lastEditTime != null">
+            LastEditTime = #{lastEditTime, jdbcType=TIMESTAMP},
+        </if>
+        ArticleId = #{articleId, jdbcType=VARCHAR}
+        where ArticleId = #{articleId, jdbcType=VARCHAR}
     </update>
 </mapper>

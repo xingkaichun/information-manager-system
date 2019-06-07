@@ -4,6 +4,7 @@ import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
+import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface ArticleService {
     int deleteArticle(DeleteArticleRequest deleteArticleRequest);
 
     List<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest);
+
+    int updateArticle(UpdateArticleRequest updateArticleRequest);
 }

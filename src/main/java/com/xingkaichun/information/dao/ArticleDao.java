@@ -13,4 +13,6 @@ public interface ArticleDao {
     int deleteArticle(DeleteArticleRequest deleteArticleRequest);
 
     List<ArticleDomain> queryArticle(QueryArticleRequest queryArticleRequest);
+
+    int updateArticle(ArticleDomain classCast);
 }
