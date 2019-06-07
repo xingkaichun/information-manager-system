@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int addCategory(AddCategoryRequest addCategoryRequest) {
-        CategoryDomain CategoryDomain = classCastCategoryDTO2CategoryDomain(addCategoryRequest);
+        CategoryDomain CategoryDomain = classCast(addCategoryRequest);
         return categoryDao.addCategory(CategoryDomain);
     }
 
@@ -52,13 +52,13 @@ public class CategoryServiceImpl implements CategoryService {
             List<CategoryDomain> categoryDomainListFindByIds = categoryDao.queryCategoryByIds(parentCategoryIdSet);
             categoryDomainList.addAll(categoryDomainListFindByIds);
         }
-        return new QueryCategoryResponse(CommonUtilsCategoryDTO.parentChildCategoryDTOList(classCastCategoryDomain2CategoryDTO(categoryDomainList)));
+        return new QueryCategoryResponse(CommonUtilsCategoryDTO.parentChildCategoryDTOList(classCast(categoryDomainList)));
     }
 
     @Override
     public List<CategoryDTO> queryCategoryReturnList(QueryCategoryRequest queryCategoryRequest) {
         List<CategoryDomain> categoryDomainList = categoryDao.queryCategory(queryCategoryRequest);
-        return classCastCategoryDomain2CategoryDTO(categoryDomainList);
+        return classCast(categoryDomainList);
     }
 
     @Override
@@ -68,20 +68,20 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int updateCategory(UpdateCategoryRequest updateCategoryRequest) {
-        CategoryDomain CategoryDomain = classCastCategoryDTO2CategoryDomain(updateCategoryRequest);
+        CategoryDomain CategoryDomain = classCast(updateCategoryRequest);
         return categoryDao.updateCategory(CategoryDomain);
     }
 
-    private List<CategoryDTO> classCastCategoryDomain2CategoryDTO(List<CategoryDomain> categoryDomainList) {
+    private List<CategoryDTO> classCast(List<CategoryDomain> categoryDomainList) {
         if(CommonUtils.isNUllOrEmpty(categoryDomainList)){
             return null;
         }
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
-        categoryDomainList.forEach(categoryDomain -> categoryDTOList.add(classCastCategoryDomain2CategoryDTO(categoryDomain)));
+        categoryDomainList.forEach(categoryDomain -> categoryDTOList.add(classCast(categoryDomain)));
         return categoryDTOList;
     }
 
-    private CategoryDTO classCastCategoryDomain2CategoryDTO(CategoryDomain categoryDomain) {
+    private CategoryDTO classCast(CategoryDomain categoryDomain) {
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setCategoryId(categoryDomain.getCategoryId());
         categoryDTO.setCategoryName(categoryDomain.getCategoryName());
@@ -92,7 +92,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
-    private static CategoryDomain classCastCategoryDTO2CategoryDomain(CategoryDTO categoryDTO) {
+    private static CategoryDomain classCast(CategoryDTO categoryDTO) {
         CategoryDomain categoryDomain = new CategoryDomain();
         categoryDomain.setCategoryId(categoryDTO.getCategoryId());
         categoryDomain.setCategoryName(categoryDTO.getCategoryName());

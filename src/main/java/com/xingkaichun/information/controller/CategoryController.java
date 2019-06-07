@@ -34,11 +34,11 @@ public class CategoryController {
     @ResponseBody
     @PostMapping("/AddCategory")
     public FreshServiceResult addCategory(@RequestBody AddCategoryRequest addCategoryRequest){
-        if(CommonUtils.isNUllOrEmpty(addCategoryRequest.getCategoryName())){
-            return FreshServiceResult.createFailFreshServiceResult("CategoryName不能为空");
-        }
 
         try{
+            if(CommonUtils.isNUllOrEmpty(addCategoryRequest.getCategoryName())){
+                return FreshServiceResult.createFailFreshServiceResult("CategoryName不能为空");
+            }
 
             //如果插入二级类别，校验父类别是否存在
             String parentCategoryId = addCategoryRequest.getParentCategoryId();
