@@ -1,4 +1,4 @@
-package com.xingkaichun.information.dto;
+package com.xingkaichun.information.dto.category;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

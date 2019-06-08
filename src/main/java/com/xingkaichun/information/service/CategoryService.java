@@ -1,6 +1,6 @@
-package com.xingkaichun.information.service.user;
+package com.xingkaichun.information.service;
 
-import com.xingkaichun.information.dto.CategoryDTO;
+import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;

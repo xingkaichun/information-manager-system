@@ -1,10 +1,10 @@
-package com.xingkaichun.information.service.user.impl;
+package com.xingkaichun.information.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.UserDao;
 import com.xingkaichun.information.model.UserDomain;
-import com.xingkaichun.information.service.user.UserService;
+import com.xingkaichun.information.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

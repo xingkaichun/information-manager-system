@@ -1,7 +1,6 @@
 package com.xingkaichun.information.dto.article.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.base.PageInformation;
 

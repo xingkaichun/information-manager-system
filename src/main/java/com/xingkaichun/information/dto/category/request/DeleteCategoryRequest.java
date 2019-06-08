@@ -1,6 +1,6 @@
 package com.xingkaichun.information.dto.category.request;
 
-import com.xingkaichun.information.dto.CategoryDTO;
+import com.xingkaichun.information.dto.category.CategoryDTO;
 
 public class DeleteCategoryRequest extends CategoryDTO {
 }

@@ -1,4 +1,4 @@
-package com.xingkaichun.information.service.user.impl;
+package com.xingkaichun.information.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,7 +10,7 @@ import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.model.ArticleDomain;
-import com.xingkaichun.information.service.user.ArticleService;
+import com.xingkaichun.information.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

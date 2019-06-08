@@ -1,6 +1,6 @@
 package com.xingkaichun.information.controller;
 
-import com.xingkaichun.information.dto.CategoryDTO;
+import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
@@ -8,7 +8,7 @@ import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
 import com.xingkaichun.information.dto.category.request.UpdateCategoryRequest;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
-import com.xingkaichun.information.service.user.CategoryService;
+import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

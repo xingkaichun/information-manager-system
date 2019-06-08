@@ -1,7 +1,6 @@
 package com.xingkaichun.information.utils;
 
-import com.xingkaichun.information.dto.CategoryDTO;
-import com.xingkaichun.information.utils.CommonUtils;
+import com.xingkaichun.information.dto.category.CategoryDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,4 +1,4 @@
-package com.xingkaichun.information.service.user;
+package com.xingkaichun.information.service;
 
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;

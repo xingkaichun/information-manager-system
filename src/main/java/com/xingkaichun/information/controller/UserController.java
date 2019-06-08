@@ -1,7 +1,7 @@
 package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.model.UserDomain;
-import com.xingkaichun.information.service.user.UserService;
+import com.xingkaichun.information.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
