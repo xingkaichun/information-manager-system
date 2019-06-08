@@ -1,5 +1,6 @@
 package com.xingkaichun.information.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dto.CategoryDTO;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
@@ -8,6 +9,7 @@ import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.article.response.QueryArticleResponse;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
@@ -94,8 +96,8 @@ public class ArticleController {
     public ServiceResult<QueryArticleResponse> queryArticle(@RequestBody QueryArticleRequest queryArticleRequest){
         try{
             QueryArticleResponse queryArticleResponse = new QueryArticleResponse();
-            List<ArticleDTO> articleDTOList = articleService.queryArticle(queryArticleRequest);
-            queryArticleResponse.setArticleDTOList(articleDTOList);
+            PageInformation<ArticleDTO> articleDTOPageInformation = articleService.queryArticle(queryArticleRequest);
+            queryArticleResponse.setArticleDTOPageInformation(articleDTOPageInformation);
             return ServiceResult.createSuccessServiceResult(queryArticleResponse);
         } catch (Exception e){
             String message = "查询文章失败";

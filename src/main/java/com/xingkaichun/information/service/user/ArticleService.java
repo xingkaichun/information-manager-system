@@ -5,8 +5,7 @@ import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
-
-import java.util.List;
+import com.xingkaichun.information.dto.base.PageInformation;
 
 public interface ArticleService {
 
@@ -14,7 +13,7 @@ public interface ArticleService {
 
     int deleteArticle(DeleteArticleRequest deleteArticleRequest);
 
-    List<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest);
+    PageInformation<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest);
 
     int updateArticle(UpdateArticleRequest updateArticleRequest);
 }

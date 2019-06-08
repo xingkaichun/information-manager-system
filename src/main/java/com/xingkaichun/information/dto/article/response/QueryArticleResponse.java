@@ -1,20 +1,27 @@
 package com.xingkaichun.information.dto.article.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dto.article.ArticleDTO;
-
-import java.util.List;
+import com.xingkaichun.information.dto.base.PageInformation;
 
 public class QueryArticleResponse {
 
-    @JsonProperty("ArticleDTOList")
-    private List<ArticleDTO> articleDTOList;
+    @JsonProperty("ArticleDTOPageInformation")
+    PageInformation<ArticleDTO> articleDTOPageInformation;
 
-    public List<ArticleDTO> getArticleDTOList() {
-        return articleDTOList;
+    public QueryArticleResponse() {
     }
 
-    public void setArticleDTOList(List<ArticleDTO> articleDTOList) {
-        this.articleDTOList = articleDTOList;
+    public QueryArticleResponse(PageInformation<ArticleDTO> articleDTOPageInformation) {
+        this.articleDTOPageInformation = articleDTOPageInformation;
+    }
+
+    public PageInformation<ArticleDTO> getArticleDTOPageInformation() {
+        return articleDTOPageInformation;
+    }
+
+    public void setArticleDTOPageInformation(PageInformation<ArticleDTO> articleDTOPageInformation) {
+        this.articleDTOPageInformation = articleDTOPageInformation;
     }
 }

@@ -1,11 +1,14 @@
 package com.xingkaichun.information.service.user.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.ArticleDao;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
+import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.model.ArticleDomain;
 import com.xingkaichun.information.service.user.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +34,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest) {
+    public PageInformation<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest) {
+        PageHelper.startPage(queryArticleRequest.getPageCondition().getPageNum(), queryArticleRequest.getPageCondition().getPageSize());
         List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
-        return classCast(articleDomainList);
+        PageInfo result = new PageInfo(articleDomainList);
+        PageInformation<ArticleDTO> articleDTOPageInformation = new PageInformation<>(result.getPageNum(),result.getPageSize(),result.getPages(),classCast(articleDomainList));
+        return articleDTOPageInformation;
     }
 
     @Override
