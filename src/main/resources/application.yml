@@ -48,3 +48,7 @@ pagehelper:
 
 upload:
   fileDirectory: D:\temp\files\
+
+multipart:
+  maxRequestSize: 2000MB
+  maxFileSize: 2000MB

@@ -1,7 +1,7 @@
 package com.xingkaichun.information.controller;
 
+import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
-import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.dto.file.response.FileUploadResponse;
 import com.xingkaichun.information.model.FileDomain;
 import com.xingkaichun.information.service.FileService;
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -67,61 +68,49 @@ public class FileUploadController {
     }
 
     @RequestMapping("/FileDownload")
-    public String downloadFile(HttpServletRequest request,
-                               HttpServletResponse response) throws UnsupportedEncodingException {
+    public FreshServiceResult downloadFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileId")String fileId) throws UnsupportedEncodingException {
 
-        String fileName = "e343b39e-2118-432e-bc1e-315811c0a1ab.png"; //下载的文件名
+        // 实现文件下载
+        byte[] buffer = new byte[1024];
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+        try {
+            List<FileDomain> fileDomainList = fileService.queryFile(new FileDomain(fileId,null,null,null));
+            FileDomain fileDomain = fileDomainList.get(0);
 
-        // 如果文件名不为空，则进行下载
-        if (fileName != null) {
-            //设置文件路径
-            String realPath = "D:\\temp\\files";
-            File file = new File(realPath, fileName);
+            File file = new File(fileDomain.getFilePath());
 
-            // 如果文件名存在，则进行下载
-            if (file.exists()) {
-                // 配置文件下载
-                response.setHeader("content-type", "application/octet-stream");
-                response.setContentType("application/octet-stream");
-                // 下载文件能正常显示中文
-                response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+            response.setHeader("content-type", "application/octet-stream");
+            response.setContentType("application/octet-stream");
+            // 下载文件能正常显示中文
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
 
-                // 实现文件下载
-                byte[] buffer = new byte[1024];
-                FileInputStream fis = null;
-                BufferedInputStream bis = null;
+            fis = new FileInputStream(file);
+            bis = new BufferedInputStream(fis);
+            OutputStream os = response.getOutputStream();
+            int i = bis.read(buffer);
+            while (i != -1) {
+                os.write(buffer, 0, i);
+                i = bis.read(buffer);
+            }
+        } catch (Exception e) {
+            String message = "下载文件失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        } finally {
+            if (bis != null) {
                 try {
-                    fis = new FileInputStream(file);
-                    bis = new BufferedInputStream(fis);
-                    OutputStream os = response.getOutputStream();
-                    int i = bis.read(buffer);
-                    while (i != -1) {
-                        os.write(buffer, 0, i);
-                        i = bis.read(buffer);
-                    }
-                    System.out.println("Download the song successfully!");
+                    bis.close();
+                } catch (Exception e) {
                 }
-                catch (Exception e) {
-                    System.out.println("Download the song failed!");
-                }
-                finally {
-                    if (bis != null) {
-                        try {
-                            bis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+            }
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (Exception e) {
                 }
             }
         }
-        return null;
+        return FreshServiceResult.createSuccessFreshServiceResult("下载成功");
     }
 }
