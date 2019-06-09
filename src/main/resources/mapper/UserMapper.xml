@@ -59,4 +59,35 @@
     and password = #{password, jdbcType=VARCHAR}
   </select>
 
+  <select id="queryUserByUserId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.UserDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where userId = #{_parameter, jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryUserByEmail" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.UserDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where email = #{_parameter, jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryUserByUserName" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.UserDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where userName = #{_parameter, jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryUserByPhone" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.UserDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where phone = #{_parameter, jdbcType=VARCHAR}
+  </select>
 </mapper>

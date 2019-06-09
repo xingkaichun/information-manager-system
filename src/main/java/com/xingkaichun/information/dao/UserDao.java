@@ -14,4 +14,12 @@ public interface UserDao {
     List<UserDomain> queryUser(UserDomain userDomain);
 
     UserDomain login(LoginRequest loginRequest);
+
+    UserDomain queryUserByUserId(String userId);
+
+    UserDomain queryUserByEmail(String email);
+
+    UserDomain queryUserByUserName(String userName);
+
+    UserDomain queryUserByPhone(String phone);
 }

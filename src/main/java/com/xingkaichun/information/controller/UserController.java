@@ -2,8 +2,8 @@ package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
-import com.xingkaichun.information.dto.user.request.LoginRequest;
 import com.xingkaichun.information.dto.user.UserDto;
+import com.xingkaichun.information.dto.user.request.LoginRequest;
 import com.xingkaichun.information.dto.user.response.LoginResponse;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 
@@ -49,13 +48,14 @@ public class UserController {
             if(CommonUtils.isNUllOrEmpty(userDto.getPhone())){
                 return FreshServiceResult.createFailFreshServiceResult("手机号不能为空");
             }
-            if(!CommonUtils.isNUllOrEmpty(userService.queryUser(new UserDomain(null,userDto.getEmail(),null,null,null,null)))){
+            //校验用户是否已经存在
+            if(!CommonUtils.isNUll(userService.queryOneUserByEmail(userDto.getEmail()))){
                 return FreshServiceResult.createFailFreshServiceResult("邮箱已经存在");
             }
-            if(!CommonUtils.isNUllOrEmpty(userService.queryUser(new UserDomain(null,null,userDto.getUserName(),null,null,null)))){
+            if(!CommonUtils.isNUll(userService.queryOneUserByUserName(userDto.getUserName()))){
                 return FreshServiceResult.createFailFreshServiceResult("用户名已经存在");
             }
-            if(!CommonUtils.isNUllOrEmpty(userService.queryUser(new UserDomain(null,null,null,null,null,userDto.getPhone())))){
+            if(!CommonUtils.isNUll(userService.queryOneUserByPhone(userDto.getPhone()))){
                 return FreshServiceResult.createFailFreshServiceResult("手机号已经存在");
             }
 
@@ -101,14 +101,10 @@ public class UserController {
             }
 
 
-            List<UserDomain> userDomainList=  userService.queryUser(new UserDomain(null,loginRequest.getEmail(),null,null,null,null));
-            if(CommonUtils.isNUllOrEmpty(userDomainList)){
+            UserDomain userDomain =  userService.queryOneUserByEmail(loginRequest.getEmail());
+            if(CommonUtils.isNUll(userDomain)){
                 return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
             }
-            if(userDomainList.size()>1){
-                throw new RuntimeException("查找到两个相同账号的邮箱");
-            }
-            UserDomain userDomain = userDomainList.get(0);
             loginRequest.setPassword(generatePassword(loginRequest.getPassword(),userDomain.getPasswordSalt()));
 
             UserDomain ud = userService.login(loginRequest);

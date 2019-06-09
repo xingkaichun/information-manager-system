@@ -20,5 +20,10 @@ public interface UserService {
 
     List<UserDomain> queryUser(UserDomain userDomain);
 
+    UserDomain queryOneUserByUserId(String userId);
+    UserDomain queryOneUserByEmail(String email);
+    UserDomain queryOneUserByUserName(String userName);
+    UserDomain queryOneUserByPhone(String phone);
+
     UserDomain login(LoginRequest loginRequest);
 }

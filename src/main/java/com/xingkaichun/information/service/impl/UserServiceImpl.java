@@ -57,6 +57,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDomain queryOneUserByUserId(String userId) {
+        return userDao.queryUserByUserId(userId);
+    }
+
+    @Override
+    public UserDomain queryOneUserByEmail(String email) {
+        return userDao.queryUserByEmail(email);
+    }
+
+    @Override
+    public UserDomain queryOneUserByUserName(String userName) {
+        return userDao.queryUserByUserName(userName);
+    }
+
+    @Override
+    public UserDomain queryOneUserByPhone(String phone) {
+        return userDao.queryUserByPhone(phone);
+    }
+
+    @Override
     public UserDomain login(LoginRequest loginRequest) {
         UserDomain userDomain = userDao.login(loginRequest);
         return userDomain;
