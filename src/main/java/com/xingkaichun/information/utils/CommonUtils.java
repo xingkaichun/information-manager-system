@@ -19,6 +19,10 @@ public class CommonUtils {
         throw new RuntimeException(String.format("不支持类别%s做空判断",object.getClass()));
     }
 
+    public static boolean isNUll(Object object) {
+        return object == null;
+    }
+
     public static<T> List<T> Stream2List(Stream<T> stream){
         if(stream == null){
             return null;

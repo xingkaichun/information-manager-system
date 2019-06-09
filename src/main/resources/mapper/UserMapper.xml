@@ -50,4 +50,13 @@
     </if>
   </select>
 
+  <select id="login" parameterType="com.xingkaichun.information.dto.user.request.LoginRequest" resultType="com.xingkaichun.information.model.UserDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where email = #{email, jdbcType=VARCHAR}
+    and password = #{password, jdbcType=VARCHAR}
+  </select>
+
 </mapper>
