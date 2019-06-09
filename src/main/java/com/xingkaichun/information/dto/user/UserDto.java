@@ -1,32 +1,26 @@
-package com.xingkaichun.information.model;
+package com.xingkaichun.information.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserDomain {
+public class UserDto {
 
+    @JsonProperty("UserId")
     private String userId;
 
+    @JsonProperty("Email")
     private String email;
 
+    @JsonProperty("UserName")
     private String userName;
 
+    @JsonProperty("Password")
     private String password;
 
+    @JsonProperty("PasswordSalt")
     private String passwordSalt;
 
+    @JsonProperty("Phone")
     private String phone;
-
-    public UserDomain() {
-    }
-
-    public UserDomain(String userId, String email, String userName, String password, String passwordSalt, String phone) {
-        this.userId = userId;
-        this.email = email;
-        this.userName = userName;
-        this.password = password;
-        this.passwordSalt = passwordSalt;
-        this.phone = phone;
-    }
 
     public String getUserId() {
         return userId;

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface UserDao {
 
-    int insert(UserDomain record);
+    int insert(UserDomain userDomain);
     List<UserDomain> selectUsers();
+
+    List<UserDomain> queryUser(UserDomain userDomain);
 }

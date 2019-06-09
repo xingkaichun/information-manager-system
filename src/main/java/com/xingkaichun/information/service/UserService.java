@@ -1,7 +1,10 @@
 package com.xingkaichun.information.service;
 
 import com.github.pagehelper.PageInfo;
+import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.model.UserDomain;
+
+import java.util.List;
 
 
 /**
@@ -9,7 +12,9 @@ import com.xingkaichun.information.model.UserDomain;
  */
 public interface UserService {
 
-    int addUser(UserDomain user);
+    int addUser(UserDto userDto);
 
     PageInfo<UserDomain> findAllUser(int pageNum, int pageSize);
+
+    List<UserDomain> queryUser(UserDomain userDomain);
 }

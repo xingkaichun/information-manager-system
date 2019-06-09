@@ -2,28 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xingkaichun.information.dao.UserDao" >
   <sql id="BASE_TABLE">
-    t_user
+    user
   </sql>
 
   <sql id="BASE_COLUMN">
-    userId,userName,password,phone
+    userId,email,userName,password,passwordSalt,phone
   </sql>
 
   <insert id="insert" parameterType="com.xingkaichun.information.model.UserDomain">
     INSERT INTO
       <include refid="BASE_TABLE"/>
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      userName,password,
-      <if test="phone != null">
-        phone,
-      </if>
-    </trim>
-    <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
-      #{userName, jdbcType=VARCHAR},#{password, jdbcType=VARCHAR},
-      <if test="phone != null">
-        #{phone, jdbcType=VARCHAR},
-      </if>
-    </trim>
+    (<include refid="BASE_COLUMN"/>)
+      VALUES(
+      #{userId, jdbcType=VARCHAR},
+      #{email, jdbcType=VARCHAR},
+      #{userName, jdbcType=VARCHAR},
+      #{password, jdbcType=VARCHAR},
+      #{passwordSalt, jdbcType=VARCHAR},
+      #{phone, jdbcType=VARCHAR}
+    )
   </insert>
 
   <select id="selectUsers" resultType="com.xingkaichun.information.model.UserDomain">
@@ -33,5 +30,24 @@
         <include refid="BASE_TABLE"/>
   </select>
 
+  <select id="queryUser" resultType="com.xingkaichun.information.model.UserDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where 1=1
+    <if test="userId != null">
+      and userId = #{userId, jdbcType=VARCHAR}
+    </if>
+    <if test="email != null">
+      and email = #{email, jdbcType=VARCHAR}
+    </if>
+    <if test="userName != null">
+      and userName = #{userName, jdbcType=VARCHAR}
+    </if>
+    <if test="phone != null">
+      and phone = #{phone, jdbcType=VARCHAR}
+    </if>
+  </select>
 
 </mapper>

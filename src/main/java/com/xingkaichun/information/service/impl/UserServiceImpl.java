@@ -3,6 +3,7 @@ package com.xingkaichun.information.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.UserDao;
+import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +11,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/8/16.
- */
+
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;//这里会报错，但是并不会影响
+    private UserDao userDao;
 
     @Override
-    public int addUser(UserDomain user) {
+    public int addUser(UserDto userDto) {
+        UserDomain userDomain = classClass(userDto);
+        return userDao.insert(userDomain);
+    }
 
-        return userDao.insert(user);
+    private UserDomain classClass(UserDto userDto) {
+        UserDomain userDomain = new UserDomain();
+        userDomain.setUserId(userDto.getUserId());
+        userDomain.setEmail(userDto.getEmail());
+        userDomain.setUserName(userDto.getUserName());
+        userDomain.setPassword(userDto.getPassword());
+        userDomain.setPasswordSalt(userDto.getPasswordSalt());
+        userDomain.setPhone(userDto.getPhone());
+        return userDomain;
     }
 
     /*
@@ -38,5 +48,10 @@ public class UserServiceImpl implements UserService {
         List<UserDomain> userDomains = userDao.selectUsers();
         PageInfo result = new PageInfo(userDomains);
         return result;
+    }
+
+    @Override
+    public List<UserDomain> queryUser(UserDomain userDomain) {
+        return userDao.queryUser(userDomain);
     }
 }
