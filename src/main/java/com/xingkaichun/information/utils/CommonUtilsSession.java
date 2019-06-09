@@ -17,7 +17,7 @@ public class CommonUtilsSession {
         session.setAttribute(USER_NAME,userDomain);
     }
 
-    public static UserDomain getUser(HttpServletRequest request, UserDomain userDomain) {
+    public static UserDomain getUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         return (UserDomain) session.getAttribute(USER_NAME);
     }

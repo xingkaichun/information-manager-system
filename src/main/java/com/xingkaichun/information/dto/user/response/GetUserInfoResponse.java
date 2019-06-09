@@ -3,15 +3,15 @@ package com.xingkaichun.information.dto.user.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xingkaichun.information.dto.user.UserInfo;
 
-public class LoginResponse {
+public class GetUserInfoResponse {
 
     @JsonProperty("UserInfo")
     private UserInfo userInfo;
 
-    public LoginResponse() {
+    public GetUserInfoResponse() {
     }
 
-    public LoginResponse(UserInfo userInfo) {
+    public GetUserInfoResponse(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
 
