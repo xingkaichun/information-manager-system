@@ -6,7 +6,7 @@ import java.security.MessageDigest;
  * 
  * MD5加密工具(是基于hash算法实现,不可逆)
  */
-public class CommonUtilsMd5Utils {
+public class CommonUtilsMd5 {
 
     /** 16进制的字符数组 */
     private final static String[] hexDigits = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d",

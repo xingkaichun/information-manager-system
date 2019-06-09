@@ -8,7 +8,8 @@ import com.xingkaichun.information.dto.user.response.LoginResponse;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
 import com.xingkaichun.information.utils.CommonUtils;
-import com.xingkaichun.information.utils.CommonUtilsMd5Utils;
+import com.xingkaichun.information.utils.CommonUtilsMd5;
+import com.xingkaichun.information.utils.CommonUtilsSession;
 import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 
@@ -75,7 +77,7 @@ public class UserController {
     }
 
     private String generatePassword(String password, String passwordSalt) {
-        return CommonUtilsMd5Utils.MD5Encode(password+passwordSalt, CharEncoding.UTF_8,false);
+        return CommonUtilsMd5.MD5Encode(password+passwordSalt, CharEncoding.UTF_8,false);
     }
 
     @ResponseBody
@@ -90,7 +92,7 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/Login")
-    public ServiceResult<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+    public ServiceResult<LoginResponse> login(HttpServletRequest request, @RequestBody LoginRequest loginRequest){
 
         try {
             if(CommonUtils.isNUllOrEmpty(loginRequest.getEmail())){
@@ -111,6 +113,9 @@ public class UserController {
             if(CommonUtils.isNUll(ud)){
                 return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
             }
+
+            CommonUtilsSession.saveUser(request,ud);
+
             return ServiceResult.createSuccessServiceResult(new LoginResponse(ud.getUserId(),ud.getUserName()));
         } catch (Exception e) {
             String message = "用户登陆失败";
