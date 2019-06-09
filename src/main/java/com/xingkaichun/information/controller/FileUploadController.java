@@ -2,6 +2,7 @@ package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.file.FileDto;
 import com.xingkaichun.information.dto.file.response.FileUploadResponse;
 import com.xingkaichun.information.model.FileDomain;
 import com.xingkaichun.information.service.FileService;
@@ -45,16 +46,17 @@ public class FileUploadController {
             String originalFilename = file.getOriginalFilename();
             String fileId = String.valueOf(UUID.randomUUID());
             String fileDescrible= "" ;
-            String filePath = uploadFileDirectory+fileId+originalFilename.substring(originalFilename.lastIndexOf("."));
-
-            bos = new BufferedOutputStream(
-                    new FileOutputStream(new File(filePath)));
+            String fileFormatSuffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String fileSaveName = fileId + fileFormatSuffix;
+            String fileDirectory = uploadFileDirectory;
+            String fileSavePath = fileDirectory + fileSaveName;
+            bos = new BufferedOutputStream(new FileOutputStream(new File(fileSavePath)));
             bos.write(file.getBytes());
             bos.flush();
 
-            fileService.addFile(new FileDomain(fileId,originalFilename,fileDescrible,filePath));
-
-            return ServiceResult.createSuccessServiceResult(new FileUploadResponse(filePath+fileId));
+            fileService.addFile(new FileDomain(fileId,originalFilename,fileSaveName,fileDescrible,fileDirectory));
+            FileDto fileDto = fileService.queryFileByFileIdReturnDto(fileId);
+            return ServiceResult.createSuccessServiceResult(new FileUploadResponse(fileDto));
         }catch (Exception e){
             String message = "上传文件失败";
             LOGGER.error(message,e);
@@ -67,7 +69,7 @@ public class FileUploadController {
         }
     }
 
-    @RequestMapping("/FileDownload")
+   @RequestMapping("/FileDownload")
     public FreshServiceResult downloadFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileId")String fileId) throws UnsupportedEncodingException {
 
         // 实现文件下载
@@ -75,15 +77,14 @@ public class FileUploadController {
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         try {
-            List<FileDomain> fileDomainList = fileService.queryFile(new FileDomain(fileId,null,null,null));
-            FileDomain fileDomain = fileDomainList.get(0);
-
-            File file = new File(fileDomain.getFilePath());
+            FileDomain fileDomain = fileService.queryFileByFileIdReturnDomain(fileId);
+            String fileSavePath = fileDomain.getFileDirectory()+fileDomain.getFileSaveName();
+            File file = new File(fileSavePath);
 
             response.setHeader("content-type", "application/octet-stream");
             response.setContentType("application/octet-stream");
             // 下载文件能正常显示中文
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileDomain.getFileName(), "UTF-8"));
 
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);

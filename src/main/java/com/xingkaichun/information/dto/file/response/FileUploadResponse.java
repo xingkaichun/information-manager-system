@@ -1,21 +1,25 @@
 package com.xingkaichun.information.dto.file.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.information.dto.file.FileDto;
+
 public class FileUploadResponse {
-    //文件地址
-    private String filePath;
+
+    @JsonProperty("FileDto")
+    private FileDto fileDto;
 
     public FileUploadResponse() {
     }
 
-    public FileUploadResponse(String filePath) {
-        this.filePath = filePath;
+    public FileUploadResponse(FileDto fileDto) {
+        this.fileDto = fileDto;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public FileDto getFileDto() {
+        return fileDto;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFileDto(FileDto fileDto) {
+        this.fileDto = fileDto;
     }
 }

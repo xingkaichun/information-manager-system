@@ -4,17 +4,19 @@ public class FileDomain {
 
     private String fileId;
     private String fileName;
+    private String fileSaveName;
     private String fileDescrible;
-    private String filePath;
+    private String fileDirectory;
 
     public FileDomain() {
     }
 
-    public FileDomain(String fileId, String fileName, String fileDescrible, String filePath) {
+    public FileDomain(String fileId, String fileName, String fileSaveName, String fileDescrible, String fileDirectory) {
         this.fileId = fileId;
         this.fileName = fileName;
+        this.fileSaveName = fileSaveName;
         this.fileDescrible = fileDescrible;
-        this.filePath = filePath;
+        this.fileDirectory = fileDirectory;
     }
 
     public String getFileId() {
@@ -41,11 +43,19 @@ public class FileDomain {
         this.fileDescrible = fileDescrible;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getFileDirectory() {
+        return fileDirectory;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFileDirectory(String fileDirectory) {
+        this.fileDirectory = fileDirectory;
+    }
+
+    public String getFileSaveName() {
+        return fileSaveName;
+    }
+
+    public void setFileSaveName(String fileSaveName) {
+        this.fileSaveName = fileSaveName;
     }
 }

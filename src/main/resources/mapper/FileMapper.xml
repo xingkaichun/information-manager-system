@@ -6,7 +6,7 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-     fileId,fileName,fileDescrible,filePath
+     fileId,fileName,fileSaveName,fileDescrible,fileDirectory
   </sql>
 
   <insert id="addFile" parameterType="com.xingkaichun.information.model.FileDomain">
@@ -16,8 +16,9 @@
     VALUES(
       #{fileId, jdbcType=VARCHAR},
       #{fileName, jdbcType=VARCHAR},
+      #{fileSaveName, jdbcType=VARCHAR},
       #{fileDescrible, jdbcType=VARCHAR},
-      #{filePath, jdbcType=VARCHAR}
+      #{fileDirectory, jdbcType=VARCHAR}
     )
   </insert>
   <select id="queryFile" parameterType="com.xingkaichun.information.model.FileDomain" resultType="com.xingkaichun.information.model.FileDomain">
