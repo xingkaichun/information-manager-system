@@ -1,3 +1,3 @@
 # information-manager-system
-
-mvn -Dmaven.test.skip=true clean package spring-boot:repackage assembly:assembly
+# 打包脚本
+mvn -Dmaven.test.skip=true clean package spring-boot:repackage assembly:single
