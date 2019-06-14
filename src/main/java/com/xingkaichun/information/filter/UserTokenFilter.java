@@ -21,7 +21,7 @@ import org.springframework.core.annotation.Order;
 
 @Order(1)
 @WebFilter(filterName="UserTokenFilter", urlPatterns="/*")
-public class FirstFilter implements Filter {
+public class UserTokenFilter implements Filter {
 
 	@Autowired
 	private UserService userService;
