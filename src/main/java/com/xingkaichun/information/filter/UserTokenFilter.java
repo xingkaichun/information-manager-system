@@ -35,14 +35,27 @@ public class UserTokenFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		System.out.println("User Token Filter IN");
-		//检测用户是否已经登录
-		if(CommonUtils.isNUll(CommonUtilsSession.getUser((HttpServletRequest) request))){
-			//尝试使用UserToken登录
-			String userToken = CommonUtilsCookie.getUserToken((HttpServletRequest) request);
-			if(!CommonUtils.isNUllOrEmpty(userToken)){
-				UserDomain userDomain = userService.queryOneUserByUserToken(userToken);
-				if(!CommonUtils.isNUll(userDomain)){
-					CommonUtilsSession.saveUser((HttpServletRequest) request,userDomain);
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		String uri = httpServletRequest.getRequestURI();
+
+		boolean isLogin = false;
+		if(uri.equals("/User/Login")){
+			isLogin = true;
+		}
+		boolean isAddUser = false;
+		if(uri.equals("/User/AddUser")){
+			isLogin = true;
+		}
+		if(!isLogin && !isAddUser){
+			//检测用户是否已经登录
+			if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
+				//尝试使用UserToken登录
+				String userToken = CommonUtilsCookie.getUserToken(httpServletRequest);
+				if(!CommonUtils.isNUllOrEmpty(userToken)){
+					UserDomain userDomain = userService.queryOneUserByUserToken(userToken);
+					if(!CommonUtils.isNUll(userDomain)){
+						CommonUtilsSession.saveUser(httpServletRequest,userDomain);
+					}
 				}
 			}
 		}
