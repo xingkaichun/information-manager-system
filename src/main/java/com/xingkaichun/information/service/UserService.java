@@ -24,6 +24,9 @@ public interface UserService {
     UserDomain queryOneUserByEmail(String email);
     UserDomain queryOneUserByUserName(String userName);
     UserDomain queryOneUserByPhone(String phone);
+    UserDomain queryOneUserByUserToken(String userToken);
 
     UserDomain login(LoginRequest loginRequest);
+
+    int updateUserToken(UserDomain userDomain);
 }

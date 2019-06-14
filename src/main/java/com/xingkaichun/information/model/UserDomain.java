@@ -1,7 +1,5 @@
 package com.xingkaichun.information.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class UserDomain {
 
     private String userId;
@@ -15,6 +13,8 @@ public class UserDomain {
     private String passwordSalt;
 
     private String phone;
+
+    private String userToken;
 
     public UserDomain() {
     }
@@ -74,5 +74,13 @@ public class UserDomain {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 }

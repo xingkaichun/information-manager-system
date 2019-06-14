@@ -10,6 +10,7 @@ import com.xingkaichun.information.dto.user.response.LoginResponse;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
 import com.xingkaichun.information.utils.CommonUtils;
+import com.xingkaichun.information.utils.CommonUtilsCookie;
 import com.xingkaichun.information.utils.CommonUtilsMd5;
 import com.xingkaichun.information.utils.CommonUtilsSession;
 import org.apache.commons.lang3.CharEncoding;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 
@@ -34,7 +36,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/AddUser")
-    public FreshServiceResult addUser(HttpServletRequest request, @RequestBody UserDto userDto){
+    public FreshServiceResult addUser(HttpServletRequest request, HttpServletResponse response, @RequestBody UserDto userDto){
 
         try {
             if(CommonUtils.isNUllOrEmpty(userDto.getEmail())){
@@ -71,8 +73,12 @@ public class UserController {
             userService.addUser(userDto);
 
             UserDomain userDomain = userService.queryOneUserByUserId(userDto.getUserId());
+
             CommonUtilsSession.saveUser(request,userDomain);
 
+            userDomain.setUserToken(generateUserToken());
+            userService.updateUserToken(userDomain);
+            CommonUtilsCookie.saveUser(response,userDomain);
         } catch (Exception e) {
             String message = "新增用户出错";
             LOGGER.error(message,e);
@@ -84,6 +90,10 @@ public class UserController {
 
     private String generatePassword(String password, String passwordSalt) {
         return CommonUtilsMd5.MD5Encode(password+passwordSalt, CharEncoding.UTF_8,false);
+    }
+
+    private String generateUserToken() {
+        return CommonUtilsMd5.MD5Encode(String.valueOf(UUID.randomUUID())+String.valueOf(UUID.randomUUID()), CharEncoding.UTF_8,false);
     }
 
     @ResponseBody
@@ -98,7 +108,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/Login")
-    public ServiceResult<LoginResponse> login(HttpServletRequest request, @RequestBody LoginRequest loginRequest){
+    public ServiceResult<LoginResponse> login(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginRequest loginRequest){
 
         try {
             if(CommonUtils.isNUllOrEmpty(loginRequest.getEmail())){
@@ -121,6 +131,10 @@ public class UserController {
             }
 
             CommonUtilsSession.saveUser(request,ud);
+
+            ud.setUserToken(generateUserToken());
+            userService.updateUserToken(ud);
+            CommonUtilsCookie.saveUser(response,ud);
 
             return ServiceResult.createSuccessServiceResult(new LoginResponse(new UserInfo(ud.getUserId(),ud.getUserName())));
         } catch (Exception e) {
