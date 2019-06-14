@@ -7,6 +7,7 @@ import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.request.LoginRequest;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
+import com.xingkaichun.information.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,8 +78,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDomain queryOneUserByUserToken(String userToken) {
+        return userDao.queryOneUserByUserToken(userToken);
+    }
+
+    @Override
     public UserDomain login(LoginRequest loginRequest) {
         UserDomain userDomain = userDao.login(loginRequest);
         return userDomain;
+    }
+
+    @Override
+    public int updateUserToken(UserDomain userDomain) {
+        if(CommonUtils.isNUll(userDomain)){
+            throw new NullPointerException("User不能为空");
+        }
+        if(CommonUtils.isNUllOrEmpty(userDomain.getUserId())){
+            throw new NullPointerException("UserId不能为空");
+        }
+        if(CommonUtils.isNUllOrEmpty(userDomain.getUserToken())){
+            throw new NullPointerException("UserToken不能为空");
+        }
+        return userDao.updateUserToken(userDomain);
     }
 }
