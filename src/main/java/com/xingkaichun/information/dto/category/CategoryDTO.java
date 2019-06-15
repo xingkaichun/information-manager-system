@@ -23,11 +23,11 @@ public class CategoryDTO {
     @JsonProperty("UserId")
     private String userId;
 
-    @JsonProperty("ChildCategoryDTOList")
-    private List<CategoryDTO> childCategoryDTOList;
+    @JsonProperty("children")
+    private List<CategoryDTO> childrenCategoryDTOList;
 
     public CategoryDTO() {
-        childCategoryDTOList = new ArrayList<>();
+        childrenCategoryDTOList = new ArrayList<>();
     }
 
     public String getCategoryId() {
@@ -70,11 +70,11 @@ public class CategoryDTO {
         this.userId = userId;
     }
 
-    public List<CategoryDTO> getChildCategoryDTOList() {
-        return childCategoryDTOList;
+    public List<CategoryDTO> getChildrenCategoryDTOList() {
+        return childrenCategoryDTOList;
     }
 
-    public void setChildCategoryDTOList(List<CategoryDTO> childCategoryDTOList) {
-        this.childCategoryDTOList = childCategoryDTOList;
+    public void setChildrenCategoryDTOList(List<CategoryDTO> childrenCategoryDTOList) {
+        this.childrenCategoryDTOList = childrenCategoryDTOList;
     }
 }

@@ -30,7 +30,7 @@ public class CommonUtilsCategoryDTO {
                 if(parentCategoryDTO == null){
                     continue;
                 }else{
-                    parentCategoryDTO.getChildCategoryDTOList().add(categoryDTO);
+                    parentCategoryDTO.getChildrenCategoryDTOList().add(categoryDTO);
                     iterator.remove();
                 }
             }
@@ -46,7 +46,7 @@ public class CommonUtilsCategoryDTO {
             if(rootCategoryDTO.getCategoryId().equals(categoryDTO.getParentCategoryId())){
                 return rootCategoryDTO;
             }else{
-                List<CategoryDTO> childList = rootCategoryDTO.getChildCategoryDTOList();
+                List<CategoryDTO> childList = rootCategoryDTO.getChildrenCategoryDTOList();
                 if(!CommonUtils.isNUllOrEmpty(childList)){
                     CategoryDTO parentFind = findParentCategoryDTO(childList,categoryDTO);
                     if(parentFind != null){
