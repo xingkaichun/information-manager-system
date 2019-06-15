@@ -107,7 +107,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @PostMapping("/Login")
+    @RequestMapping("/Login")
     public ServiceResult<LoginResponse> login(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginRequest loginRequest){
 
         try {
