@@ -1,2 +1,5 @@
+application:
+  host: 47.94.230.44
+
 upload:
   fileDirectory: /root/app/information-manager-system/images/

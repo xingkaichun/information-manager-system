@@ -6,6 +6,7 @@ import com.xingkaichun.information.model.FileDomain;
 import com.xingkaichun.information.service.FileService;
 import com.xingkaichun.information.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,10 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private FileDao fileDao;
+
+    @Value("${application.host}")
+    private String host;
+
 
     @Override
     public int addFile(FileDomain fileDomain) {
@@ -43,6 +48,7 @@ public class FileServiceImpl implements FileService {
         fileDto.setFileName(fileDomain.getFileName());
         fileDto.setFileDescrible(fileDomain.getFileDescrible());
         fileDto.setDownPath("http://localhost:8080/File/FileDownload?fileId="+fileDomain.getFileId());
+        fileDto.setFilePath("http://" + host + ":8080/File/FileDownload?fileId=" + fileDomain.getFileId());
         return fileDto;
     }
 

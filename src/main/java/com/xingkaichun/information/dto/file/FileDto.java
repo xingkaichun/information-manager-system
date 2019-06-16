@@ -12,15 +12,18 @@ public class FileDto {
     private String fileDescrible;
     @JsonProperty("DownPath")
     private String downPath;
+    @JsonProperty("FilePath")
+    private String filePath;
 
     public FileDto() {
     }
 
-    public FileDto(String fileId, String fileName, String fileDescrible, String downPath) {
+    public FileDto(String fileId, String fileName, String fileDescrible, String downPath, String filePath) {
         this.fileId = fileId;
         this.fileName = fileName;
         this.fileDescrible = fileDescrible;
         this.downPath = downPath;
+        this.filePath = filePath;
     }
 
     public String getFileId() {
@@ -53,5 +56,13 @@ public class FileDto {
 
     public void setDownPath(String downPath) {
         this.downPath = downPath;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }
