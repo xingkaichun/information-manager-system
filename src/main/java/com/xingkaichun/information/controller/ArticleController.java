@@ -110,9 +110,7 @@ public class ArticleController {
             return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
         }
         try{
-            if(CommonUtils.isNUllOrEmpty(updateArticleRequest.getCategoryId())){
-                return FreshServiceResult.createFailFreshServiceResult("文章类别不能为空");
-            }else{
+            if(!CommonUtils.isNUllOrEmpty(updateArticleRequest.getCategoryId())){
                 QueryCategoryRequest queryCategoryRequest = new QueryCategoryRequest();
                 queryCategoryRequest.setCategoryId(updateArticleRequest.getCategoryId());
                 List<CategoryDTO> categoryDTOList = categoryService.queryCategoryReturnList(queryCategoryRequest);

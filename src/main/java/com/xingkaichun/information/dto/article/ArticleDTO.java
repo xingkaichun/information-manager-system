@@ -26,6 +26,8 @@ public class ArticleDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastEditTime;
+    @JsonProperty("AttachedFiles")
+    private String attachedFiles;
 
     public String getArticleId() {
         return articleId;
@@ -81,5 +83,13 @@ public class ArticleDTO {
 
     public void setLastEditTime(Date lastEditTime) {
         this.lastEditTime = lastEditTime;
+    }
+
+    public String getAttachedFiles() {
+        return attachedFiles;
+    }
+
+    public void setAttachedFiles(String attachedFiles) {
+        this.attachedFiles = attachedFiles;
     }
 }

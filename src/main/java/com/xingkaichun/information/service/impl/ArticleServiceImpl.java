@@ -65,6 +65,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleDTO.setContent(articleDomain.getContent());
         articleDTO.setCreateTime(articleDomain.getCreateTime());
         articleDTO.setLastEditTime(articleDomain.getLastEditTime());
+        articleDTO.setAttachedFiles(articleDomain.getAttachedFiles());
         return articleDTO;
     }
 
@@ -77,6 +78,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleDomain.setContent(articleDTO.getContent());
         articleDomain.setCreateTime(articleDTO.getCreateTime());
         articleDomain.setLastEditTime(articleDTO.getLastEditTime());
+        articleDomain.setAttachedFiles(articleDTO.getAttachedFiles());
         return articleDomain;
     }
 }

@@ -11,6 +11,7 @@ public class ArticleDomain {
     private String content;
     private Date createTime;
     private Date lastEditTime;
+    private String attachedFiles;
 
     public String getArticleId() {
         return articleId;
@@ -66,5 +67,13 @@ public class ArticleDomain {
 
     public void setLastEditTime(Date lastEditTime) {
         this.lastEditTime = lastEditTime;
+    }
+
+    public String getAttachedFiles() {
+        return attachedFiles;
+    }
+
+    public void setAttachedFiles(String attachedFiles) {
+        this.attachedFiles = attachedFiles;
     }
 }

@@ -6,7 +6,7 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-     articleId,categoryId,userId,title,content,createTime,lastEditTime
+     articleId,categoryId,userId,title,content,createTime,lastEditTime,attachedFiles
   </sql>
 
   <insert id="addArticle" parameterType="com.xingkaichun.information.model.ArticleDomain">
@@ -20,7 +20,8 @@
       #{title, jdbcType=VARCHAR},
       #{content, jdbcType=VARCHAR},
       #{createTime, jdbcType=TIMESTAMP},
-      #{lastEditTime, jdbcType=TIMESTAMP}
+      #{lastEditTime, jdbcType=TIMESTAMP},
+      #{attachedFiles, jdbcType=VARCHAR}
     )
   </insert>
 
@@ -75,6 +76,9 @@
         </if>
         <if test="lastEditTime != null">
             LastEditTime = #{lastEditTime, jdbcType=TIMESTAMP},
+        </if>
+        <if test="attachedFiles != null">
+            attachedFiles = #{attachedFiles, jdbcType=TIMESTAMP},
         </if>
         ArticleId = #{articleId, jdbcType=VARCHAR}
         where ArticleId = #{articleId, jdbcType=VARCHAR}
