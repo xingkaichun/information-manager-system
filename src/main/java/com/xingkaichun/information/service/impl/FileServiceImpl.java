@@ -47,7 +47,7 @@ public class FileServiceImpl implements FileService {
         fileDto.setFileId(fileDomain.getFileId());
         fileDto.setFileName(fileDomain.getFileName());
         fileDto.setFileDescrible(fileDomain.getFileDescrible());
-        fileDto.setDownPath("http://localhost:8080/File/FileDownload?fileId="+fileDomain.getFileId());
+        fileDto.setDownPath("http://" + host + ":8080/File/FileDownload?fileId="+fileDomain.getFileId());
         fileDto.setFilePath("http://" + host + ":8080/File/FileDownload?fileId=" + fileDomain.getFileId());
         return fileDto;
     }
