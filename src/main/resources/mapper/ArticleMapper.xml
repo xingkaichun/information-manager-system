@@ -49,7 +49,36 @@
       <if test="createTimeEnd != null">AND CreateTime <![CDATA[<=]]>#{createTimeEnd, jdbcType=TIMESTAMP}</if>
       <if test="lastEditTimeStart != null">AND LastEditTime <![CDATA[>=]]> #{lastEditTimeStart, jdbcType=TIMESTAMP}</if>
       <if test="lastEditTimeEnd != null">AND LastEditTime <![CDATA[<=]]>#{lastEditTimeEnd, jdbcType=TIMESTAMP}</if>
+      <if test="pageCondition != null">
+          limit #{pageCondition.from},#{pageCondition.pageSize}
+      </if>
   </select>
+
+    <select id="queryArticletotalCount" parameterType="com.xingkaichun.information.dto.article.request.QueryArticleRequest" resultType="java.lang.Integer">
+        SELECT count(1) FROM <include refid="BASE_TABLE"/>
+        where 1=1
+        <if test="articleId != null">
+            and ArticleId = #{articleId, jdbcType=VARCHAR}
+        </if>
+        <if test="categoryId != null">
+            and CategoryId = #{categoryId, jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            and UserId = #{userId, jdbcType=VARCHAR}
+        </if>
+        <if test="title != null">
+            <bind name="bind_title" value="'%' + title + '%'" />
+            and Title like #{bind_title}
+        </if>
+        <if test="content != null">
+            <bind name="bind_content" value="'%' + content + '%'" />
+            and Content like #{bind_content}
+        </if>
+        <if test="createTimeStart != null">AND CreateTime <![CDATA[>=]]> #{createTimeStart, jdbcType=TIMESTAMP}</if>
+        <if test="createTimeEnd != null">AND CreateTime <![CDATA[<=]]>#{createTimeEnd, jdbcType=TIMESTAMP}</if>
+        <if test="lastEditTimeStart != null">AND LastEditTime <![CDATA[>=]]> #{lastEditTimeStart, jdbcType=TIMESTAMP}</if>
+        <if test="lastEditTimeEnd != null">AND LastEditTime <![CDATA[<=]]>#{lastEditTimeEnd, jdbcType=TIMESTAMP}</if>
+    </select>
 
     <delete id="deleteArticle" parameterType="com.xingkaichun.information.dto.article.request.DeleteArticleRequest">
         delete from <include refid="BASE_TABLE"/>

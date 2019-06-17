@@ -9,6 +9,7 @@ import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
+import com.xingkaichun.information.dto.base.PageCondition;
 import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.dto.file.FileDto;
 import com.xingkaichun.information.model.ArticleDomain;
@@ -41,10 +42,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public PageInformation<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest) {
-        PageHelper.startPage(queryArticleRequest.getPageCondition().getPageNum(), queryArticleRequest.getPageCondition().getPageSize());
+        PageCondition pageCondition = queryArticleRequest.getPageCondition();
+        //PageHelper.startPage(queryArticleRequest.getPageCondition().getPageNum(), queryArticleRequest.getPageCondition().getPageSize());
         List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
-        PageInfo result = new PageInfo(articleDomainList);
-        PageInformation<ArticleDTO> articleDTOPageInformation = new PageInformation<>(result.getPageNum(),result.getPageSize(),result.getPages(),classCast(articleDomainList));
+        int totalCount = articleDao.queryArticletotalCount(queryArticleRequest);
+        //PageInfo result = new PageInfo(articleDomainList);
+        PageInformation<ArticleDTO> articleDTOPageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),totalCount,classCast(articleDomainList));
         return articleDTOPageInformation;
     }
 

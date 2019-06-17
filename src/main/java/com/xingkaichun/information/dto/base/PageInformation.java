@@ -9,14 +9,19 @@ public class PageInformation<T> {
     private int pageSize;
     //总页数
     private int pages;
+    //总条数
+    private int totalCount;
     //当前页数据
     private List<T> data;
 
-    public PageInformation(int pageNum, int pageSize, int pages, List<T> data) {
+
+    public PageInformation(int pageNum, int pageSize, int totalCount, List<T> data) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
-        this.pages = pages;
+        this.totalCount = totalCount;
         this.data = data;
+
+        this.pages =  totalCount%pageSize == 0 ?totalCount/pageSize :totalCount/pageSize +1;
     }
 
     public int getPageNum() {
@@ -27,6 +32,10 @@ public class PageInformation<T> {
         return pageSize;
     }
 
+    public int getTotalCount() {
+        return totalCount;
+    }
+
     public int getPages() {
         return pages;
     }
@@ -34,4 +43,5 @@ public class PageInformation<T> {
     public List<T> getData() {
         return data;
     }
+
 }

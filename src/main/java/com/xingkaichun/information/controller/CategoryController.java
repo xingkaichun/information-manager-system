@@ -93,6 +93,7 @@ public class CategoryController {
             if(!CommonUtils.isNUllOrEmpty(categoryDTOList)){
                 return FreshServiceResult.createFailFreshServiceResult("不能删除有子分类的分类");
             }
+            //TODO 校验分类下是否有文章
 
             categoryService.deleteCategory(deleteCategoryRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("删除分类成功");
