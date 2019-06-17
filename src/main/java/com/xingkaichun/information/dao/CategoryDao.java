@@ -15,7 +15,7 @@ public interface CategoryDao {
     int deleteCategory(DeleteCategoryRequest deleteCategoryRequest);
     int updateCategory(CategoryDomain categoryDomain);
 
-    CategoryDomain queryCategoryByCategoryId(String categoryId);
+    CategoryDomain queryCategoryByCategoryId(@Param("categoryId") String categoryId);
     List<CategoryDomain> queryCategoryByIds(Set<String> Ids);
     List<CategoryDomain> queryCategory(QueryCategoryRequest queryCategoryRequest);
 }

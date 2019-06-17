@@ -49,7 +49,7 @@
         <include refid="BASE_COLUMN"/>
         FROM
         <include refid="BASE_TABLE"/>
-        where categoryId = #{_parameter, jdbcType=VARCHAR}
+        where categoryId = #{categoryId, jdbcType=VARCHAR}
     </select>
 
     <select id="queryCategoryByIds" parameterType="java.util.Collection" resultType="com.xingkaichun.information.model.CategoryDomain">
