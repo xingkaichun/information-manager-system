@@ -36,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         if(CommonUtils.isNUllOrEmpty(categoryDomainList)){
             return null;
         }
+        int maxIteratorTime = 20;
         while(true){
             Stream<String > categoryIdStream = categoryDomainList.stream()
                     .map(categoryDomain -> categoryDomain.getCategoryId());
@@ -51,6 +52,9 @@ public class CategoryServiceImpl implements CategoryService {
             }
             List<CategoryDomain> categoryDomainListFindByIds = categoryDao.queryCategoryByIds(parentCategoryIdSet);
             categoryDomainList.addAll(categoryDomainListFindByIds);
+            if(--maxIteratorTime==0){
+                throw new RuntimeException("请检测Categoroy是否存在"+parentCategoryIdSet);
+            }
         }
         return new QueryCategoryResponse(CommonUtilsCategoryDTO.parentChildCategoryDTOList(classCast(categoryDomainList)));
     }
