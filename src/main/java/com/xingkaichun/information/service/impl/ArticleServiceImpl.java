@@ -3,14 +3,18 @@ package com.xingkaichun.information.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.ArticleDao;
+import com.xingkaichun.information.dao.FileDao;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.base.PageInformation;
+import com.xingkaichun.information.dto.file.FileDto;
 import com.xingkaichun.information.model.ArticleDomain;
+import com.xingkaichun.information.model.FileDomain;
 import com.xingkaichun.information.service.ArticleService;
+import com.xingkaichun.information.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +26,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleDao articleDao;
+    @Autowired
+    private FileDao fileDao;
 
     @Override
     public int addArticle(AddArticleRequest addArticleRequest) {
@@ -66,6 +72,20 @@ public class ArticleServiceImpl implements ArticleService {
         articleDTO.setCreateTime(articleDomain.getCreateTime());
         articleDTO.setLastEditTime(articleDomain.getLastEditTime());
         articleDTO.setAttachedFiles(articleDomain.getAttachedFiles());
+        String attachedFiles = articleDomain.getAttachedFiles();
+        if(CommonUtils.isNUllOrEmpty(attachedFiles)){
+            articleDTO.setAttachedFilesDetails(null);
+        }else{
+            String[] attachedFileIds = attachedFiles.split(",");
+            List<FileDto> attachedFileDetails = new ArrayList<>();
+            for(String af:attachedFileIds){
+                List<FileDomain> fileDomains = fileDao.queryFile(new FileDomain(af,null,null,null,null));
+                if(!CommonUtils.isNUllOrEmpty(fileDomains)){
+                    attachedFileDetails.addAll(FileServiceImpl.classCast(fileDomains));
+                }
+            }
+            articleDTO.setAttachedFilesDetails(attachedFileDetails);
+        }
         return articleDTO;
     }
 

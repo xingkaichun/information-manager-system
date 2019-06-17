@@ -18,9 +18,11 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private FileDao fileDao;
 
+    private static String host;
     @Value("${application.host}")
-    private String host;
-
+    public void setHost(String host) {
+        this.host = host;
+    }
 
     @Override
     public int addFile(FileDomain fileDomain) {
@@ -33,7 +35,7 @@ public class FileServiceImpl implements FileService {
         return classCast(fileDomainList);
     }
 
-    private List<FileDto> classCast(List<FileDomain> fileDomainList) {
+    public static List<FileDto> classCast(List<FileDomain> fileDomainList) {
         if(CommonUtils.isNUllOrEmpty(fileDomainList)){
             return null;
         }
@@ -42,7 +44,7 @@ public class FileServiceImpl implements FileService {
         return fileDtoList;
     }
 
-    private FileDto classCast(FileDomain fileDomain) {
+    public static FileDto classCast(FileDomain fileDomain) {
         FileDto fileDto = new FileDto();
         fileDto.setFileId(fileDomain.getFileId());
         fileDto.setFileName(fileDomain.getFileName());

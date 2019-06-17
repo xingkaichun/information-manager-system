@@ -2,9 +2,11 @@ package com.xingkaichun.information.dto.article;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.information.dto.file.FileDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArticleDTO {
 
@@ -28,6 +30,8 @@ public class ArticleDTO {
     private Date lastEditTime;
     @JsonProperty("AttachedFiles")
     private String attachedFiles;
+    @JsonProperty("AttachedFilesDetails")
+    private List<FileDto> attachedFilesDetails;
 
     public String getArticleId() {
         return articleId;
@@ -91,5 +95,13 @@ public class ArticleDTO {
 
     public void setAttachedFiles(String attachedFiles) {
         this.attachedFiles = attachedFiles;
+    }
+
+    public List<FileDto> getAttachedFilesDetails() {
+        return attachedFilesDetails;
+    }
+
+    public void setAttachedFilesDetails(List<FileDto> attachedFilesDetails) {
+        this.attachedFilesDetails = attachedFilesDetails;
     }
 }
