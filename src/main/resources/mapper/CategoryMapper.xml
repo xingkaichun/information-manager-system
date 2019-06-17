@@ -44,6 +44,14 @@
         where categoryId = #{categoryId, jdbcType=VARCHAR}
     </delete>
 
+    <select id="queryCategoryByCategoryId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.CategoryDomain">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where categoryId = #{_parameter, jdbcType=VARCHAR}
+    </select>
+
     <select id="queryCategoryByIds" parameterType="java.util.Collection" resultType="com.xingkaichun.information.model.CategoryDomain">
         select * from <include refid="BASE_TABLE"/>
         where categoryId in

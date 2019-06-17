@@ -15,6 +15,8 @@ public interface CategoryService {
 
     QueryCategoryResponse queryCategoryReturnHierarchicalStructure(QueryCategoryRequest queryCategoryRequest);
 
+    CategoryDTO queryCategoryByCategoryId(String categoryId);
+
     List<CategoryDTO> queryCategoryReturnList(QueryCategoryRequest queryCategoryRequest);
 
     int deleteCategory(DeleteCategoryRequest deleteCategoryRequest);

@@ -29,7 +29,7 @@ public class CategoryController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @ResponseBody
     @PostMapping("/AddCategory")
@@ -40,13 +40,11 @@ public class CategoryController {
                 return FreshServiceResult.createFailFreshServiceResult("CategoryName不能为空");
             }
 
-            //如果插入二级类别，校验父类别是否存在
+            //如果插入子类别，校验父类别是否存在
             String parentCategoryId = addCategoryRequest.getParentCategoryId();
             if(!CommonUtils.isNUllOrEmpty(parentCategoryId)){
-                QueryCategoryRequest queryCategoryRequest = new QueryCategoryRequest();
-                queryCategoryRequest.setCategoryId(parentCategoryId);
-                List<CategoryDTO> categoryDTOList = categoryService.queryCategoryReturnList(queryCategoryRequest);
-                if(CommonUtils.isNUllOrEmpty(categoryDTOList)){
+                CategoryDTO categoryDTO = categoryService.queryCategoryByCategoryId(parentCategoryId);
+                if(CommonUtils.isNUll(categoryDTO)){
                     return FreshServiceResult.createFailFreshServiceResult("添加二级分类时,父分类ParentCategoryId必须存在");
                 }
             }

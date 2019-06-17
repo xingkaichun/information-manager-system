@@ -56,6 +56,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryDTO queryCategoryByCategoryId(String categoryId) {
+        CategoryDomain categoryDomain = categoryDao.queryCategoryByCategoryId(categoryId);
+        return classCast(categoryDomain);
+    }
+
+    @Override
     public List<CategoryDTO> queryCategoryReturnList(QueryCategoryRequest queryCategoryRequest) {
         List<CategoryDomain> categoryDomainList = categoryDao.queryCategory(queryCategoryRequest);
         return classCast(categoryDomainList);
@@ -82,6 +88,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private CategoryDTO classCast(CategoryDomain categoryDomain) {
+        if(CommonUtils.isNUll(categoryDomain)){
+            return null;
+        }
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setCategoryId(categoryDomain.getCategoryId());
         categoryDTO.setCategoryName(categoryDomain.getCategoryName());

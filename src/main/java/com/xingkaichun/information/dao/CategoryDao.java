@@ -12,12 +12,10 @@ import java.util.Set;
 public interface CategoryDao {
 
     int addCategory(CategoryDomain categoryDomain);
-
-    List<CategoryDomain> queryCategory(QueryCategoryRequest queryCategoryRequest);
-
     int deleteCategory(DeleteCategoryRequest deleteCategoryRequest);
-
-    List<CategoryDomain> queryCategoryByIds(Set<String> Ids);
-
     int updateCategory(CategoryDomain categoryDomain);
+
+    CategoryDomain queryCategoryByCategoryId(String categoryId);
+    List<CategoryDomain> queryCategoryByIds(Set<String> Ids);
+    List<CategoryDomain> queryCategory(QueryCategoryRequest queryCategoryRequest);
 }
