@@ -8,6 +8,7 @@ import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
 import com.xingkaichun.information.dto.category.request.UpdateCategoryRequest;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
+import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @ResponseBody
     @PostMapping("/AddCategory")
@@ -93,8 +97,10 @@ public class CategoryController {
             if(!CommonUtils.isNUllOrEmpty(categoryDTOList)){
                 return FreshServiceResult.createFailFreshServiceResult("不能删除有子分类的分类");
             }
-            //TODO 校验分类下是否有文章
-
+            boolean hasArticle = articleService.hasArticleInCategoryId(categoryId);
+            if(hasArticle){
+                return FreshServiceResult.createFailFreshServiceResult("不能删除有文章的分类");
+            }
             categoryService.deleteCategory(deleteCategoryRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("删除分类成功");
         } catch (Exception e){

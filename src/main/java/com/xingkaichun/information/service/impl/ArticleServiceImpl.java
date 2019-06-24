@@ -45,7 +45,7 @@ public class ArticleServiceImpl implements ArticleService {
         PageCondition pageCondition = queryArticleRequest.getPageCondition();
         //PageHelper.startPage(queryArticleRequest.getPageCondition().getPageNum(), queryArticleRequest.getPageCondition().getPageSize());
         List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
-        int totalCount = articleDao.queryArticletotalCount(queryArticleRequest);
+        int totalCount = articleDao.queryArticleTotalCount(queryArticleRequest);
         //PageInfo result = new PageInfo(articleDomainList);
         PageInformation<ArticleDTO> articleDTOPageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),totalCount,classCast(articleDomainList));
         return articleDTOPageInformation;
@@ -54,6 +54,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int updateArticle(UpdateArticleRequest updateArticleRequest) {
         return articleDao.updateArticle(classCast(updateArticleRequest));
+    }
+
+    @Override
+    public boolean hasArticleInCategoryId(String categoryId) {
+        QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
+        queryArticleRequest.setCategoryId(categoryId);
+        int totalCount = articleDao.queryArticleTotalCount(queryArticleRequest);
+        return totalCount>0?true:false;
     }
 
     private List<ArticleDTO> classCast(List<ArticleDomain> articleDomainList) {

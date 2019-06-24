@@ -16,4 +16,6 @@ public interface ArticleService {
     PageInformation<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest);
 
     int updateArticle(UpdateArticleRequest updateArticleRequest);
+
+    boolean hasArticleInCategoryId(String categoryId);
 }

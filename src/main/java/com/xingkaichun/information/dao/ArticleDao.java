@@ -15,5 +15,5 @@ public interface ArticleDao {
 
     int updateArticle(ArticleDomain classCast);
 
-    int queryArticletotalCount(QueryArticleRequest queryArticleRequest);
+    int queryArticleTotalCount(QueryArticleRequest queryArticleRequest);
 }
