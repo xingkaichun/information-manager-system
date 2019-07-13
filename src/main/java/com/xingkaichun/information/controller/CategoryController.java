@@ -85,6 +85,7 @@ public class CategoryController {
     @ResponseBody
     @PostMapping("/DeleteCategory")
     public FreshServiceResult deleteCategory(@RequestBody DeleteCategoryRequest deleteCategoryRequest){
+        //TODO 校验用户
         String categoryId = deleteCategoryRequest.getCategoryId();
         if(CommonUtils.isNUllOrEmpty(categoryId)){
             return FreshServiceResult.createFailFreshServiceResult("CategoryId不能为空");
