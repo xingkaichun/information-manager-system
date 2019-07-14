@@ -43,6 +43,7 @@ public class CategoryController {
 
         try{
             addCategoryRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
+
             if(CommonUtils.isNUllOrEmpty(addCategoryRequest.getCategoryName())){
                 return FreshServiceResult.createFailFreshServiceResult("CategoryName不能为空");
             }
@@ -88,11 +89,11 @@ public class CategoryController {
     @ResponseBody
     @PostMapping("/DeleteCategory")
     public FreshServiceResult deleteCategory(@RequestBody DeleteCategoryRequest deleteCategoryRequest){
-        String categoryId = deleteCategoryRequest.getCategoryId();
-        if(CommonUtils.isNUllOrEmpty(categoryId)){
-            return FreshServiceResult.createFailFreshServiceResult("CategoryId不能为空");
-        }
         try{
+            String categoryId = deleteCategoryRequest.getCategoryId();
+            if(CommonUtils.isNUllOrEmpty(categoryId)){
+                return FreshServiceResult.createFailFreshServiceResult("CategoryId不能为空");
+            }
             //校验是否有子分类
             QueryCategoryRequest queryCategoryRequest = new QueryCategoryRequest();
             queryCategoryRequest.setParentCategoryId(categoryId);
@@ -100,6 +101,7 @@ public class CategoryController {
             if(!CommonUtils.isNUllOrEmpty(categoryDTOList)){
                 return FreshServiceResult.createFailFreshServiceResult("不能删除有子分类的分类");
             }
+            //校验是否存在要删除分类的文章
             boolean hasArticle = articleService.hasArticleInCategoryId(categoryId);
             if(hasArticle){
                 return FreshServiceResult.createFailFreshServiceResult("不能删除有文章的分类");
@@ -116,11 +118,14 @@ public class CategoryController {
     @ResponseBody
     @PostMapping("/UpdateCategory")
     public FreshServiceResult updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest){
-        String categoryId = updateCategoryRequest.getCategoryId();
-        if(CommonUtils.isNUllOrEmpty(categoryId)){
-            return FreshServiceResult.createFailFreshServiceResult("CategoryId不能为空");
-        }
         try{
+            String categoryId = updateCategoryRequest.getCategoryId();
+            if(CommonUtils.isNUllOrEmpty(categoryId)){
+                return FreshServiceResult.createFailFreshServiceResult("分类ID不能为空");
+            }
+            if(CommonUtils.isNUllOrEmpty(updateCategoryRequest.getCategoryName())){
+                return FreshServiceResult.createFailFreshServiceResult("分类名称不能为空");
+            }
             categoryService.updateCategory(updateCategoryRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("更新分类成功");
         } catch (Exception e){
