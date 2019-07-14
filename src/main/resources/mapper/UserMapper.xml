@@ -50,7 +50,7 @@
     </if>
   </select>
 
-  <select id="login" parameterType="com.xingkaichun.information.dto.user.request.LoginRequest" resultType="com.xingkaichun.information.model.UserDomain">
+  <select id="queryUserByEmailAndPassword" resultType="com.xingkaichun.information.model.UserDomain">
     SELECT
     <include refid="BASE_COLUMN"/>
     FROM

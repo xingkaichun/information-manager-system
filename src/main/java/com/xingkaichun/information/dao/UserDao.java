@@ -1,8 +1,8 @@
 package com.xingkaichun.information.dao;
 
 
-import com.xingkaichun.information.dto.user.request.LoginRequest;
 import com.xingkaichun.information.model.UserDomain;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface UserDao {
 
     List<UserDomain> queryUser(UserDomain userDomain);
 
-    UserDomain login(LoginRequest loginRequest);
+    UserDomain queryUserByEmailAndPassword(@Param("email")String email,@Param("password")String password);
 
     UserDomain queryUserByUserId(String userId);
 

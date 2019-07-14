@@ -125,7 +125,7 @@ public class UserController {
             }
             loginRequest.setPassword(generatePassword(loginRequest.getPassword(),userDomain.getPasswordSalt()));
 
-            UserDomain ud = userService.login(loginRequest);
+            UserDomain ud = userService.queryUserByEmailAndPassword(loginRequest.getEmail(),loginRequest.getPassword());
             if(CommonUtils.isNUll(ud)){
                 return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
             }
@@ -156,7 +156,7 @@ public class UserController {
             }
             return ServiceResult.createSuccessServiceResult(new GetUserInfoResponse(new UserInfo(userDomain.getUserId(),userDomain.getUserName())));
         } catch (Exception e) {
-            String message = "用户登陆失败";
+            String message = "获取用户信息失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         } finally {

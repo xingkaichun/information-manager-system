@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.UserDao;
 import com.xingkaichun.information.dto.user.UserDto;
-import com.xingkaichun.information.dto.user.request.LoginRequest;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
 import com.xingkaichun.information.utils.CommonUtils;
@@ -53,11 +52,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDomain> queryUser(UserDomain userDomain) {
-        return userDao.queryUser(userDomain);
-    }
-
-    @Override
     public UserDomain queryOneUserByUserId(String userId) {
         return userDao.queryUserByUserId(userId);
     }
@@ -83,8 +77,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDomain login(LoginRequest loginRequest) {
-        UserDomain userDomain = userDao.login(loginRequest);
+    public UserDomain queryUserByEmailAndPassword(String email,String password) {
+        UserDomain userDomain = userDao.queryUserByEmailAndPassword(email,password);
         return userDomain;
     }
 
