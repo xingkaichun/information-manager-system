@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
@@ -38,15 +39,14 @@ public class UserTokenFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String uri = httpServletRequest.getRequestURI();
 
-		boolean isLogin = false;
+		boolean isSkip = false;
 		if(uri.equals("/User/Login")){
-			isLogin = true;
+			isSkip = true;
 		}
-		boolean isAddUser = false;
-		if(uri.equals("/User/AddUser")){
-			isLogin = true;
+		if(uri.toString().contains("/Error/")){
+			isSkip = true;
 		}
-		if(!isLogin && !isAddUser){
+		if(!isSkip){
 			//检测用户是否已经登录
 			if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
 				//尝试使用UserToken登录
@@ -57,6 +57,11 @@ public class UserTokenFilter implements Filter {
 						CommonUtilsSession.saveUser(httpServletRequest,userDomain);
 					}
 				}
+			}
+			if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
+				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+				httpServletResponse.sendRedirect("/Error/Auth");
+				return;
 			}
 		}
 		chain.doFilter(request, response);
