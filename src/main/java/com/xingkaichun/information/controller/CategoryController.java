@@ -74,8 +74,8 @@ public class CategoryController {
     }
 
     @ResponseBody
-    @PostMapping("/QueryCategory")
-    public ServiceResult<QueryCategoryResponse> queryCategory(@RequestBody QueryCategoryRequest queryCategoryRequest){
+    @PostMapping("/QueryHierarchicalCategory")
+    public ServiceResult<QueryCategoryResponse> queryHierarchicalCategory(@RequestBody QueryCategoryRequest queryCategoryRequest){
         try{
             QueryCategoryResponse queryCategoryResponse= categoryService.queryCategoryReturnHierarchicalStructure(queryCategoryRequest);
             return ServiceResult.createSuccessServiceResult(queryCategoryResponse);
