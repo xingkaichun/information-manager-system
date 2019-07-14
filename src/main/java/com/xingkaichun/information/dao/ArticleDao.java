@@ -13,7 +13,7 @@ public interface ArticleDao {
 
     List<ArticleDomain> queryArticle(QueryArticleRequest queryArticleRequest);
 
-    int updateArticle(ArticleDomain classCast);
+    int updateArticle(ArticleDomain articleDomain);
 
     int queryArticleTotalCount(QueryArticleRequest queryArticleRequest);
 }

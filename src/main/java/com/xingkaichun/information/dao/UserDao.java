@@ -11,8 +11,6 @@ public interface UserDao {
     int insert(UserDomain userDomain);
     List<UserDomain> selectUsers();
 
-    List<UserDomain> queryUser(UserDomain userDomain);
-
     UserDomain queryUserByEmailAndPassword(@Param("email")String email,@Param("password")String password);
 
     UserDomain queryUserByUserId(String userId);

@@ -23,7 +23,7 @@ public class CategoryDTO {
     @JsonProperty("UserId")
     private String userId;
 
-    @JsonProperty("children")
+    @JsonProperty("Children")
     private List<CategoryDTO> childrenCategoryDTOList;
 
     public CategoryDTO() {
