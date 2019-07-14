@@ -14,6 +14,7 @@ import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
 import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
+import com.xingkaichun.information.utils.CommonUtilsSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
@@ -41,8 +43,9 @@ public class ArticleController {
 
     @ResponseBody
     @PostMapping("/AddArticle")
-    public FreshServiceResult addArticle(@RequestBody AddArticleRequest addArticleRequest){
+    public FreshServiceResult addArticle(@RequestBody AddArticleRequest addArticleRequest, HttpServletRequest request){
         try{
+            addArticleRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
             if(CommonUtils.isNUllOrEmpty(addArticleRequest.getTitle())){
                 return FreshServiceResult.createFailFreshServiceResult("文章标题不能为空");
             }
@@ -73,7 +76,6 @@ public class ArticleController {
     @ResponseBody
     @PostMapping("/DeleteArticle")
     public FreshServiceResult deleteArticle(@RequestBody DeleteArticleRequest deleteArticleRequest){
-        //TODO 校验用户
         String articleId = deleteArticleRequest.getArticleId();
         if(CommonUtils.isNUllOrEmpty(articleId)){
             return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");

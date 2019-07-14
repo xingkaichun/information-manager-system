@@ -11,6 +11,7 @@ import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
+import com.xingkaichun.information.utils.CommonUtilsSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,9 +39,10 @@ public class CategoryController {
 
     @ResponseBody
     @PostMapping("/AddCategory")
-    public FreshServiceResult addCategory(@RequestBody AddCategoryRequest addCategoryRequest){
+    public FreshServiceResult addCategory(@RequestBody AddCategoryRequest addCategoryRequest, HttpServletRequest request){
 
         try{
+            addCategoryRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
             if(CommonUtils.isNUllOrEmpty(addCategoryRequest.getCategoryName())){
                 return FreshServiceResult.createFailFreshServiceResult("CategoryName不能为空");
             }
@@ -85,7 +88,6 @@ public class CategoryController {
     @ResponseBody
     @PostMapping("/DeleteCategory")
     public FreshServiceResult deleteCategory(@RequestBody DeleteCategoryRequest deleteCategoryRequest){
-        //TODO 校验用户
         String categoryId = deleteCategoryRequest.getCategoryId();
         if(CommonUtils.isNUllOrEmpty(categoryId)){
             return FreshServiceResult.createFailFreshServiceResult("CategoryId不能为空");
