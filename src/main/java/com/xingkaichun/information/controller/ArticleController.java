@@ -1,6 +1,5 @@
 package com.xingkaichun.information.controller;
 
-import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
@@ -10,6 +9,7 @@ import com.xingkaichun.information.dto.article.response.QueryArticleResponse;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
 import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -51,17 +50,16 @@ public class ArticleController {
             }
             if(!CommonUtils.isNUllOrEmpty(addArticleRequest.getArticleId())){
                 return FreshServiceResult.createFailFreshServiceResult("系统自动分配文章ID，不允许赋值");
+            }else{
+                addArticleRequest.setArticleId(String.valueOf(UUID.randomUUID()));
             }
             if(CommonUtils.isNUllOrEmpty(addArticleRequest.getCategoryId())){
                 return FreshServiceResult.createFailFreshServiceResult("文章类别不能为空");
             }else{
-                QueryCategoryRequest queryCategoryRequest = new QueryCategoryRequest();
-                queryCategoryRequest.setCategoryId(addArticleRequest.getCategoryId());
-                List<CategoryDTO> categoryDTOList = categoryService.queryCategoryReturnList(queryCategoryRequest);
-                if(CommonUtils.isNUllOrEmpty(categoryDTOList)){
+                CategoryDTO categoryDTO = categoryService.queryCategoryByCategoryId(addArticleRequest.getCategoryId());
+                if(CommonUtils.isNUllOrEmpty(categoryDTO)){
                     return FreshServiceResult.createFailFreshServiceResult("文章类别不存在");
                 }
-                addArticleRequest.setArticleId(String.valueOf(UUID.randomUUID()));
             }
             addArticleRequest.setLastEditTime(new Date(System.currentTimeMillis()));
             articleService.addArticle(addArticleRequest);
@@ -76,11 +74,11 @@ public class ArticleController {
     @ResponseBody
     @PostMapping("/DeleteArticle")
     public FreshServiceResult deleteArticle(@RequestBody DeleteArticleRequest deleteArticleRequest){
-        String articleId = deleteArticleRequest.getArticleId();
-        if(CommonUtils.isNUllOrEmpty(articleId)){
-            return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
-        }
         try{
+            String articleId = deleteArticleRequest.getArticleId();
+            if(CommonUtils.isNUllOrEmpty(articleId)){
+                return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
+            }
             articleService.deleteArticle(deleteArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("删除文章成功");
         } catch (Exception e){
@@ -108,16 +106,15 @@ public class ArticleController {
     @ResponseBody
     @PostMapping("/UpdateArticle")
     public FreshServiceResult updateArticle(@RequestBody UpdateArticleRequest updateArticleRequest){
-        String articleId = updateArticleRequest.getArticleId();
-        if(CommonUtils.isNUllOrEmpty(articleId)){
-            return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
-        }
         try{
+            String articleId = updateArticleRequest.getArticleId();
+            if(CommonUtils.isNUllOrEmpty(articleId)){
+                return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
+            }
+
             if(!CommonUtils.isNUllOrEmpty(updateArticleRequest.getCategoryId())){
-                QueryCategoryRequest queryCategoryRequest = new QueryCategoryRequest();
-                queryCategoryRequest.setCategoryId(updateArticleRequest.getCategoryId());
-                List<CategoryDTO> categoryDTOList = categoryService.queryCategoryReturnList(queryCategoryRequest);
-                if(CommonUtils.isNUllOrEmpty(categoryDTOList)){
+                CategoryDTO categoryDTO = categoryService.queryCategoryByCategoryId(updateArticleRequest.getCategoryId());
+                if(CommonUtils.isNUllOrEmpty(categoryDTO)){
                     return FreshServiceResult.createFailFreshServiceResult("文章类别不存在");
                 }
             }
