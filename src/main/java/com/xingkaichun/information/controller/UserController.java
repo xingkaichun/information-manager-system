@@ -13,6 +13,8 @@ import com.xingkaichun.information.utils.CommonUtils;
 import com.xingkaichun.information.utils.CommonUtilsCookie;
 import com.xingkaichun.information.utils.CommonUtilsMd5;
 import com.xingkaichun.information.utils.CommonUtilsSession;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
-
+@Api(value="用户controller",tags={"用户操作接口"})
 @Controller
 @RequestMapping(value = "/User")
 public class UserController {
@@ -34,9 +36,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value="添加用户", notes="添加用户")
     @ResponseBody
-    @PostMapping("/AddUser")
-    public FreshServiceResult addUser(HttpServletRequest request, HttpServletResponse response, @RequestBody UserDto userDto){
+    @GetMapping("/AddUser")
+    public FreshServiceResult addUser(HttpServletRequest request, HttpServletResponse response,@RequestBody UserDto userDto){
 
         try {
             if(CommonUtils.isNUllOrEmpty(userDto.getEmail())){
@@ -96,6 +99,7 @@ public class UserController {
         return CommonUtilsMd5.MD5Encode(String.valueOf(UUID.randomUUID())+String.valueOf(UUID.randomUUID()), CharEncoding.UTF_8,false);
     }
 
+    @ApiOperation(value="获取用户列表", notes="获取用户列表")
     @ResponseBody
     @GetMapping("/All")
     public Object findAllUser(
@@ -106,9 +110,10 @@ public class UserController {
         return userService.findAllUser(pageNum,pageSize);
     }
 
+    @ApiOperation(value="登录", notes="登录")
     @ResponseBody
-    @RequestMapping("/Login")
-    public ServiceResult<LoginResponse> login(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginRequest loginRequest){
+    @GetMapping("/Login")
+    public ServiceResult<LoginResponse> login(HttpServletRequest request, HttpServletResponse response,@RequestBody LoginRequest loginRequest){
 
         try {
             if(CommonUtils.isNUllOrEmpty(loginRequest.getEmail())){
@@ -145,8 +150,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value="获取登录用户的信息", notes="获取登录用户的信息")
     @ResponseBody
-    @RequestMapping("/GetUserInfo")
+    @GetMapping("/GetUserInfo")
     public ServiceResult<GetUserInfoResponse> getUserInfo(HttpServletRequest request){
 
         try {

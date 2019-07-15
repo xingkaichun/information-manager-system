@@ -6,23 +6,23 @@ import com.xingkaichun.information.dto.file.FileDto;
 import com.xingkaichun.information.dto.file.response.FileUploadResponse;
 import com.xingkaichun.information.model.FileDomain;
 import com.xingkaichun.information.service.FileService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.List;
 import java.util.UUID;
 
+@Api(value="文件controller",tags={"文件操作接口"})
 @Controller
 @RequestMapping(value = "/File")
 public class FileUploadController {
@@ -35,7 +35,8 @@ public class FileUploadController {
     @Value("${upload.fileDirectory}")
     private String uploadFileDirectory;
 
-    @RequestMapping("/FileUpload")
+    @ApiOperation(value="文件上传", notes="文件上传")
+    @PostMapping("/FileUpload")
     @ResponseBody
     public ServiceResult<FileUploadResponse> handleFileUpload(@RequestParam("file") MultipartFile file) {
         BufferedOutputStream bos = null;
@@ -69,7 +70,8 @@ public class FileUploadController {
         }
     }
 
-   @RequestMapping("/FileDownload")
+    @ApiOperation(value="文件下载", notes="文件下载")
+    @GetMapping("/FileDownload")
     public FreshServiceResult downloadFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileId")String fileId) throws UnsupportedEncodingException {
 
         // 实现文件下载

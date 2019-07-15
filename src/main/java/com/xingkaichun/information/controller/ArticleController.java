@@ -10,16 +10,17 @@ import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.category.CategoryDTO;
-import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
 import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
 import com.xingkaichun.information.utils.CommonUtilsSession;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.UUID;
 
+@Api(value="文章controller",tags={"文章操作接口"})
 @Controller
 @RequestMapping(value = "/Article")
 public class ArticleController {
@@ -40,8 +42,9 @@ public class ArticleController {
     @Autowired
     private CategoryService categoryService;
 
+    @ApiOperation(value="新增文章", notes="新增文章")
     @ResponseBody
-    @PostMapping("/AddArticle")
+    @GetMapping("/AddArticle")
     public FreshServiceResult addArticle(@RequestBody AddArticleRequest addArticleRequest, HttpServletRequest request){
         try{
             addArticleRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
@@ -71,8 +74,9 @@ public class ArticleController {
         }
     }
 
+    @ApiOperation(value="删除文章", notes="删除文章")
     @ResponseBody
-    @PostMapping("/DeleteArticle")
+    @GetMapping("/DeleteArticle")
     public FreshServiceResult deleteArticle(@RequestBody DeleteArticleRequest deleteArticleRequest){
         try{
             String articleId = deleteArticleRequest.getArticleId();
@@ -88,8 +92,9 @@ public class ArticleController {
         }
     }
 
+    @ApiOperation(value="查询文章", notes="查询文章")
     @ResponseBody
-    @PostMapping("/QueryArticle")
+    @GetMapping("/QueryArticle")
     public ServiceResult<QueryArticleResponse> queryArticle(@RequestBody QueryArticleRequest queryArticleRequest){
         try{
             QueryArticleResponse queryArticleResponse = new QueryArticleResponse();
@@ -103,8 +108,9 @@ public class ArticleController {
         }
     }
 
+    @ApiOperation(value="更新文章", notes="更新文章")
     @ResponseBody
-    @PostMapping("/UpdateArticle")
+    @GetMapping("/UpdateArticle")
     public FreshServiceResult updateArticle(@RequestBody UpdateArticleRequest updateArticleRequest){
         try{
             String articleId = updateArticleRequest.getArticleId();

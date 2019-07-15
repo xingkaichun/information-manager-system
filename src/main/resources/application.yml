@@ -8,6 +8,8 @@ server:
       timeout: 2592000
 
 spring:
+  profiles:
+    active: dev
   datasource:
     name: mysql_test
     type: com.alibaba.druid.pool.DruidDataSource

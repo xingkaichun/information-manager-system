@@ -1,8 +1,8 @@
 package com.xingkaichun.information.controller;
 
-import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
@@ -12,11 +12,13 @@ import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
 import com.xingkaichun.information.utils.CommonUtilsSession;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
+@Api(value="文章类别controller",tags={"文章类别操作接口"})
 @Controller
 @RequestMapping(value = "/Category")
 public class CategoryController {
@@ -37,8 +40,9 @@ public class CategoryController {
     @Autowired
     private ArticleService articleService;
 
+    @ApiOperation(value="添加类别", notes="添加类别")
     @ResponseBody
-    @PostMapping("/AddCategory")
+    @GetMapping("/AddCategory")
     public FreshServiceResult addCategory(@RequestBody AddCategoryRequest addCategoryRequest, HttpServletRequest request){
 
         try{
@@ -73,8 +77,9 @@ public class CategoryController {
         }
     }
 
+    @ApiOperation(value="有层次结构的全部类别", notes="有层次结构的全部类别")
     @ResponseBody
-    @PostMapping("/QueryHierarchicalCategory")
+    @GetMapping("/QueryHierarchicalCategory")
     public ServiceResult<QueryCategoryResponse> queryHierarchicalCategory(@RequestBody QueryCategoryRequest queryCategoryRequest){
         try{
             QueryCategoryResponse queryCategoryResponse= categoryService.queryCategoryReturnHierarchicalStructure(queryCategoryRequest);
@@ -86,8 +91,9 @@ public class CategoryController {
         }
     }
 
+    @ApiOperation(value="删除类别", notes="删除类别")
     @ResponseBody
-    @PostMapping("/DeleteCategory")
+    @GetMapping("/DeleteCategory")
     public FreshServiceResult deleteCategory(@RequestBody DeleteCategoryRequest deleteCategoryRequest){
         try{
             String categoryId = deleteCategoryRequest.getCategoryId();
@@ -115,8 +121,9 @@ public class CategoryController {
         }
     }
 
+    @ApiOperation(value="更新类别", notes="更新类别")
     @ResponseBody
-    @PostMapping("/UpdateCategory")
+    @GetMapping("/UpdateCategory")
     public FreshServiceResult updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest){
         try{
             String categoryId = updateCategoryRequest.getCategoryId();

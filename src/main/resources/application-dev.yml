@@ -1,0 +1,5 @@
+application:
+  host: localhost
+
+upload:
+  fileDirectory: /root/app/information-manager-system/images/

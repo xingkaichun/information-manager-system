@@ -1,7 +1,9 @@
 package com.xingkaichun.information.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
 
+@ApiModel(description="用户的实体对象")
 public class UserDto {
 
     @JsonProperty("UserId")

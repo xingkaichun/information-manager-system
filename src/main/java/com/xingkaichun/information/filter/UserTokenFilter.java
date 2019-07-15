@@ -46,6 +46,21 @@ public class UserTokenFilter implements Filter {
 		if(uri.toString().contains("/Error/")){
 			isSkip = true;
 		}
+        if(uri.toString().contains("/swagger-ui.html")){
+            isSkip = true;
+        }
+        if(uri.toString().contains("/webjars/springfox-swagger-ui/")){
+            isSkip = true;
+        }
+        if(uri.toString().contains("/swagger-resources")){
+            isSkip = true;
+        }
+        if(uri.toString().contains("/api-docs")){
+            isSkip = true;
+        }
+        if(uri.toString().contains("/favicon.ico")){
+            isSkip = true;
+        }
 		if(!isSkip){
 			//检测用户是否已经登录
 			if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
