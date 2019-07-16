@@ -1,5 +1,7 @@
 package com.xingkaichun.information.utils;
 
+import com.xingkaichun.information.dto.category.CategoryDTO;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -15,6 +17,9 @@ public class CommonUtils {
         if(object instanceof Collection){
             Collection collection = (Collection)object;
             return collection.isEmpty();
+        }
+        if(object instanceof CategoryDTO){
+            return false;
         }
         throw new RuntimeException(String.format("不支持类别%s做空判断",object.getClass()));
     }

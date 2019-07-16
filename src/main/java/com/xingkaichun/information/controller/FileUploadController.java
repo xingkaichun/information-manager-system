@@ -36,7 +36,7 @@ public class FileUploadController {
     private String uploadFileDirectory;
 
     @ApiOperation(value="文件上传", notes="文件上传")
-    @PostMapping("/FileUpload")
+    @GetMapping("/FileUpload")
     @ResponseBody
     public ServiceResult<FileUploadResponse> handleFileUpload(@RequestParam("file") MultipartFile file) {
         BufferedOutputStream bos = null;

@@ -1,6 +1,17 @@
 package com.xingkaichun.information.dto.article.request;
 
-import com.xingkaichun.information.dto.article.ArticleDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DeleteArticleRequest extends ArticleDTO {
+public class DeleteArticleRequest {
+
+    @JsonProperty("ArticleId")
+    private String articleId;
+
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
 }
