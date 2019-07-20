@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +42,7 @@ public class CategoryController {
 
     @ApiOperation(value="添加类别", notes="添加类别")
     @ResponseBody
-    @GetMapping("/AddCategory")
+    @PostMapping("/AddCategory")
     public FreshServiceResult addCategory(@RequestBody AddCategoryRequest addCategoryRequest, HttpServletRequest request){
 
         try{
@@ -79,7 +79,7 @@ public class CategoryController {
 
     @ApiOperation(value="有层次结构的全部类别", notes="有层次结构的全部类别")
     @ResponseBody
-    @GetMapping("/QueryHierarchicalCategory")
+    @PostMapping("/QueryHierarchicalCategory")
     public ServiceResult<QueryCategoryResponse> queryHierarchicalCategory(@RequestBody QueryCategoryRequest queryCategoryRequest){
         try{
             QueryCategoryResponse queryCategoryResponse= categoryService.queryCategoryReturnHierarchicalStructure(queryCategoryRequest);
@@ -93,7 +93,7 @@ public class CategoryController {
 
     @ApiOperation(value="删除类别", notes="删除类别")
     @ResponseBody
-    @GetMapping("/DeleteCategory")
+    @PostMapping("/DeleteCategory")
     public FreshServiceResult deleteCategory(@RequestBody DeleteCategoryRequest deleteCategoryRequest){
         try{
             String categoryId = deleteCategoryRequest.getCategoryId();
@@ -123,7 +123,7 @@ public class CategoryController {
 
     @ApiOperation(value="更新类别", notes="更新类别")
     @ResponseBody
-    @GetMapping("/UpdateCategory")
+    @PostMapping("/UpdateCategory")
     public FreshServiceResult updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest){
         try{
             String categoryId = updateCategoryRequest.getCategoryId();

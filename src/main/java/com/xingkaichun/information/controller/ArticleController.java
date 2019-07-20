@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,7 +44,7 @@ public class ArticleController {
 
     @ApiOperation(value="新增文章", notes="新增文章")
     @ResponseBody
-    @GetMapping("/AddArticle")
+    @PostMapping("/AddArticle")
     public FreshServiceResult addArticle(@RequestBody AddArticleRequest addArticleRequest, HttpServletRequest request){
         try{
             addArticleRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
@@ -76,7 +76,7 @@ public class ArticleController {
 
     @ApiOperation(value="删除文章", notes="删除文章")
     @ResponseBody
-    @GetMapping("/DeleteArticle")
+    @PostMapping("/DeleteArticle")
     public FreshServiceResult deleteArticle(@RequestBody DeleteArticleRequest deleteArticleRequest){
         try{
             String articleId = deleteArticleRequest.getArticleId();
@@ -94,7 +94,7 @@ public class ArticleController {
 
     @ApiOperation(value="查询文章", notes="查询文章")
     @ResponseBody
-    @GetMapping("/QueryArticle")
+    @PostMapping("/QueryArticle")
     public ServiceResult<QueryArticleResponse> queryArticle(@RequestBody QueryArticleRequest queryArticleRequest){
         try{
             QueryArticleResponse queryArticleResponse = new QueryArticleResponse();
@@ -110,7 +110,7 @@ public class ArticleController {
 
     @ApiOperation(value="更新文章", notes="更新文章")
     @ResponseBody
-    @GetMapping("/UpdateArticle")
+    @PostMapping("/UpdateArticle")
     public FreshServiceResult updateArticle(@RequestBody UpdateArticleRequest updateArticleRequest){
         try{
             String articleId = updateArticleRequest.getArticleId();

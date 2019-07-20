@@ -38,7 +38,7 @@ public class UserController {
 
     @ApiOperation(value="添加用户", notes="添加用户")
     @ResponseBody
-    @GetMapping("/AddUser")
+    @PostMapping("/AddUser")
     public FreshServiceResult addUser(HttpServletRequest request, HttpServletResponse response,@RequestBody UserDto userDto){
 
         try {
@@ -101,7 +101,7 @@ public class UserController {
 
     @ApiOperation(value="获取用户列表", notes="获取用户列表")
     @ResponseBody
-    @GetMapping("/All")
+    @PostMapping("/All")
     public Object findAllUser(
             @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                     int pageNum,
@@ -112,7 +112,7 @@ public class UserController {
 
     @ApiOperation(value="登录", notes="登录")
     @ResponseBody
-    @GetMapping("/Login")
+    @PostMapping("/Login")
     public ServiceResult<LoginResponse> login(HttpServletRequest request, HttpServletResponse response,@RequestBody LoginRequest loginRequest){
 
         try {
@@ -152,7 +152,7 @@ public class UserController {
 
     @ApiOperation(value="获取登录用户的信息", notes="获取登录用户的信息")
     @ResponseBody
-    @GetMapping("/GetUserInfo")
+    @PostMapping("/GetUserInfo")
     public ServiceResult<GetUserInfoResponse> getUserInfo(HttpServletRequest request){
 
         try {
