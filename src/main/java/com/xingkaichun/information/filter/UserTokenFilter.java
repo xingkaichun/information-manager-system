@@ -46,6 +46,15 @@ public class UserTokenFilter implements Filter {
 		if(uri.toString().contains("/Error/")){
 			isSkip = true;
 		}
+		if(uri.toString().contains(".html")){
+			isSkip = true;
+		}
+		if(uri.toString().contains("jpg")){
+			isSkip = true;
+		}
+		if(uri.toString().contains(".js")){
+			isSkip = true;
+		}
         if(uri.toString().contains("/swagger-ui.html")){
             isSkip = true;
         }
