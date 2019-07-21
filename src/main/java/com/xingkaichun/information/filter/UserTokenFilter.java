@@ -55,6 +55,9 @@ public class UserTokenFilter implements Filter {
 		if(uri.toString().contains(".js")){
 			isSkip = true;
 		}
+		if(uri.toString().contains(".css")){
+			isSkip = true;
+		}
         if(uri.toString().contains("/swagger-ui.html")){
             isSkip = true;
         }
