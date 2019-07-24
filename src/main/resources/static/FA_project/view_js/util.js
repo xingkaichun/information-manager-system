@@ -1,4 +1,4 @@
-var url="http://47.94.230.44:8888"
+var url=""
 
 var Common = {
     confirm:function(params){

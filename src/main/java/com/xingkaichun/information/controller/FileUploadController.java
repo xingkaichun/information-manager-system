@@ -72,8 +72,7 @@ public class FileUploadController {
 
     @ApiOperation(value="文件下载", notes="文件下载")
     @RequestMapping(value = "/FileDownload", method = {RequestMethod.GET,RequestMethod.POST})
-    public FreshServiceResult downloadFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileId")String fileId) throws UnsupportedEncodingException {
-
+    public void downloadFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileId")String fileId) throws UnsupportedEncodingException {
         // 实现文件下载
         byte[] buffer = new byte[1024];
         FileInputStream fis = null;
@@ -99,7 +98,6 @@ public class FileUploadController {
         } catch (Exception e) {
             String message = "下载文件失败";
             LOGGER.error(message,e);
-            return FreshServiceResult.createFailFreshServiceResult(message);
         } finally {
             if (bis != null) {
                 try {
@@ -114,6 +112,5 @@ public class FileUploadController {
                 }
             }
         }
-        return FreshServiceResult.createSuccessFreshServiceResult("下载成功");
     }
 }

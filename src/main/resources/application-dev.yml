@@ -2,4 +2,4 @@ application:
   host: localhost
 
 upload:
-  fileDirectory: C:\Users\123\IdeaProjects\information-manager-system\target\
+  fileDirectory: D:\temp\files\
