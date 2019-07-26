@@ -99,17 +99,6 @@ public class UserController {
         return CommonUtilsMd5.MD5Encode(String.valueOf(UUID.randomUUID())+String.valueOf(UUID.randomUUID()), CharEncoding.UTF_8,false);
     }
 
-    @ApiOperation(value="获取用户列表", notes="获取用户列表")
-    @ResponseBody
-    @PostMapping("/All")
-    public Object findAllUser(
-            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
-                    int pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                    int pageSize){
-        return userService.findAllUser(pageNum,pageSize);
-    }
-
     @ApiOperation(value="登录", notes="登录")
     @ResponseBody
     @PostMapping("/Login")

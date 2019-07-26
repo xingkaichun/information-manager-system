@@ -35,45 +35,17 @@ public class UserTokenFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("User Token Filter IN");
+
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String uri = httpServletRequest.getRequestURI();
 
-		boolean isSkip = false;
-		if(uri.equals("/User/Login")){
-			isSkip = true;
+
+		boolean needAccess = false;
+		if (uri.contains("/Add")||uri.contains("/Delete")||uri.contains("/Update")){
+			needAccess = true ;
 		}
-		if(uri.toString().contains("/Error/")){
-			isSkip = true;
-		}
-		if(uri.toString().contains(".html")){
-			isSkip = true;
-		}
-		if(uri.toString().contains("jpg")){
-			isSkip = true;
-		}
-		if(uri.toString().contains(".js")){
-			isSkip = true;
-		}
-		if(uri.toString().contains(".css")){
-			isSkip = true;
-		}
-        if(uri.toString().contains("/swagger-ui.html")){
-            isSkip = true;
-        }
-        if(uri.toString().contains("/webjars/springfox-swagger-ui/")){
-            isSkip = true;
-        }
-        if(uri.toString().contains("/swagger-resources")){
-            isSkip = true;
-        }
-        if(uri.toString().contains("/api-docs")){
-            isSkip = true;
-        }
-        if(uri.toString().contains("/favicon.ico")){
-            isSkip = true;
-        }
-		if(!isSkip){
+
+		if(needAccess){
 			//检测用户是否已经登录
 			if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
 				//尝试使用UserToken登录
@@ -91,8 +63,8 @@ public class UserTokenFilter implements Filter {
 				return;
 			}
 		}
+
 		chain.doFilter(request, response);
-		System.out.println("User Token Filter OUT");
 	}
 
 	@Override
