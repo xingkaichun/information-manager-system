@@ -1,5 +1,6 @@
 application:
   host: 47.94.230.44
-
+server:
+  port: 8888
 upload:
   fileDirectory: /root/app/information-manager-system/images/
