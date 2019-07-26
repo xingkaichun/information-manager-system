@@ -1,18 +1,15 @@
 #!/bin/sh
 echo "start at: " `date +%Y%m%d%k%M%S`
 
-## service name
-APP_NAME=information-manager-system
-SERVICE_NAME=information-manager-system-1.0-SNAPSHOT
-JAR_NAME=$SERVICE_NAME\.jar
+JAR_NAME=${project.artifactId}-${project.version}.jar
 
 OLD_PID=`ps -ef | grep $JAR_NAME | grep -v grep | awk '{print $2}'`
 if [ "$OLD_PID" != "" ]; then
-	echo "Process already exist.Will kill it , and then start it！"
-	echo "Kill already process!PID:"$OLD_PID
+	echo "kill already process! PID:"$OLD_PID
 	kill $OLD_PID
+	echo "starting...！"
 else
-	echo "process not exist.Will start it！"
+	echo "starting...！"
 fi
 
 program_dir=`dirname $0`
@@ -26,6 +23,6 @@ cd ${program_dir}
 
 echo `pwd`
 
-nohup java -Xms256M -Xmx1024M -Xss512k -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -Xloggc:logs/gc.log -Dloader.path=libs/,config/,front-end/ -Dspring.profiles.active=pro -jar $JAR_NAME &
+nohup java -Xms256M -Xmx1024M -Xss512k -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -Xloggc:gc.log -Dloader.path=libs/,config/,front-end/ -Dspring.profiles.active=pro -jar $JAR_NAME &
 
-echo "start ."
+echo "start success ."

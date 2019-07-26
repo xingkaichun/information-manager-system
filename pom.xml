@@ -6,7 +6,7 @@
 
     <groupId>com.xingkaichun</groupId>
     <artifactId>information-manager-system</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
 
     <parent>
@@ -111,6 +111,9 @@
             <resource>
                 <filtering>false</filtering>
                 <directory>src/main/resources/</directory>
+                <includes>
+                    <include>com/</include>
+                </includes>
             </resource>
         </resources>
 
@@ -118,13 +121,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>*.*</exclude>
-                        <exclude>*</exclude>
-                        <exclude>*/*.*</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
 
             <plugin>
