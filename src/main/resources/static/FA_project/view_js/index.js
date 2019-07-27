@@ -26,7 +26,7 @@ $(function(){
         }
     });
     $('#edit_content').summernote({
-        height: 400,
+        height: 200,
         tabsize: 2,
         lang: 'zh-CN',
         callbacks:{
@@ -210,13 +210,11 @@ $(function(){
                     },3000)
                     $("#myModal2").modal("hide")
                 }else{
-                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
+                    $("#tips2").text(`${data.Message}`).addClass("alert-danger").show()
                     setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
+                        $("#tips2").removeClass("alert-danger").fadeOut()
                     },3000)
-                    $("#myModal2").modal("hide")
                 }
-
             },
             error:function(e){
 
