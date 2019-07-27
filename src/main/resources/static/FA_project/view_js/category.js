@@ -62,7 +62,7 @@ var setting = {
                             $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
                             setTimeout(function () {
                                 $("#tips").removeClass("alert-danger").fadeOut()
-                            },1000)
+                            },3000)
                         }
                     },
                     error:function(e){

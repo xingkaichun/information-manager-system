@@ -207,12 +207,12 @@ $(function(){
                     $("#tips").text(`新增成功`).addClass("alert-danger").show()
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
-                    },1000)
+                    },3000)
                 }else{
                     $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
-                    },1000)
+                    },3000)
                 }
 
             },
@@ -274,12 +274,12 @@ $(function(){
                     $("#tips").text(`修改成功`).addClass("alert-danger").show()
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
-                    },1000)
+                    },3000)
                 }else{
                     $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
-                    },1000)
+                    },3000)
                 }
 
             },

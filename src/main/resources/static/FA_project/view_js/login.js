@@ -25,12 +25,12 @@ $(function () {
                             $("#tips").removeClass("alert-danger").fadeOut()
                             localStorage.setItem("UserInfo",JSON.stringify(data.Result.UserInfo))
                             location.href="./index.html"
-                        },1000)
+                        },3000)
                     }else{
                         $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
                         setTimeout(function () {
                             $("#tips").removeClass("alert-danger").fadeOut()
-                        },1000)
+                        },3000)
                     }
 
                 },
@@ -42,7 +42,7 @@ $(function () {
             $("#tips").text("表单不能为空").addClass("alert-danger").show()
             setTimeout(function () {
                 $("#tips").removeClass("alert-danger").fadeOut()
-            },1000)
+            },3000)
         }
     })
 })
