@@ -1,6 +1,6 @@
 $(function(){
     $('#add_content').summernote({
-        height: 400,
+        height: 200,
         tabsize: 2,
         lang: 'zh-CN',
         callbacks:{
@@ -208,11 +208,13 @@ $(function(){
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
                     },3000)
+                    $("#myModal2").modal("hide")
                 }else{
                     $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
                     },3000)
+                    $("#myModal2").modal("hide")
                 }
 
             },
@@ -222,7 +224,6 @@ $(function(){
         });
 
         console.log("add_json",add_json)
-        $("#myModal2").modal("hide")
     })
     //弹出编辑界面
     var edit_ArticleId = ""

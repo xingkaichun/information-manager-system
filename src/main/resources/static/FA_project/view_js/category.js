@@ -20,7 +20,15 @@ $("#primary_btn").click(function () {
             console.log(data)
             $("#myModal2 input[name='name']").val("")
             if(data.Result==null){
-                getNodes()
+                if(data.ServiceCode=="SUCCESS"){
+                    $("#tips").text("新增类别成功").addClass("alert-danger").show()
+                    getNodes()
+                }else{
+                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
+                    setTimeout(function () {
+                        $("#tips").removeClass("alert-danger").fadeOut()
+                    },3000)
+                }
             }
         },
         error:function(e){
@@ -158,8 +166,15 @@ function addHoverDom(treeId, treeNode) {
             dataType: "json",
             success: function(data){
                 console.log(data)
-                getNodes()
-
+                if(data.ServiceCode=="SUCCESS"){
+                    $("#tips").text("新增类别成功").addClass("alert-danger").show()
+                    getNodes()
+                }else{
+                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
+                    setTimeout(function () {
+                        $("#tips").removeClass("alert-danger").fadeOut()
+                    },3000)
+                }
             },
             error:function(e){
 
