@@ -362,7 +362,7 @@ $(function(){
                 lists = list
                 for(var i=0,len =list.length;i<len;i++){
                     html+=`<tr>
-                                      <td>${list[i].UserId}</td>
+                                      <td>${list[i].ArticleId}</td>
                                       <td class="hidden-phone">${list[i].Title}</td>
                                       <td>${list[i].CreateTime}</td>
                                       <td>${list[i].LastEditTime}</td>
