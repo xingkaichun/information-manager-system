@@ -301,7 +301,18 @@ $(function(){
                 contentType:"application/json",
                 dataType: "json",
                 success: function(data){
+                if(data.ServiceCode=="SUCCESS"){
                     getList(page_num)
+                    $("#tips").text(`删除成功`).addClass("alert-danger").show()
+                    setTimeout(function () {
+                        $("#tips").removeClass("alert-danger").fadeOut()
+                    },3000)
+                }else{
+                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
+                    setTimeout(function () {
+                        $("#tips").removeClass("alert-danger").fadeOut()
+                    },3000)
+                }
                 },
                 error:function(e){
 
