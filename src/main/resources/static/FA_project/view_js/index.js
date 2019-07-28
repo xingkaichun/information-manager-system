@@ -270,12 +270,13 @@ $(function(){
             success: function(data){
                 if(data.ServiceCode=="SUCCESS"){
                     getList(page_num)
-                    $("#tips").text(`修改成功`).addClass("alert-danger").show()
+                    $("#tips_update_model").text(`修改成功`).addClass("alert-danger").show()
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
                     },3000)
+                    $("#myModal").modal("hide")
                 }else{
-                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
+                    $("#tips_update_model").text(`${data.Message}`).addClass("alert-danger").show()
                     setTimeout(function () {
                         $("#tips").removeClass("alert-danger").fadeOut()
                     },3000)
@@ -286,8 +287,6 @@ $(function(){
 
             }
         });
-        console.log("edit_json",edit_json)
-        $("#myModal").modal("hide")
     })
     //删除
     $(document).on("click",".remove_btn",function(){
