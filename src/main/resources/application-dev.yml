@@ -3,3 +3,8 @@ application:
 
 upload:
   fileDirectory: D:\temp\files\
+
+spring:
+  http:
+    multipart:
+      location: D:\temp\information-manager-system\tomcat-temp
