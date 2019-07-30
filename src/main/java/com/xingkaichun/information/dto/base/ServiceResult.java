@@ -41,8 +41,8 @@ public class ServiceResult<T> {
         this.result = result;
     }
 
-    public static<T> ServiceResult<T> createSuccessServiceResult(T result){
-        return new ServiceResult(ServiceCode.SUCCESS,null,result);
+    public static<T> ServiceResult<T> createSuccessServiceResult(String message, T result){
+        return new ServiceResult(ServiceCode.SUCCESS,message,result);
     }
     public static<T> ServiceResult createFailServiceResult(String message){
         return new ServiceResult(ServiceCode.FAIL,message,null);

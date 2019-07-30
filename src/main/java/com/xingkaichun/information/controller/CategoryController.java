@@ -83,7 +83,7 @@ public class CategoryController {
     public ServiceResult<QueryCategoryResponse> queryHierarchicalCategory(@RequestBody QueryCategoryRequest queryCategoryRequest){
         try{
             QueryCategoryResponse queryCategoryResponse= categoryService.queryCategoryReturnHierarchicalStructure(queryCategoryRequest);
-            return ServiceResult.createSuccessServiceResult(queryCategoryResponse);
+            return ServiceResult.createSuccessServiceResult("查询分类成功",queryCategoryResponse);
         } catch (Exception e){
             String message = "查询分类失败";
             LOGGER.error(message,e);

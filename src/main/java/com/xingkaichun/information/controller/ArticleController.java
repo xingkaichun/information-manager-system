@@ -100,7 +100,7 @@ public class ArticleController {
             QueryArticleResponse queryArticleResponse = new QueryArticleResponse();
             PageInformation<ArticleDTO> articleDTOPageInformation = articleService.queryArticle(queryArticleRequest);
             queryArticleResponse.setArticleDTOPageInformation(articleDTOPageInformation);
-            return ServiceResult.createSuccessServiceResult(queryArticleResponse);
+            return ServiceResult.createSuccessServiceResult("查询文章成功",queryArticleResponse);
         } catch (Exception e){
             String message = "查询文章失败";
             LOGGER.error(message,e);

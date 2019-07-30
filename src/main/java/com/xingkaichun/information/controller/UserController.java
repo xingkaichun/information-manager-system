@@ -130,7 +130,7 @@ public class UserController {
             userService.updateUserToken(ud);
             CommonUtilsCookie.saveUser(response,ud);
 
-            return ServiceResult.createSuccessServiceResult(new LoginResponse(new UserInfo(ud.getUserId(),ud.getUserName())));
+            return ServiceResult.createSuccessServiceResult("用户登陆成功",new LoginResponse(new UserInfo(ud.getUserId(),ud.getUserName())));
         } catch (Exception e) {
             String message = "用户登陆失败";
             LOGGER.error(message,e);
@@ -149,7 +149,7 @@ public class UserController {
             if(CommonUtils.isNUll(userDomain)){
                 return ServiceResult.createFailServiceResult("用户没有登陆");
             }
-            return ServiceResult.createSuccessServiceResult(new GetUserInfoResponse(new UserInfo(userDomain.getUserId(),userDomain.getUserName())));
+            return ServiceResult.createSuccessServiceResult("成功获取用户信息",new GetUserInfoResponse(new UserInfo(userDomain.getUserId(),userDomain.getUserName())));
         } catch (Exception e) {
             String message = "获取用户信息失败";
             LOGGER.error(message,e);

@@ -204,21 +204,11 @@ $(function(){
                     $("#add_CategoryId .daan").attr("data-id","").text("请选择")
                     $(".add_file_list .file_li").remove()
 
-                    $("#tips").text(`新增成功`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
-                    },3000)
                     $("#myModal2").modal("hide")
-                }else{
-                    $("#tips2").text(`${data.Message}`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips2").removeClass("alert-danger").fadeOut()
-                    },3000)
                 }
+                bootbox.alert("<font size='30' color='red'>"+`${data.Message}`+"</font>");
             },
-            error:function(e){
-
-            }
+            error:function(e){}
         });
 
         console.log("add_json",add_json)
@@ -270,22 +260,11 @@ $(function(){
             success: function(data){
                 if(data.ServiceCode=="SUCCESS"){
                     getList(page_num)
-                    $("#tips_update_model").text(`修改成功`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
-                    },3000)
                     $("#myModal").modal("hide")
-                }else{
-                    $("#tips_update_model").text(`${data.Message}`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
-                    },3000)
                 }
-
+                bootbox.alert("<font size='30' color='red'>"+`${data.Message}`+"</font>");
             },
-            error:function(e){
-
-            }
+            error:function(e){}
         });
     })
     //删除
@@ -299,22 +278,12 @@ $(function(){
                 contentType:"application/json",
                 dataType: "json",
                 success: function(data){
-                if(data.ServiceCode=="SUCCESS"){
-                    getList(page_num)
-                    $("#tips").text(`删除成功`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
-                    },3000)
-                }else{
-                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
-                    },3000)
-                }
+                    if(data.ServiceCode=="SUCCESS"){
+                        getList(page_num)
+                    }
+                    bootbox.alert("<font size='30' color='red'>"+`${data.Message}`+"</font>");
                 },
-                error:function(e){
-
-                }
+                error:function(e){}
             });
         }
 

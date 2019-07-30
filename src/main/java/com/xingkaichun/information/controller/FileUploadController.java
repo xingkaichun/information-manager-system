@@ -57,7 +57,7 @@ public class FileUploadController {
 
             fileService.addFile(new FileDomain(fileId,originalFilename,fileSaveName,fileDescrible,fileDirectory));
             FileDto fileDto = fileService.queryFileByFileIdReturnDto(fileId);
-            return ServiceResult.createSuccessServiceResult(new FileUploadResponse(fileDto));
+            return ServiceResult.createSuccessServiceResult("文件上传成功",new FileUploadResponse(fileDto));
         }catch (Exception e){
             String message = "上传文件失败";
             LOGGER.error(message,e);
