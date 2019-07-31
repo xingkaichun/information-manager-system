@@ -1,7 +1,9 @@
 package com.xingkaichun.information.dto.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class PageCondition {
 
     @JsonProperty("PageNum")
@@ -17,25 +19,5 @@ public class PageCondition {
     public PageCondition(int pageNum, int pageSize) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
-    }
-
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getFrom() {
-        return (pageNum-1) * pageSize;
     }
 }

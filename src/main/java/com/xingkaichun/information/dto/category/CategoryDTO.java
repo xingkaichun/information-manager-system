@@ -2,12 +2,14 @@ package com.xingkaichun.information.dto.category;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class CategoryDTO {
 
     @JsonProperty("CategoryId")
@@ -28,53 +30,5 @@ public class CategoryDTO {
 
     public CategoryDTO() {
         childrenCategoryDTOList = new ArrayList<>();
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getParentCategoryId() {
-        return parentCategoryId;
-    }
-
-    public void setParentCategoryId(String parentCategoryId) {
-        this.parentCategoryId = parentCategoryId;
-    }
-
-    public Date getLastEditTime() {
-        return lastEditTime;
-    }
-
-    public void setLastEditTime(Date lastEditTime) {
-        this.lastEditTime = lastEditTime;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public List<CategoryDTO> getChildrenCategoryDTOList() {
-        return childrenCategoryDTOList;
-    }
-
-    public void setChildrenCategoryDTOList(List<CategoryDTO> childrenCategoryDTOList) {
-        this.childrenCategoryDTOList = childrenCategoryDTOList;
     }
 }

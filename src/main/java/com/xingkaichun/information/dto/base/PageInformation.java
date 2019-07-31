@@ -1,7 +1,10 @@
 package com.xingkaichun.information.dto.base;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class PageInformation<T> {
     //当前页
     private int pageNum;
@@ -23,25 +26,4 @@ public class PageInformation<T> {
 
         this.pages =  totalCount%pageSize == 0 ?totalCount/pageSize :totalCount/pageSize +1;
     }
-
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public int getTotalCount() {
-        return totalCount;
-    }
-
-    public int getPages() {
-        return pages;
-    }
-
-    public List<T> getData() {
-        return data;
-    }
-
 }

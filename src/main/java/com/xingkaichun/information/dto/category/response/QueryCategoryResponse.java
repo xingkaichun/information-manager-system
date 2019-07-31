@@ -2,9 +2,11 @@ package com.xingkaichun.information.dto.category.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xingkaichun.information.dto.category.CategoryDTO;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class QueryCategoryResponse {
 
     @JsonProperty("CategoryDTOList")

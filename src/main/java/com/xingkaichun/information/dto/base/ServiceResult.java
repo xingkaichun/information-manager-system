@@ -1,7 +1,9 @@
 package com.xingkaichun.information.dto.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class ServiceResult<T> {
 
     @JsonProperty("ServiceCode")
@@ -14,30 +16,6 @@ public class ServiceResult<T> {
     public ServiceResult(ServiceCode serviceCode, String message, T result) {
         this.serviceCode = serviceCode;
         this.message = message;
-        this.result = result;
-    }
-
-    public ServiceCode getServiceCode() {
-        return serviceCode;
-    }
-
-    public void setServiceCode(ServiceCode serviceCode) {
-        this.serviceCode = serviceCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getResult() {
-        return result;
-    }
-
-    public void setResult(T result) {
         this.result = result;
     }
 

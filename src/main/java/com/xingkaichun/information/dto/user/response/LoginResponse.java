@@ -2,7 +2,9 @@ package com.xingkaichun.information.dto.user.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xingkaichun.information.dto.user.UserInfo;
+import lombok.Data;
 
+@Data
 public class LoginResponse {
 
     @JsonProperty("UserInfo")
@@ -12,14 +14,6 @@ public class LoginResponse {
     }
 
     public LoginResponse(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
-
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
 }
