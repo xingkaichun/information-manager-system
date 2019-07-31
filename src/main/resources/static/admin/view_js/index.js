@@ -222,6 +222,7 @@ $(function(){
         $("input[name='edit_title']").val(data_json.Title)
         $('#edit_content').summernote("code",data_json.Content)
         $("#edit_CategoryId .daan").attr("data-id",data_json.CategoryId)
+        $("input[name='edit_IdSoftDelete'][value='"+data_json.IsSoftDelete+"']").attr("checked",data_json.IsSoftDelete);
         $("#edit_CategoryId li").each(function(){
             if($(this).attr("data-id")==data_json.CategoryId){
                 $("#edit_CategoryId .daan").text($(this).text())
