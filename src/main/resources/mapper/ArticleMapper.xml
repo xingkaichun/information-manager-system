@@ -88,8 +88,7 @@
     </select>
 
     <delete id="deleteArticle" parameterType="com.xingkaichun.information.dto.article.request.DeleteArticleRequest">
-        update <include refid="BASE_TABLE"/>
-        set isSoftDelete = true
+        delete from <include refid="BASE_TABLE"/>
         where articleId = #{articleId, jdbcType=VARCHAR}
     </delete>
 
