@@ -64,6 +64,8 @@ public class ArticleController {
                     return FreshServiceResult.createFailFreshServiceResult("文章类别不存在");
                 }
             }
+            //默认值
+            addArticleRequest.setIsSoftDelete(false);
             addArticleRequest.setLastEditTime(new Date(System.currentTimeMillis()));
             articleService.addArticle(addArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("新增文章成功");

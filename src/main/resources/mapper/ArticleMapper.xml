@@ -6,7 +6,7 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-     articleId,categoryId,userId,title,content,createTime,lastEditTime,attachedFiles
+     articleId,categoryId,userId,title,content,createTime,lastEditTime,attachedFiles,isSoftDelete
   </sql>
 
   <insert id="addArticle" parameterType="com.xingkaichun.information.model.ArticleDomain">
@@ -21,7 +21,8 @@
       #{content, jdbcType=VARCHAR},
       #{createTime, jdbcType=TIMESTAMP},
       #{lastEditTime, jdbcType=TIMESTAMP},
-      #{attachedFiles, jdbcType=VARCHAR}
+      #{attachedFiles, jdbcType=VARCHAR},
+      false
     )
   </insert>
 
@@ -44,6 +45,9 @@
       <if test="content != null">
           <bind name="bind_content" value="'%' + content + '%'" />
           and Content like #{bind_content}
+      </if>
+      <if test="isSoftDelete != null">
+          and IsSoftDelete = #{isSoftDelete, jdbcType=Bit}
       </if>
       <if test="createTimeStart != null">AND CreateTime <![CDATA[>=]]> #{createTimeStart, jdbcType=TIMESTAMP}</if>
       <if test="createTimeEnd != null">AND CreateTime <![CDATA[<=]]>#{createTimeEnd, jdbcType=TIMESTAMP}</if>
@@ -74,6 +78,9 @@
             <bind name="bind_content" value="'%' + content + '%'" />
             and Content like #{bind_content}
         </if>
+        <if test="isSoftDelete != null">
+            and IsSoftDelete = #{isSoftDelete, jdbcType=Bit}
+        </if>
         <if test="createTimeStart != null">AND CreateTime <![CDATA[>=]]> #{createTimeStart, jdbcType=TIMESTAMP}</if>
         <if test="createTimeEnd != null">AND CreateTime <![CDATA[<=]]>#{createTimeEnd, jdbcType=TIMESTAMP}</if>
         <if test="lastEditTimeStart != null">AND LastEditTime <![CDATA[>=]]> #{lastEditTimeStart, jdbcType=TIMESTAMP}</if>
@@ -81,7 +88,8 @@
     </select>
 
     <delete id="deleteArticle" parameterType="com.xingkaichun.information.dto.article.request.DeleteArticleRequest">
-        delete from <include refid="BASE_TABLE"/>
+        update <include refid="BASE_TABLE"/>
+        set isSoftDelete = true
         where articleId = #{articleId, jdbcType=VARCHAR}
     </delete>
 
@@ -107,7 +115,10 @@
             LastEditTime = #{lastEditTime, jdbcType=TIMESTAMP},
         </if>
         <if test="attachedFiles != null">
-            attachedFiles = #{attachedFiles, jdbcType=TIMESTAMP},
+            AttachedFiles = #{attachedFiles, jdbcType=TIMESTAMP},
+        </if>
+        <if test="isSoftDelete != null">
+            IsSoftDelete = #{isSoftDelete, jdbcType=BIT},
         </if>
         ArticleId = #{articleId, jdbcType=VARCHAR}
         where ArticleId = #{articleId, jdbcType=VARCHAR}

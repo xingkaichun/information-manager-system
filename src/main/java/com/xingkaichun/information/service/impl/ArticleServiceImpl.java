@@ -1,7 +1,5 @@
 package com.xingkaichun.information.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.ArticleDao;
 import com.xingkaichun.information.dao.FileDao;
 import com.xingkaichun.information.dto.article.ArticleDTO;
@@ -97,6 +95,7 @@ public class ArticleServiceImpl implements ArticleService {
             }
             articleDTO.setAttachedFilesDetails(attachedFileDetails);
         }
+        articleDTO.setIsSoftDelete(articleDomain.isSoftDelete());
         return articleDTO;
     }
 
@@ -110,6 +109,8 @@ public class ArticleServiceImpl implements ArticleService {
         articleDomain.setCreateTime(articleDTO.getCreateTime());
         articleDomain.setLastEditTime(articleDTO.getLastEditTime());
         articleDomain.setAttachedFiles(articleDTO.getAttachedFiles());
+        Boolean isSoftDelete = articleDTO.getIsSoftDelete();
+        articleDomain.setSoftDelete(CommonUtils.isNUll(isSoftDelete)?false:isSoftDelete);
         return articleDomain;
     }
 }
