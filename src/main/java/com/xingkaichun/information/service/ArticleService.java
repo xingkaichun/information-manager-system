@@ -6,6 +6,8 @@ import com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleReque
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.base.PageInformation;
+import com.xingkaichun.information.model.ArticleDomain;
+import org.apache.ibatis.annotations.Param;
 
 public interface ArticleService {
 
@@ -18,4 +20,6 @@ public interface ArticleService {
     int updateArticle(UpdateArticleRequest updateArticleRequest);
 
     boolean hasArticleInCategoryId(String categoryId);
+
+    boolean isSoftDelete(String articleId);
 }

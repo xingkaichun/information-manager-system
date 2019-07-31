@@ -344,6 +344,7 @@ $(function(){
                                       <td class="hidden-phone">${list[i].Title}</td>
                                       <td>${list[i].CreateTime}</td>
                                       <td>${list[i].LastEditTime}</td>
+                                      <td>${list[i].IsSoftDelete}</td>
                                       <td>
                                           <button class="btn btn-primary btn-xs edit_show" data-toggle="modal" data-target="#myModal"><i class="icon-pencil"></i></button>
                                           <button class="btn btn-danger btn-xs remove_btn" data-ArticleId='${list[i].ArticleId}' ><i class="icon-trash"></i></button>

@@ -85,6 +85,9 @@ public class ArticleController {
             if(CommonUtils.isNUllOrEmpty(articleId)){
                 return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
             }
+            if(!articleService.isSoftDelete(articleId)){
+                return FreshServiceResult.createFailFreshServiceResult("物理删除文章前需置文章软删除标志为true");
+            }
             articleService.physicsDeleteArticle(physicsDeleteArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("删除文章成功");
         } catch (Exception e){

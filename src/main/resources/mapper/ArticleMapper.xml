@@ -89,7 +89,7 @@
 
     <delete id="physicsDeleteArticle" parameterType="com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest">
         delete from <include refid="BASE_TABLE"/>
-        where articleId = #{articleId, jdbcType=VARCHAR}
+        where articleId = #{articleId, jdbcType=VARCHAR} and isSoftDelete = true
     </delete>
 
     <update id="updateArticle" parameterType="com.xingkaichun.information.model.ArticleDomain">
@@ -122,4 +122,12 @@
         ArticleId = #{articleId, jdbcType=VARCHAR}
         where ArticleId = #{articleId, jdbcType=VARCHAR}
     </update>
+
+    <select id="queryArticleByArticleId" resultType="com.xingkaichun.information.model.ArticleDomain">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where articleId = #{articleId, jdbcType=VARCHAR}
+    </select>
 </mapper>

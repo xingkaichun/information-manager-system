@@ -17,6 +17,7 @@ import com.xingkaichun.information.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.MalformedParametersException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,12 @@ public class ArticleServiceImpl implements ArticleService {
         queryArticleRequest.setCategoryId(categoryId);
         int totalCount = articleDao.queryArticleTotalCount(queryArticleRequest);
         return totalCount>0?true:false;
+    }
+
+    @Override
+    public boolean isSoftDelete(String articleId) {
+        ArticleDomain articleDomain = articleDao.queryArticleByArticleId(articleId);
+        return articleDomain.isSoftDelete();
     }
 
     private List<ArticleDTO> classCast(List<ArticleDomain> articleDomainList) {
