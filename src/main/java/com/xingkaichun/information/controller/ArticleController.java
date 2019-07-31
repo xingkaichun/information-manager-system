@@ -2,7 +2,7 @@ package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
-import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
+import com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.article.response.QueryArticleResponse;
@@ -78,14 +78,14 @@ public class ArticleController {
 
     @ApiOperation(value="删除文章", notes="删除文章")
     @ResponseBody
-    @PostMapping("/DeleteArticle")
-    public FreshServiceResult deleteArticle(@RequestBody DeleteArticleRequest deleteArticleRequest){
+    @PostMapping("/PhysicsDeleteArticle")
+    public FreshServiceResult physicsDeleteArticle(@RequestBody PhysicsDeleteArticleRequest physicsDeleteArticleRequest){
         try{
-            String articleId = deleteArticleRequest.getArticleId();
+            String articleId = physicsDeleteArticleRequest.getArticleId();
             if(CommonUtils.isNUllOrEmpty(articleId)){
                 return FreshServiceResult.createFailFreshServiceResult("ArticleId不能为空");
             }
-            articleService.deleteArticle(deleteArticleRequest);
+            articleService.physicsDeleteArticle(physicsDeleteArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("删除文章成功");
         } catch (Exception e){
             String message = "删除文章失败";

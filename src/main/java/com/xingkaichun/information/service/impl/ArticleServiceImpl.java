@@ -4,7 +4,7 @@ import com.xingkaichun.information.dao.ArticleDao;
 import com.xingkaichun.information.dao.FileDao;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
-import com.xingkaichun.information.dto.article.request.DeleteArticleRequest;
+import com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.base.PageCondition;
@@ -34,8 +34,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int deleteArticle(DeleteArticleRequest deleteArticleRequest) {
-        return articleDao.deleteArticle(deleteArticleRequest);
+    public int physicsDeleteArticle(PhysicsDeleteArticleRequest physicsDeleteArticleRequest) {
+        return articleDao.physicsDeleteArticle(physicsDeleteArticleRequest);
     }
 
     @Override

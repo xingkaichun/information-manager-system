@@ -87,7 +87,7 @@
         <if test="lastEditTimeEnd != null">AND LastEditTime <![CDATA[<=]]>#{lastEditTimeEnd, jdbcType=TIMESTAMP}</if>
     </select>
 
-    <delete id="deleteArticle" parameterType="com.xingkaichun.information.dto.article.request.DeleteArticleRequest">
+    <delete id="physicsDeleteArticle" parameterType="com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest">
         delete from <include refid="BASE_TABLE"/>
         where articleId = #{articleId, jdbcType=VARCHAR}
     </delete>

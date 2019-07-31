@@ -270,10 +270,10 @@ $(function(){
     //删除
     $(document).on("click",".remove_btn",function(){
         var ArticleId = $(this).attr("data-ArticleId")
-        if(confirm("确定删除吗?")){
+        if(confirm("确定从物理上删除文章吗?删除不可恢复!")){
             $.ajax({
                 type: "post",
-                url: url+"/Article/DeleteArticle",
+                url: url+"/Article/PhysicsDeleteArticle",
                 data:`{"ArticleId":"${ArticleId}"}`,
                 contentType:"application/json",
                 dataType: "json",
