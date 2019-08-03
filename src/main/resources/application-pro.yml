@@ -3,4 +3,4 @@ application:
 server:
   port: 80
 upload:
-  fileDirectory: /root/app/information-manager-system/images/
+  fileDirectory: /root/app/files/
