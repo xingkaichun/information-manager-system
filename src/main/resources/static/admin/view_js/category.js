@@ -21,18 +21,12 @@ $("#primary_btn").click(function () {
             $("#myModal2 input[name='name']").val("")
             if(data.Result==null){
                 if(data.ServiceCode=="SUCCESS"){
-                    $("#tips").text("新增类别成功").addClass("alert-danger").show()
                     getNodes()
-                }else{
-                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
-                    },3000)
                 }
+                alert(`${data.Message}`);
             }
         },
         error:function(e){
-
         }
     });
     $("#myModal2").modal("hide")
@@ -66,15 +60,10 @@ var setting = {
                     success: function(data){
                         if(data.ServiceCode=="SUCCESS"){
                             success_true = true
-                        }else{
-                            $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
-                            setTimeout(function () {
-                                $("#tips").removeClass("alert-danger").fadeOut()
-                            },3000)
                         }
+                         alert(`${data.Message}`);
                     },
                     error:function(e){
-
                     }
                 });
             }else{
@@ -94,7 +83,6 @@ var setting = {
                 success: function(data){
                 },
                 error:function(e){
-
                 }
             });
             return true
@@ -122,12 +110,11 @@ function getNodes() {
         success: function(data){
             console.log(data)
             if(data.Result!=null){
-                var  CategoryDTOList = data.Result.CategoryDTOList
+                var CategoryDTOList = data.Result.CategoryDTOList
                 $.fn.zTree.init($("#treeDemo"), setting, serverArray(CategoryDTOList));
             }
         },
         error:function(e){
-
         }
     });
 }
@@ -167,17 +154,11 @@ function addHoverDom(treeId, treeNode) {
             success: function(data){
                 console.log(data)
                 if(data.ServiceCode=="SUCCESS"){
-                    $("#tips").text("新增类别成功").addClass("alert-danger").show()
                     getNodes()
-                }else{
-                    $("#tips").text(`${data.Message}`).addClass("alert-danger").show()
-                    setTimeout(function () {
-                        $("#tips").removeClass("alert-danger").fadeOut()
-                    },3000)
                 }
+                alert(`${data.Message}`);
             },
             error:function(e){
-
             }
         });
 

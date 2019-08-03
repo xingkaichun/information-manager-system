@@ -206,7 +206,7 @@ $(function(){
 
                     $("#myModal2").modal("hide")
                 }
-                bootbox.alert("<font size='30' color='red'>"+`${data.Message}`+"</font>");
+                alert(`${data.Message}`);
             },
             error:function(e){}
         });
@@ -265,7 +265,7 @@ $(function(){
                     getList(page_num)
                     $("#myModal").modal("hide")
                 }
-                bootbox.alert("<font size='30' color='red'>"+`${data.Message}`+"</font>");
+                alert(`${data.Message}`);
             },
             error:function(e){}
         });
@@ -284,7 +284,7 @@ $(function(){
                     if(data.ServiceCode=="SUCCESS"){
                         getList(page_num)
                     }
-                    bootbox.alert("<font size='30' color='red'>"+`${data.Message}`+"</font>");
+                    alert(`${data.Message}`);
                 },
                 error:function(e){}
             });
