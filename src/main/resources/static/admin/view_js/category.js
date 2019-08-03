@@ -61,7 +61,7 @@ var setting = {
                         if(data.ServiceCode=="SUCCESS"){
                             success_true = true
                         }
-                         alert(`${data.Message}`);
+                        alert(`${data.Message}`);
                     },
                     error:function(e){
                     }
@@ -81,6 +81,8 @@ var setting = {
                 contentType:"application/json",
                 dataType: "json",
                 success: function(data){
+                    alert(`${data.Message}`);
+                    getNodes()
                 },
                 error:function(e){
                 }
@@ -145,23 +147,27 @@ function addHoverDom(treeId, treeNode) {
     //新增节点
     if (btn) btn.bind("click", function(){
         console.log("addHoverDom_btn",treeNode.id,newCount)
-        $.ajax({
-            type: "post",
-            url: url+"/Category/AddCategory",
-            data:`{"ParentCategoryId":"${treeNode.id}","CategoryName":"默认","UserId":"${user_info.UserId}"}`,
-            contentType:"application/json",
-            dataType: "json",
-            success: function(data){
-                console.log(data)
-                if(data.ServiceCode=="SUCCESS"){
-                    getNodes()
+        var newCategoryName=prompt("请输入类别名称","新的类别");
+        if (newCategoryName!=null && newCategoryName!="") {
+            $.ajax({
+                type: "post",
+                url: url+"/Category/AddCategory",
+                data:`{"ParentCategoryId":"${treeNode.id}","CategoryName":"${newCategoryName}","UserId":"${user_info.UserId}"}`,
+                contentType:"application/json",
+                dataType: "json",
+                success: function(data){
+                    console.log(data)
+                    if(data.ServiceCode=="SUCCESS"){
+                        getNodes()
+                    }
+                    alert(`${data.Message}`);
+                },
+                error:function(e){
                 }
-                alert(`${data.Message}`);
-            },
-            error:function(e){
-            }
-        });
-
+            });
+        } else {
+            alert("类别名称不能为空");
+        }
         return false;
     });
 };
