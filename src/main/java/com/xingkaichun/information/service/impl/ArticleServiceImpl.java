@@ -103,6 +103,13 @@ public class ArticleServiceImpl implements ArticleService {
             articleDTO.setAttachedFilesDetails(attachedFileDetails);
         }
         articleDTO.setIsSoftDelete(articleDomain.isSoftDelete());
+
+        articleDTO.setBookAuthor(articleDomain.getBookAuthor());
+        articleDTO.setBookLanguage(articleDomain.getBookLanguage());
+        articleDTO.setBookVersion(articleDomain.getBookVersion());
+        articleDTO.setBookTranslateAuthor(articleDomain.getBookTranslateAuthor());
+        articleDTO.setBookPublishingHouse(articleDomain.getBookPublishingHouse());
+        articleDTO.setBookISBN(articleDomain.getBookISBN());
         return articleDTO;
     }
 
@@ -118,6 +125,13 @@ public class ArticleServiceImpl implements ArticleService {
         articleDomain.setAttachedFiles(articleDTO.getAttachedFiles());
         Boolean isSoftDelete = articleDTO.getIsSoftDelete();
         articleDomain.setSoftDelete(CommonUtils.isNUll(isSoftDelete)?false:isSoftDelete);
+
+        articleDomain.setBookAuthor(articleDTO.getBookAuthor());
+        articleDomain.setBookLanguage(articleDTO.getBookLanguage());
+        articleDomain.setBookVersion(articleDTO.getBookVersion());
+        articleDomain.setBookTranslateAuthor(articleDTO.getBookTranslateAuthor());
+        articleDomain.setBookPublishingHouse(articleDTO.getBookPublishingHouse());
+        articleDomain.setBookISBN(articleDTO.getBookISBN());
         return articleDomain;
     }
 }

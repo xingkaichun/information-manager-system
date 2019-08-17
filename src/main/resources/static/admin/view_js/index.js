@@ -222,7 +222,6 @@ $(function(){
         $("input[name='edit_title']").val(data_json.Title)
         $('#edit_content').summernote("code",data_json.Content)
         $("#edit_CategoryId .daan").attr("data-id",data_json.CategoryId)
-        //$("input[name='edit_IdSoftDelete'][value='"+data_json.IsSoftDelete+"']").attr("checked",data_json.IsSoftDelete);
         $("input[name='edit_IsSoftDelete'][value='"+data_json.IsSoftDelete+"']").click();
         $("#edit_CategoryId li").each(function(){
             if($(this).attr("data-id")==data_json.CategoryId){
@@ -239,8 +238,12 @@ $(function(){
                                             </div>`)
             }
         }
-
-
+        $("input[name='edit_bookAuthor']").val(data_json.BookAuthor)
+        $("input[name='edit_bookLanguage']").val(data_json.BookLanguage)
+        $("input[name='edit_bookVersion']").val(data_json.BookVersion)
+        $("input[name='edit_bookTranslateAuthor']").val(data_json.BookTranslateAuthor)
+        $("input[name='edit_bookPublishingHouse']").val(data_json.BookPublishingHouse)
+        $("input[name='edit_bookISBN']").val(data_json.BookISBN)
     })
     //修改
     $(document).on("click","#edit_btn",function(){
@@ -248,7 +251,13 @@ $(function(){
             title:$("input[name='edit_title']").val(),
             content:$('#edit_content').summernote("code"),
             CategoryId:$("#edit_CategoryId .daan").attr("data-id")?$("#edit_CategoryId .daan").attr("data-id"):"",
-            IsSoftDelete:$('input[name="edit_IsSoftDelete"]:checked').val()
+            IsSoftDelete:$('input[name="edit_IsSoftDelete"]:checked').val(),
+            BookAuthor:$("input[name='edit_bookAuthor']").val(),
+            BookLanguage:$("input[name='edit_bookLanguage']").val(),
+            BookVersion:$("input[name='edit_bookVersion']").val(),
+            BookTranslateAuthor:$("input[name='edit_bookTranslateAuthor']").val(),
+            BookPublishingHouse:$("input[name='edit_bookPublishingHouse']").val(),
+            BookISBN:$("input[name='edit_bookISBN']").val()
         }
         var filestr = []
         $(".edit_file_list .file_li").each(function () {
@@ -257,7 +266,9 @@ $(function(){
         $.ajax({
             type: "post",
             url: url+"/Article/UpdateArticle",
-            data:`{"ArticleId":"${edit_ArticleId}","AttachedFiles":"${filestr.join(",")}","CategoryId":"${edit_json.CategoryId}","IsSoftDelete":"${edit_json.IsSoftDelete}","Content":"${edit_json.content.replace(/"/g, "'")}","Title":"${edit_json.title}","UserId":"${user_info.UserId}"}`,
+            data:`{"ArticleId":"${edit_ArticleId}","AttachedFiles":"${filestr.join(",")}","CategoryId":"${edit_json.CategoryId}","IsSoftDelete":"${edit_json.IsSoftDelete}","Content":"${edit_json.content.replace(/"/g, "'")}","Title":"${edit_json.title}","UserId":"${user_info.UserId}"
+            ,"BookAuthor":"${edit_json.BookAuthor}","BookLanguage":"${edit_json.BookLanguage}","BookVersion":"${edit_json.BookVersion}"
+            ,"BookTranslateAuthor":"${edit_json.BookTranslateAuthor}","BookPublishingHouse":"${edit_json.BookPublishingHouse}","BookISBN":"${edit_json.BookISBN}"}`,
             contentType:"application/json",
             dataType: "json",
             success: function(data){

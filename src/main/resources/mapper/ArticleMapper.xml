@@ -7,6 +7,7 @@
 
   <sql id="BASE_COLUMN">
      articleId,categoryId,userId,title,content,createTime,lastEditTime,attachedFiles,isSoftDelete
+      ,bookAuthor,bookLanguage,bookVersion,bookTranslateAuthor,bookPublishingHouse,bookISBN
   </sql>
 
   <insert id="addArticle" parameterType="com.xingkaichun.information.model.ArticleDomain">
@@ -22,8 +23,14 @@
       #{createTime, jdbcType=TIMESTAMP},
       #{lastEditTime, jdbcType=TIMESTAMP},
       #{attachedFiles, jdbcType=VARCHAR},
-      false
-    )
+      false,
+      #{bookAuthor, jdbcType=VARCHAR},
+      #{bookLanguage, jdbcType=VARCHAR},
+      #{bookVersion, jdbcType=VARCHAR},
+      #{bookTranslateAuthor, jdbcType=VARCHAR},
+      #{bookPublishingHouse, jdbcType=VARCHAR},
+      #{bookISBN, jdbcType=VARCHAR}
+      )
   </insert>
 
   <select id="queryArticle" parameterType="com.xingkaichun.information.dto.article.request.QueryArticleRequest" resultType="com.xingkaichun.information.model.ArticleDomain">
@@ -119,6 +126,14 @@
         <if test="isSoftDelete != null">
             IsSoftDelete = #{isSoftDelete, jdbcType=BIT},
         </if>
+
+        <if test="bookAuthor != null">bookAuthor = #{bookAuthor, jdbcType=VARCHAR},</if>
+        <if test="bookLanguage != null">bookLanguage = #{bookLanguage, jdbcType=VARCHAR},</if>
+        <if test="bookVersion != null">bookVersion = #{bookVersion, jdbcType=VARCHAR},</if>
+        <if test="bookTranslateAuthor != null">bookTranslateAuthor = #{bookTranslateAuthor, jdbcType=VARCHAR},</if>
+        <if test="bookPublishingHouse != null">bookPublishingHouse = #{bookPublishingHouse, jdbcType=VARCHAR},</if>
+        <if test="bookISBN != null">bookISBN = #{bookISBN, jdbcType=VARCHAR},</if>
+
         ArticleId = #{articleId, jdbcType=VARCHAR}
         where ArticleId = #{articleId, jdbcType=VARCHAR}
     </update>
