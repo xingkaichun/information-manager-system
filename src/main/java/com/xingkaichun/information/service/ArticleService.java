@@ -9,6 +9,8 @@ import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.model.ArticleDomain;
 import org.apache.ibatis.annotations.Param;
 
+import java.io.IOException;
+
 public interface ArticleService {
 
     int addArticle(AddArticleRequest addArticleRequest);
@@ -22,4 +24,6 @@ public interface ArticleService {
     boolean hasArticleInCategoryId(String categoryId);
 
     boolean isSoftDelete(String articleId);
+
+    void createArticleHtml() throws IOException;
 }

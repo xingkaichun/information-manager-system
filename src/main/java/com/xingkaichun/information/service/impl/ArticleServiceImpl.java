@@ -9,14 +9,22 @@ import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.base.PageCondition;
 import com.xingkaichun.information.dto.base.PageInformation;
+import com.xingkaichun.information.dto.category.CategoryDTO;
+import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
+import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.dto.file.FileDto;
 import com.xingkaichun.information.model.ArticleDomain;
 import com.xingkaichun.information.model.FileDomain;
 import com.xingkaichun.information.service.ArticleService;
+import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
+import com.xingkaichun.information.utils.CommonUtilsFile;
+import com.xingkaichun.information.utils.CommonUtilsList;
+import com.xingkaichun.information.utils.CommonUtilsString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.lang.reflect.MalformedParametersException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +33,11 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private ArticleDao articleDao;
+
     @Autowired
     private FileDao fileDao;
 
@@ -69,6 +81,65 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDomain.isSoftDelete();
     }
 
+    @Override
+    public void createArticleHtml() throws IOException {
+        QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
+        List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
+        String pathDirect = "C:\\Users\\123\\IdeaProjects\\information-manager-system\\src\\main\\resources\\static\\article\\";
+        String template = "InfoTemplate.html";
+        String content = CommonUtilsFile.readFileContent(pathDirect+template);
+
+        QueryCategoryResponse queryCategoryResponse = categoryService.queryCategoryReturnHierarchicalStructure(new QueryCategoryRequest());
+        //书籍类别
+        CategoryDTO bookCategoryDTO = queryCategoryResponse.getCategoryDTOList().stream().filter(categoryDTO -> categoryDTO.getCategoryId().equals("a6cfe490-f0f5-45c6-95fb-4c7c0ca38f79")).findFirst().get();
+        for(ArticleDomain articleDomain:articleDomainList){
+            String articleId = articleDomain.getArticleId();
+            String articleTitle = CommonUtilsString.isNullOrEmpty(articleDomain.getTitle())?"":articleDomain.getTitle();
+            //简介
+            String articleInfo = "[无]" ;
+            //如果是书籍下载页
+            if(isSonCategory(bookCategoryDTO,articleDomain.getCategoryId())){
+                articleInfo = articleTitle + "目录、" + articleTitle+"下载";
+            }
+            List<FileDto> fileDtoList = classCast2FileDtoList(articleDomain);
+            String downFileHtml = "" ;
+            if(!CommonUtilsList.isNullOrEmpty(fileDtoList)){
+                for(FileDto fileDto:fileDtoList){
+                    downFileHtml = downFileHtml + "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:red' href="+fileDto.getDownPath()+">"+fileDto.getFileName()+"下载<a>";
+                }
+            }
+            String articleContent = CommonUtilsString.isNullOrEmpty(articleDomain.getContent())?"":articleDomain.getContent();
+            String articleHtml = content.replace("[###con_tilte###]",articleTitle)
+                    .replace("[###con_info###]",articleInfo+downFileHtml)
+                    .replace("[###con_text###]",articleContent);
+            CommonUtilsFile.writeFileContent(pathDirect+articleId+".html",articleHtml);
+        }
+    }
+
+    /**
+     * 判断类别是否是类别DTO(或是其子类别)
+     * @return
+     */
+    private boolean isSonCategory(CategoryDTO categoryDTO, String categoryId) {
+        if(categoryDTO==null){
+            return false;
+        }
+        if(categoryDTO.getCategoryId().equals(categoryId)){
+            return true;
+        }
+        List<CategoryDTO> childrenCategoryDTOList = categoryDTO.getChildrenCategoryDTOList();
+        if(childrenCategoryDTOList==null){
+            return false;
+        }else{
+            for(CategoryDTO childrenCategoryDTO:childrenCategoryDTOList){
+                if(isSonCategory(childrenCategoryDTO,categoryId)){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     private List<ArticleDTO> classCast(List<ArticleDomain> articleDomainList) {
         if(articleDomainList == null){
             return null;
@@ -88,20 +159,8 @@ public class ArticleServiceImpl implements ArticleService {
         articleDTO.setCreateTime(articleDomain.getCreateTime());
         articleDTO.setLastEditTime(articleDomain.getLastEditTime());
         articleDTO.setAttachedFiles(articleDomain.getAttachedFiles());
-        String attachedFiles = articleDomain.getAttachedFiles();
-        if(CommonUtils.isNUllOrEmpty(attachedFiles)){
-            articleDTO.setAttachedFilesDetails(null);
-        }else{
-            String[] attachedFileIds = attachedFiles.split(",");
-            List<FileDto> attachedFileDetails = new ArrayList<>();
-            for(String af:attachedFileIds){
-                List<FileDomain> fileDomains = fileDao.queryFile(new FileDomain(af,null,null,null,null));
-                if(!CommonUtils.isNUllOrEmpty(fileDomains)){
-                    attachedFileDetails.addAll(FileServiceImpl.classCast(fileDomains));
-                }
-            }
-            articleDTO.setAttachedFilesDetails(attachedFileDetails);
-        }
+        List<FileDto> attachedFileDetails = classCast2FileDtoList(articleDomain);
+        articleDTO.setAttachedFilesDetails(attachedFileDetails);
         articleDTO.setIsSoftDelete(articleDomain.isSoftDelete());
 
         articleDTO.setBookAuthor(articleDomain.getBookAuthor());
@@ -111,6 +170,25 @@ public class ArticleServiceImpl implements ArticleService {
         articleDTO.setBookPublishingHouse(articleDomain.getBookPublishingHouse());
         articleDTO.setBookISBN(articleDomain.getBookISBN());
         return articleDTO;
+    }
+
+    /**
+     * 将ArticleDomain的attachedFiles转换为文件FileDto对象
+     */
+    private List<FileDto> classCast2FileDtoList(ArticleDomain articleDomain) {
+        String attachedFiles = articleDomain.getAttachedFiles();
+        if(CommonUtils.isNUllOrEmpty(attachedFiles)){
+            return null;
+        }
+        String[] attachedFileIds = attachedFiles.split(",");
+        List<FileDto> attachedFileDetails = new ArrayList<>();
+        for(String af:attachedFileIds){
+            List<FileDomain> fileDomains = fileDao.queryFile(new FileDomain(af,null,null,null,null));
+            if(!CommonUtils.isNUllOrEmpty(fileDomains)){
+                attachedFileDetails.addAll(FileServiceImpl.classCast(fileDomains));
+            }
+        }
+        return attachedFileDetails;
     }
 
     private ArticleDomain classCast(ArticleDTO articleDTO) {

@@ -184,7 +184,13 @@ $(function(){
         var add_json = {
             title:$("input[name='add_title']").val(),
             content:$('#add_content').summernote("code"),
-            CategoryId:$("#add_CategoryId .daan").attr("data-id")?$("#add_CategoryId .daan").attr("data-id"):""
+            CategoryId:$("#add_CategoryId .daan").attr("data-id")?$("#add_CategoryId .daan").attr("data-id"):"",
+            BookAuthor:$("input[name='add_bookAuthor']").val(),
+            BookLanguage:$("input[name='add_bookLanguage']").val(),
+            BookVersion:$("input[name='add_bookVersion']").val(),
+            BookTranslateAuthor:$("input[name='add_bookTranslateAuthor']").val(),
+            BookPublishingHouse:$("input[name='add_bookPublishingHouse']").val(),
+            BookISBN:$("input[name='add_bookISBN']").val()
         }
         var filestr = []
         $(".add_file_list .file_li").each(function () {
@@ -193,7 +199,9 @@ $(function(){
         $.ajax({
             type: "post",
             url: url+"/Article/AddArticle",
-            data:`{"AttachedFiles":"${filestr.join(",")}","CategoryId":"${add_json.CategoryId}","Content":"${add_json.content.replace(/"/g, "'")}","Title":"${add_json.title}","UserId":"${user_info.UserId}"}`,
+            data:`{"AttachedFiles":"${filestr.join(",")}","CategoryId":"${add_json.CategoryId}","Content":"${add_json.content.replace(/"/g, "'")}","Title":"${add_json.title}","UserId":"${user_info.UserId}"
+                        ,"BookAuthor":"${add_json.BookAuthor}","BookLanguage":"${add_json.BookLanguage}","BookVersion":"${add_json.BookVersion}"
+                        ,"BookTranslateAuthor":"${add_json.BookTranslateAuthor}","BookPublishingHouse":"${add_json.BookPublishingHouse}","BookISBN":"${add_json.BookISBN}"}`,
             contentType:"application/json",
             dataType: "json",
             success: function(data){

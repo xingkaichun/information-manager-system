@@ -138,4 +138,18 @@ public class ArticleController {
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
     }
+
+    @ApiOperation(value="生成文章静态Html页面", notes="生成文章静态Html页面")
+    @ResponseBody
+    @PostMapping("/createArticleHtml")
+    public FreshServiceResult createArticleHtml(){
+        try{
+            articleService.createArticleHtml();
+            return FreshServiceResult.createSuccessFreshServiceResult("生成文章静态Html页面成功");
+        } catch (Exception e){
+            String message = "生成文章静态Html页面失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
 }
