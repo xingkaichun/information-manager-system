@@ -4,9 +4,11 @@ $(document).ready(function() {
     var As = document.getElementById('starlist').getElementsByTagName('a');
     obj = As[0];
     for (i = 1; i < As.length; i++) {
-        if (window.location.href.indexOf(As[i].href) >= 0) obj = As[i];
+        if (window.location.href.indexOf(As[i].href) >= 0) {
+            obj = As[i]
+            obj.id = 'selected';
+        };
     }
-    obj.id = 'selected';
     //nav
     $("#mnavh").click(function() {
         $("#starlist").toggle();
