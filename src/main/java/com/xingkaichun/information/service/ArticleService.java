@@ -25,5 +25,5 @@ public interface ArticleService {
 
     boolean isSoftDelete(String articleId);
 
-    void createArticleHtml() throws IOException;
+    void createArticleHtml(QueryArticleRequest queryArticleRequest) throws IOException;
 }

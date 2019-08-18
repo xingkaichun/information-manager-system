@@ -1,10 +1,7 @@
 package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.article.ArticleDTO;
-import com.xingkaichun.information.dto.article.request.AddArticleRequest;
-import com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest;
-import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
-import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
+import com.xingkaichun.information.dto.article.request.*;
 import com.xingkaichun.information.dto.article.response.QueryArticleResponse;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.PageInformation;
@@ -68,6 +65,10 @@ public class ArticleController {
             addArticleRequest.setIsSoftDelete(false);
             addArticleRequest.setLastEditTime(new Date(System.currentTimeMillis()));
             articleService.addArticle(addArticleRequest);
+            //创建文章静态Html页面
+            QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
+            queryArticleRequest.setArticleId(addArticleRequest.getArticleId());
+            articleService.createArticleHtml(queryArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("新增文章成功");
         } catch (Exception e){
             String message = "新增文章失败";
@@ -129,6 +130,10 @@ public class ArticleController {
                     return FreshServiceResult.createFailFreshServiceResult("文章类别不存在");
                 }
             }
+            //创建文章静态Html页面
+            QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
+            queryArticleRequest.setArticleId(updateArticleRequest.getArticleId());
+            articleService.createArticleHtml(queryArticleRequest);
 
             articleService.updateArticle(updateArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("更新文章成功");
@@ -142,9 +147,9 @@ public class ArticleController {
     @ApiOperation(value="生成文章静态Html页面", notes="生成文章静态Html页面")
     @ResponseBody
     @PostMapping("/createArticleHtml")
-    public FreshServiceResult createArticleHtml(){
+    public FreshServiceResult createArticleHtml(QueryArticleRequest queryArticleRequest){
         try{
-            articleService.createArticleHtml();
+            articleService.createArticleHtml(queryArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("生成文章静态Html页面成功");
         } catch (Exception e){
             String message = "生成文章静态Html页面失败";

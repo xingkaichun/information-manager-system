@@ -89,8 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void createArticleHtml() throws IOException {
-        QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
+    public void createArticleHtml(QueryArticleRequest queryArticleRequest) throws IOException {
         List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
         String content = CommonUtilsFile.readFileContent(articleTemplateFilePath);
         QueryCategoryResponse queryCategoryResponse = categoryService.queryCategoryReturnHierarchicalStructure(new QueryCategoryRequest());
