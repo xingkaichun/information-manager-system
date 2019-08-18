@@ -22,6 +22,7 @@ import com.xingkaichun.information.utils.CommonUtilsFile;
 import com.xingkaichun.information.utils.CommonUtilsList;
 import com.xingkaichun.information.utils.CommonUtilsString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -40,6 +41,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private FileDao fileDao;
+
+    @Value("${project.template.articleTemplateFilePath}")
+    public String articleTemplateFilePath;
+    @Value("${project.template.articleTemplateProduceFileSaveDirectory}")
+    public String articleTemplateProduceFileSaveDirectory;
+
 
     @Override
     public int addArticle(AddArticleRequest addArticleRequest) {
@@ -85,10 +92,7 @@ public class ArticleServiceImpl implements ArticleService {
     public void createArticleHtml() throws IOException {
         QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
         List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
-        String pathDirect = "C:\\Users\\123\\IdeaProjects\\information-manager-system\\src\\main\\resources\\static\\article\\";
-        String template = "InfoTemplate.html";
-        String content = CommonUtilsFile.readFileContent(pathDirect+template);
-
+        String content = CommonUtilsFile.readFileContent(articleTemplateFilePath);
         QueryCategoryResponse queryCategoryResponse = categoryService.queryCategoryReturnHierarchicalStructure(new QueryCategoryRequest());
         //书籍类别
         CategoryDTO bookCategoryDTO = queryCategoryResponse.getCategoryDTOList().stream().filter(categoryDTO -> categoryDTO.getCategoryId().equals("a6cfe490-f0f5-45c6-95fb-4c7c0ca38f79")).findFirst().get();
@@ -112,7 +116,7 @@ public class ArticleServiceImpl implements ArticleService {
             String articleHtml = content.replace("[###con_tilte###]",articleTitle)
                     .replace("[###con_info###]",articleInfo+downFileHtml)
                     .replace("[###con_text###]",articleContent);
-            CommonUtilsFile.writeFileContent(pathDirect+articleId+".html",articleHtml);
+            CommonUtilsFile.writeFileContent(articleTemplateProduceFileSaveDirectory+articleId+".html",articleHtml);
         }
     }
 

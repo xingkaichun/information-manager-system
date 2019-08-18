@@ -23,17 +23,22 @@
         <fileSet>
             <directory>src/main/resources</directory>
             <outputDirectory>./information-manager-system/config</outputDirectory>
+            <includes>
+                <include>*.**</include>
+            </includes>
             <excludes>
-                <exclude>/static</exclude>
-                <exclude>/static/*</exclude>
+                <exclude>/static**</exclude>
             </excludes>
         </fileSet>
         <fileSet>
             <directory>src/main/resources</directory>
             <outputDirectory>./information-manager-system/front-end</outputDirectory>
             <includes>
-                <include>/static/*</include>
+                <include>/static/**</include>
             </includes>
+            <excludes>
+                <exclude>*.**</exclude>
+            </excludes>
         </fileSet>
         <fileSet>
             <directory>scripts/</directory>

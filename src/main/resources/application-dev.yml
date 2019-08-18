@@ -8,3 +8,8 @@ spring:
   http:
     multipart:
       location: D:\temp\information-manager-system\tomcat-temp
+
+project:
+  template:
+    articleTemplateFilePath: C:\Users\123\IdeaProjects\information-manager-system\src\main\resources\static\template\InfoTemplate.html
+    articleTemplateProduceFileSaveDirectory: C:\Users\123\IdeaProjects\information-manager-system\target\classes\static\article\

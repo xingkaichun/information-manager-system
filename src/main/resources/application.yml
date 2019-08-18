@@ -47,8 +47,6 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.xingkaichun.information.model
 
-
-
 #pagehelper
 pagehelper:
   helperDialect: mysql
@@ -56,9 +54,6 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
   returnPageInfo: check
-
-upload:
-  fileDirectory: D:\temp\files\
 
 multipart:
   maxRequestSize: 2000MB

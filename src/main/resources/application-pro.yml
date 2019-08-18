@@ -6,3 +6,8 @@ server:
 
 upload:
   fileDirectory: /root/app/files/
+
+project:
+  template:
+    articleTemplateFilePath: /root/app/information-manager-system/front-end/static/template/InfoTemplate.html
+    articleTemplateProduceFileSaveDirectory: /root/app/information-manager-system/front-end/static/article/
