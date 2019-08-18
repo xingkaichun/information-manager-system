@@ -25,6 +25,7 @@
             <outputDirectory>./information-manager-system/config</outputDirectory>
             <includes>
                 <include>*.**</include>
+                <include>mapper/**</include>
             </includes>
             <excludes>
                 <exclude>/static**</exclude>
