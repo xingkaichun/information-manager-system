@@ -130,12 +130,11 @@ public class ArticleController {
                     return FreshServiceResult.createFailFreshServiceResult("文章类别不存在");
                 }
             }
+            articleService.updateArticle(updateArticleRequest);
             //创建文章静态Html页面
             QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
             queryArticleRequest.setArticleId(updateArticleRequest.getArticleId());
             articleService.createArticleHtml(queryArticleRequest);
-
-            articleService.updateArticle(updateArticleRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("更新文章成功");
         } catch (Exception e){
             String message = "更新文章失败";
