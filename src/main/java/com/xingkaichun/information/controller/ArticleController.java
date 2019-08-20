@@ -11,6 +11,7 @@ import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.information.utils.CommonUtils;
 import com.xingkaichun.information.utils.CommonUtilsSession;
+import com.xingkaichun.information.utils.CommonUtilsString;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -64,6 +65,7 @@ public class ArticleController {
             //默认值
             addArticleRequest.setIsSoftDelete(false);
             addArticleRequest.setLastEditTime(new Date(System.currentTimeMillis()));
+            handlerArticleContent(addArticleRequest);
             articleService.addArticle(addArticleRequest);
             //创建文章静态Html页面
             QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
@@ -130,6 +132,7 @@ public class ArticleController {
                     return FreshServiceResult.createFailFreshServiceResult("文章类别不存在");
                 }
             }
+            handlerArticleContent(updateArticleRequest);
             articleService.updateArticle(updateArticleRequest);
             //创建文章静态Html页面
             QueryArticleRequest queryArticleRequest = new QueryArticleRequest();
@@ -154,6 +157,17 @@ public class ArticleController {
             String message = "生成文章静态Html页面失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    /**
+     * 对article内容做进一步处理
+     */
+    private void handlerArticleContent(ArticleDTO articleDTO){
+        String content = articleDTO.getContent();
+        if(!CommonUtilsString.isNullOrEmpty(content)){
+            content = content.replaceAll("</div><div>","</div>\r\n<div>");
+            articleDTO.setContent(content);
         }
     }
 }
