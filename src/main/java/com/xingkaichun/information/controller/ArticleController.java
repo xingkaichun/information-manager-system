@@ -166,7 +166,8 @@ public class ArticleController {
     private void handlerArticleContent(ArticleDTO articleDTO){
         String content = articleDTO.getContent();
         if(!CommonUtilsString.isNullOrEmpty(content)){
-            content = content.replaceAll("</div><div>","</div>\r\n<div>");
+            content = content.replaceAll("</div><","</div>\r\n<");
+            content = content.replaceAll("</p><","</p>\n<");
             articleDTO.setContent(content);
         }
     }
