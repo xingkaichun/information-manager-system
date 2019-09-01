@@ -3,6 +3,8 @@ application:
 
 server:
   port: 80
+  tomcat:
+    basedir: /root/app/tmp/tomcatio/
 
 upload:
   fileDirectory: /root/app/files/
