@@ -64,12 +64,12 @@
                 <h1><a name="lucenemysqlqubie">lucene、mysql、oracle的区别？</a></h1>
                 <p>lucene是搜索引擎，mysql、oracle是关系型数据库，问lucene与mysql的区别，不如问搜索引擎与关系型数据库的区别</p>
                 <p><br></p>
-                <table class="table table-bordered">
+                <table class="common-table">
                     <tbody>
                     <tr>
-                        <td><br></td>
-                        <td>搜索引擎<br></td>
-                        <td>关系型数据库<br></td>
+                        <th><br></th>
+                        <th>搜索引擎<br></th>
+                        <th>关系型数据库<br></th>
                     </tr>
                     <tr>
                         <td>搜索速度<br></td>
@@ -94,12 +94,12 @@
                 <p>另外说一句，它们的关系好比是oracle与mysql(它们都是关系型数据库)。</p>
                 <h1><a name="lucenesolrqubie">lucene与solr(elasticsearch)的区别？</a></h1>
                 <p><br></p>
-                <table class="table table-bordered">
+                <table class="common-table">
                     <tbody>
                     <tr>
-                        <td><br></td>
-                        <td>Lucene<span style="white-space:pre">	</span><br></td>
-                        <td>Solr/Elasticsearch<br></td>
+                        <th><br></th>
+                        <th>Lucene</th>
+                        <th>Solr/Elasticsearch</th>
                     </tr>
                     <tr>
                         <td>是Java jar包<br></td>
@@ -137,12 +137,12 @@
                 <p>既然solr与elasticsearch都是企业级的搜索平台，它们的相同点有很多: 它们的底层都是lucene，它们都是企业级搜索平台，它们都提供分布式搜索功能，都能轻易处理亿级的数据量，都提供实时搜索功能......</p>
                 <p>那它们有什么区别呢？据我的观察，它们最大的区别是生态。solr是apache开源的软件，它开源，完全免费的企业级搜索平台。而elasticsearc是公司企业在维护推广，它部分产品收费，同时企业围绕着elasticsearch推出了一套完善的数据分析框架，也就是大名鼎鼎的ELK。</p>
                 <p><br></p>
-                <table class="table table-bordered">
+                <table class="common-table">
                     <tbody>
                     <tr>
-                        <td><br></td>
-                        <td>Solr<br></td>
-                        <td>ElasticSearch<br></td>
+                        <th><br></th>
+                        <th>Solr<br></th>
+                        <th>ElasticSearch<br></th>
                     </tr>
                     <tr>
                         <td>企业级搜索平台<br></td>
@@ -174,37 +174,28 @@
                         <td>提供<br></td>
                         <td>提供<br></td>
                     </tr>
+                    <tr>
+                        <td>组织<br></td>
+                        <td>大名鼎鼎的apache<br></td>
+                        <td>elasticsearc公司<br></td>
+                    </tr>
+                    <tr>
+                        <td>开源<br></td>
+                        <td>完全开源<br></td>
+                        <td>部分开源<br></td>
+                    </tr>
+                    <tr>
+                        <td>产品收费<br></td>
+                        <td>完全免费<br></td>
+                        <td>部分收费<br></td>
+                    </tr>
+                    <tr>
+                        <td>生态<br></td>
+                        <td>Lucene/Solr<br></td>
+                        <td>ELK等<br></td>
+                    </tr>
                     </tbody>
                 </table>
-                <br><table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <td></td>
-                    <td>Solr</td>
-                    <td>ElasticSearch<br></td>
-                </tr>
-                <tr>
-                    <td>组织<br></td>
-                    <td>大名鼎鼎的apache<br></td>
-                    <td>elasticsearc公司<br></td>
-                </tr>
-                <tr>
-                    <td>开源<br></td>
-                    <td>完全开源<br></td>
-                    <td>部分开源<br></td>
-                </tr>
-                <tr>
-                    <td>产品收费<br></td>
-                    <td>完全免费<br></td>
-                    <td>部分收费<br></td>
-                </tr>
-                <tr>
-                    <td>生态<br></td>
-                    <td>Lucene/Solr<br></td>
-                    <td>ELK等<br></td>
-                </tr>
-                </tbody>
-            </table>
                 <h1><a name="luceneyuanli">lucene原理是什么？</a></h1>
                 <p>这个问题问的不够准确，一般人其实想问的问题包含两个:</p>
                 <p>一是lucene快速检索的原理是什么？</p>
@@ -360,12 +351,12 @@
                 <p>而文档中Term的TF会影响文档这个Term的权重。</p>
                 <p>一般共识是Term的权重与TF成正比。</p>
                 <p><br></p>
-                <table class="table table-bordered">
+                <table class="common-table">
                     <tbody>
                     <tr>
-                        <td>Term<br></td>
-                        <td>TF(文档5)<br></td>
-                        <td>TF(文档6)<br></td>
+                        <th>Term<br></th>
+                        <th>TF(文档5)<br></th>
+                        <th>TF(文档6)<br></th>
                     </tr>
                     <tr>
                         <td>邢开春<br></td>

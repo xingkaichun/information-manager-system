@@ -124,22 +124,34 @@ body {
 #article_details .link_content .content img {
   max-width: 100%;
 }
-
-#font1 {
+/* 字体优化 */
+.common-font1 {
   font-size: 36px;
 }
-#font2 {
+.common-font2 {
   font-size: 24px;
 }
-#font3 {
+.common-font3 {
   font-size: 21px;
 }
-#font4 {
+.common-font4 {
   font-size: 18px;
 }
-#font5 {
+.common-font5 {
   font-size: 16px;
 }
-#font6   {
+.common-font6   {
   font-size: 14px;
 }
+/* 表格优化 */
+table {border-collapse:collapse;}
+table,th,td {border: 1px solid black;}
+.common-table { width: 100%; }
+.common-table th { background-color: #CCCCCC; border: 1px solid #AAA; padding: 8px; }
+.common-table td { background-color: #EFEFEF; border: 1px solid #AAA; padding: 8px; }
+.common-table2 { width: 100%; }
+.common-table2 th { background-color: #dedede; border: 1px solid #666; padding: 8px; }
+.common-table2 td { background-color: #ffffff; border: 1px solid #666; padding: 8px; }
+.common-table3 { width: 100%; }
+.common-table3 th { background-color: #c3dde0; border: 1px solid #a9c6c9; padding: 8px; }
+.common-table3 td { background-color: #d4e3e5; border: 1px solid #a9c6c9; padding: 8px; }
