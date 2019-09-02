@@ -124,3 +124,22 @@ body {
 #article_details .link_content .content img {
   max-width: 100%;
 }
+
+#font1 {
+  font-size: 36px;
+}
+#font2 {
+  font-size: 24px;
+}
+#font3 {
+  font-size: 21px;
+}
+#font4 {
+  font-size: 18px;
+}
+#font5 {
+  font-size: 16px;
+}
+#font6   {
+  font-size: 14px;
+}
