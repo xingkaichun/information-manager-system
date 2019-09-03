@@ -40,7 +40,7 @@
 			<div class="content">
 				<h1><a name="lucenejiaocheng">lucene教程</a></h1>
                 <h1><a name="qianyan">前言</a></h1>
-                <p>我是邢开春，有过几年搜索引擎开发的经验，现在搞了一个网站，一是交流分享，二是希望利用自己的工作经验赚取一些外快。现在已将自己多年搜索引擎的经验做成了一套教程（包含lucene、solr、elasticsearch），这套教程从入门使用到深入原理，面面俱到，可以帮助初学者快速入门，帮助使用者务实基础。本人的课程(博客文章、视频教程等)力求在知识上直击本质。</p>
+                <p>我是邢开春，有过几年搜索引擎开发的经验，现在搞了一个网站，一是交流分享，二是希望利用自己的工作经验赚取一些外快。经过多月的折腾，融合了自己几年的搜索引擎的经验，做成了一套搜索引擎教程（包含lucene、solr、elasticsearch）。这套教程从入门使用到深入原理，面面俱到，可以帮助初学者快速入门，帮助使用者务实基础。本人的课程(博客文章、视频教程等)力求在知识上直击本质。</p>
                 <h1><a name="shenmeshihoushiyongsousuoyinqing">什么时候应该考虑使用搜索引擎?</a></h1>
                 <h2>第一点：有搜索功能的需求</h2>
                 <p>想为App、网站添加类似”百度搜索的服务”搜索自家资源；想为用户提供类似”百度搜索的服务”搜索自家资源。</p>
@@ -207,7 +207,7 @@
                 <p>用二分查找，至多查询27次，就可确定一亿个有序的数中是否包含某个数。</p>
                 <h3>具体案例</h3>
                 <p>假设我们要在 1，2，7，15，18，30，35，41中查找7，上图所示，则查找步骤为：</p>
-                <p><img src="http://47.94.230.44:80/File/FileDownload?fileId=417e21a7-9a8a-4faf-abef-b812b2df4315" style="width: 679px;"><br></p>
+                <p><img alt="二分查找" title="二分查找" src="http://px8ts3n75.bkt.clouddn.com/erfenchazhao.jfif" style="width: 679px;"><br></p>
                 <p>第一次查询:在 1，2，7，15，18，30，35，41中查找7。</p>
                 <p>首先找到中值：中值为15（下标= (0+7)/2），将7与15进行比较，发现7比15小，继续在前面部分[1，2，7，15]找；</p>
                 <p>第二次查询: 在[1，2，7，15]中查找7。</p>
@@ -250,13 +250,13 @@
                 <p>具体案例</p>
                 <p>文档1:邢开春录制的搜索引擎视频教程通俗易懂</p>
                 <p>文档1可以划分出关键词(/邢开春/录制/的/搜索引擎/视频教程/通俗易懂/)</p>
-                <p><img src="http://47.94.230.44:80/File/FileDownload?fileId=2ed3c11e-6016-4c97-9477-d2c7351819be" style="width: 691.699px; height: 509.273px;"><br></p>
+                <p><img alt="倒排索引1" src="http://px8ts3n75.bkt.clouddn.com/daopaisuoyin1.jfif" style="width: 691.699px; height: 509.273px;"><br></p>
                 <p>文档2:搜索引擎视频教程在www.xingkaichun.com下载</p>
                 <p>文档2可以划分出关键词(/搜索引擎/视频教程/在/www.xingkaichun.com/下载/)</p>
-                <p><img src="http://47.94.230.44:80/File/FileDownload?fileId=a39439a8-11a9-44be-9d56-e020a5311077" style="width: 918px;"><br></p>
+                <p><img alt="倒排索引2" src="http://px8ts3n75.bkt.clouddn.com/daopaisuoyin2.jfif" style="width: 918px;"><br></p>
                 <p>假设查找’视频教程’出现在哪些文档中。</p>
                 <p>关键字’视频教程’的那一行的文档列表就是’视频教程’出现的所有文档。</p>
-                <p><img src="http://47.94.230.44:80/File/FileDownload?fileId=bae32bf8-b0b4-4571-adc8-d67e5f73c4ba" style="width: 877px;"><br></p>
+                <p><img alt="倒排索引3" src="http://px8ts3n75.bkt.clouddn.com/daopaisuoyin3.jfif" style="width: 877px;"><br></p>
                 <p>可以发现在这种关键词到文档列表的结构基础上，轻而易举就可以查到某个关键词被哪些文档包含。<br></p>
                 <p>以上所说的【关键词到文档列表ID映射】是一种特别的索引类型，专业术语叫做倒排索引【倒着排列的索引】或全文索引。</p>
                 <p>Lucene之所以搜索快速最重要的原因就是使用了倒排索引。除此之外，众所周知，CPU速度远远大于磁盘IO速度。lucene里大量使用压缩技术(磁盘压缩，内存压缩)，减少磁盘IO开销，充分利用CPU的性能以提高程序性能。【视频里讲解了作者的理解】</p>
@@ -281,7 +281,7 @@
                 <p>②检索：利用索引进行检索。</p>
                 <p><br></p>
                 <p>把搜索引擎(lucene/solr/elasticsearch)使用方式用流程图表示</p>
-                <p><img src="http://47.94.230.44:80/File/FileDownload?fileId=e2490b5a-0cec-4e9e-b6ce-e4bb3bd26ead" style="width: 692px;"><br></p>
+                <p><img alt="搜索流程" title="搜索流程" src="http://px8ts3n75.bkt.clouddn.com/sousuoliucheng.jfif" style="width: 692px;"><br></p>
                 <h3>[搜索引擎相关概念]</h3>
                 <p>文档1:邢开春录制的搜索引擎视频教程通俗易懂</p>
                 <p>文档1可以划分出关键词(/邢开春/录制/的/搜索引擎/视频教程/通俗易懂/)</p>
@@ -412,9 +412,9 @@
                 <p>而lucene提供的打分模型，VSM、BM25综合考虑了文档长度、TF、IDF等可能影响文档分值的因素。</p>
                 <p>我录的视频里包含了算法的推导、源码解读、多年搜索引擎经验评分总结。.</p>
                 <p>最后附上视频教程的大纲。</p>
-                <p><img src="http://47.94.230.44:80/File/FileDownload?fileId=f0174a9d-cca0-45a6-aba1-7c37c92ce596" style="width: 692px;"></p>
+                <p><img alt="搜索引擎教程大纲" title="搜索引擎教程大纲" src="http://px8ts3n75.bkt.clouddn.com/jiaochengdagang1.jfif" style="width: 692px;"></p>
                 <p><br></p>
-                <p><img src="http://47.94.230.44:80/File/FileDownload?fileId=42c90f05-6189-47d9-af6a-c896687717db" style="width: 691px;"><br></p>
+                <p><img alt="lucene教程大纲" title="lucene教程大纲" src="http://px8ts3n75.bkt.clouddn.com/jiaochengdagang2.jfif" style="width: 691px;"><br></p>
 			</div>
 		</div>
 	</div>
