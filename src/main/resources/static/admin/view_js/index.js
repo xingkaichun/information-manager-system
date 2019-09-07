@@ -184,13 +184,7 @@ $(function(){
         var add_json = {
             title:$("input[name='add_title']").val(),
             content:$('#add_content').summernote("code"),
-            CategoryId:$("#add_CategoryId .daan").attr("data-id")?$("#add_CategoryId .daan").attr("data-id"):"",
-            BookAuthor:$("input[name='add_bookAuthor']").val(),
-            BookLanguage:$("input[name='add_bookLanguage']").val(),
-            BookVersion:$("input[name='add_bookVersion']").val(),
-            BookTranslateAuthor:$("input[name='add_bookTranslateAuthor']").val(),
-            BookPublishingHouse:$("input[name='add_bookPublishingHouse']").val(),
-            BookISBN:$("input[name='add_bookISBN']").val()
+            CategoryId:$("#add_CategoryId .daan").attr("data-id")?$("#add_CategoryId .daan").attr("data-id"):""
         }
         var filestr = []
         $(".add_file_list .file_li").each(function () {
@@ -199,9 +193,8 @@ $(function(){
         $.ajax({
             type: "post",
             url: url+"/Article/AddArticle",
-            data:`{"AttachedFiles":"${filestr.join(",")}","CategoryId":"${add_json.CategoryId}","Content":"${add_json.content.replace(/"/g, "'")}","Title":"${add_json.title}","UserId":"${user_info.UserId}"
-                        ,"BookAuthor":"${add_json.BookAuthor}","BookLanguage":"${add_json.BookLanguage}","BookVersion":"${add_json.BookVersion}"
-                        ,"BookTranslateAuthor":"${add_json.BookTranslateAuthor}","BookPublishingHouse":"${add_json.BookPublishingHouse}","BookISBN":"${add_json.BookISBN}"}`,
+            data:`{"AttachedFiles":"${filestr.join(",")}","CategoryId":"${add_json.CategoryId}","Content":"${add_json.content.replace(/"/g, "'")}"
+                    ,"Title":"${add_json.title}","UserId":"${user_info.UserId}"}`,
             contentType:"application/json",
             dataType: "json",
             success: function(data){
@@ -246,12 +239,6 @@ $(function(){
                                             </div>`)
             }
         }
-        $("input[name='edit_bookAuthor']").val(data_json.BookAuthor)
-        $("input[name='edit_bookLanguage']").val(data_json.BookLanguage)
-        $("input[name='edit_bookVersion']").val(data_json.BookVersion)
-        $("input[name='edit_bookTranslateAuthor']").val(data_json.BookTranslateAuthor)
-        $("input[name='edit_bookPublishingHouse']").val(data_json.BookPublishingHouse)
-        $("input[name='edit_bookISBN']").val(data_json.BookISBN)
     })
     //修改
     $(document).on("click","#edit_btn",function(){
@@ -259,13 +246,7 @@ $(function(){
             title:$("input[name='edit_title']").val(),
             content:$('#edit_content').summernote("code"),
             CategoryId:$("#edit_CategoryId .daan").attr("data-id")?$("#edit_CategoryId .daan").attr("data-id"):"",
-            IsSoftDelete:$('input[name="edit_IsSoftDelete"]:checked').val(),
-            BookAuthor:$("input[name='edit_bookAuthor']").val(),
-            BookLanguage:$("input[name='edit_bookLanguage']").val(),
-            BookVersion:$("input[name='edit_bookVersion']").val(),
-            BookTranslateAuthor:$("input[name='edit_bookTranslateAuthor']").val(),
-            BookPublishingHouse:$("input[name='edit_bookPublishingHouse']").val(),
-            BookISBN:$("input[name='edit_bookISBN']").val()
+            IsSoftDelete:$('input[name="edit_IsSoftDelete"]:checked').val()
         }
         var filestr = []
         $(".edit_file_list .file_li").each(function () {
@@ -274,9 +255,10 @@ $(function(){
         $.ajax({
             type: "post",
             url: url+"/Article/UpdateArticle",
-            data:`{"ArticleId":"${edit_ArticleId}","AttachedFiles":"${filestr.join(",")}","CategoryId":"${edit_json.CategoryId}","IsSoftDelete":"${edit_json.IsSoftDelete}","Content":"${edit_json.content.replace(/"/g, "'")}","Title":"${edit_json.title}","UserId":"${user_info.UserId}"
-            ,"BookAuthor":"${edit_json.BookAuthor}","BookLanguage":"${edit_json.BookLanguage}","BookVersion":"${edit_json.BookVersion}"
-            ,"BookTranslateAuthor":"${edit_json.BookTranslateAuthor}","BookPublishingHouse":"${edit_json.BookPublishingHouse}","BookISBN":"${edit_json.BookISBN}"}`,
+            data:`{"ArticleId":"${edit_ArticleId}","AttachedFiles":"${filestr.join(",")}","CategoryId":"${edit_json.CategoryId}"
+                    ,"IsSoftDelete":"${edit_json.IsSoftDelete}","Content":"${edit_json.content.replace(/"/g, "'")}"
+                    ,"Title":"${edit_json.title}","UserId":"${user_info.UserId}"
+                }`,
             contentType:"application/json",
             dataType: "json",
             success: function(data){

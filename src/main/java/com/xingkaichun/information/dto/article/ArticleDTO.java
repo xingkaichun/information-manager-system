@@ -37,22 +37,4 @@ public class ArticleDTO {
     @JsonProperty("IsSoftDelete")
     private Boolean isSoftDelete;
 
-    //书籍作者
-    @JsonProperty("BookAuthor")
-    private String bookAuthor;
-    //书籍语言
-    @JsonProperty("BookLanguage")
-    private String bookLanguage;
-    //书籍版本
-    @JsonProperty("BookVersion")
-    private String bookVersion;
-    //书籍翻译作者
-    @JsonProperty("BookTranslateAuthor")
-    private String bookTranslateAuthor;
-    //书籍出版社
-    @JsonProperty("BookPublishingHouse")
-    private String bookPublishingHouse;
-    //国际标准书号[书籍唯一标识号]
-    @JsonProperty("BookISBN")
-    private String bookISBN;
 }
