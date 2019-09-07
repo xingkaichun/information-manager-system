@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>information-manager-system</artifactId>
+        <groupId>com.xingkaichun</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.xingkaichun</groupId>
+    <artifactId>information-manager-system-dao</artifactId>
+
+    <name>information-manager-system-dao</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.xingkaichun</groupId>
+            <artifactId>information-manager-system-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xingkaichun</groupId>
+            <artifactId>information-manager-system-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+</project>

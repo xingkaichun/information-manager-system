@@ -1,0 +1,19 @@
+application:
+  host: localhost
+
+upload:
+  fileDirectory: D:\temp\files\
+
+spring:
+  http:
+    multipart:
+      location: D:\temp\information-manager-system\tomcat-temp
+#长时间不进行上传操作，导致/tmp下面的tomcat临时文件目录被删除，上传文件时获取不到文件目录，导致报错
+server:
+  tomcat:
+    basedir: F:\tmp\tomcat\
+
+project:
+  template:
+    articleTemplateFilePath: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\template\article_details_template.html
+    articleTemplateProduceFileSaveDirectory: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\article\

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingkaichun.information.dao.FileDao" >
+  <sql id="BASE_TABLE">
+     file
+  </sql>
+
+  <sql id="BASE_COLUMN">
+     fileId,fileName,fileSaveName,fileDescrible,fileDirectory
+  </sql>
+
+  <insert id="addFile" parameterType="com.xingkaichun.information.model.FileDomain">
+    INSERT INTO
+      <include refid="BASE_TABLE"/>
+      (<include refid="BASE_COLUMN"/>)
+    VALUES(
+      #{fileId, jdbcType=VARCHAR},
+      #{fileName, jdbcType=VARCHAR},
+      #{fileSaveName, jdbcType=VARCHAR},
+      #{fileDescrible, jdbcType=VARCHAR},
+      #{fileDirectory, jdbcType=VARCHAR}
+    )
+  </insert>
+  <select id="queryFile" parameterType="com.xingkaichun.information.model.FileDomain" resultType="com.xingkaichun.information.model.FileDomain">
+    SELECT * FROM <include refid="BASE_TABLE"/>
+    where 1=1
+    <if test="fileId != null">
+      and fileId = #{fileId, jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

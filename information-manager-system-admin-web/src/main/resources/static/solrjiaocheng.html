@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/article_details_template.css">
+</head>
+<body>
+    <div id="article_details">
+        <div class="header">
+            <div class="left_nav">
+                <a href="#" class="nav_li">学习</a>
+                <a href="#" class="nav_li">开发</a>
+                <a href="#" class="nav_li">社区</a>
+            </div>
+            <div class="rigth_nav">
+                <a href="#" class="nav_li">图片</a>
+                <a href="#" class="nav_li">文字</a>
+            </div>
+        </div>
+        <div class="link_content">
+			<div class="Anchor_link">
+				<div class="Anchor_content">
+					<div class="title">内容</div>
+					<label class="line"></label>
+					<a href="#" class="link_li active">前言</a>
+					<a href="#" class="link_li">lucene是什么</a>
+					<a href="#" class="link_li">什么时候应该考虑使用搜索引擎lucene</a>
+					<a href="#" class="link_li">lucene、mysql、oracle的区别？</a>
+					<a href="#" class="link_li">lucene、solr、elasticsearch的区别？</a>
+					<a href="#troubleshooting" class="link_li">troubleshooting</a>
+					<a href="#" class="link_li">结束语</a>
+					<a href="#" class="link_li">参考资源</a>
+					<a href="#" class="link_li">评论</a>
+				</div>
+			</div>
+			<div class="content">
+				<h1>lucene教程</h1>
+				<h2>前言</h2>
+				<div>我是邢开春，有过几年搜索引擎开发的经验，现在搞了一个网站，一是交流分享，二是做一名讲师，已将多年搜索引擎的经验做成了视频，希望赚一些外快。想要视频的加我，钱给多给少都可以，不给也可以。本人的课程(博客文章、视频教程等)都力求在时长上尽量简短，在知识上尽量直击本质。</div>
+				<h2>lucene是什么</h2>
+				<div>Lucene是一款开源的、高性能的、可拓展的信息检索Java工具库(也就是说lucene是提供搜索功能的Java jar包)。具体是下图的东西，也可以下载下来看一眼是什么。(下载链接)。将lucene引入Java项目中，你可以利用它做出类似百度、google提供的搜索功能。</div>
+				<h2>什么时候应该考虑使用搜索引擎lucene</h2>
+				<div>
+					<h3>第一点：搜索功能</h3>
+					<p>想为应用添加类似百度的搜索功能</p>
+					<h3>第二点: 搜索速度</h3>
+					<p>当mysql、oracle数据库搜索的速度太慢时，举一个例子，假设你有一亿篇文章，使用数据库提供的like ‘%关键词%’，将会耗时几分钟才能查找出结果。而搜索引擎则能做到几十毫秒查询到结果。搜索引擎之所以速度比数据库快的原因是，它的底层是倒排索引。</p>
+					<h3>第三点：搜索质量</h3>
+					<p>mysql、oracle数据库搜索的质量太差，想让搜索结果中与搜索关键词最相关的排在前面返回，为搜索结果做一个相关度排序的功能。</p>
+				</div>
+				<h2>lucene、mysql、oracle的区别？</h2>
+				<p>lucene是搜索引擎，mysql、oracle是关系型数据库，问lucene与mysql的区别，不如说是搜索引擎与关系型数据库的区别</p>
+				<div>
+					<table>
+						<tbody>
+						<tr>
+							<td></td>
+							<td>搜索引擎</td>
+							<td>关系型数据库</td>
+						</tr>
+						<tr>
+							<td>搜索速度</td>
+							<td>亿级数据量，可以保持在几十毫秒内</td>
+							<td>随着数据量上升，如果性能曲线下降</td>
+						</tr>
+						<tr>
+							<td>搜索质量</td>
+							<td>可以为搜索结果自定义相关度排序，让搜索结果中与搜索词相关度较高的词排前面返回</td>
+							<td>搜索质量较差，数据库一般不关注搜索质量，它着重在检索出来。一般，数据库提供按照数字大小，字符进行排序的功能。</td>
+						</tr>
+						<tr>
+							<td>维护数据与数据的关系的能力</td>
+							<td>弱</td>
+							<td>专业</td>
+						</tr>
+						<tr>
+							<td>提供数据维护的事务功能</td>
+							<td>没有</td>
+							<td>专业</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<h2>lucene、solr、elasticsearch的区别？</h2>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

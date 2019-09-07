@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="./img/favicon.html">
+
+    <title>主页</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-reset.css" rel="stylesheet">
+
+    <!--external css-->
+    <link href="./assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="./assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="./css/owl.carousel.css" type="text/css">
+    <!-- Custom styles for this template -->
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+      <link href="./dist/summernote.css" rel="stylesheet">
+      <style>
+          .flex_input{
+              display: flex;
+              flex-wrap: wrap;
+          }
+          .flex_input .f_input{
+              margin-right: 10px;
+              margin-bottom: 10px;
+          }
+          .flex_ul{
+              display: flex;
+          }
+          .flex_ul .page_ul{
+              margin-left: auto;
+              margin-right: 20px;
+          }
+          .dropdown-menu li.t1{
+              text-indent: 10px
+          }
+          .dropdown-menu li.t2{
+              text-indent: 20px
+          }
+          .dropdown-menu li.t3{
+              text-indent: 30px
+          }
+          .dropdown-menu li.t4{
+              text-indent: 40px
+          }
+          .dropdown-menu li.t5{
+              text-indent: 50px
+          }
+          .dropdown-menu li.t6{
+              text-indent: 60px
+          }
+          .dropdown-menu li.t7{
+              text-indent: 70px
+          }
+          .dropdown-menu li.t8{
+              text-indent: 80px
+          }
+          .file_btn{
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.428571429;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            background-color: #41cac0;
+            border-color: #41cac0;
+            color: #FFFFFF;
+            position: relative;
+          }
+          .file_btn .file_input{
+                position: absolute;
+                top:0;
+                left: 0;
+                width:100%;
+                height: 100%;
+                z-index:2;
+                opacity: 0;
+          }
+          .file_list{
+              display: flex;
+              flex-wrap: wrap;
+              margin-top: 10px;
+          }
+          .file_list .file_li{
+            display: flex;
+            height: 45px;
+            padding: 0 16px;
+            align-items: center;
+            border: 1px solid #999999;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+          }
+          .file_list .file_close{
+            margin-left: 10px;
+          }
+          .modal-dialog{
+              width: 940px;
+              height: 100% !important;
+              padding: 0;
+          }
+          .modal-dialog .modal-content{
+              min-height: 100%;
+          }
+      </style>
+  </head>
+
+  <body>
+  <section id="container" class="">
+      <!--header start-->
+      <header class="header white-bg">
+            <div class="sidebar-toggle-box">
+                <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
+            </div>
+            <!--logo start-->
+            <a href="#" class="logo">lo<span>go</span></a>
+            <!--logo end-->
+            <div class="top-nav ">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <!--<li>-->
+                        <!--<input type="text" class="form-control search" placeholder="Search">-->
+                    <!--</li>-->
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="img/avatar1_small.jpg">
+                            <span class="username">admin</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <!--<div class="log-arrow-up"></div>-->
+                            <!--<li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>-->
+                            <!--<li><a href="#"><i class="icon-cog"></i> Settings</a></li>-->
+                            <!--<li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>-->
+                            <li><a href="login.html"><i class="icon-key"></i>退出登录</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+      <!--header end-->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">
+                  <!--<li class="active">-->
+                      <!--<a class="" href="index.html">-->
+                          <!--<i class="icon-dashboard"></i>-->
+                          <!--<span>Dashboard</span>-->
+                      <!--</a>-->
+                  <!--</li>-->
+                  <li class="sub-menu active">
+                      <a href="javascript:;" class="">
+                          <i class="icon-book"></i>
+                          <span>文章</span>
+                          <span class="arrow"></span>
+                      </a>
+                      <ul class="sub">
+                          <li class="active"><a class="" href="">文章管理</a></li>
+                          <li><a class="" href="./category.html">文章类别</a></li>
+                      </ul>
+                  </li>
+                  <!--<li>-->
+                      <!--<a class="" href="login.html">-->
+                          <!--<i class="icon-user"></i>-->
+                          <!--<span>注销</span>-->
+                      <!--</a>-->
+                  <!--</li>-->
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+              <!-- page start-->
+              <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              文章管理
+                          </header>
+                          <div class="tool_list panel-body" style="border-bottom: 1px solid #eff2f7">
+                                <div class="flex_input">
+                                    <div class="f_input"><input type="text" name="sel_title" placeholder="请输入标题" class="form-control"></div>
+                                    <div class="f_input"> <input type="text" name="sel_content" placeholder="请输入内容" class="form-control"></div>
+                                    <div class="f_input"><input type="date" name="sel_start_time" placeholder="请输入开始时间" class="form-control"></div>
+                                    <div class="f_input"> <input type="date" name="sel_end_time" placeholder="请输入结束时间" class="form-control"></div>
+                                    <div class="f_input">
+                                        <div class="dropdown" id="sel_CategoryId">
+                                            <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span class="daan">请选择文章类别</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li><a href="#">加载中...</a></li>
+                                                <li><a href="#">加载中...</a></li>
+                                                <li><a href="#">加载中...</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="f_input"><button class="btn btn-primary" id="search_btn" type="button">搜索</button></div>
+                                    <div class="f_input"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2"><i class="icon-plus"></i></button></div>
+                                </div>
+                          </div>
+                          <table class="table table-striped table-advance table-hover" id="tbody_list">
+                              <thead>
+                              <tr>
+                                  <th>文章Id</th>
+                                  <th>文章标题</th>
+                                  <th>创建时间</th>
+                                  <th>最近修改时间</th>
+                                  <th>软删除标志</th>
+                                  <th>操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              </tbody>
+                          </table>
+                          <div class="flex_ul">
+                              <ul class="pagination pagination-sm page_ul">
+                              </ul>
+                          </div>
+                      </section>
+                  </div>
+              </div>
+              <!-- page end-->
+          </section>
+          <!-- 编辑模态框（Modal） -->
+          <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                              &times;
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">
+                             修改
+                          </h4>
+                      </div>
+                      <div class="modal-body">
+                          <form class="form-horizontal tasi-form" method="get">
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">文章分类</label>
+                                  <div class="col-sm-10">
+                                    <div class="dropdown" id="edit_CategoryId">
+                                        <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span class="daan">请选择文章类别</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                                            <li><a href="#">加载中...</a></li>
+                                            <li><a href="#">加载中...</a></li>
+                                            <li><a href="#">加载中...</a></li>
+                                        </ul>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">文章标题</label>
+                                  <div class="col-sm-10">
+                                      <input type="text" name="edit_title" class="form-control" placeholder="输入文章标题">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">文章内容</label>
+                                  <div class="col-sm-10">
+                                      <div id="edit_content"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">上传附件</label>
+                                  <div class="col-sm-10">
+                                        <div class="file_btn">
+                                            <div class="lable">
+                                                上传附件
+                                            </div>
+                                            <input class="file_input" multiple type="file" name="edit_file"/>
+                                        </div>
+                                        <div class="file_list edit_file_list">
+
+                                        </div>
+                                      </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">软删除标志</label>
+                                      <div class="col-sm-10">
+                                          <label>不软删:<input type="radio" name="edit_IsSoftDelete" value="false" onclick=""/></label>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                          <label>软删除:<input type="radio" name="edit_IsSoftDelete" value="true" onclick=""/></label>
+                                      </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                          </button>
+                          <button type="button" class="btn btn-primary" id="edit_btn">
+                              提交
+                          </button>
+                      </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal -->
+          </div>
+          <!-- 新增模态框（Modal） -->
+          <div class="modal fade" data-backdrop="static" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                              &times;
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel2">
+                              新增
+                          </h4>
+                      </div>
+                      <div class="modal-body">
+                          <form class="form-horizontal tasi-form" method="get">
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">文章分类</label>
+                                  <div class="col-sm-10">
+                                    <div class="dropdown" id="add_CategoryId">
+                                        <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span class="daan">请选择文章类别</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
+                                            <li><a href="#">加载中...</a></li>
+                                            <li><a href="#">加载中...</a></li>
+                                            <li><a href="#">加载中...</a></li>
+                                        </ul>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">文章标题</label>
+                                  <div class="col-sm-10">
+                                      <input type="text" name="add_title" class="form-control" placeholder="输入文章标题">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">文章内容</label>
+                                  <div class="col-sm-10">
+                                      <div id="add_content"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">上传附件</label>
+                                  <div class="col-sm-10">
+                                    <div class="file_btn">
+                                        <div class="lable">
+                                            上传附件
+                                        </div>
+                                        <form id="uploadForm" enctype="multipart/form-data">
+                                            <input class="file_input" type="file" multiple name="add_file"/>
+                                        </form>
+                                    </div>
+                                    <div class="file_list add_file_list">
+                                    </div>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                          </button>
+                          <button type="button" class="btn btn-primary" id="add_btn">
+                              提交
+                          </button>
+                      </div>
+                  </div><!-- /.modal-content -->
+              </div><!-- /.modal -->
+          </div>
+      </section>
+      <!--main content end-->
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./dist/summernote.js"></script>
+    <script src="./dist/lang/summernote-zh-CN.js"></script>
+    <script src="./view_js/util.js"></script>
+    <script src="./view_js/index.js"></script>
+
+  </body>
+</html>
