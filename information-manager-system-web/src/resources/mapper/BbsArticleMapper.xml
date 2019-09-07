@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingkaichun.information.dao.BbsArticleDao" >
+  <sql id="BASE_TABLE">
+    bbsarticledomain
+  </sql>
+
+  <sql id="BASE_COLUMN">
+    bbsArticleId,userId,title,content,createTime,isSoftDelete
+  </sql>
+
+  <insert id="addBbsArticle" parameterType="com.xingkaichun.information.model.BbsArticleDomain">
+    INSERT INTO
+      <include refid="BASE_TABLE"/>
+      (<include refid="BASE_COLUMN"/>)
+    VALUES(
+      #{bbsArticleId, jdbcType=VARCHAR},
+      #{userId, jdbcType=VARCHAR},
+      #{title, jdbcType=VARCHAR},
+      #{content, jdbcType=VARCHAR},
+      #{createTime, jdbcType=TIMESTAMP},
+      false
+    )
+  </insert>
+</mapper>
