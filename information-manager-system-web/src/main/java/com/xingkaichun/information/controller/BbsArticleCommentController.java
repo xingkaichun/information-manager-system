@@ -44,7 +44,7 @@ public class BbsArticleCommentController {
             addBbsArticleCommentRequest.setBbsArticleId(String.valueOf(UUID.randomUUID()));
 
             //若被评论的是帖子，校验被评论的帖子的存在
-            
+
             //若被评论的是帖子评论，校验被评论的帖子评论的存在
 
 
