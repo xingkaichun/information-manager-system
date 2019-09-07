@@ -7,11 +7,11 @@ upload:
 spring:
   http:
     multipart:
-      location: D:\temp\information-manager-system\tomcat-temp
+      location: D:\temp\tomcat-temp\information-manager-system-web\
 #长时间不进行上传操作，导致/tmp下面的tomcat临时文件目录被删除，上传文件时获取不到文件目录，导致报错
 server:
   tomcat:
-    basedir: F:\tmp\tomcat\
+    basedir: F:\tmp\tomcat\information-manager-system-web\
 
 project:
   template:

@@ -26,7 +26,7 @@ import java.util.UUID;
 @RequestMapping(value = "/File")
 public class FileUploadController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadController.class);
 
     @Autowired
     private FileService fileService;

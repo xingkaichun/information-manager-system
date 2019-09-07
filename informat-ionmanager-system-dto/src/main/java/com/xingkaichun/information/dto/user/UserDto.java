@@ -20,4 +20,9 @@ public class UserDto {
     private String passwordSalt;
     @JsonProperty("Phone")
     private String phone;
+
+
+
+    @JsonProperty("VerificationCode")
+    private String VerificationCode;
 }

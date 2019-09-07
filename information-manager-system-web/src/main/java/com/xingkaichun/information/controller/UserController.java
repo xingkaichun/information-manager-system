@@ -45,6 +45,9 @@ public class UserController {
     public FreshServiceResult addUser(HttpServletRequest request, HttpServletResponse response,@RequestBody UserDto userDto){
 
         try {
+            if(CommonUtils.isNUllOrEmpty(userDto.getVerificationCode())){
+                return FreshServiceResult.createFailFreshServiceResult("验证码不能为空");
+            }
             if(CommonUtils.isNUllOrEmpty(userDto.getEmail())){
                 return FreshServiceResult.createFailFreshServiceResult("邮箱不能为空");
             }
@@ -57,18 +60,12 @@ public class UserController {
             if(CommonUtils.isNUllOrEmpty(userDto.getPassword())){
                 return FreshServiceResult.createFailFreshServiceResult("密码不能为空");
             }
-            if(CommonUtils.isNUllOrEmpty(userDto.getPhone())){
-                return FreshServiceResult.createFailFreshServiceResult("手机号不能为空");
-            }
             //校验用户是否已经存在
             if(!CommonUtils.isNUll(userService.queryOneUserByEmail(userDto.getEmail()))){
                 return FreshServiceResult.createFailFreshServiceResult("邮箱已经存在");
             }
             if(!CommonUtils.isNUll(userService.queryOneUserByUserName(userDto.getUserName()))){
                 return FreshServiceResult.createFailFreshServiceResult("用户名已经存在");
-            }
-            if(!CommonUtils.isNUll(userService.queryOneUserByPhone(userDto.getPhone()))){
-                return FreshServiceResult.createFailFreshServiceResult("手机号已经存在");
             }
 
             userDto.setUserId(String.valueOf(UUID.randomUUID()));
