@@ -1,6 +1,6 @@
 # information-manager-system-web
 # 打包脚本
-mvn -Dmaven.test.skip=true clean package spring-boot:repackage assembly:single
+mvn -Dmaven.test.skip=true clean package install spring-boot:repackage assembly:single
 # swagger地址
 http://ip:host/swagger-ui.html
 

@@ -138,7 +138,7 @@
                     <includes>
                         <include>
                             <groupId>com.xingkaichun</groupId>
-                            <artifactId>information-manager-system</artifactId>
+                            <artifactId>information-manager-system-web</artifactId>
                         </include>
                     </includes>
                     <executable>false</executable>
