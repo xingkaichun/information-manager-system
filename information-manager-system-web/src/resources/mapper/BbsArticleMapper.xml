@@ -30,4 +30,15 @@
     <include refid="BASE_TABLE"/>
     where bbsArticleId = #{_parameter, jdbcType=VARCHAR}
   </select>
+
+  <select id="queryBbsArticleByRand" resultType="com.xingkaichun.information.model.BbsArticleDomain">
+    SELECT * FROM <include refid="BASE_TABLE"/>
+    ORDER BY  RAND() LIMIT 10
+  </select>
+
+  <select id="queryBbsArticleByUserId" resultType="com.xingkaichun.information.model.BbsArticleDomain">
+    SELECT * FROM <include refid="BASE_TABLE"/>
+    where userId = #{_parameter, jdbcType=VARCHAR}
+    ORDER BY createTime DESC;
+  </select>
 </mapper>

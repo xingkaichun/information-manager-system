@@ -2,10 +2,12 @@ package com.xingkaichun.information.dto.BbsArticle;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class BbsArticleDTO {
@@ -23,4 +25,7 @@ public class BbsArticleDTO {
     private Date createTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
+
+    @JsonProperty("BbsArticleCommentDTOList")
+    private List<BbsArticleCommentDTO> bbsArticleCommentDTOList;
 }

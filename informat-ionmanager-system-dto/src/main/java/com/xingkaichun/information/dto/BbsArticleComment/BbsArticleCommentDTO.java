@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class BbsArticleCommentDTO {
@@ -25,4 +27,10 @@ public class BbsArticleCommentDTO {
     private Date createTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
+    @JsonProperty("ChildrenBbsArticleCommentDTOList")
+    private List<BbsArticleCommentDTO> childrenBbsArticleCommentDTOList;
+
+    public BbsArticleCommentDTO() {
+        childrenBbsArticleCommentDTOList = new ArrayList<>();
+    }
 }

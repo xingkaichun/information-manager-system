@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service(value = "bbsArticleCommentService")
@@ -60,7 +62,31 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
         return FreshServiceResult.createSuccessFreshServiceResult("评论帖子成功");
     }
 
-    private BbsArticleCommentDomain classCast(BbsArticleCommentDTO bbsArticleCommentDTO) {
+
+    public static List<BbsArticleCommentDTO> classCast(List<BbsArticleCommentDomain> domainList) {
+        if(CommonUtils.isNUllOrEmpty(domainList)){
+            return null;
+        }
+        List<BbsArticleCommentDTO> dtoList = new ArrayList<>();
+        for (BbsArticleCommentDomain domain:domainList){
+            dtoList.add(classCast(domain));
+        }
+        return dtoList;
+    }
+
+    private static BbsArticleCommentDTO classCast(BbsArticleCommentDomain domain) {
+        BbsArticleCommentDTO dto = new BbsArticleCommentDTO();
+        dto.setBbsArticleCommentId(domain.getBbsArticleCommentId());
+        dto.setBbsArticleId(domain.getBbsArticleId());
+        dto.setContent(domain.getContent());
+        dto.setCreateTime(domain.getCreateTime());
+        dto.setSoftDelete(domain.isSoftDelete());
+        dto.setUserId(domain.getUserId());
+        dto.setParentBbsArticleCommentId(domain.getParentBbsArticleCommentId());
+        return dto;
+    }
+
+    private static BbsArticleCommentDomain classCast(BbsArticleCommentDTO bbsArticleCommentDTO) {
         BbsArticleCommentDomain domain = new BbsArticleCommentDomain();
         domain.setBbsArticleCommentId(bbsArticleCommentDTO.getBbsArticleCommentId());
         domain.setBbsArticleId(bbsArticleCommentDTO.getBbsArticleId());

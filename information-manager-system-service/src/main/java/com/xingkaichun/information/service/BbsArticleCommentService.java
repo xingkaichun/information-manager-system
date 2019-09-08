@@ -6,4 +6,5 @@ import com.xingkaichun.information.dto.base.FreshServiceResult;
 public interface BbsArticleCommentService {
 
     FreshServiceResult AddBbsArticleComment(AddBbsArticleCommentRequest addBbsArticleCommentRequest);
+
 }
