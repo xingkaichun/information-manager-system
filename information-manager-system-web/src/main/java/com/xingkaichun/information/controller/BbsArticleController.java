@@ -33,7 +33,7 @@ import java.util.UUID;
 
 @Api(value="论坛帖子controller",tags={"论坛帖子接口"})
 @Controller
-@RequestMapping(value = "/BbsArticle")
+@RequestMapping(value = "/Bbs")
 public class BbsArticleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BbsArticleController.class);

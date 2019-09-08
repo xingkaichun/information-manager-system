@@ -8,21 +8,21 @@
     <fileSets>
         <fileSet>
             <directory>target/</directory>
-            <outputDirectory>./information-manager-system/</outputDirectory>
+            <outputDirectory>./information-manager-system-web/</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>target/libs</directory>
-            <outputDirectory>./information-manager-system/libs/</outputDirectory>
+            <outputDirectory>./information-manager-system-web/libs/</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>src/main/resources</directory>
-            <outputDirectory>./information-manager-system/config</outputDirectory>
+            <outputDirectory>./information-manager-system-web/config</outputDirectory>
             <includes>
                 <include>*.**</include>
                 <include>mapper/**</include>
@@ -33,7 +33,7 @@
         </fileSet>
         <fileSet>
             <directory>src/main/resources</directory>
-            <outputDirectory>./information-manager-system/front-end</outputDirectory>
+            <outputDirectory>./information-manager-system-web/front-end</outputDirectory>
             <includes>
                 <include>/static/**</include>
             </includes>
@@ -43,7 +43,7 @@
         </fileSet>
         <fileSet>
             <directory>scripts/</directory>
-            <outputDirectory>./information-manager-system/</outputDirectory>
+            <outputDirectory>./information-manager-system-web/</outputDirectory>
             <filtered>true</filtered>
             <fileMode>0777</fileMode>
             <includes>

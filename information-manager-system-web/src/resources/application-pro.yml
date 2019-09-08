@@ -3,7 +3,7 @@ application:
 
 server:
   tomcat:
-    basedir: /root/app/tmp/tomcatio/
+    basedir: /root/app/tmp/tomcatio/information-manager-system-web/
 
 upload:
   fileDirectory: /root/app/files/
