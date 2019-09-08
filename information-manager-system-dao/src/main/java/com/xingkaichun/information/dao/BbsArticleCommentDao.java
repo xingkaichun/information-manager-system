@@ -4,4 +4,6 @@ import com.xingkaichun.information.model.BbsArticleCommentDomain;
 
 public interface BbsArticleCommentDao {
     int addBbsArticleComment(BbsArticleCommentDomain bbsArticleCommentDomain);
+    BbsArticleCommentDomain querybbsArticleCommentBybbsArticleCommentId(String bbsArticleCommentId);
+
 }

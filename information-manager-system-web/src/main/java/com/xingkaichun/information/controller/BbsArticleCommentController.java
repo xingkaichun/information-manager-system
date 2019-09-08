@@ -34,28 +34,6 @@ public class BbsArticleCommentController {
     @PostMapping("/AddBbsArticleComment")
     public FreshServiceResult AddBbsArticleComment(HttpServletRequest request, HttpServletResponse response,@RequestBody AddBbsArticleCommentRequest addBbsArticleCommentRequest){
 
-        try {
-            if(CommonUtils.isNUllOrEmpty(addBbsArticleCommentRequest.getBbsArticleId())){
-                return FreshServiceResult.createFailFreshServiceResult("被评论的帖子ID不能为空");
-            }
-            if(!CommonUtils.isNUllOrEmpty(addBbsArticleCommentRequest.getBbsArticleCommentId())){
-                return FreshServiceResult.createFailFreshServiceResult("系统自动分配帖子评论记录的Id,请不要填写");
-            }
-            addBbsArticleCommentRequest.setBbsArticleId(String.valueOf(UUID.randomUUID()));
-
-            //若被评论的是帖子，校验被评论的帖子的存在
-
-            //若被评论的是帖子评论，校验被评论的帖子评论的存在
-
-
-
-            bbsArticleCommentService.AddBbsArticleComment(addBbsArticleCommentRequest);
-        } catch (Exception e) {
-            String message = "评论帖子出错";
-            LOGGER.error(message,e);
-            return FreshServiceResult.createFailFreshServiceResult(message);
-        } finally {
-        }
-        return FreshServiceResult.createSuccessFreshServiceResult("评论帖子成功");
+        return bbsArticleCommentService.AddBbsArticleComment(addBbsArticleCommentRequest);
     }
 }

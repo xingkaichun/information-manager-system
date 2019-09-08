@@ -1,22 +1,63 @@
 package com.xingkaichun.information.service.impl;
 
 import com.xingkaichun.information.dao.BbsArticleCommentDao;
+import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
+import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
+import com.xingkaichun.information.model.BbsArticleDomain;
 import com.xingkaichun.information.service.BbsArticleCommentService;
+import com.xingkaichun.utils.CommonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service(value = "bbsArticleCommentService")
 public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BbsArticleCommentServiceImpl.class);
+
+    @Autowired
+    private BbsArticleDao bbsArticleDao;
     @Autowired
     private BbsArticleCommentDao bbsArticleCommentDao;
 
     @Override
-    public int AddBbsArticleComment(AddBbsArticleCommentRequest addBbsArticleCommentRequest) {
-        return bbsArticleCommentDao.addBbsArticleComment(classCast(addBbsArticleCommentRequest));
+    public FreshServiceResult AddBbsArticleComment(AddBbsArticleCommentRequest addBbsArticleCommentRequest) {
+        try {
+            if(CommonUtils.isNUllOrEmpty(addBbsArticleCommentRequest.getBbsArticleId())){
+                return FreshServiceResult.createFailFreshServiceResult("被评论的帖子ID不能为空");
+            }
+            if(!CommonUtils.isNUllOrEmpty(addBbsArticleCommentRequest.getBbsArticleCommentId())){
+                return FreshServiceResult.createFailFreshServiceResult("系统自动分配帖子评论记录的Id,请不要填写");
+            }
+            addBbsArticleCommentRequest.setBbsArticleCommentId(String.valueOf(UUID.randomUUID()));
+
+            //若被评论的是帖子，校验被评论的帖子的存在
+            BbsArticleDomain bbsArticleDomain =bbsArticleDao.queryBbsArticleByBbsArticleId(addBbsArticleCommentRequest.getBbsArticleId());
+            if(bbsArticleDomain==null){
+                return FreshServiceResult.createFailFreshServiceResult("被评论的帖子不存在");
+            }
+            //若被评论的是帖子评论，校验被评论的帖子评论的存在
+            String parentBbsArticleCommentId = addBbsArticleCommentRequest.getParentBbsArticleCommentId();
+            if(!CommonUtils.isNUllOrEmpty(parentBbsArticleCommentId)){
+                BbsArticleCommentDomain bbsArticleCommentDomain = bbsArticleCommentDao.querybbsArticleCommentBybbsArticleCommentId(parentBbsArticleCommentId);
+                if(bbsArticleCommentDomain==null){
+                    return FreshServiceResult.createFailFreshServiceResult("被评论的帖子评论不存在");
+                }
+            }
+            bbsArticleCommentDao.addBbsArticleComment(classCast(addBbsArticleCommentRequest));
+        } catch (Exception e) {
+            String message = "评论帖子出错";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        } finally {
+        }
+        return FreshServiceResult.createSuccessFreshServiceResult("评论帖子成功");
     }
 
     private BbsArticleCommentDomain classCast(BbsArticleCommentDTO bbsArticleCommentDTO) {
