@@ -15,6 +15,8 @@ public class BbsArticleDTO {
     private String bbsArticleId;
     @JsonProperty("UserId")
     private String userId;
+    @JsonProperty("UserDto")
+    private String UserDto;
     @JsonProperty("Title")
     private String title;
     @JsonProperty("Content")

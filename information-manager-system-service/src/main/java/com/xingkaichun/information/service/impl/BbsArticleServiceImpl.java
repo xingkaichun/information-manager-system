@@ -32,7 +32,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
 
     @Override
     public List<BbsArticleDTO> queryBbsArticleByRand() {
-        List<BbsArticleDomain>  bbsArticleDomainList = bbsArticleDao.queryBbsArticleByRand();
+        List<BbsArticleDomain> bbsArticleDomainList = bbsArticleDao.queryBbsArticleByRand();
         return classCast(bbsArticleDomainList);
     }
 

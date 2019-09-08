@@ -15,6 +15,7 @@ import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.service.BbsArticleCommentService;
 import com.xingkaichun.information.service.BbsArticleService;
 import com.xingkaichun.utils.CommonUtils;
+import com.xingkaichun.utils.CommonUtilsSession;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -50,6 +51,7 @@ public class BbsArticleController {
     public ServiceResult<AddBbsArticleResponse> addBbsArticle(HttpServletRequest request, HttpServletResponse response, @RequestBody AddBbsArticleRequest addBbsArticleRequest){
 
         try {
+            addBbsArticleRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
             if(CommonUtils.isNUllOrEmpty(addBbsArticleRequest.getTitle())){
                 return FreshServiceResult.createFailFreshServiceResult("帖子标题不能为空");
             }
@@ -99,10 +101,11 @@ public class BbsArticleController {
     @ApiOperation(value="获取用户帖子", notes="获取用户帖子")
     @ResponseBody
     @PostMapping("/QueryBbsArticleByUserId")
-    public ServiceResult<QueryBbsArticleByUserIdResponse> queryBbsArticleByUserId(@RequestBody QueryBbsArticleByUserIdRequest queryBbsArticleByUserIdRequest){
+    public ServiceResult<QueryBbsArticleByUserIdResponse> queryBbsArticleByUserId(HttpServletRequest request, @RequestBody QueryBbsArticleByUserIdRequest queryBbsArticleByUserIdRequest){
 
         try {
-            List<BbsArticleDTO> bbsArticleDTOList = bbsArticleService.queryBbsArticleByUserId(queryBbsArticleByUserIdRequest.getUserId());
+            String userId = CommonUtilsSession.getUser(request).getUserId();
+            List<BbsArticleDTO> bbsArticleDTOList = bbsArticleService.queryBbsArticleByUserId(userId);
 
             QueryBbsArticleByUserIdResponse queryBbsArticleByUserIdResponse = new QueryBbsArticleByUserIdResponse();
             queryBbsArticleByUserIdResponse.setBbsArticleDTOList(bbsArticleDTOList);
@@ -142,7 +145,7 @@ public class BbsArticleController {
     @ResponseBody
     @PostMapping("/AddBbsArticleComment")
     public FreshServiceResult AddBbsArticleComment(HttpServletRequest request, HttpServletResponse response,@RequestBody AddBbsArticleCommentRequest addBbsArticleCommentRequest){
-
+        addBbsArticleCommentRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
         return bbsArticleCommentService.AddBbsArticleComment(addBbsArticleCommentRequest);
     }
     //endregion

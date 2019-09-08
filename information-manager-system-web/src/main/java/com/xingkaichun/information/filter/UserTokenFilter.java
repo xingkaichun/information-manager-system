@@ -35,8 +35,8 @@ public class UserTokenFilter implements Filter {
 
 
 		boolean needAccess = false;
-		if (uri.contains("/Add")||uri.contains("/Delete")||uri.contains("/Update")){
-			//needAccess = true ;
+		if (uri.contains("/Add")||uri.contains("/Delete")||uri.contains("/Update")||uri.contains("/QueryBbsArticleByUserId")){
+			needAccess = true ;
 		}
 
 		if(needAccess){
