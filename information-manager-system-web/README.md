@@ -1,4 +1,4 @@
-# information-manager-system-admin-web
+# information-manager-system-web
 # 打包脚本
 mvn -Dmaven.test.skip=true clean package spring-boot:repackage assembly:single
 # swagger地址
