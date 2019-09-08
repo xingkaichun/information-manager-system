@@ -1,0 +1,8 @@
+package com.xingkaichun.information.dto.book.request;
+
+import com.xingkaichun.information.dto.book.BookDTO;
+import lombok.Data;
+
+@Data
+public class AddBookRequest extends BookDTO {
+}

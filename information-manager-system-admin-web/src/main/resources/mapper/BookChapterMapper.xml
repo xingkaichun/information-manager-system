@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingkaichun.information.dao.BookChapterDao" >
+  <sql id="BASE_TABLE">
+    bookchapterdomain
+  </sql>
+
+  <sql id="BASE_COLUMN">
+    bookId,bookChapterId,bookChapterName,bookChapterOrder,createTime,isSoftDelete
+  </sql>
+
+  <insert id="addBookChapter" parameterType="com.xingkaichun.information.model.BookChapterDomain">
+    INSERT INTO
+    <include refid="BASE_TABLE"/>
+    (<include refid="BASE_COLUMN"/>)
+    VALUES(
+    #{bookId, jdbcType=VARCHAR},
+    #{bookChapterId, jdbcType=VARCHAR},
+    #{bookChapterName, jdbcType=VARCHAR},
+    #{bookChapterOrder, jdbcType=INTEGER},
+    #{createTime, jdbcType=TIMESTAMP},
+    false
+    )
+  </insert>
+
+  <update id="updateBookChapter" parameterType="com.xingkaichun.information.dto.bookChapter.request.UpdateBookChapterRequest">
+    update <include refid="BASE_TABLE"/>
+    set
+    <if test="bookId != null">
+      bookId = #{bookId, jdbcType=VARCHAR},
+    </if>
+    <if test="bookChapterName != null">
+      bookChapterName = #{bookChapterName, jdbcType=VARCHAR},
+    </if>
+    <if test="bookChapterOrder != null">
+      bookChapterOrder = #{bookChapterOrder, jdbcType=TIMESTAMP},
+    </if>
+    <if test="createTime != null">
+      createTime = #{createTime, jdbcType=TIMESTAMP},
+    </if>
+    <if test="isSoftDelete != null">
+      isSoftDelete = #{isSoftDelete, jdbcType=BIT},
+    </if>
+    bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
+    where bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
+  </update>
+
+  <delete id="physicsDeleteBookChapterByBookChapterId" parameterType="java.lang.String">
+    delete from <include refid="BASE_TABLE"/>
+    where bookChapterId = #{bookChapterId, jdbcType=VARCHAR} and isSoftDelete = true
+  </delete>
+
+  <select id="queryBookChapterListByBookId" resultType="com.xingkaichun.information.model.BookChapterDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where bookId = #{bookId, jdbcType=VARCHAR}
+  </select>
+</mapper>
