@@ -1,6 +1,7 @@
 package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.information.dto.base.ServiceCode;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.UserInfo;
@@ -42,40 +43,15 @@ public class UserController {
     public FreshServiceResult addUser(HttpServletRequest request, HttpServletResponse response,@RequestBody UserDto userDto){
 
         try {
-            if(CommonUtils.isNUllOrEmpty(userDto.getEmail())){
-                return FreshServiceResult.createFailFreshServiceResult("邮箱不能为空");
-            }
-            if(CommonUtils.isNUllOrEmpty(userDto.getUserName())){
-                return FreshServiceResult.createFailFreshServiceResult("用户名不能为空");
-            }
-            if(!CommonUtils.isNUllOrEmpty(userDto.getUserId())){
-                return FreshServiceResult.createFailFreshServiceResult("系统自动分配用户Id,请不要填写");
-            }
-            if(CommonUtils.isNUllOrEmpty(userDto.getPassword())){
-                return FreshServiceResult.createFailFreshServiceResult("密码不能为空");
-            }
             if(CommonUtils.isNUllOrEmpty(userDto.getPhone())){
                 return FreshServiceResult.createFailFreshServiceResult("手机号不能为空");
             }
-            //校验用户是否已经存在
-            if(!CommonUtils.isNUll(userService.queryOneUserByEmail(userDto.getEmail()))){
-                return FreshServiceResult.createFailFreshServiceResult("邮箱已经存在");
+            ServiceResult<UserInfo> userInfoServiceResult = userService.addUser(userDto);
+            if(userInfoServiceResult.getServiceCode()== ServiceCode.FAIL){
+                return FreshServiceResult.createFailFreshServiceResult(userInfoServiceResult.getMessage());
             }
-            if(!CommonUtils.isNUll(userService.queryOneUserByUserName(userDto.getUserName()))){
-                return FreshServiceResult.createFailFreshServiceResult("用户名已经存在");
-            }
-            if(!CommonUtils.isNUll(userService.queryOneUserByPhone(userDto.getPhone()))){
-                return FreshServiceResult.createFailFreshServiceResult("手机号已经存在");
-            }
-
-            userDto.setUserId(String.valueOf(UUID.randomUUID()));
-            userDto.setPasswordSalt(String.valueOf(UUID.randomUUID()));
-            String newPassword = generatePassword(userDto.getPassword(), userDto.getPasswordSalt());
-            userDto.setPassword(newPassword);
-
-            userService.addUser(userDto);
-
-            UserDomain userDomain = userService.queryOneUserByUserId(userDto.getUserId());
+            UserInfo userInfo = userInfoServiceResult.getResult();
+            UserDomain userDomain = userService.queryOneUserByUserId(userInfo.getUserId());
 
             CommonUtilsSession.saveUser(request,userDomain);
 
@@ -112,25 +88,30 @@ public class UserController {
                 return ServiceResult.createFailServiceResult("密码不能为空");
             }
 
-
-            UserDomain userDomain =  userService.queryOneUserByEmail(loginRequest.getEmail());
-            if(CommonUtils.isNUll(userDomain)){
+            //检测邮箱是否存在
+            ServiceResult<UserInfo> userInfoServiceResult =  userService.queryOneUserByEmail(loginRequest.getEmail());
+            if(userInfoServiceResult.getServiceCode()==ServiceCode.FAIL || userInfoServiceResult.getResult()==null){
                 return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
             }
+            //比较密码是否正确
+            UserInfo userInfo = userInfoServiceResult.getResult();
+            UserDomain userDomain = userService.queryOneUserByUserId(userInfo.getUserId());
             loginRequest.setPassword(generatePassword(loginRequest.getPassword(),userDomain.getPasswordSalt()));
-
-            UserDomain ud = userService.queryUserByEmailAndPassword(loginRequest.getEmail(),loginRequest.getPassword());
+            ServiceResult<UserInfo> ud = userService.queryUserByEmailAndPassword(loginRequest.getEmail(),loginRequest.getPassword());
             if(CommonUtils.isNUll(ud)){
                 return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
             }
 
-            CommonUtilsSession.saveUser(request,ud);
+            CommonUtilsSession.saveUser(request,userDomain);
 
-            ud.setUserToken(generateUserToken());
-            userService.updateUserToken(ud);
-            CommonUtilsCookie.saveUser(response,ud);
+            userDomain.setUserToken(generateUserToken());
+            userService.updateUserToken(userDomain);
+            CommonUtilsCookie.saveUser(response,userDomain);
 
-            return ServiceResult.createSuccessServiceResult("用户登陆成功",new LoginResponse(new UserInfo(ud.getUserId(),ud.getUserName())));
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setUserInfo(userInfo);
+
+            return ServiceResult.createSuccessServiceResult("用户登陆成功",loginResponse);
         } catch (Exception e) {
             String message = "用户登陆失败";
             LOGGER.error(message,e);
@@ -145,11 +126,15 @@ public class UserController {
     public ServiceResult<GetUserInfoResponse> getUserInfo(HttpServletRequest request){
 
         try {
-            UserDomain userDomain = CommonUtilsSession.getUser(request);
-            if(CommonUtils.isNUll(userDomain)){
-                return ServiceResult.createFailServiceResult("用户没有登陆");
+            UserInfo userInfo = userService.getUserInfoBySession(request);
+            if(userInfo == null){
+                return FreshServiceResult.createFailFreshServiceResult("获取用户信息失败");
             }
-            return ServiceResult.createSuccessServiceResult("成功获取用户信息",new GetUserInfoResponse(new UserInfo(userDomain.getUserId(),userDomain.getUserName())));
+
+            GetUserInfoResponse getUserInfoResponse =  new GetUserInfoResponse();
+            getUserInfoResponse.setUserInfo(userInfo);
+
+            return ServiceResult.createSuccessServiceResult("成功获取用户信息",getUserInfoResponse);
         } catch (Exception e) {
             String message = "获取用户信息失败";
             LOGGER.error(message,e);

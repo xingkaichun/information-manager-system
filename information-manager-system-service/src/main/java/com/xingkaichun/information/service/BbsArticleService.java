@@ -2,6 +2,7 @@ package com.xingkaichun.information.service;
 
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
+import com.xingkaichun.information.dto.base.ServiceResult;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface BbsArticleService {
 
     List<BbsArticleDTO> queryBbsArticleByUserId(String userId);
 
-    BbsArticleDTO queryBbsArticleDetailByBbsArticleId(String bbsArticleId);
+    ServiceResult<BbsArticleDTO> queryBbsArticleDetailByBbsArticleId(String bbsArticleId);
 }

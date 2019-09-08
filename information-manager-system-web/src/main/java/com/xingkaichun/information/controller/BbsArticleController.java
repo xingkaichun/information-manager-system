@@ -11,6 +11,7 @@ import com.xingkaichun.information.dto.BbsArticle.response.QueryBbsArticleByUser
 import com.xingkaichun.information.dto.BbsArticle.response.QueryBbsArticleDetailByBbsArticleIdResponse;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.information.dto.base.ServiceCode;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.service.BbsArticleCommentService;
 import com.xingkaichun.information.service.BbsArticleService;
@@ -64,8 +65,12 @@ public class BbsArticleController {
             addBbsArticleRequest.setBbsArticleId(String.valueOf(UUID.randomUUID()));
 
             bbsArticleService.addBbsArticle(addBbsArticleRequest);
-            BbsArticleDTO bbsArticleDTO = bbsArticleService.queryBbsArticleDetailByBbsArticleId(addBbsArticleRequest.getBbsArticleId());
+            ServiceResult<BbsArticleDTO> bbsArticleDTOServiceResult = bbsArticleService.queryBbsArticleDetailByBbsArticleId(addBbsArticleRequest.getBbsArticleId());
+            if(bbsArticleDTOServiceResult.getServiceCode()== ServiceCode.FAIL){
+                return FreshServiceResult.createFailFreshServiceResult(bbsArticleDTOServiceResult.getMessage());
+            }
 
+            BbsArticleDTO bbsArticleDTO = bbsArticleDTOServiceResult.getResult();
             AddBbsArticleResponse addBbsArticleResponse = new AddBbsArticleResponse();
             addBbsArticleResponse.setBbsArticleDTO(bbsArticleDTO);
 
@@ -125,8 +130,12 @@ public class BbsArticleController {
     public ServiceResult<QueryBbsArticleDetailByBbsArticleIdResponse> queryBbsArticleDetailByBbsArticleId(@RequestBody QueryBbsArticleDetailByBbsArticleIdRequest queryBbsArticleDetailByBbsArticleIdRequest){
 
         try {
-            BbsArticleDTO bbsArticleDTO = bbsArticleService.queryBbsArticleDetailByBbsArticleId(queryBbsArticleDetailByBbsArticleIdRequest.getBbsArticleId());
+            ServiceResult<BbsArticleDTO> bbsArticleDTOServiceResult = bbsArticleService.queryBbsArticleDetailByBbsArticleId(queryBbsArticleDetailByBbsArticleIdRequest.getBbsArticleId());
+            if(bbsArticleDTOServiceResult.getServiceCode()== ServiceCode.FAIL){
+                return FreshServiceResult.createFailFreshServiceResult(bbsArticleDTOServiceResult.getMessage());
+            }
 
+            BbsArticleDTO bbsArticleDTO = bbsArticleDTOServiceResult.getResult();
             QueryBbsArticleDetailByBbsArticleIdResponse queryBbsArticleDetailByBbsArticleIdResponse = new QueryBbsArticleDetailByBbsArticleIdResponse();
             queryBbsArticleDetailByBbsArticleIdResponse.setBbsArticleDTO(bbsArticleDTO);
 

@@ -5,10 +5,12 @@ import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
+import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
 import com.xingkaichun.information.model.BbsArticleDomain;
-import com.xingkaichun.information.service.BbsArticleCommentService;
 import com.xingkaichun.information.service.BbsArticleService;
+import com.xingkaichun.information.service.UserService;
 import com.xingkaichun.utils.CommonUtilBbsArticleCommentDTO;
 import com.xingkaichun.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     @Autowired
     private BbsArticleCommentDao bbsArticleCommentDao;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public int addBbsArticle(AddBbsArticleRequest addBbsArticleRequest) {
         return bbsArticleDao.addBbsArticle(classCast(addBbsArticleRequest));
@@ -33,25 +38,61 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     @Override
     public List<BbsArticleDTO> queryBbsArticleByRand() {
         List<BbsArticleDomain> bbsArticleDomainList = bbsArticleDao.queryBbsArticleByRand();
-        return classCast(bbsArticleDomainList);
+        List<BbsArticleDTO> bbsArticleDTOList = classCast(bbsArticleDomainList);
+        fillBbsArticleDTO(bbsArticleDTOList);
+        return bbsArticleDTOList;
+    }
+
+    private void fillBbsArticleDTO(List<BbsArticleDTO> bbsArticleDTOList) {
+        if(bbsArticleDTOList == null){
+            return;
+        }
+        for(BbsArticleDTO bbsArticleDTO:bbsArticleDTOList){
+            fillBbsArticleDTO(bbsArticleDTO);
+        }
+    }
+    private void fillBbsArticleDTO(BbsArticleDTO bbsArticleDTO) {
+        UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleDTO.getUserId());
+        bbsArticleDTO.setUserInfo(userInfo);
+    }
+    private void fillBbsArticleCommentDTO(List<BbsArticleCommentDTO> bbsArticleDTOList) {
+        if(bbsArticleDTOList == null){
+            return;
+        }
+        for(BbsArticleCommentDTO bbsArticleCommentDTO:bbsArticleDTOList){
+            BbsArticleCommentDTO(bbsArticleCommentDTO);
+        }
+    }
+    private void BbsArticleCommentDTO(BbsArticleCommentDTO bbsArticleCommentDTO) {
+        UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleCommentDTO.getUserId());
+        bbsArticleCommentDTO.setUserInfo(userInfo);
     }
 
     @Override
     public List<BbsArticleDTO> queryBbsArticleByUserId(String userId) {
         List<BbsArticleDomain>  bbsArticleDomainList = bbsArticleDao.queryBbsArticleByUserId(userId);
-        return classCast(bbsArticleDomainList);
+        List<BbsArticleDTO> bbsArticleDTOList = classCast(bbsArticleDomainList);
+        fillBbsArticleDTO(bbsArticleDTOList);
+        return bbsArticleDTOList;
     }
 
     @Override
-    public BbsArticleDTO queryBbsArticleDetailByBbsArticleId(String bbsArticleId) {
+    public ServiceResult<BbsArticleDTO> queryBbsArticleDetailByBbsArticleId(String bbsArticleId) {
         BbsArticleDomain bbsArticleDomain = bbsArticleDao.queryBbsArticleByBbsArticleId(bbsArticleId);
+        if(bbsArticleDomain == null){
+            return ServiceResult.createFailServiceResult("帖子不存在");
+        }
         BbsArticleDTO bbsArticleDTO = classCast(bbsArticleDomain);
+        fillBbsArticleDTO(bbsArticleDTO);
 
         List<BbsArticleCommentDomain> bbsArticleCommentDomainList = bbsArticleCommentDao.querybbsArticleCommentBybbsArticleId(bbsArticleId);
-        List<BbsArticleCommentDTO> parentBbsArticleCommentDTOList = CommonUtilBbsArticleCommentDTO.parentBbsArticleCommentDTOList(BbsArticleCommentServiceImpl.classCast(bbsArticleCommentDomainList));
+        List<BbsArticleCommentDTO> bbsArticleDTOList = BbsArticleCommentServiceImpl.classCast(bbsArticleCommentDomainList);
+        fillBbsArticleCommentDTO(bbsArticleDTOList);
+
+        List<BbsArticleCommentDTO> parentBbsArticleCommentDTOList = CommonUtilBbsArticleCommentDTO.parentBbsArticleCommentDTOList(bbsArticleDTOList);
 
         bbsArticleDTO.setBbsArticleCommentDTOList(parentBbsArticleCommentDTOList);
-        return bbsArticleDTO;
+        return ServiceResult.createSuccessServiceResult("获取帖子详情成功",bbsArticleDTO);
     }
 
     private List<BbsArticleDTO> classCast(List<BbsArticleDomain> bbsArticleDomainList) {

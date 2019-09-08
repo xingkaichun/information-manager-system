@@ -3,6 +3,7 @@ package com.xingkaichun.information.dto.BbsArticle;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
+import com.xingkaichun.information.dto.user.UserInfo;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,8 +16,8 @@ public class BbsArticleDTO {
     private String bbsArticleId;
     @JsonProperty("UserId")
     private String userId;
-    @JsonProperty("UserDto")
-    private String UserDto;
+    @JsonProperty("UserInfo")
+    private UserInfo userInfo;
     @JsonProperty("Title")
     private String title;
     @JsonProperty("Content")

@@ -3,14 +3,22 @@ package com.xingkaichun.information.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.UserDao;
+import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.user.UserDto;
+import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
 import com.xingkaichun.utils.CommonUtils;
+import com.xingkaichun.utils.CommonUtilsMd5;
+import com.xingkaichun.utils.CommonUtilsSession;
+import org.apache.commons.lang3.CharEncoding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service(value = "userService")
@@ -20,9 +28,41 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public int addUser(UserDto userDto) {
+    public ServiceResult<UserInfo> addUser(UserDto userDto) {
+        if(CommonUtils.isNUllOrEmpty(userDto.getEmail())){
+            return FreshServiceResult.createFailFreshServiceResult("邮箱不能为空");
+        }
+        if(CommonUtils.isNUllOrEmpty(userDto.getUserName())){
+            return FreshServiceResult.createFailFreshServiceResult("用户名不能为空");
+        }
+        if(!CommonUtils.isNUllOrEmpty(userDto.getUserId())){
+            return FreshServiceResult.createFailFreshServiceResult("系统自动分配用户Id,请不要填写");
+        }
+        if(CommonUtils.isNUllOrEmpty(userDto.getPassword())){
+            return FreshServiceResult.createFailFreshServiceResult("密码不能为空");
+        }
+        //校验用户是否已经存在
+        if(!CommonUtils.isNUll(userDao.queryUserByEmail(userDto.getEmail()))){
+            return FreshServiceResult.createFailFreshServiceResult("邮箱已经存在");
+        }
+        if(!CommonUtils.isNUll(userDao.queryUserByUserName(userDto.getUserName()))){
+            return FreshServiceResult.createFailFreshServiceResult("用户名已经存在");
+        }
+        if(!CommonUtils.isNUll(userDao.queryUserByPhone(userDto.getPhone()))){
+            return FreshServiceResult.createFailFreshServiceResult("手机号已经存在");
+        }
+
+        userDto.setUserId(String.valueOf(UUID.randomUUID()));
+        userDto.setPasswordSalt(String.valueOf(UUID.randomUUID()));
+        String newPassword = generatePassword(userDto.getPassword(), userDto.getPasswordSalt());
+        userDto.setPassword(newPassword);
         UserDomain userDomain = classClass(userDto);
-        return userDao.insert(userDomain);
+
+        userDao.insert(userDomain);
+
+        UserDomain userDomain2 = userDao.queryUserByUserId(userDomain.getUserId());
+
+        return ServiceResult.createSuccessServiceResult("新增用戶成功",classCast(userDomain2));
     }
 
     private UserDomain classClass(UserDto userDto) {
@@ -55,20 +95,16 @@ public class UserServiceImpl implements UserService {
     public UserDomain queryOneUserByUserId(String userId) {
         return userDao.queryUserByUserId(userId);
     }
-
     @Override
-    public UserDomain queryOneUserByEmail(String email) {
-        return userDao.queryUserByEmail(email);
+    public UserInfo queryOneUserByUserId2(String userId) {
+        UserDomain userDomain = userDao.queryUserByUserId(userId);
+        return classCast(userDomain);
     }
-
     @Override
-    public UserDomain queryOneUserByUserName(String userName) {
-        return userDao.queryUserByUserName(userName);
-    }
-
-    @Override
-    public UserDomain queryOneUserByPhone(String phone) {
-        return userDao.queryUserByPhone(phone);
+    public ServiceResult<UserInfo> queryOneUserByEmail(String email) {
+        UserDomain userDomain = userDao.queryUserByEmail(email);
+        UserInfo userInfo = classCast(userDomain);
+        return ServiceResult.createSuccessServiceResult("通过邮箱获取用户成功",userInfo);
     }
 
     @Override
@@ -77,9 +113,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDomain queryUserByEmailAndPassword(String email,String password) {
+    public ServiceResult<UserInfo> queryUserByEmailAndPassword(String email,String password) {
         UserDomain userDomain = userDao.queryUserByEmailAndPassword(email,password);
-        return userDomain;
+        UserInfo userInfo = classCast(userDomain);
+        return ServiceResult.createSuccessServiceResult("通过邮箱和密码获取用户成功",userInfo);
     }
 
     @Override
@@ -94,5 +131,29 @@ public class UserServiceImpl implements UserService {
             throw new NullPointerException("UserToken不能为空");
         }
         return userDao.updateUserToken(userDomain);
+    }
+
+    @Override
+    public UserInfo getUserInfoBySession(HttpServletRequest request) {
+        UserDomain userDomain = CommonUtilsSession.getUser(request);
+        return classCast(userDomain);
+    }
+
+    private UserInfo classCast(UserDomain userDomain) {
+        if(userDomain == null){
+            return null;
+        }
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(userDomain.getUserId());
+        userInfo.setUserName(userDomain.getUserName());
+        return userInfo;
+    }
+
+    private String generatePassword(String password, String passwordSalt) {
+        return CommonUtilsMd5.MD5Encode(password+passwordSalt, CharEncoding.UTF_8,false);
+    }
+
+    private String generateUserToken() {
+        return CommonUtilsMd5.MD5Encode(String.valueOf(UUID.randomUUID())+String.valueOf(UUID.randomUUID()), CharEncoding.UTF_8,false);
     }
 }
