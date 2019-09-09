@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface BookService {
 
-    FreshServiceResult addBook(HttpServletRequest request, AddBookRequest addBookRequest);
-    FreshServiceResult updateBook(UpdateBookRequest updateBookRequest);
-    FreshServiceResult physicsDeleteBookByBookId(PhysicsDeleteBookByBookIdRequest physicsDeleteBookByBookIdRequest);
+    ServiceResult<BookDTO> addBook(HttpServletRequest request, AddBookRequest addBookRequest);
+    FreshServiceResult updateBook(UpdateBookRequest request);
+    FreshServiceResult physicsDeleteBookByBookId(PhysicsDeleteBookByBookIdRequest request);
 
     ServiceResult<List<BookDTO>> queryBookList();
 }

@@ -13,5 +13,6 @@ public interface BookDao {
     int physicsDeleteBookByBookId(@Param("bookId")String bookId);
 
     List<BookDomain> queryBookList();
+    BookDomain queryBook(@Param("bookId")String bookId);
 
 }

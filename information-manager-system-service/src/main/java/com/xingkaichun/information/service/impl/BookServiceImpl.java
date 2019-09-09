@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public FreshServiceResult addBook(HttpServletRequest request, AddBookRequest addBookRequest) {
+    public ServiceResult<BookDTO> addBook(HttpServletRequest request, AddBookRequest addBookRequest) {
         try{
             addBookRequest.setAuthorId(CommonUtilsSession.getUser(request).getUserId());
             if(!CommonUtils.isNUllOrEmpty(addBookRequest.getBookId())){
@@ -44,7 +44,10 @@ public class BookServiceImpl implements BookService {
             }
             BookDomain bookDomain = classCast2(addBookRequest);
             bookDao.addBook(bookDomain);
-            return FreshServiceResult.createSuccessFreshServiceResult("新增书籍成功");
+
+            BookDomain dbBookDomain = bookDao.queryBook(addBookRequest.getBookId());
+            BookDTO bookDTO = classCast(dbBookDomain);
+            return FreshServiceResult.createSuccessServiceResult("新增书籍成功",bookDTO);
         } catch (Exception e){
             String message = "新增书籍失败";
             LOGGER.error(message,e);
@@ -57,6 +60,10 @@ public class BookServiceImpl implements BookService {
         try{
             if(CommonUtils.isNUllOrEmpty(updateBookRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
+            }
+            BookDomain bookDomain = bookDao.queryBook(updateBookRequest.getBookId());
+            if(bookDomain==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
             }
             bookDao.updateBook(updateBookRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("更新书籍成功");
@@ -73,7 +80,14 @@ public class BookServiceImpl implements BookService {
             if(CommonUtils.isNUllOrEmpty(physicsDeleteBookByBookIdRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
             }
-            //TODO 校验软删除标识
+            //校验软删除标识
+            BookDomain bookDomain = bookDao.queryBook(physicsDeleteBookByBookIdRequest.getBookId());
+            if(bookDomain==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
+            }
+            if(!bookDomain.isSoftDelete()){
+                return FreshServiceResult.createFailFreshServiceResult("书籍软删除标识为不可删");
+            }
             //TODO 校验书籍下不能有章节
             bookDao.physicsDeleteBookByBookId(physicsDeleteBookByBookIdRequest.getBookId());
             return FreshServiceResult.createSuccessFreshServiceResult("删除书籍成功");

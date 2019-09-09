@@ -1,7 +1,11 @@
 package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.AddBookRequest;
+import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
+import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.service.BookChapterService;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.information.service.BookService;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Api(value="书籍controller",tags={"书籍操作接口"})
 @Controller
@@ -32,13 +37,13 @@ public class BookController {
     @Autowired
     private BookSectionService bookSectionService;
 
-    @ApiOperation(value="新增文章", notes="新增文章")
+    @ApiOperation(value="新增书籍", notes="新增书籍")
     @ResponseBody
     @PostMapping("/Addbook")
-    public FreshServiceResult addArticle(@RequestBody AddBookRequest addBookRequest, HttpServletRequest httpServletRequest){
+    public ServiceResult<BookDTO> addArticle(@RequestBody AddBookRequest request, HttpServletRequest httpServletRequest){
         try{
-            bookService.addBook(httpServletRequest,addBookRequest);
-            return FreshServiceResult.createSuccessFreshServiceResult("新增书籍成功");
+            ServiceResult<BookDTO> serviceResult = bookService.addBook(httpServletRequest,request);
+            return serviceResult;
         } catch (Exception e){
             String message = "新增书籍失败";
             LOGGER.error(message,e);
@@ -46,4 +51,45 @@ public class BookController {
         }
     }
 
+    @ApiOperation(value="更新书籍", notes="更新书籍")
+    @ResponseBody
+    @PostMapping("/UpdateBook")
+    public FreshServiceResult updateBook(@RequestBody UpdateBookRequest request){
+        try{
+            FreshServiceResult freshServiceResult = bookService.updateBook(request);
+            return freshServiceResult;
+        } catch (Exception e){
+            String message = "更新书籍失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="物理删除书籍", notes="物理删除书籍")
+    @ResponseBody
+    @PostMapping("/PhysicsDeleteBookByBookId")
+    public FreshServiceResult physicsDeleteBookByBookId(@RequestBody PhysicsDeleteBookByBookIdRequest request){
+        try{
+            FreshServiceResult freshServiceResult = bookService.physicsDeleteBookByBookId(request);
+            return freshServiceResult;
+        } catch (Exception e){
+            String message = "物理删除失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="查询全部书籍", notes="查询全部书籍")
+    @ResponseBody
+    @PostMapping("/QueryBookList")
+    public ServiceResult<List<BookDTO>> queryBookList(){
+        try{
+            ServiceResult<List<BookDTO>> serviceResult = bookService.queryBookList();
+            return serviceResult;
+        } catch (Exception e){
+            String message = "物理删除失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
 }
