@@ -12,4 +12,5 @@ public interface BookSectionDao {
     int physicsDeleteBookSectionByBookSectionId(@Param("bookSectionId")String bookSectionId);
 
     List<BookSectionDomian> queryBookSectionListBybookChapterId(@Param("bookChapterId")String bookChapterId);
+    BookSectionDomian queryBookSectionByBookSectionId(@Param("bookSectionId")String bookSectionId);
 }

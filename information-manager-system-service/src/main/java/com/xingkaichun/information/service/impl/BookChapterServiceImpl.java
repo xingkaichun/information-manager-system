@@ -2,6 +2,7 @@ package com.xingkaichun.information.service.impl;
 
 import com.xingkaichun.information.dao.BookChapterDao;
 import com.xingkaichun.information.dao.BookDao;
+import com.xingkaichun.information.dao.BookSectionDao;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
@@ -11,6 +12,7 @@ import com.xingkaichun.information.dto.bookChapter.request.QueryBookChapterListB
 import com.xingkaichun.information.dto.bookChapter.request.UpdateBookChapterRequest;
 import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
+import com.xingkaichun.information.model.BookSectionDomian;
 import com.xingkaichun.information.service.BookChapterService;
 import com.xingkaichun.utils.CommonUtils;
 import org.slf4j.Logger;
@@ -28,9 +30,11 @@ public class BookChapterServiceImpl implements BookChapterService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookChapterServiceImpl.class);
 
     @Autowired
+    private BookDao bookDao;
+    @Autowired
     private BookChapterDao bookChapterDao;
     @Autowired
-    private BookDao bookDao;
+    private BookSectionDao bookSectionDao;
 
     @Override
     public ServiceResult<BookChapterDTO> addBookChapter(AddBookChapterRequest request) {
@@ -101,7 +105,12 @@ public class BookChapterServiceImpl implements BookChapterService {
             if(!bookChapterDomain.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节软删除标识为不可删");
             }
-            //TODO 校验章节下不能有小节
+            //校验 章节下不能有小节
+            List<BookSectionDomian> bookSectionDomianList = bookSectionDao.queryBookSectionListBybookChapterId(request.getBookChapterId());
+            if(!CommonUtils.isNUllOrEmpty(bookSectionDomianList)){
+                return FreshServiceResult.createFailFreshServiceResult("章节下不能有小节");
+            }
+
             bookChapterDao.physicsDeleteBookChapterByBookChapterId(request.getBookChapterId());
             return FreshServiceResult.createSuccessFreshServiceResult("删除书籍章节成功");
         } catch (Exception e){
@@ -121,9 +130,9 @@ public class BookChapterServiceImpl implements BookChapterService {
             List<BookChapterDomain> BookChapterDomainList = bookChapterDao.queryBookChapterListByBookId(bookId);
             List<BookChapterDTO> bookChapterDTOList = classCast(BookChapterDomainList);
 
-            return FreshServiceResult.createSuccessServiceResult("查询书籍列表成功",bookChapterDTOList);
+            return FreshServiceResult.createSuccessServiceResult("查询书籍章节列表成功",bookChapterDTOList);
         } catch (Exception e){
-            String message = "删除书籍失败";
+            String message = "查询书籍章节列表失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }

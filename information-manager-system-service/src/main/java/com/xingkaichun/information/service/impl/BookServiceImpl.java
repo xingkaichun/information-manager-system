@@ -1,5 +1,6 @@
 package com.xingkaichun.information.service.impl;
 
+import com.xingkaichun.information.dao.BookChapterDao;
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
@@ -8,7 +9,9 @@ import com.xingkaichun.information.dto.book.request.AddBookRequest;
 import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
 import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
 import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
+import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
+import com.xingkaichun.information.model.BookSectionDomian;
 import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.utils.CommonUtils;
 import com.xingkaichun.utils.CommonUtilsSession;
@@ -29,6 +32,8 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookDao bookDao;
+    @Autowired
+    private BookChapterDao bookChapterDao;
 
 
     @Override
@@ -89,7 +94,12 @@ public class BookServiceImpl implements BookService {
             if(!bookDomain.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍软删除标识为不可删");
             }
-            //TODO 校验书籍下不能有章节
+            //校验 书籍下不能有章节
+            List<BookChapterDomain> bookChapterDomainList = bookChapterDao.queryBookChapterListByBookId(physicsDeleteBookByBookIdRequest.getBookId());
+            if(!CommonUtils.isNUllOrEmpty(bookChapterDomainList)){
+                return FreshServiceResult.createFailFreshServiceResult("书籍下不能有章节");
+            }
+
             bookDao.physicsDeleteBookByBookId(physicsDeleteBookByBookIdRequest.getBookId());
             return FreshServiceResult.createSuccessFreshServiceResult("删除书籍成功");
         } catch (Exception e){

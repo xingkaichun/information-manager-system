@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface BookSectionService {
 
-    FreshServiceResult addBookSection(HttpServletRequest httpServletRequest, AddBookSectionRequest request);
+    ServiceResult<BookSectionDTO> addBookSection(HttpServletRequest httpServletRequest, AddBookSectionRequest request);
     FreshServiceResult updateBookSection(UpdateBookSectionRequest request);
     FreshServiceResult physicsDeleteBookSectionByBookSectionId(PhysicsDeleteBookSectionByBookSectionIdRequest request);
 

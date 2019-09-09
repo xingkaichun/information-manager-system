@@ -2,9 +2,9 @@ package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
-import com.xingkaichun.information.dto.book.AddBookResponse;
+import com.xingkaichun.information.dto.book.response.AddBookResponse;
 import com.xingkaichun.information.dto.book.BookDTO;
-import com.xingkaichun.information.dto.book.QueryBookListResponse;
+import com.xingkaichun.information.dto.book.response.QueryBookListResponse;
 import com.xingkaichun.information.dto.book.request.AddBookRequest;
 import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
 import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
@@ -16,6 +16,13 @@ import com.xingkaichun.information.dto.bookChapter.request.QueryBookChapterListB
 import com.xingkaichun.information.dto.bookChapter.request.UpdateBookChapterRequest;
 import com.xingkaichun.information.dto.bookChapter.response.AddBookChapterResponse;
 import com.xingkaichun.information.dto.bookChapter.response.QueryBookChapterListByBookIdResponse;
+import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
+import com.xingkaichun.information.dto.bookSection.request.AddBookSectionRequest;
+import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSectionByBookSectionIdRequest;
+import com.xingkaichun.information.dto.bookSection.request.QueryBookSectionListBybookChapterIdRequest;
+import com.xingkaichun.information.dto.bookSection.request.UpdateBookSectionRequest;
+import com.xingkaichun.information.dto.bookSection.response.AddBookSectionResponse;
+import com.xingkaichun.information.dto.bookSection.response.QueryBookSectionListBybookChapterIdResponse;
 import com.xingkaichun.information.service.BookChapterService;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.information.service.BookService;
@@ -174,11 +181,86 @@ public class BookController {
             }
             QueryBookChapterListByBookIdResponse response = new QueryBookChapterListByBookIdResponse();
             response.setBookChapterDTOList(serviceResult.getResult());
-            return ServiceResult.createSuccessServiceResult("新增书籍成功",response);
+            return ServiceResult.createSuccessServiceResult("查询书籍章节列表成功",response);
         } catch (Exception e){
-            String message = "查询书籍章节失败";
+            String message = "查询书籍章节列表失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
     }
+
+
+
+
+
+
+
+
+    @ApiOperation(value="新增书籍小节", notes="新增书籍小节")
+    @ResponseBody
+    @PostMapping("/AddBookSection")
+    public ServiceResult<AddBookSectionResponse> addBookSection(@RequestBody AddBookSectionRequest request, HttpServletRequest httpServletRequest){
+        try{
+            ServiceResult<BookSectionDTO> serviceResult = bookSectionService.addBookSection(httpServletRequest,request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
+            }
+            AddBookSectionResponse response = new AddBookSectionResponse();
+            response.setBookSectionDTO(serviceResult.getResult());
+            return ServiceResult.createSuccessServiceResult("新增书籍小节成功",response);
+        } catch (Exception e){
+            String message = "新增书籍小节失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="更新书籍小节", notes="更新书籍小节")
+    @ResponseBody
+    @PostMapping("/UpdateBookSection")
+    public FreshServiceResult updateBookSection(@RequestBody UpdateBookSectionRequest request){
+        try{
+            FreshServiceResult serviceResult = bookSectionService.updateBookSection(request);
+            return serviceResult;
+        } catch (Exception e){
+            String message = "更新书籍小节失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="物理删除书籍小节", notes="物理删除书籍小节")
+    @ResponseBody
+    @PostMapping("/PhysicsDeleteBookSectionByBookSectionId")
+    public FreshServiceResult physicsDeleteBookSectionByBookSectionId(@RequestBody PhysicsDeleteBookSectionByBookSectionIdRequest request){
+        try{
+            FreshServiceResult freshServiceResult = bookSectionService.physicsDeleteBookSectionByBookSectionId(request);
+            return freshServiceResult;
+        } catch (Exception e){
+            String message = "物理删除书籍小节失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="查询书籍小节", notes="查询书籍小节")
+    @ResponseBody
+    @PostMapping("/QueryBookSectionListBybookChapterId")
+    public ServiceResult<QueryBookSectionListBybookChapterIdResponse> queryBookSectionListBybookChapterId(@RequestBody QueryBookSectionListBybookChapterIdRequest request){
+        try{
+            ServiceResult<List<BookSectionDTO>> serviceResult = bookSectionService.queryBookSectionListBybookChapterId(request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
+            }
+            QueryBookSectionListBybookChapterIdResponse response = new QueryBookSectionListBybookChapterIdResponse();
+            response.setBookSectionDTOList(serviceResult.getResult());
+            return ServiceResult.createSuccessServiceResult("查询书籍小节列表成功",response);
+        } catch (Exception e){
+            String message = "查询书籍小节列表失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+
 }
