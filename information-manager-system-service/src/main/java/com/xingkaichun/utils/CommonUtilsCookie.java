@@ -22,6 +22,7 @@ public class CommonUtilsCookie {
 
     public static String getUserToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
+        if(cookies==null){return null;}
         for(Cookie cookie:cookies){
             if(USER_TOKEN.equals(cookie.getName())){
                 return cookie.getValue();
