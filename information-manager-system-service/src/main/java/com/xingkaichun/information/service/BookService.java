@@ -5,6 +5,7 @@ import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.AddBookRequest;
 import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
+import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
 import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,5 +17,5 @@ public interface BookService {
     FreshServiceResult updateBook(UpdateBookRequest request);
     FreshServiceResult physicsDeleteBookByBookId(PhysicsDeleteBookByBookIdRequest request);
 
-    ServiceResult<List<BookDTO>> queryBookList();
+    ServiceResult<List<BookDTO>> queryBookList(QueryBookListRequest request);
 }

@@ -6,6 +6,7 @@ import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.AddBookRequest;
 import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
+import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
 import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.service.BookService;
@@ -99,7 +100,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public ServiceResult<List<BookDTO>> queryBookList() {
+    public ServiceResult<List<BookDTO>> queryBookList(QueryBookListRequest request) {
         try{
             List<BookDomain> bookDomainList = bookDao.queryBookList();
             List<BookDTO> bookDTOList = classCast(bookDomainList);

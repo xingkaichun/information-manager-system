@@ -25,7 +25,7 @@
   <update id="updateBook" parameterType="com.xingkaichun.information.dto.book.request.UpdateBookRequest">
     update <include refid="BASE_TABLE"/>
     set
-    <if test="bookName != null">
+    <if test="bookName != null and bookName != ''">
       bookName = #{bookName, jdbcType=VARCHAR},
     </if>
     <if test="createTime != null">

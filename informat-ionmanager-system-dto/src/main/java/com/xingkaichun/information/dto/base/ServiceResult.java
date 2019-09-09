@@ -25,4 +25,7 @@ public class ServiceResult<T> {
     public static<T> ServiceResult createFailServiceResult(String message){
         return new ServiceResult(ServiceCode.FAIL,message,null);
     }
+    public static boolean isSuccess(ServiceResult serviceResult){
+        return serviceResult!=null && serviceResult.getServiceCode() != null && serviceResult.getServiceCode() == ServiceCode.SUCCESS;
+    }
 }

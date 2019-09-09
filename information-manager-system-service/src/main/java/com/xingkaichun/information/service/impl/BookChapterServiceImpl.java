@@ -1,6 +1,7 @@
 package com.xingkaichun.information.service.impl;
 
 import com.xingkaichun.information.dao.BookChapterDao;
+import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
@@ -9,6 +10,7 @@ import com.xingkaichun.information.dto.bookChapter.request.PhysicsDeleteBookChap
 import com.xingkaichun.information.dto.bookChapter.request.QueryBookChapterListByBookIdRequest;
 import com.xingkaichun.information.dto.bookChapter.request.UpdateBookChapterRequest;
 import com.xingkaichun.information.model.BookChapterDomain;
+import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.service.BookChapterService;
 import com.xingkaichun.utils.CommonUtils;
 import org.slf4j.Logger;
@@ -27,15 +29,20 @@ public class BookChapterServiceImpl implements BookChapterService {
 
     @Autowired
     private BookChapterDao bookChapterDao;
+    @Autowired
+    private BookDao bookDao;
 
     @Override
-    public FreshServiceResult addBookChapter(AddBookChapterRequest request) {
+    public ServiceResult<BookChapterDTO> addBookChapter(AddBookChapterRequest request) {
         try{
             String bookId = request.getBookId();
             if(CommonUtils.isNUllOrEmpty(bookId)){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
             } else {
-              //TODO 校验BookId存在
+                BookDomain bookDomain = bookDao.queryBook(bookId);
+                if(bookDomain == null){
+                    return FreshServiceResult.createFailFreshServiceResult("书籍不存在，无法添加章节");
+                }
             }
 
             if(!CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
@@ -50,7 +57,10 @@ public class BookChapterServiceImpl implements BookChapterService {
 
             BookChapterDomain bookChapterDomain = classCast2(request);
             bookChapterDao.addBookChapter(bookChapterDomain);
-            return FreshServiceResult.createSuccessFreshServiceResult("新增书籍章节成功");
+
+            BookChapterDomain dbBookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterId());
+            BookChapterDTO bookChapterDTO = classCast(dbBookChapterDomain);
+            return FreshServiceResult.createSuccessServiceResult("新增书籍章节成功",bookChapterDTO);
         } catch (Exception e){
             String message = "新增书籍章节失败";
             LOGGER.error(message,e);
@@ -63,6 +73,10 @@ public class BookChapterServiceImpl implements BookChapterService {
         try{
             if(CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节ID不能为空");
+            }
+            BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterId());
+            if(bookChapterDomain == null){
+                return FreshServiceResult.createSuccessFreshServiceResult("书籍章节不存在");
             }
             bookChapterDao.updateBookChapter(request);
             return FreshServiceResult.createSuccessFreshServiceResult("更新书籍章节成功");
@@ -79,7 +93,14 @@ public class BookChapterServiceImpl implements BookChapterService {
             if(CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节ID不能为空");
             }
-            //TODO 校验软删除标识
+            //校验软删除标识
+            BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterId());
+            if(bookChapterDomain==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍章节不存在");
+            }
+            if(!bookChapterDomain.isSoftDelete()){
+                return FreshServiceResult.createFailFreshServiceResult("书籍章节软删除标识为不可删");
+            }
             //TODO 校验章节下不能有小节
             bookChapterDao.physicsDeleteBookChapterByBookChapterId(request.getBookChapterId());
             return FreshServiceResult.createSuccessFreshServiceResult("删除书籍章节成功");

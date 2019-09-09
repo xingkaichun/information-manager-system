@@ -29,7 +29,7 @@
     <if test="bookId != null">
       bookId = #{bookId, jdbcType=VARCHAR},
     </if>
-    <if test="bookChapterName != null">
+    <if test="bookChapterName != null and bookChapterName != ''">
       bookChapterName = #{bookChapterName, jdbcType=VARCHAR},
     </if>
     <if test="bookChapterOrder != null">
@@ -57,4 +57,13 @@
     <include refid="BASE_TABLE"/>
     where bookId = #{bookId, jdbcType=VARCHAR}
   </select>
+
+  <select id="queryBookChapterByBookChapterId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookChapterDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
+  </select>
+
 </mapper>

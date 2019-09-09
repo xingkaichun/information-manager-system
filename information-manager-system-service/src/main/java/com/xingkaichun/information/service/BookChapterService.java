@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface BookChapterService {
 
-    FreshServiceResult addBookChapter(AddBookChapterRequest request);
+    ServiceResult<BookChapterDTO> addBookChapter(AddBookChapterRequest request);
     FreshServiceResult updateBookChapter(UpdateBookChapterRequest request);
     FreshServiceResult physicsDeleteBookChapterByBookChapterId(PhysicsDeleteBookChapterByBookChapterIdRequest request);
 
