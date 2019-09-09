@@ -25,4 +25,5 @@ echo `pwd`
 
 nohup java -Xms256M -Xmx1024M -Xss512k -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -Xloggc:gc.log -Dloader.path=libs/,config/,front-end/ -Dspring.profiles.active=pro -jar $JAR_NAME &
 
+
 echo "start success ."

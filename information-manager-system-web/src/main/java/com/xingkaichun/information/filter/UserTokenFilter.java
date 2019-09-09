@@ -38,6 +38,9 @@ public class UserTokenFilter implements Filter {
 		if (uri.contains("/Add")||uri.contains("/Delete")||uri.contains("/Update")||uri.contains("/QueryBbsArticleByUserId")){
 			needAccess = true ;
 		}
+		if(uri.contains("/User/AddUser")){
+			needAccess = false;
+		}
 
 		if(needAccess){
 			//检测用户是否已经登录
