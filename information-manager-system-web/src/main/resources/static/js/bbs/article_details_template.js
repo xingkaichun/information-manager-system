@@ -1,5 +1,5 @@
 $(function(){
-    var url="http://xingkaichun.com:80"
+    var url="http://localhost:80"
 
     //获取参数
     function urlArgs() {
