@@ -91,7 +91,7 @@ public class UserController {
 
             //检测邮箱是否存在
             ServiceResult<UserInfo> userInfoServiceResult =  userService.queryOneUserByEmail(loginRequest.getEmail());
-            if(userInfoServiceResult.getServiceCode()==ServiceCode.FAIL || userInfoServiceResult.getResult()==null){
+            if(!ServiceResult.isSuccess(userInfoServiceResult)){
                 return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
             }
             //比较密码是否正确
@@ -99,7 +99,7 @@ public class UserController {
             UserDomain userDomain = userService.queryOneUserByUserId(userInfo.getUserId());
             loginRequest.setPassword(generatePassword(loginRequest.getPassword(),userDomain.getPasswordSalt()));
             ServiceResult<UserInfo> ud = userService.queryUserByEmailAndPassword(loginRequest.getEmail(),loginRequest.getPassword());
-            if(CommonUtils.isNUll(ud)){
+            if(!ServiceResult.isSuccess(ud)){
                 return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
             }
 

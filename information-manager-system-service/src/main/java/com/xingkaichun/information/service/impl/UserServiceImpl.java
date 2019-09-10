@@ -103,6 +103,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public ServiceResult<UserInfo> queryOneUserByEmail(String email) {
         UserDomain userDomain = userDao.queryUserByEmail(email);
+        if(userDomain == null){
+            return ServiceResult.createFailServiceResult("通过邮箱和密码获取用户失败，请检查邮箱和密码");
+        }
         UserInfo userInfo = classCast(userDomain);
         return ServiceResult.createSuccessServiceResult("通过邮箱获取用户成功",userInfo);
     }
@@ -115,6 +118,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public ServiceResult<UserInfo> queryUserByEmailAndPassword(String email,String password) {
         UserDomain userDomain = userDao.queryUserByEmailAndPassword(email,password);
+        if(userDomain == null){
+            return ServiceResult.createFailServiceResult("通过邮箱和密码获取用户失败，请检查邮箱和密码");
+        }
         UserInfo userInfo = classCast(userDomain);
         return ServiceResult.createSuccessServiceResult("通过邮箱和密码获取用户成功",userInfo);
     }
