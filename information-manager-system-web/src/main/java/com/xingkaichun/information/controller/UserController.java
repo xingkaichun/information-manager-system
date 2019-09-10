@@ -55,9 +55,10 @@ public class UserController {
 
             CommonUtilsSession.saveUser(request,userDomain);
 
-            userDomain.setUserToken(generateUserToken());
+            String userToken = generateUserToken();
+            userDomain.setUserToken(userToken);
             userService.updateUserToken(userDomain);
-            CommonUtilsCookie.saveUser(response,userDomain);
+            CommonUtilsCookie.saveUserToken(response,userToken);
         } catch (Exception e) {
             String message = "新增用户出错";
             LOGGER.error(message,e);
@@ -104,9 +105,10 @@ public class UserController {
 
             CommonUtilsSession.saveUser(request,userDomain);
 
-            userDomain.setUserToken(generateUserToken());
+            String userToken = generateUserToken();
+            userDomain.setUserToken(userToken);
             userService.updateUserToken(userDomain);
-            CommonUtilsCookie.saveUser(response,userDomain);
+            CommonUtilsCookie.saveUserToken(response,userToken);
 
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setUserInfo(userInfo);
@@ -128,7 +130,7 @@ public class UserController {
         try {
             UserInfo userInfo = userService.getUserInfoBySession(request);
             if(userInfo == null){
-                return FreshServiceResult.createFailFreshServiceResult("获取用户信息失败");
+                return FreshServiceResult.createFailFreshServiceResult("获取用户信息失败,用户未登录。");
             }
 
             GetUserInfoResponse getUserInfoResponse =  new GetUserInfoResponse();

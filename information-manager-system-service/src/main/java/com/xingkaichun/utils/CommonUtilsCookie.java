@@ -14,9 +14,9 @@ public class CommonUtilsCookie {
     private final static String USER_TOKEN = "UserToken" ;
 
 
-    public static void saveUser(HttpServletResponse response, UserDomain userDomain) {
-        String userToken = userDomain.getUserToken();
+    public static void saveUserToken(HttpServletResponse response, String userToken) {
         Cookie userTokenCookie = new Cookie(USER_TOKEN,userToken);
+        userTokenCookie.setPath("/");
         response.addCookie(userTokenCookie);
     }
 
