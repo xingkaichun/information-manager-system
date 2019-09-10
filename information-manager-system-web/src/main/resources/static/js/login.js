@@ -45,7 +45,7 @@ $(function(){
                     console.log(data)
                     if(data.Result!=null){
                         alert(data.Message)
-                        location.href="./article_list.html"
+                        location.href="http://www.xingkaichun.com/"
                     }else{
                         alert(data.Message)
                     }
