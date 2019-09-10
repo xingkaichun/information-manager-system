@@ -10,7 +10,7 @@ $(function(){
             console.log(data)
             if(data.ServiceCode=='SUCCESS'){
                 var log = "<a href='/bbs/article_list.html' class='nav_li'>论坛</a>"
-                        + "<a href='' class='nav_li'>"+data.Result.UserInfo.UserName+"</a>";
+                        + "<a href='javascript:void(0)' class='nav_li'>"+data.Result.UserInfo.UserName+"</a>";
                 $("#rigth_nav").html(log)
             }
         },
