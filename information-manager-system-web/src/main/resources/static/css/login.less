@@ -1,0 +1,109 @@
+body{
+    padding: 0;
+    margin: 0 auto;
+}
+#login{
+    width: 100%;
+    margin: 0 auto;
+    .header{
+        height: 50px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 0 20px;
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #ffffff;
+        z-index: 100;
+        .left_nav,.rigth_nav{
+            height: 50px;
+        }
+        .left_nav .nav_li,.rigth_nav .nav_li{
+            text-decoration: none;
+            color: #333333;
+            display: inline-block;
+            margin-right: 20px;
+            height: 50px;
+            line-height: 50px;
+            box-sizing: border-box;
+            &.active{
+                color: #3b6caa;
+                border-bottom: 3px solid #3b6caa;
+            }
+            &:hover{
+                color: #3b6caa;
+                border-bottom: 3px solid #3b6caa;
+            }
+        }
+        .rigth_nav{
+            margin-left:auto;
+        }
+    }
+
+    .login_form{
+        width: 70%;
+        margin: 0 auto;
+        padding-top: 250px;
+        max-width: 700px;
+        .lable_form{
+            font-size: 0;
+            padding: 10px 0;
+            text-align: center; 
+            .lable{
+                font-size: 14px;
+                display: inline-block;
+                margin-right: 10px;
+                width: 33px;
+                text-align: right;
+            } 
+            .form{
+                font-size: 14px;
+                display: inline-block;
+                width: 70%;
+                input{
+                    appearance        : none;
+                    -moz-appearance   : none;
+                    -webkit-appearance: none;
+                    padding           : 6px 12px;
+                    border            : 1px solid #ccc;
+                    font-size         : 14px;
+                    font-weight       : 400;
+                    line-height       : 1.42857143;
+                    color             : #333;
+                    font-family       : "宋体";
+                    cursor            : pointer;
+                    border-radius     : 4px;
+                    outline           : none;
+                    width             : 100%;
+                    box-sizing: border-box;
+                }
+            }
+        }
+        .form_btn{
+            text-align: center;
+            button{
+                display: inline-block;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                touch-action: manipulation;
+                cursor: pointer;
+                user-select: none;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                color: #333;
+                background-color: #fff;
+                border-color: #ccc;
+            }
+        }
+    }
+
+}
