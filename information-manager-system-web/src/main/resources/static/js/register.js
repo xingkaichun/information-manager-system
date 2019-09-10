@@ -62,10 +62,9 @@ $(function(){
                 dataType: "json",
                 success: function(data){
                     console.log(data)
-                    if(data.Result!=null){
-                        alert(data.Message)
-                    }else{
-                        alert(data.Message)
+                    alert(data.Message)
+                    if(data.ServiceCode=='SUCCESS'){
+                        location.href="http://www.xingkaichun.com/"
                     }
                 },
                 error:function(e){
