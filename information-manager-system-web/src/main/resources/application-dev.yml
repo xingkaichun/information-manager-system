@@ -15,5 +15,5 @@ server:
 
 project:
   template:
-    articleTemplateFilePath: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\template\article_details_template.html
+    articleTemplateFilePath: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\template\post_details_template.html
     articleTemplateProduceFileSaveDirectory: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\article\
