@@ -2,13 +2,11 @@ package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.book.request.*;
 import com.xingkaichun.information.dto.book.response.AddBookResponse;
 import com.xingkaichun.information.dto.book.BookDTO;
+import com.xingkaichun.information.dto.book.response.QueryBookDetailsByBookIdResponse;
 import com.xingkaichun.information.dto.book.response.QueryBookListResponse;
-import com.xingkaichun.information.dto.book.request.AddBookRequest;
-import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
-import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
-import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
 import com.xingkaichun.information.dto.bookChapter.request.AddBookChapterRequest;
 import com.xingkaichun.information.dto.bookChapter.request.PhysicsDeleteBookChapterByBookChapterIdRequest;
@@ -26,6 +24,7 @@ import com.xingkaichun.information.dto.bookSection.response.QueryBookSectionList
 import com.xingkaichun.information.service.BookChapterService;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.information.service.BookService;
+import com.xingkaichun.information.service.ComplexBookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -53,6 +52,9 @@ public class BookController {
     private BookChapterService bookChapterService;
     @Autowired
     private BookSectionService bookSectionService;
+    @Autowired
+    private ComplexBookService ComplexBookServiceImpl;
+
 
     @ApiOperation(value="新增书籍", notes="新增书籍")
     @ResponseBody
@@ -82,6 +84,24 @@ public class BookController {
             return freshServiceResult;
         } catch (Exception e){
             String message = "更新书籍失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="查询书籍详情", notes="查询书籍详情")
+    @ResponseBody
+    @PostMapping("/QueryBookDetailsByBookIdRequest")
+    public ServiceResult<QueryBookDetailsByBookIdResponse> queryBookDetailsByBookIdRequest(@RequestBody QueryBookDetailsByBookIdRequest request){
+        try{
+            BookDTO bookDTO = ComplexBookServiceImpl.queryBookDetailsByBookIdRequest(request);
+
+            QueryBookDetailsByBookIdResponse response = new QueryBookDetailsByBookIdResponse();
+            response.setBookDTO(bookDTO);
+
+            return ServiceResult.createSuccessServiceResult("查询书籍详情成功",response);
+        } catch (Exception e){
+            String message = "查询书籍详情失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }

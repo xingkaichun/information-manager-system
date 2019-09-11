@@ -1,9 +1,11 @@
 package com.xingkaichun.information.dto.bookChapter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class BookChapterDTO {
@@ -20,4 +22,7 @@ public class BookChapterDTO {
     private Date createTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
+
+    @JsonProperty("BookSectionDTOList")
+    private List<BookSectionDTO> bookSectionDTOList;
 }

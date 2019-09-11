@@ -3,10 +3,7 @@ package com.xingkaichun.information.service;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
-import com.xingkaichun.information.dto.book.request.AddBookRequest;
-import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
-import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
-import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
+import com.xingkaichun.information.dto.book.request.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -18,4 +15,6 @@ public interface BookService {
     FreshServiceResult physicsDeleteBookByBookId(PhysicsDeleteBookByBookIdRequest request);
 
     ServiceResult<List<BookDTO>> queryBookList(QueryBookListRequest request);
+
+    BookDTO queryBook(QueryBookDetailsByBookIdRequest request);
 }

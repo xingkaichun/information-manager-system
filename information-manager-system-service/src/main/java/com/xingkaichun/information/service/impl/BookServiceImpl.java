@@ -5,10 +5,7 @@ import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
-import com.xingkaichun.information.dto.book.request.AddBookRequest;
-import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
-import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
-import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
+import com.xingkaichun.information.dto.book.request.*;
 import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.BookSectionDomian;
@@ -121,6 +118,15 @@ public class BookServiceImpl implements BookService {
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
+    }
+
+    @Override
+    public BookDTO queryBook(QueryBookDetailsByBookIdRequest request) {
+        BookDomain bookDomain = bookDao.queryBook(request.getBookId());
+        if(bookDomain==null){
+            return null;
+        }
+        return classCast(bookDomain);
     }
 
     private List<BookDTO> classCast(List<BookDomain> bookDomainList) {
