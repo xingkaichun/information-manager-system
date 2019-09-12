@@ -144,7 +144,7 @@ div[contenteditable="true"]:focus:before {
   max-width: 100%;
 }
 #article_details .link_content .content .comment_box {
-  margin-top: 30px;
+  margin-top: 200px;
 }
 #article_details .link_content .content .comment_box .title {
   text-align: center;
