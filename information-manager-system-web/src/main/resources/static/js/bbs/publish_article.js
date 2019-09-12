@@ -1,25 +1,5 @@
 $(function(){
     var url="http://localhost:80"
-    var article_data = {}
-    $.ajax({
-        type: "post",
-        url: url+"/User/GetUserInfo",
-        contentType:"application/json",
-        dataType: "json",
-        async:false,
-        success: function(data){
-            console.log(data)
-            if(data.Result!=null){
-                article_data.UserInfo = data.Result.UserInfo
-            }
-        },
-        error:function(e){
-
-        }
-    });
-    var article_html = template("publish_article_template",article_data)
-    $("#publish_article").html(article_html)
-
 
     //上传图片
     $("input[name='upload_img']").change(function(){
@@ -47,9 +27,8 @@ $(function(){
 
     //提交
     $("#sumbit_btn").click(function(){
-        if(article_data.UserInfo){
             var title = $("input[name='title']").val()
-            var content = $("div[name='content']").html().replace(/\"/g,"'");  
+            var content = $("div[name='content']").html().replace(/\"/g,"'");
             if(!title||title.trim()==""){
                 alert("标题为空")
                 return false
@@ -72,15 +51,17 @@ $(function(){
                     console.log(data)
                     $("input[name='title']").val("")
                     $("div[name='content']").html("")
-                    alert(data.Message)
+
+                    if(data.ServiceCode=='SUCCESS'){
+                        alert(data.Message+"。"+"即将跳转到我的帖子页面...")
+                        location.href="/bbs/my_post_list.html"
+                    } else {
+                        alert(data.Message)
+                    }
                 },
                 error:function(e){
-        
                 }
             });
-        }else{
-            alert("请先登录")
-        }
     })
 
 })

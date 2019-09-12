@@ -10,50 +10,49 @@
 </head>
 
 <body>
-    <div id="publish_article">
-        
+    <div class="header">
+        <div class="left_nav">
+            <a href="#" class="nav_li">lucene教程</a>
+            <a href="#" class="nav_li">solr教程</a>
+            <a href="#" class="nav_li">elasticsearch教程</a>
+        </div>
+        <div id="rigth_nav" class="rigth_nav">
+            <a href='/bbs/start_a_new_post.html' class='nav_li active'>发帖</a>
+            <a href="/bbs/post_list.html" class="nav_li">论坛</a>
+            <a href="/login.html" class="nav_li">登录</a>
+            <a href="/register.html" class="nav_li">注册</a>
+        </div>
     </div>
-    <script type="text/template" id="publish_article_template">
-        <div class="header">
-                <div class="left_nav">
-                    <a href="#" class="nav_li">lucene教程</a>
-                    <a href="#" class="nav_li">solr教程</a>
-                    <a href="#" class="nav_li">elasticsearch教程</a>
+
+    <div id="publish_article">
+        <div class="publish_article_form">
+            <div class="top">发帖</div>
+            <div class="form_list">
+                <div class="form_li">
+                    <div class="lable">标题</div>
+                    <div class="form">
+                        <input type="text" name="title" placeholder="请输入标题">
+                    </div>
                 </div>
-                <div class="rigth_nav">
-                    <a href="/bbs/post_list.html" class="nav_li">帖子</a>
-                    <a href="/bbs/my_post_list.html" class="nav_li">我的帖子</a>
-                    <a href="/login.html" class="nav_li">{{UserInfo?UserInfo.UserName:'登陆'}}</a>
-                    {{if UserInfo}}
-                        <a href="/bbs/start_a_new_post.html" class="nav_li active">发帖</a>
-                    {{/if}}
+                <div class="form_fluid">
+                    <div class="upload_img">
+                        图片上传
+                        <input type="file" name="upload_img" multiple/>
+                    </div>
+                    <div name="content" contenteditable="true" placeholder="请输入内容"></div>
                 </div>
-            </div>
-            <div class="publish_article_form">
-                <div class="top">发帖</div>
-                <div class="form_list">
-                    <div class="form_li">
-                        <div class="lable">标题</div>
-                        <div class="form">
-                            <input type="text" name="title" placeholder="请输入标题">
-                        </div>
-                    </div>
-                    <div class="form_fluid">
-                        <div class="upload_img">
-                            图片上传
-                            <input type="file" name="upload_img" multiple/>
-                        </div>
-                        <div name="content" contenteditable="true" placeholder="请输入内容"></div>
-                    </div>
-                    <div class="form_btn">
-                        <button id="sumbit_btn">提交</button>
-                    </div>
+                <div class="form_btn">
+                    <button id="sumbit_btn">提交</button>
                 </div>
             </div>
-    </script>
+        </div>
+    </div>
+
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bbs/template.js"></script>
     <script src="/js/bbs/publish_article.js"></script>
+    <script id="common_auto_login_js" src="/js/common_auto_login.js" data="start_a_new_post_page"></script>
 </body>
 
 </html>

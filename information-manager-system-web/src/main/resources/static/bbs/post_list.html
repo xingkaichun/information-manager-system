@@ -18,28 +18,28 @@
         </div>
         <div id="rigth_nav" class="rigth_nav">
             <a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a>
-            <a href="/bbs/post_list.html" class="nav_li">论坛</a>
+            <a href="/bbs/post_list.html" class="nav_li active">论坛</a>
             <a href="/login.html" class="nav_li">登录</a>
             <a href="/register.html" class="nav_li">注册</a>
         </div>
     </div>
     <div id="article_list">
-        <script type="text/template" id="article_list_template">
-            {{if BbsArticleDTOList&&BbsArticleDTOList.length}}
-            <div class="list">
-                <div class="top">帖子</div>
-                {{each BbsArticleDTOList as item}}
-                <div class="li">
-                    <a class="title" href="./post_details_template.html?BbsArticleId={{item.BbsArticleId}}">{{item.Title}}</a>
-                    <div class="time">{{item.CreateTime}}</div>
-                </div>
-                {{/each}}
-            </div>
-            {{else}}
-            <div class="null_text">暂无帖子</div>
-            {{/if}}
-        </script>
     </div>
+    <script type="text/template" id="article_list_template">
+        {{if BbsArticleDTOList&&BbsArticleDTOList.length}}
+        <div class="list">
+            <div class="top">帖子</div>
+            {{each BbsArticleDTOList as item}}
+            <div class="li">
+                <a class="title" href="./post_details_template.html?BbsArticleId={{item.BbsArticleId}}">{{item.Title}}</a>
+                <div class="time">{{item.CreateTime}}</div>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="null_text">暂无帖子</div>
+        {{/if}}
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bbs/template.js"></script>

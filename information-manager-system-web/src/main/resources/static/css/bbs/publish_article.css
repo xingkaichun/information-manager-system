@@ -3,7 +3,7 @@ body {
   margin: 0 auto;
 }
 div[contenteditable="true"] {
-  outline: none;
+  outline: none;header
 }
 div[contenteditable="true"]:empty:before {
   content: attr(placeholder);
@@ -13,7 +13,7 @@ div[contenteditable="true"]:empty:before {
 div[contenteditable="true"]:focus:before {
   content: none;
 }
-#publish_article .header {
+.header {
   height: 50px;
   display: flex;
   align-items: center;
@@ -26,12 +26,12 @@ div[contenteditable="true"]:focus:before {
   background-color: #ffffff;
   z-index: 100;
 }
-#publish_article .header .left_nav,
-#publish_article .header .rigth_nav {
+.header .left_nav,
+.header .rigth_nav {
   height: 50px;
 }
-#publish_article .header .left_nav .nav_li,
-#publish_article .header .rigth_nav .nav_li {
+.header .left_nav .nav_li,
+.header .rigth_nav .nav_li {
   text-decoration: none;
   color: #333333;
   display: inline-block;
@@ -40,17 +40,17 @@ div[contenteditable="true"]:focus:before {
   line-height: 50px;
   box-sizing: border-box;
 }
-#publish_article .header .left_nav .nav_li.active,
-#publish_article .header .rigth_nav .nav_li.active {
+.header .left_nav .nav_li.active,
+.header .rigth_nav .nav_li.active {
   color: #3b6caa;
   border-bottom: 3px solid #3b6caa;
 }
-#publish_article .header .left_nav .nav_li:hover,
-#publish_article .header .rigth_nav .nav_li:hover {
+.header .left_nav .nav_li:hover,
+.header .rigth_nav .nav_li:hover {
   color: #3b6caa;
   border-bottom: 3px solid #3b6caa;
 }
-#publish_article .header .rigth_nav {
+.header .rigth_nav {
   margin-left: auto;
 }
 #publish_article .publish_article_form {
