@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>帖子</title>
+    <title>论坛</title>
     <link rel="stylesheet" href="/css/bbs/article_list.css">
 </head>
 
@@ -28,7 +28,7 @@
     <script type="text/template" id="article_list_template">
         {{if BbsArticleDTOList&&BbsArticleDTOList.length}}
         <div class="list">
-            <div class="top">帖子</div>
+            <div class="top">论坛</div>
             {{each BbsArticleDTOList as item}}
             <div class="li">
                 <a class="title" href="./post_details_template.html?BbsArticleId={{item.BbsArticleId}}">{{item.Title}}</a>
