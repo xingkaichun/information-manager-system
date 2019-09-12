@@ -10,24 +10,24 @@
 </head>
 
 <body>
+    <div class="header">
+        <div class="left_nav">
+            <a href="#" class="nav_li">lucene教程</a>
+            <a href="#" class="nav_li">solr教程</a>
+            <a href="#" class="nav_li">elasticsearch教程</a>
+        </div>
+        <div id="rigth_nav" class="rigth_nav">
+            <a href="/bbs/post_list.html" class="nav_li">论坛</a>
+            <a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a>
+            <a href='javascript:void(0)' class='nav_li active'>我的帖子</a>
+            <a href="/login.html" class="nav_li">登录</a>
+        </div>
+    </div>
+
     <div id="article_list">
     </div>
     <script type="text/template" id="article_list_template">
-        <div class="header">
-            <div class="left_nav">
-                <a href="#" class="nav_li">lucene教程</a>
-                <a href="#" class="nav_li">solr教程</a>
-                <a href="#" class="nav_li">elasticsearch教程</a>
-            </div>
-            <div class="rigth_nav">
-                <a href="/bbs/post_list.html" class="nav_li">帖子</a>
-				<a href="/bbs/my_post_list.html" class="nav_li active">我的帖子</a>
-                <a href="/login.html" class="nav_li">{{UserInfo?UserInfo.UserName:'登陆'}}</a>
-                {{if UserInfo}}
-                <a href="/bbs/start_a_new_post.html" class="nav_li">发帖</a>
-                {{/if}}
-            </div>
-        </div>
+
         {{if BbsArticleDTOList&&BbsArticleDTOList.length}}
         <div class="list">
             <div class="top">我的帖子</div>
@@ -42,9 +42,12 @@
         <div class="null_text">暂无帖子</div>
         {{/if}}
     </script>
+
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bbs/template.js"></script>
     <script src="/js/bbs/my_article_list.js"></script>
+    <script id="common_auto_login_js" src="/js/common_auto_login.js" data="my_post_list_page"></script>
 </body>
 
 </html>

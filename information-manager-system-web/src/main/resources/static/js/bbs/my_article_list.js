@@ -1,26 +1,7 @@
 $(function(){
     var url="http://localhost:80"
     var article_data = {}
-    $.ajax({
-        type: "post",
-        url: url+"/User/GetUserInfo",
-        contentType:"application/json",
-        dataType: "json",
-        async:false,
-        success: function(data){
-            console.log(data)
-            if(data.Result!=null){
-                article_data.UserInfo = data.Result.UserInfo
-            }else{
-                alert(data.Message)
-                location.href="./login.html"
-                return false
-            }
-        },
-        error:function(e){
 
-        }
-    });
     $.ajax({
         type: "post",
         url: url+"/Bbs/QueryBbsArticleByUserId",
