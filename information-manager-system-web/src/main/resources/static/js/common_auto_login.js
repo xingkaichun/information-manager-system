@@ -34,6 +34,12 @@ $(function(){
                              + "<a href='/bbs/my_post_list.html' class='nav_li active'>我的帖子</a>"
                              + "<a href='javascript:void(0)' class='nav_li'>"+data.Result.UserInfo.UserName+"</a>";
                 }
+                if(page == "post_details_template_page"){
+                    showHtml = "<a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a>"
+                             + "<a href='/bbs/post_list.html' class='nav_li'>论坛</a>"
+                             + "<a href='/bbs/my_post_list.html' class='nav_li active'>我的帖子</a>"
+                             + "<a href='javascript:void(0)' class='nav_li'>"+data.Result.UserInfo.UserName+"</a>";
+                }
                 $("#rigth_nav").html(showHtml)
             } else {
                 if(page == "start_a_new_post_page"){

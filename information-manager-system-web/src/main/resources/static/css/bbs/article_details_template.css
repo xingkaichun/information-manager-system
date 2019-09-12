@@ -17,7 +17,7 @@ div[contenteditable="true"]:focus:before {
   width: 100%;
   margin: 0 auto;
 }
-#article_details .header {
+.header {
   height: 50px;
   display: flex;
   align-items: center;
@@ -30,12 +30,12 @@ div[contenteditable="true"]:focus:before {
   background-color: #ffffff;
   z-index: 100;
 }
-#article_details .header .left_nav,
-#article_details .header .rigth_nav {
+.header .left_nav,
+.header .rigth_nav {
   height: 50px;
 }
-#article_details .header .left_nav .nav_li,
-#article_details .header .rigth_nav .nav_li {
+.header .left_nav .nav_li,
+.header .rigth_nav .nav_li {
   text-decoration: none;
   color: #333333;
   display: inline-block;
@@ -44,17 +44,17 @@ div[contenteditable="true"]:focus:before {
   line-height: 50px;
   box-sizing: border-box;
 }
-#article_details .header .left_nav .nav_li.active,
-#article_details .header .rigth_nav .nav_li.active {
+.header .left_nav .nav_li.active,
+.header .rigth_nav .nav_li.active {
   color: #3b6caa;
   border-bottom: 3px solid #3b6caa;
 }
-#article_details .header .left_nav .nav_li:hover,
-#article_details .header .rigth_nav .nav_li:hover {
+.header .left_nav .nav_li:hover,
+.header .rigth_nav .nav_li:hover {
   color: #3b6caa;
   border-bottom: 3px solid #3b6caa;
 }
-#article_details .header .rigth_nav {
+.header .rigth_nav {
   margin-left: auto;
 }
 @media screen and (max-width: 1280px) {

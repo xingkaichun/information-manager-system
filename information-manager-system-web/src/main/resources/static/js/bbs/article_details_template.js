@@ -18,22 +18,6 @@ $(function(){
     }
 
     var article_data = {}
-    $.ajax({
-        type: "post",
-        url: url+"/User/GetUserInfo",
-        contentType:"application/json",
-        dataType: "json",
-        async:false,
-        success: function(data){
-            console.log(data)
-            if(data.Result!=null){
-                article_data.UserInfo = data.Result.UserInfo
-            }
-        },
-        error:function(e){
-
-        }
-    });
     function getHtml(){
         $.ajax({
             type: "post",
@@ -49,6 +33,9 @@ $(function(){
                 if(data.Result!=null){
                     article_data.BbsArticleDTO = data.Result.BbsArticleDTO
                     function recursionFun(BbsArticleCommentDTOList){
+                        if(BbsArticleCommentDTOList==null){
+                            return
+                        }
                         for(var i =0,len = BbsArticleCommentDTOList.length;i<len;i++){
                             BbsArticleCommentDTOList[i].user = article_data.UserInfo
                             if(BbsArticleCommentDTOList[i].ChildrenBbsArticleCommentDTOList.length){
