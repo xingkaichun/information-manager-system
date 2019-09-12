@@ -3,22 +3,6 @@ $(function(){
     var article_data = {}
     $.ajax({
         type: "post",
-        url: url+"/User/GetUserInfo",
-        contentType:"application/json",
-        dataType: "json",
-        async:false,
-        success: function(data){
-            console.log(data)
-            if(data.Result!=null){
-                article_data.UserInfo = data.Result.UserInfo
-            }
-        },
-        error:function(e){
-
-        }
-    });
-    $.ajax({
-        type: "post",
         url: url+"/Bbs/QueryBbsArticleByRand",
         contentType:"application/json",
         data:`{}`,
@@ -31,11 +15,9 @@ $(function(){
             }
         },
         error:function(e){
-
         }
     });
     console.log("article_data",article_data)
     var article_html = template("article_list_template",article_data)
     $("#article_list").html(article_html)
-     
 })
