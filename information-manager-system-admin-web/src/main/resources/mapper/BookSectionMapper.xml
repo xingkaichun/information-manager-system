@@ -6,23 +6,30 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-    bookId,bookChapterId,bookSectionId,bookSectionName,bookSectionContent,bookSectionOrder,
-    createTime,lastEditTime,isSoftDelete
+    bookId,bookChapterId,bookSectionId,bookSectionName,bookSectionDescription,bookSectionContent,bookSectionOrder,
+    createTime,lastEditTime,isSoftDelete,
+    seoUrl,seoTitle,seoKeywords,seoDescription
   </sql>
 
   <insert id="addBookSection" parameterType="com.xingkaichun.information.model.BookSectionDomian">
     INSERT INTO
     <include refid="BASE_TABLE"/>
-    (bookId,bookChapterId,bookSectionId,bookSectionName,bookSectionContent,bookSectionOrder,
-    isSoftDelete)
+    (bookId,bookChapterId,bookSectionId,bookSectionName,bookSectionDescription,bookSectionContent,bookSectionOrder,
+    isSoftDelete,
+    seoUrl,seoTitle,seoKeywords,seoDescription)
     VALUES(
     #{bookId, jdbcType=VARCHAR},
     #{bookChapterId, jdbcType=VARCHAR},
     #{bookSectionId, jdbcType=VARCHAR},
     #{bookSectionName, jdbcType=VARCHAR},
+    #{bookSectionDescription, jdbcType=VARCHAR},
     #{bookSectionContent, jdbcType=VARCHAR},
     #{bookSectionOrder, jdbcType=INTEGER},
-    false
+    false,
+    #{seoUrl, jdbcType=VARCHAR},
+    #{seoTitle, jdbcType=VARCHAR},
+    #{seoKeywords, jdbcType=VARCHAR},
+    #{seoDescription, jdbcType=VARCHAR}
     )
   </insert>
 
@@ -41,6 +48,9 @@
     <if test="bookSectionName != null">
       bookSectionName = #{bookSectionName, jdbcType=VARCHAR},
     </if>
+    <if test="bookSectionDescription != null">
+      bookSectionDescription = #{bookSectionDescription, jdbcType=VARCHAR},
+    </if>
     <if test="bookSectionContent != null">
       bookSectionContent = #{bookSectionContent, jdbcType=VARCHAR},
     </if>
@@ -49,6 +59,18 @@
     </if>
     <if test="isSoftDelete != null">
       isSoftDelete = #{isSoftDelete, jdbcType=BIT},
+    </if>
+    <if test="seoUrl != null and seoUrl != ''">
+      seoUrl = #{seoUrl, jdbcType=VARCHAR},
+    </if>
+    <if test="seoTitle != null and seoTitle != ''">
+      seoTitle = #{seoTitle, jdbcType=VARCHAR},
+    </if>
+    <if test="seoKeywords != null and seoKeywords != ''">
+      seoKeywords = #{seoKeywords, jdbcType=VARCHAR},
+    </if>
+    <if test="seoDescription != null and seoDescription != ''">
+      seoDescription = #{seoDescription, jdbcType=VARCHAR},
     </if>
     bookSectionId = #{bookSectionId, jdbcType=VARCHAR}
     where bookSectionId = #{bookSectionId, jdbcType=VARCHAR}

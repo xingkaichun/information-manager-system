@@ -144,10 +144,16 @@ public class BookServiceImpl implements BookService {
         dto.setBookId(domain.getBookId());
         dto.setAuthorId(domain.getAuthorId());
         dto.setBookName(domain.getBookName());
+        dto.setBookDescription(domain.getBookDescription());
 
         dto.setCreateTime(domain.getCreateTime());
         dto.setLastEditTime(domain.getLastEditTime());
         dto.setSoftDelete(domain.isSoftDelete());
+
+        dto.setSeoUrl(domain.getSeoUrl());
+        dto.setSeoTitle(domain.getSeoTitle());
+        dto.setSeoKeywords(domain.getSeoKeywords());
+        dto.setSeoDescription(domain.getSeoDescription());
         return dto;
     }
 
@@ -160,10 +166,16 @@ public class BookServiceImpl implements BookService {
         domain.setBookId(dto.getBookId());
         domain.setAuthorId(dto.getAuthorId());
         domain.setBookName(dto.getBookName());
+        domain.setBookDescription(dto.getBookDescription());
 
         domain.setCreateTime(dto.getCreateTime());
         domain.setLastEditTime(dto.getLastEditTime());
         domain.setSoftDelete(dto.isSoftDelete());
+
+        domain.setSeoUrl(dto.getSeoUrl());
+        domain.setSeoTitle(dto.getSeoTitle());
+        domain.setSeoKeywords(dto.getSeoKeywords());
+        domain.setSeoDescription(dto.getSeoDescription());
         return domain;
     }
 }

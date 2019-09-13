@@ -6,18 +6,27 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-    bookId,authorId,bookName,createTime,lastEditTime,isSoftDelete
+    bookId,authorId,bookName,bookDescription,
+    createTime,lastEditTime,isSoftDelete,
+    seoUrl,seoTitle,seoKeywords,seoDescription
   </sql>
 
   <insert id="addBook" parameterType="com.xingkaichun.information.model.BookDomain">
     INSERT INTO
       <include refid="BASE_TABLE"/>
-      (bookId,authorId,bookName,isSoftDelete)
+      (bookId,authorId,bookName,bookDescription,
+       isSoftDelete,
+       seoUrl,seoTitle,seoKeywords,seoDescription)
     VALUES(
       #{bookId, jdbcType=VARCHAR},
       #{authorId, jdbcType=VARCHAR},
       #{bookName, jdbcType=VARCHAR},
-      false
+      #{bookDescription, jdbcType=VARCHAR},
+      false,
+      #{seoUrl, jdbcType=VARCHAR},
+      #{seoTitle, jdbcType=VARCHAR},
+      #{seoKeywords, jdbcType=VARCHAR},
+      #{seoDescription, jdbcType=VARCHAR}
     )
   </insert>
 
@@ -27,8 +36,23 @@
     <if test="bookName != null and bookName != ''">
       bookName = #{bookName, jdbcType=VARCHAR},
     </if>
+    <if test="bookDescription != null and bookDescription != ''">
+      bookDescription = #{bookDescription, jdbcType=VARCHAR},
+    </if>
     <if test="isSoftDelete != null">
       isSoftDelete = #{isSoftDelete, jdbcType=BIT},
+    </if>
+    <if test="seoUrl != null and seoUrl != ''">
+      seoUrl = #{seoUrl, jdbcType=VARCHAR},
+    </if>
+    <if test="seoTitle != null and seoTitle != ''">
+      seoTitle = #{seoTitle, jdbcType=VARCHAR},
+    </if>
+    <if test="seoKeywords != null and seoKeywords != ''">
+      seoKeywords = #{seoKeywords, jdbcType=VARCHAR},
+    </if>
+    <if test="seoDescription != null and seoDescription != ''">
+      seoDescription = #{seoDescription, jdbcType=VARCHAR},
     </if>
     bookId = #{bookId, jdbcType=VARCHAR}
     where bookId = #{bookId, jdbcType=VARCHAR}

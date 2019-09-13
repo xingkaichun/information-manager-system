@@ -91,6 +91,12 @@ public class BookSectionServiceImpl implements BookSectionService {
             if(CommonUtils.isNUllOrEmpty(request.getBookSectionId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节ID不能为空");
             }
+            if(!CommonUtils.isNUllOrEmpty(request.getBookId())){
+                return FreshServiceResult.createFailFreshServiceResult("不允许更改书籍ID");
+            }
+            if(!CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
+                return FreshServiceResult.createFailFreshServiceResult("不允许更改书籍章节ID");
+            }
             BookSectionDomian bookSectionDomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionId());
             if(bookSectionDomian == null){
                 return FreshServiceResult.createSuccessFreshServiceResult("书籍小节不存在");
@@ -173,12 +179,18 @@ public class BookSectionServiceImpl implements BookSectionService {
         dto.setBookChapterId(domain.getBookChapterId());
         dto.setBookSectionId(domain.getBookSectionId());
         dto.setBookSectionName(domain.getBookSectionName());
+        dto.setBookSectionDescription(domain.getBookSectionDescription());
         dto.setBookSectionContent(domain.getBookSectionContent());
         dto.setBookSectionOrder(domain.getBookSectionOrder());
 
         dto.setCreateTime(domain.getCreateTime());
         dto.setLastEditTime(domain.getLastEditTime());
         dto.setSoftDelete(domain.isSoftDelete());
+
+        dto.setSeoUrl(domain.getSeoUrl());
+        dto.setSeoTitle(domain.getSeoTitle());
+        dto.setSeoKeywords(domain.getSeoKeywords());
+        dto.setSeoDescription(domain.getSeoDescription());
         return dto;
     }
 
@@ -192,12 +204,18 @@ public class BookSectionServiceImpl implements BookSectionService {
         domain.setBookChapterId(dto.getBookChapterId());
         domain.setBookSectionId(dto.getBookSectionId());
         domain.setBookSectionName(dto.getBookSectionName());
+        domain.setBookSectionDescription(dto.getBookSectionDescription());
         domain.setBookSectionContent(dto.getBookSectionContent());
         domain.setBookSectionOrder(dto.getBookSectionOrder());
 
         domain.setCreateTime(dto.getCreateTime());
         domain.setLastEditTime(dto.getLastEditTime());
         domain.setSoftDelete(dto.isSoftDelete());
+
+        domain.setSeoUrl(dto.getSeoUrl());
+        domain.setSeoTitle(dto.getSeoTitle());
+        domain.setSeoKeywords(dto.getSeoKeywords());
+        domain.setSeoDescription(dto.getSeoDescription());
         return domain;
     }
 

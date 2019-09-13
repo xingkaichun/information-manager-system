@@ -88,6 +88,9 @@ public class BookChapterServiceImpl implements BookChapterService {
             if(CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节ID不能为空");
             }
+            if(!CommonUtils.isNUllOrEmpty(request.getBookId())){
+                return FreshServiceResult.createFailFreshServiceResult("不允许更改书籍ID");
+            }
             BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterId());
             if(bookChapterDomain == null){
                 return FreshServiceResult.createSuccessFreshServiceResult("书籍章节不存在");
@@ -174,11 +177,17 @@ public class BookChapterServiceImpl implements BookChapterService {
         dto.setBookId(domain.getBookId());
         dto.setBookChapterId(domain.getBookChapterId());
         dto.setBookChapterName(domain.getBookChapterName());
+        dto.setBookChapterDescription(domain.getBookChapterDescription());
         dto.setBookChapterOrder(domain.getBookChapterOrder());
 
         dto.setCreateTime(domain.getCreateTime());
         dto.setLastEditTime(domain.getLastEditTime());
         dto.setSoftDelete(domain.isSoftDelete());
+
+        dto.setSeoUrl(domain.getSeoUrl());
+        dto.setSeoTitle(domain.getSeoTitle());
+        dto.setSeoKeywords(domain.getSeoKeywords());
+        dto.setSeoDescription(domain.getSeoDescription());
         return dto;
     }
 
@@ -191,11 +200,17 @@ public class BookChapterServiceImpl implements BookChapterService {
         domain.setBookId(dto.getBookId());
         domain.setBookChapterId(dto.getBookChapterId());
         domain.setBookChapterName(dto.getBookChapterName());
+        domain.setBookChapterDescription(dto.getBookChapterDescription());
         domain.setBookChapterOrder(dto.getBookChapterOrder());
 
         domain.setCreateTime(dto.getCreateTime());
         domain.setLastEditTime(dto.getLastEditTime());
         domain.setSoftDelete(dto.isSoftDelete());
+
+        domain.setSeoUrl(dto.getSeoUrl());
+        domain.setSeoTitle(dto.getSeoTitle());
+        domain.setSeoKeywords(dto.getSeoKeywords());
+        domain.setSeoDescription(dto.getSeoDescription());
         return domain;
     }
 }

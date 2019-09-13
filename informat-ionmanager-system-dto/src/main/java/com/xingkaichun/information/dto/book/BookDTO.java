@@ -17,6 +17,8 @@ public class BookDTO {
     private String authorId;
     @JsonProperty("BookName")
     private String bookName;
+    @JsonProperty("BookDescription")
+    private String bookDescription;
 
 
     @JsonProperty("CreateTime")
@@ -29,6 +31,16 @@ public class BookDTO {
     private Date lastEditTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
+
+
+    @JsonProperty("SeoUrl")
+    private String seoUrl;
+    @JsonProperty("SeoTitle")
+    private String seoTitle;
+    @JsonProperty("SeoKeywords")
+    private String seoKeywords;
+    @JsonProperty("SeoDescription")
+    private String seoDescription;
 
 
     @JsonProperty("BookChapterDTOList")
