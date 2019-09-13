@@ -1,8 +1,10 @@
 package com.xingkaichun.information.dto.book;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -18,8 +20,12 @@ public class BookDTO {
 
 
     @JsonProperty("CreateTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     @JsonProperty("LastEditTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastEditTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
