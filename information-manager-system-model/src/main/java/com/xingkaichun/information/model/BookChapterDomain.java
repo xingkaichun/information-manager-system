@@ -12,5 +12,6 @@ public class BookChapterDomain {
     private int bookChapterOrder;
 
     private Date createTime;
+    private Date lastEditTime;
     private boolean isSoftDelete;
 }

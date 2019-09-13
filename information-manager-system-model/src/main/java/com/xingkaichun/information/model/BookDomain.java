@@ -11,5 +11,6 @@ public class BookDomain {
     private String bookName;
 
     private Date createTime;
+    private Date lastEditTime;
     private boolean isSoftDelete;
 }

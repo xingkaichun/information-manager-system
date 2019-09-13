@@ -6,18 +6,17 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-    bookId,authorId,bookName,createTime,isSoftDelete
+    bookId,authorId,bookName,createTime,lastEditTime,isSoftDelete
   </sql>
 
   <insert id="addBook" parameterType="com.xingkaichun.information.model.BookDomain">
     INSERT INTO
       <include refid="BASE_TABLE"/>
-      (<include refid="BASE_COLUMN"/>)
+      (bookId,authorId,bookName,isSoftDelete)
     VALUES(
       #{bookId, jdbcType=VARCHAR},
       #{authorId, jdbcType=VARCHAR},
       #{bookName, jdbcType=VARCHAR},
-      #{createTime, jdbcType=TIMESTAMP},
       false
     )
   </insert>
@@ -27,9 +26,6 @@
     set
     <if test="bookName != null and bookName != ''">
       bookName = #{bookName, jdbcType=VARCHAR},
-    </if>
-    <if test="createTime != null">
-      createTime = #{createTime, jdbcType=TIMESTAMP},
     </if>
     <if test="isSoftDelete != null">
       isSoftDelete = #{isSoftDelete, jdbcType=BIT},
@@ -48,6 +44,7 @@
     <include refid="BASE_COLUMN"/>
     FROM
     <include refid="BASE_TABLE"/>
+    order by lastEditTime desc
   </select>
 
   <select id="queryBookByBookId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookDomain">

@@ -59,6 +59,10 @@ public class BookChapterServiceImpl implements BookChapterService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节名称不能为空");
             }
 
+            if(CommonUtils.isNUllOrEmpty(request.getBookChapterOrder())){
+                return FreshServiceResult.createFailFreshServiceResult("书籍章节排序值不能为空");
+            }
+
             BookChapterDomain bookChapterDomain = classCast2(request);
             bookChapterDao.addBookChapter(bookChapterDomain);
 
@@ -155,7 +159,9 @@ public class BookChapterServiceImpl implements BookChapterService {
         dto.setBookChapterId(domain.getBookChapterId());
         dto.setBookChapterName(domain.getBookChapterName());
         dto.setBookChapterOrder(domain.getBookChapterOrder());
+
         dto.setCreateTime(domain.getCreateTime());
+        dto.setLastEditTime(domain.getLastEditTime());
         dto.setSoftDelete(domain.isSoftDelete());
         return dto;
     }
@@ -170,7 +176,9 @@ public class BookChapterServiceImpl implements BookChapterService {
         domain.setBookChapterId(dto.getBookChapterId());
         domain.setBookChapterName(dto.getBookChapterName());
         domain.setBookChapterOrder(dto.getBookChapterOrder());
+
         domain.setCreateTime(dto.getCreateTime());
+        domain.setLastEditTime(dto.getLastEditTime());
         domain.setSoftDelete(dto.isSoftDelete());
         return domain;
     }

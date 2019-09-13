@@ -12,13 +12,12 @@
   <insert id="addBookChapter" parameterType="com.xingkaichun.information.model.BookChapterDomain">
     INSERT INTO
     <include refid="BASE_TABLE"/>
-    (<include refid="BASE_COLUMN"/>)
+    (bookId,bookChapterId,bookChapterName,bookChapterOrder,isSoftDelete)
     VALUES(
     #{bookId, jdbcType=VARCHAR},
     #{bookChapterId, jdbcType=VARCHAR},
     #{bookChapterName, jdbcType=VARCHAR},
     #{bookChapterOrder, jdbcType=INTEGER},
-    #{createTime, jdbcType=TIMESTAMP},
     false
     )
   </insert>
@@ -34,9 +33,6 @@
     </if>
     <if test="bookChapterOrder != null">
       bookChapterOrder = #{bookChapterOrder, jdbcType=TIMESTAMP},
-    </if>
-    <if test="createTime != null">
-      createTime = #{createTime, jdbcType=TIMESTAMP},
     </if>
     <if test="isSoftDelete != null">
       isSoftDelete = #{isSoftDelete, jdbcType=BIT},
@@ -56,6 +52,7 @@
     FROM
     <include refid="BASE_TABLE"/>
     where bookId = #{bookId, jdbcType=VARCHAR}
+    order by bookChapterOrder asc
   </select>
 
   <select id="queryBookChapterByBookChapterId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookChapterDomain">

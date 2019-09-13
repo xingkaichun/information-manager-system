@@ -16,12 +16,16 @@ public class BookChapterDTO {
     @JsonProperty("BookChapterName")
     private String bookChapterName;
     @JsonProperty("BookChapterOrder")
-    private int bookChapterOrder;
+    private Integer bookChapterOrder;
+
 
     @JsonProperty("CreateTime")
     private Date createTime;
+    @JsonProperty("LastEditTime")
+    private Date lastEditTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
+
 
     @JsonProperty("BookSectionDTOList")
     private List<BookSectionDTO> bookSectionDTOList;

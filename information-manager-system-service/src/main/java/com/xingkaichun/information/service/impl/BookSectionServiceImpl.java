@@ -61,6 +61,11 @@ public class BookSectionServiceImpl implements BookSectionService {
             } else {
                 request.setBookSectionId(String.valueOf(UUID.randomUUID()));
             }
+
+            if(CommonUtils.isNUllOrEmpty(request.getBookSectionOrder())){
+                return FreshServiceResult.createFailFreshServiceResult("书籍小节排序值不能为空");
+            }
+
             BookSectionDomian bookDomain = classCast2(request);
             bookSectionDao.addBookSection(bookDomain);
 

@@ -18,7 +18,8 @@ public class BookSectionDTO {
     @JsonProperty("BookSectionContent")
     private String bookSectionContent;
     @JsonProperty("BookSectionOrder")
-    private int bookSectionOrder;
+    private Integer bookSectionOrder;
+
 
     @JsonProperty("CreateTime")
     private Date createTime;

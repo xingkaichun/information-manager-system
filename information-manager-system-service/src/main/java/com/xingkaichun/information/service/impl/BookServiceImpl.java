@@ -144,7 +144,9 @@ public class BookServiceImpl implements BookService {
         dto.setBookId(domain.getBookId());
         dto.setAuthorId(domain.getAuthorId());
         dto.setBookName(domain.getBookName());
+
         dto.setCreateTime(domain.getCreateTime());
+        dto.setLastEditTime(domain.getLastEditTime());
         dto.setSoftDelete(domain.isSoftDelete());
         return dto;
     }
@@ -153,13 +155,15 @@ public class BookServiceImpl implements BookService {
         return classCast(addBookRequest);
     }
 
-    private BookDomain classCast(BookDTO bookDTO) {
+    private BookDomain classCast(BookDTO dto) {
         BookDomain domain = new BookDomain();
-        domain.setBookId(bookDTO.getBookId());
-        domain.setAuthorId(bookDTO.getAuthorId());
-        domain.setBookName(bookDTO.getBookName());
-        domain.setCreateTime(bookDTO.getCreateTime());
-        domain.setSoftDelete(bookDTO.isSoftDelete());
+        domain.setBookId(dto.getBookId());
+        domain.setAuthorId(dto.getAuthorId());
+        domain.setBookName(dto.getBookName());
+
+        domain.setCreateTime(dto.getCreateTime());
+        domain.setLastEditTime(dto.getLastEditTime());
+        domain.setSoftDelete(dto.isSoftDelete());
         return domain;
     }
 }

@@ -18,6 +18,9 @@ public class CommonUtils {
             Collection collection = (Collection)object;
             return collection.isEmpty();
         }
+        if(object instanceof Number){
+            return object == null;
+        }
         if(object instanceof CategoryDTO){
             return false;
         }
