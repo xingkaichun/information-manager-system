@@ -37,35 +37,30 @@ public class UserTokenFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		String uri = httpServletRequest.getRequestURI();
 
-		//是否需要权限
-		boolean needAccess = false;
-
-		//后台强制验证所有操作都需要权限
-		needAccess = true;
-
-		if (uri.contains("/Add")||uri.contains("/Delete")||uri.contains("/Update")){
-			needAccess = true ;
-		}
-
-		if (uri.contains("/User/Login")||uri.contains("/Error/Auth")){
-			needAccess = false ;
-		}
-
-		if(needAccess){
-			//检测用户是否已经登录
-			if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
-				//尝试使用UserToken登录
-				String userToken = CommonUtilsCookie.getUserToken(httpServletRequest);
-				if(!CommonUtils.isNUllOrEmpty(userToken)){
-					UserDomain userDomain = userService.queryOneUserByUserToken(userToken);
-					if(!CommonUtils.isNUll(userDomain)){
-						CommonUtilsSession.saveUser(httpServletRequest,userDomain);
-					}
+		//尝试登录
+		if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
+			//尝试使用UserToken登录
+			String userToken = CommonUtilsCookie.getUserToken(httpServletRequest);
+			if(!CommonUtils.isNUllOrEmpty(userToken)){
+				UserDomain userDomain = userService.queryOneUserByUserToken(userToken);
+				if(!CommonUtils.isNUll(userDomain)){
+					CommonUtilsSession.saveUser(httpServletRequest,userDomain);
 				}
 			}
-			if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
+		}
+
+		if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
+			String uri = httpServletRequest.getRequestURI();
+
+			//后台强制验证所有操作都需要权限
+			boolean needAccess = true;
+
+			if (uri.contains("/User/Login")||uri.contains("/Error/Auth")){
+				needAccess = false ;
+			}
+
+			if(needAccess){
 				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 				httpServletResponse.sendRedirect("/Error/Auth");
 				return;
