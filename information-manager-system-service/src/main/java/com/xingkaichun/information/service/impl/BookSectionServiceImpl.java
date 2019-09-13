@@ -40,23 +40,18 @@ public class BookSectionServiceImpl implements BookSectionService {
     @Override
     public ServiceResult<BookSectionDTO> addBookSection(HttpServletRequest httpServletRequest, AddBookSectionRequest request) {
         try{
-            if(CommonUtils.isNUllOrEmpty(request.getBookId())){
-                return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
-            } else {
-                //校验书籍存在
-                BookDomain bookDomain = bookDao.queryBook(request.getBookId());
-                if(bookDomain == null){
-                    return FreshServiceResult.createFailFreshServiceResult("书籍不存在，无法添加章节");
-                }
+            if(!CommonUtils.isNUllOrEmpty(request.getBookId())){
+                return FreshServiceResult.createFailFreshServiceResult("请勿填写书籍ID，书籍ID由系统自动寻找");
             }
             if(CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节ID不能为空");
             } else {
-                //校验书籍存在
+                //校验书籍章节存在
                 BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterId());
                 if(bookChapterDomain == null){
-                    return FreshServiceResult.createFailFreshServiceResult("书籍章节不存在，无法添加章节");
+                    return FreshServiceResult.createFailFreshServiceResult("书籍章节不存在，无法添加书籍小节");
                 }
+                request.setBookId(bookChapterDomain.getBookId());
             }
             if(CommonUtils.isNUllOrEmpty(request.getBookSectionName())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节名称不能为空");

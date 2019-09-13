@@ -43,9 +43,10 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         List<BookChapterDTO> bookChapterDTOList = serviceResult.getResult();
         bookDTO.setBookChapterDTOList(bookChapterDTOList);
 
-        if(CommonUtils.isNUllOrEmpty(bookChapterDTOList)){
+        if(!CommonUtils.isNUllOrEmpty(bookChapterDTOList)){
             for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
                 QueryBookSectionListBybookChapterIdRequest queryBookSectionListBybookChapterIdRequest = new QueryBookSectionListBybookChapterIdRequest();
+                queryBookSectionListBybookChapterIdRequest.setBookChapterId(bookChapterDTO.getBookChapterId());
                 ServiceResult<List<BookSectionDTO>> bookSectionServiceResult = bookSectionService.queryBookSectionListBybookChapterId(queryBookSectionListBybookChapterIdRequest);
                 bookChapterDTO.setBookSectionDTOList(bookSectionServiceResult.getResult());
             }

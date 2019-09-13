@@ -91,7 +91,7 @@ public class BookController {
 
     @ApiOperation(value="查询书籍详情", notes="查询书籍详情")
     @ResponseBody
-    @PostMapping("/QueryBookDetailsByBookIdRequest")
+    @PostMapping("/QueryBookDetailsByBookId")
     public ServiceResult<QueryBookDetailsByBookIdResponse> queryBookDetailsByBookIdRequest(@RequestBody QueryBookDetailsByBookIdRequest request){
         try{
             BookDTO bookDTO = ComplexBookServiceImpl.queryBookDetailsByBookIdRequest(request);
@@ -132,9 +132,9 @@ public class BookController {
             }
             QueryBookListResponse response = new QueryBookListResponse();
             response.setBookDTOList(serviceResult.getResult());
-            return ServiceResult.createSuccessServiceResult("新增书籍成功",response);
+            return ServiceResult.createSuccessServiceResult("[查询全部书籍]成功",response);
         } catch (Exception e){
-            String message = "物理删除失败";
+            String message = "[查询全部书籍]失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }

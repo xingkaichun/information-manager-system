@@ -43,7 +43,7 @@ public class BookChapterServiceImpl implements BookChapterService {
             if(CommonUtils.isNUllOrEmpty(bookId)){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
             } else {
-                BookDomain bookDomain = bookDao.queryBook(bookId);
+                BookDomain bookDomain = bookDao.queryBookByBookId(bookId);
                 if(bookDomain == null){
                     return FreshServiceResult.createFailFreshServiceResult("书籍不存在，无法添加章节");
                 }

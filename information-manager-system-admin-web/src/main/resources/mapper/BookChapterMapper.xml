@@ -65,5 +65,4 @@
     <include refid="BASE_TABLE"/>
     where bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
   </select>
-
 </mapper>

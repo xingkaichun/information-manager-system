@@ -8,7 +8,6 @@ import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.*;
 import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
-import com.xingkaichun.information.model.BookSectionDomian;
 import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.utils.CommonUtils;
 import com.xingkaichun.utils.CommonUtilsSession;
@@ -48,7 +47,7 @@ public class BookServiceImpl implements BookService {
             BookDomain bookDomain = classCast2(addBookRequest);
             bookDao.addBook(bookDomain);
 
-            BookDomain dbBookDomain = bookDao.queryBook(addBookRequest.getBookId());
+            BookDomain dbBookDomain = bookDao.queryBookByBookId(addBookRequest.getBookId());
             BookDTO bookDTO = classCast(dbBookDomain);
             return FreshServiceResult.createSuccessServiceResult("新增书籍成功",bookDTO);
         } catch (Exception e){
@@ -64,7 +63,7 @@ public class BookServiceImpl implements BookService {
             if(CommonUtils.isNUllOrEmpty(updateBookRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
             }
-            BookDomain bookDomain = bookDao.queryBook(updateBookRequest.getBookId());
+            BookDomain bookDomain = bookDao.queryBookByBookId(updateBookRequest.getBookId());
             if(bookDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
             }
@@ -84,7 +83,7 @@ public class BookServiceImpl implements BookService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
             }
             //校验软删除标识
-            BookDomain bookDomain = bookDao.queryBook(physicsDeleteBookByBookIdRequest.getBookId());
+            BookDomain bookDomain = bookDao.queryBookByBookId(physicsDeleteBookByBookIdRequest.getBookId());
             if(bookDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
             }
@@ -122,7 +121,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO queryBook(QueryBookDetailsByBookIdRequest request) {
-        BookDomain bookDomain = bookDao.queryBook(request.getBookId());
+        BookDomain bookDomain = bookDao.queryBookByBookId(request.getBookId());
         if(bookDomain==null){
             return null;
         }

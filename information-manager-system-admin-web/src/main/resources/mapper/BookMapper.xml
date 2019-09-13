@@ -50,7 +50,7 @@
     <include refid="BASE_TABLE"/>
   </select>
 
-  <select id="queryBook" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookDomain">
+  <select id="queryBookByBookId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookDomain">
     SELECT
     <include refid="BASE_COLUMN"/>
     FROM
