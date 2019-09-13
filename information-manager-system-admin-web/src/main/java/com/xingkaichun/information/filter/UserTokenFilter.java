@@ -53,8 +53,12 @@ public class UserTokenFilter implements Filter {
 		if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
 			String uri = httpServletRequest.getRequestURI();
 
-			//后台强制验证所有操作都需要权限
-			boolean needAccess = true;
+			//是否需要权限
+			boolean needAccess = false;
+
+			if (uri.contains("/Add")||uri.contains("/Delete")||uri.contains("/Update")){
+				needAccess = true ;
+			}
 
 			if (uri.contains("/User/Login")||uri.contains("/Error/Auth")){
 				needAccess = false ;
