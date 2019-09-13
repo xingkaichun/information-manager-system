@@ -1,5 +1,5 @@
 $(function(){
-    var url="http://localhost:80"
+    var url=""
 
     //获取参数
     function urlArgs() {
@@ -18,6 +18,24 @@ $(function(){
     }
 
     var article_data = {}
+
+    $.ajax({
+        type: "post",
+        url: url+"/User/GetUserInfo",
+        contentType:"application/json",
+        dataType: "json",
+        async:false,
+        success: function(data){
+            console.log(data)
+            if(data.Result!=null){
+                article_data.UserInfo = data.Result.UserInfo
+            }
+        },
+        error:function(e){
+
+        }
+    });
+
     function getHtml(){
         $.ajax({
             type: "post",

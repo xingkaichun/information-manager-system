@@ -1,5 +1,6 @@
 $(function(){
-    var url="http://localhost:80"
+    var url=""
+
     $.ajax({
         type: "post",
         url: url+"/User/GetUserInfo",

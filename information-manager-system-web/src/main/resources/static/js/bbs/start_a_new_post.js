@@ -1,5 +1,5 @@
 $(function(){
-    var url="http://localhost:80"
+    var url=""
 
     //上传图片
     $("input[name='upload_img']").change(function(){

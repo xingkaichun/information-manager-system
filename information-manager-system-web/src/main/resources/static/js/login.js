@@ -1,5 +1,6 @@
 $(function(){
-    var url="http://localhost:80"
+    var url=""
+
     //提交
     function verifyFun(params){
        
