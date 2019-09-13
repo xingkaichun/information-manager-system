@@ -5,6 +5,7 @@ import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.BookSectionDao;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
 import com.xingkaichun.information.dto.bookChapter.request.AddBookChapterRequest;
 import com.xingkaichun.information.dto.bookChapter.request.PhysicsDeleteBookChapterByBookChapterIdRequest;
@@ -66,6 +67,11 @@ public class BookChapterServiceImpl implements BookChapterService {
             BookChapterDomain bookChapterDomain = classCast2(request);
             bookChapterDao.addBookChapter(bookChapterDomain);
 
+            //更新book时间戳
+            UpdateBookRequest updateBookRequest = new UpdateBookRequest();
+            updateBookRequest.setBookId(bookId);
+            bookDao.updateBook(updateBookRequest);
+
             BookChapterDomain dbBookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterId());
             BookChapterDTO bookChapterDTO = classCast(dbBookChapterDomain);
             return FreshServiceResult.createSuccessServiceResult("新增书籍章节成功",bookChapterDTO);
@@ -87,6 +93,11 @@ public class BookChapterServiceImpl implements BookChapterService {
                 return FreshServiceResult.createSuccessFreshServiceResult("书籍章节不存在");
             }
             bookChapterDao.updateBookChapter(request);
+            //更新book时间戳
+            UpdateBookRequest updateBookRequest = new UpdateBookRequest();
+            updateBookRequest.setBookId(bookChapterDomain.getBookId());
+            bookDao.updateBook(updateBookRequest);
+
             return FreshServiceResult.createSuccessFreshServiceResult("更新书籍章节成功");
         } catch (Exception e){
             String message = "更新书籍章节失败";
@@ -116,6 +127,11 @@ public class BookChapterServiceImpl implements BookChapterService {
             }
 
             bookChapterDao.physicsDeleteBookChapterByBookChapterId(request.getBookChapterId());
+
+            //更新book时间戳
+            UpdateBookRequest updateBookRequest = new UpdateBookRequest();
+            updateBookRequest.setBookId(bookChapterDomain.getBookId());
+            bookDao.updateBook(updateBookRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("删除书籍章节成功");
         } catch (Exception e){
             String message = "删除书籍章节失败";

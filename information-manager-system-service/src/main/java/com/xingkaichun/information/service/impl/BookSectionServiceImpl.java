@@ -5,6 +5,7 @@ import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.BookSectionDao;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
 import com.xingkaichun.information.dto.bookSection.request.AddBookSectionRequest;
 import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSectionByBookSectionIdRequest;
@@ -69,6 +70,11 @@ public class BookSectionServiceImpl implements BookSectionService {
             BookSectionDomian bookDomain = classCast2(request);
             bookSectionDao.addBookSection(bookDomain);
 
+            //更新book时间戳
+            UpdateBookRequest updateBookRequest = new UpdateBookRequest();
+            updateBookRequest.setBookId(request.getBookId());
+            bookDao.updateBook(updateBookRequest);
+
             BookSectionDomian bookSectionDomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionId());
             BookSectionDTO bookSectionDTO = classCast(bookSectionDomian);
             return FreshServiceResult.createSuccessServiceResult("新增书籍小节成功",bookSectionDTO);
@@ -90,6 +96,11 @@ public class BookSectionServiceImpl implements BookSectionService {
                 return FreshServiceResult.createSuccessFreshServiceResult("书籍小节不存在");
             }
             bookSectionDao.updateBookSection(request);
+            //更新book时间戳
+            UpdateBookRequest updateBookRequest = new UpdateBookRequest();
+            updateBookRequest.setBookId(bookSectionDomian.getBookId());
+            bookDao.updateBook(updateBookRequest);
+
             return FreshServiceResult.createSuccessFreshServiceResult("更新书籍小节成功");
         } catch (Exception e){
             String message = "更新书籍小节失败";
@@ -113,6 +124,12 @@ public class BookSectionServiceImpl implements BookSectionService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节软删除标识为不可删");
             }
             bookSectionDao.physicsDeleteBookSectionByBookSectionId(request.getBookSectionId());
+
+            //更新book时间戳
+            UpdateBookRequest updateBookRequest = new UpdateBookRequest();
+            updateBookRequest.setBookId(bookSectionDomian.getBookId());
+            bookDao.updateBook(updateBookRequest);
+
             return FreshServiceResult.createSuccessFreshServiceResult("删除书籍小节成功");
         } catch (Exception e){
             String message = "删除书籍小节失败";
