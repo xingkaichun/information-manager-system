@@ -45,6 +45,8 @@ $(function(){
         $("#editbook input[name='SeoTitle']").val(edit_data.SeoTitle)
         $("#editbook input[name='SeoKeywords']").val(edit_data.SeoKeywords)
         $("#editbook input[name='SeoDescription']").val(edit_data.SeoDescription)
+        $("#editbook input[name='SeoDescription']").val(edit_data.SeoDescription)
+        $("#editbook input[name='IsSoftDelete'][value='"+edit_data.IsSoftDelete+"']").click()
      })
     //编辑书籍
     $(document).on("click","#editbook .sumbit_btn",function(){
@@ -54,7 +56,8 @@ $(function(){
             SeoUrl:$("#editbook input[name='SeoUrl']").val(),
             SeoTitle:$("#editbook input[name='SeoTitle']").val(),
             SeoKeywords:$("#editbook input[name='SeoKeywords']").val(),
-            SeoDescription:$("#editbook input[name='SeoDescription']").val()
+            SeoDescription:$("#editbook input[name='SeoDescription']").val(),
+            IsSoftDelete:$('#editbook input[name="IsSoftDelete"]:checked').val()
         }
         $.ajax({
             type: "post",
@@ -67,7 +70,7 @@ $(function(){
                 "SeoTitle": "${params.SeoTitle}",
                 "SeoKeywords": "${params.SeoKeywords}",
                 "SeoDescription": "${params.SeoDescription}",
-                "IsSoftDelete": false
+                "IsSoftDelete": "${params.IsSoftDelete}"
             }`,
             contentType:"application/json",
             dataType: "json",

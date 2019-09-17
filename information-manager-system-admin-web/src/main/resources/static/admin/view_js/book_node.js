@@ -71,6 +71,7 @@ $(function(){
         $("#edit-piece-Modal input[name='SeoTitle']").val(eidt_BookChapterDTO.SeoTitle)
         $("#edit-piece-Modal input[name='SeoKeywords']").val(eidt_BookChapterDTO.SeoKeywords)
         $("#edit-piece-Modal input[name='SeoDescription']").val(eidt_BookChapterDTO.SeoDescription)
+        $("#edit-piece-Modal input[name='IsSoftDelete'][value='"+eidt_BookChapterDTO.IsSoftDelete+"']").click()
         console.log("eidt_BookChapterDTO",eidt_BookChapterDTO)
     })
     $(document).on("click","#edit-piece-Modal .sumbit_btn",function(){
@@ -81,7 +82,8 @@ $(function(){
             SeoUrl:$("#edit-piece-Modal input[name='SeoUrl']").val(),
             SeoTitle:$("#edit-piece-Modal input[name='SeoTitle']").val(),
             SeoKeywords:$("#edit-piece-Modal input[name='SeoKeywords']").val(),
-            SeoDescription:$("#edit-piece-Modal input[name='SeoDescription']").val()
+            SeoDescription:$("#edit-piece-Modal input[name='SeoDescription']").val(),
+            IsSoftDelete:$('#edit-piece-Modal input[name="IsSoftDelete"]:checked').val()
         }
         console.log("params",params)
         $.ajax({
@@ -96,7 +98,7 @@ $(function(){
                 "SeoTitle": "${params.SeoTitle}",
                 "SeoKeywords": "${params.SeoKeywords}",
                 "SeoDescription": "${params.SeoDescription}",
-                "IsSoftDelete": false
+                "IsSoftDelete": "${params.IsSoftDelete}"
             }`,
             contentType:"application/json",
             dataType: "json",
@@ -238,6 +240,7 @@ $(function(){
         $("#edit-chapter-Modal input[name='SeoTitle']").val(edit_BookSectionDTO.SeoTitle)
         $("#edit-chapter-Modal input[name='SeoKeywords']").val(edit_BookSectionDTO.SeoKeywords)
         $("#edit-chapter-Modal input[name='SeoDescription']").val(edit_BookSectionDTO.SeoDescription)
+        $("#edit-chapter-Modal input[name='IsSoftDelete'][value='"+edit_BookSectionDTO.IsSoftDelete+"']").click()
     })
     $(document).on("click","#edit-chapter-Modal .sumbit_btn",function(){
         var params = {
@@ -248,7 +251,8 @@ $(function(){
             SeoUrl:$("#edit-chapter-Modal input[name='SeoUrl']").val(),
             SeoTitle:$("#edit-chapter-Modal input[name='SeoTitle']").val(),
             SeoKeywords:$("#edit-chapter-Modal input[name='SeoKeywords']").val(),
-            SeoDescription:$("#edit-chapter-Modal input[name='SeoDescription']").val()
+            SeoDescription:$("#edit-chapter-Modal input[name='SeoDescription']").val(),
+            IsSoftDelete:$('#edit-chapter-Modal input[name="IsSoftDelete"]:checked').val()
         }
         $.ajax({
             type: "post",
@@ -263,7 +267,7 @@ $(function(){
                 "SeoTitle": "${params.SeoTitle}",
                 "SeoKeywords": "${params.SeoKeywords}",
                 "SeoDescription": "${params.SeoDescription}",
-                "IsSoftDelete": false
+                "IsSoftDelete": "${params.IsSoftDelete}"
             }`,
             contentType:"application/json",
             dataType: "json",
