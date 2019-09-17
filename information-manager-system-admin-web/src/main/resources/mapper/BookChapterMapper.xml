@@ -46,6 +46,9 @@
     <if test="bookChapterDescription != null and bookChapterDescription != ''">
       bookChapterDescription = #{bookChapterDescription, jdbcType=TIMESTAMP},
     </if>
+    <if test="bookChapterOrder != null and bookChapterOrder != ''">
+      bookChapterOrder = #{bookChapterOrder, jdbcType=INTEGER},
+    </if>
     <if test="isSoftDelete != null">
       isSoftDelete = #{isSoftDelete, jdbcType=BIT},
     </if>

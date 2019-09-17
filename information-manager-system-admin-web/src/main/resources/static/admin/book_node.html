@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="./img/favicon.html">
+
+    <title>书籍管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-reset.css" rel="stylesheet">
+
+    <!--external css-->
+    <link href="./assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="./assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css"
+        media="screen" />
+    <link rel="stylesheet" href="./css/owl.carousel.css" type="text/css">
+    <!-- Custom styles for this template -->
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link href="./dist/summernote.css" rel="stylesheet">
+    <style>
+        .flex_input {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex_input .f_input {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .flex_ul {
+            display: flex;
+        }
+
+        .flex_ul .page_ul {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+
+        .dropdown-menu li.t1 {
+            text-indent: 10px
+        }
+
+        .dropdown-menu li.t2 {
+            text-indent: 20px
+        }
+
+        .dropdown-menu li.t3 {
+            text-indent: 30px
+        }
+
+        .dropdown-menu li.t4 {
+            text-indent: 40px
+        }
+
+        .dropdown-menu li.t5 {
+            text-indent: 50px
+        }
+
+        .dropdown-menu li.t6 {
+            text-indent: 60px
+        }
+
+        .dropdown-menu li.t7 {
+            text-indent: 70px
+        }
+
+        .dropdown-menu li.t8 {
+            text-indent: 80px
+        }
+
+        .file_btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.428571429;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            background-color: #41cac0;
+            border-color: #41cac0;
+            color: #FFFFFF;
+            position: relative;
+        }
+
+        .file_btn .file_input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .file_list {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .file_list .file_li {
+            display: flex;
+            height: 45px;
+            padding: 0 16px;
+            align-items: center;
+            border: 1px solid #999999;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .file_list .file_close {
+            margin-left: 10px;
+        }
+
+        .modal-dialog {
+            width: 940px;
+            height: 100% !important;
+            padding: 0;
+        }
+
+        .modal-dialog .modal-content {
+            min-height: 100%;
+        }
+
+        .piece_list {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .piece_list .piece_li .piece_box {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .piece_list .form {
+            margin-right: 10px;
+        }
+
+        .piece_list .piece_li {
+            margin-bottom: 10px;
+        }
+
+        .piece_list .piece_li .chapter_list {
+            margin-left: 20px;
+        }
+
+        .piece_list .piece_li .chapter_li {
+            display: flex;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="container" class="">
+        <!--header start-->
+        <header class="header white-bg">
+            <div class="sidebar-toggle-box">
+                <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
+            </div>
+            <!--logo start-->
+            <a href="#" class="logo">lo<span>go</span></a>
+            <!--logo end-->
+            <div class="top-nav ">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <!--<li>-->
+                    <!--<input type="text" class="form-control search" placeholder="Search">-->
+                    <!--</li>-->
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="img/avatar1_small.jpg">
+                            <span class="username">admin</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <!--<div class="log-arrow-up"></div>-->
+                            <!--<li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>-->
+                            <!--<li><a href="#"><i class="icon-cog"></i> Settings</a></li>-->
+                            <!--<li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>-->
+                            <li><a href="login.html"><i class="icon-key"></i>退出登录</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu">
+                    <!--<li class="active">-->
+                    <!--<a class="" href="index.html">-->
+                    <!--<i class="icon-dashboard"></i>-->
+                    <!--<span>Dashboard</span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <li class="sub-menu active">
+                        <a href="javascript:;" class="">
+                            <i class="icon-book"></i>
+                            <span>文章</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub">
+                            <li class=""><a class="" href="./index.html">文章管理</a></li>
+                            <li><a class="" href="./category.html">文章类别</a></li>
+                            <li class="active"><a class="" href="./books.html">书籍管理</a></li>
+                        </ul>
+                    </li>
+                    <!--<li>-->
+                    <!--<a class="" href="login.html">-->
+                    <!--<i class="icon-user"></i>-->
+                    <!--<span>注销</span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <!-- page start-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section class="panel">
+                            <header class="panel-heading" id="head-title">
+
+                            </header>
+                            <div class="tool_list panel-body" style="border-bottom: 1px solid #eff2f7">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#add-piece-Modal">
+                                    增篇
+                                </button>
+                            </div>
+                            <div class="piece_list">
+
+                            </div>
+                            <div class="flex_ul">
+                                <ul class="pagination pagination-sm page_ul">
+
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- page end-->
+            </section>
+            <!-- 新增篇模态框（Modal） -->
+            <div class="modal fade" data-backdrop="static" id="add-piece-Modal" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                新增篇
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal tasi-form" method="get">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">篇名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookChapterName" class="form-control"
+                                            placeholder="输入篇名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookChapterDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookChapterDescription" class="form-control"
+                                            value="BookChapterDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookChapterOrder</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookChapterOrder" class="form-control" value="300"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoUrl</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoUrl" class="form-control" value="SeoUrl"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoTitle</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoTitle" class="form-control" value="SeoTitle"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoKeywords</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoKeywords" class="form-control" value="SeoKeywords"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoDescription" class="form-control"
+                                            value="SeoDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary sumbit_btn">
+                                提交
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <!-- 修改篇模态框（Modal） -->
+            <div class="modal fade" data-backdrop="static" id="edit-piece-Modal" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                修改篇
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal tasi-form" method="get">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">篇名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookChapterName" class="form-control"
+                                            placeholder="输入篇名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookChapterDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookChapterDescription" class="form-control"
+                                            value="BookChapterDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookChapterOrder</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookChapterOrder" class="form-control" value="300"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoUrl</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoUrl" class="form-control" value="SeoUrl"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoTitle</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoTitle" class="form-control" value="SeoTitle"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoKeywords</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoKeywords" class="form-control" value="SeoKeywords"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoDescription" class="form-control"
+                                            value="SeoDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary sumbit_btn">
+                                提交
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <!-- 新增章模态框（Modal） -->
+            <div class="modal fade" data-backdrop="static" id="add-chapter-Modal" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                新增章
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal tasi-form" method="get">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">章名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookSectionName" class="form-control"
+                                            placeholder="输入章名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookSectionDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookSectionDescription" class="form-control"
+                                            value="BookSectionDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookSectionContent</label>
+                                    <div class="col-sm-10">
+                                        <!-- <input type="text" name="BookSectionContent" class="form-control"
+                                            value="BookSectionContent" placeholder="输入..."> -->
+                                        <div id="add_BookSectionContent"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookSectionOrder</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookSectionOrder" class="form-control" value="1000"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoUrl</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoUrl" class="form-control" 
+                                            value="SeoUrl"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoTitle</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoTitle" class="form-control" value="SeoTitle"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoKeywords</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoKeywords" class="form-control" 
+                                            value="SeoKeywords"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoDescription" class="form-control"
+                                            value="SeoDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary sumbit_btn">
+                                提交
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+            <!-- 修改章模态框（Modal） -->
+            <div class="modal fade" data-backdrop="static" id="edit-chapter-Modal" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                新增章
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal tasi-form" method="get">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">章名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookSectionName" class="form-control"
+                                            placeholder="输入章名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookSectionDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookSectionDescription" class="form-control"
+                                            value="BookSectionDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookSectionContent</label>
+                                    <div class="col-sm-10">
+                                        <div id="edit_BookSectionContent"></div>
+                                        <!-- <input type="text" name="BookSectionContent" class="form-control"
+                                            value="BookSectionContent" placeholder="输入..."> -->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">BookSectionOrder</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="BookSectionOrder" class="form-control" value="1000"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoUrl</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoUrl" class="form-control" 
+                                            value="SeoUrl"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoTitle</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoTitle" class="form-control" value="SeoTitle"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoKeywords</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoKeywords" class="form-control" 
+                                            value="SeoKeywords"
+                                            placeholder="输入...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SeoDescription</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="SeoDescription" class="form-control"
+                                            value="SeoDescription" placeholder="输入...">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary sumbit_btn">
+                                提交
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+        </section>
+        <!--main content end-->
+    </section>
+
+    <script type="text/html" id="piece_list">
+        {{if BookChapterDTOList}}
+            {{each BookChapterDTOList as item}}
+            <div class="piece_li" data-BookChapterId="{{item.BookChapterId}}">
+                    <div class="piece_box">
+                        <div class="form">
+                            <input type="text" name="piece_name" disabled class="form-control" value="{{item.BookChapterName}}"
+                                placeholder="请输入篇名">
+                        </div>
+                        <div class="tool_btn">
+                            <button type="button" class="btn btn-danger del_piece_btn">
+                                删篇
+                            </button>
+                            <button type="button" class="btn btn-primary edit_piece_btn"
+                                    data-toggle="modal"
+                                    data-target="#edit-piece-Modal">
+                                改篇
+                            </button>
+                            <button type="button" class="btn btn-primary add_chapter_btn"
+                                    data-toggle="modal"
+                                    data-target="#add-chapter-Modal">
+                                增章
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chapter_list">
+                        {{each item.BookSectionDTOList as itm}}
+                        <div class="chapter_li" data-BookSectionId="{{itm.BookSectionId}}">
+                            <div class="form">
+                                <input type="text" name="chapter_name" disabled class="form-control" value="{{itm.BookSectionName}}"
+                                    placeholder="请输入章名">
+                            </div>
+                            <div class="tool_btn">
+                                <button type="button" class="btn btn-danger del_chapter_btn"
+                                    >
+                                    删章
+                                </button>
+                                <button type="button" class="btn btn-primary edit_chapter_btn"
+                                    data-toggle="modal"
+                                    data-target="#edit-chapter-Modal"
+                                    >
+                                    改章
+                                </button>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/each}}
+        {{/if}}
+        
+    </script>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./dist/summernote.js"></script>
+    <script src="./dist/lang/summernote-zh-CN.js"></script>
+    <script src="./view_js/template.js"></script>
+    <script src="./view_js/util.js"></script>
+    <script src="./view_js/book_node.js"></script>
+
+</body>
+
+</html>
