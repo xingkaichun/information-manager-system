@@ -31,8 +31,7 @@ public class HttpController {
     @PostMapping("/POST")
     public ServiceResult<JSONObject> Get2(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody JSONObject requestBody) {
         try {
-            RequestWrapper requestWrapper = new RequestWrapper(httpServletRequest);
-            String body1 = requestWrapper.getBody();
+            String body1 = requestBody.toString();
 
             String forwardRequestUrl = httpServletRequest.getHeader("forwardRequestUrl");
             String forwardRequestMethod = httpServletRequest.getHeader("forwardRequestMethod");
