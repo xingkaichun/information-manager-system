@@ -70,7 +70,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         BookDTO bookDTO = queryBookDetailsByBookIdRequest(queryBookDetailsByBookIdRequest);
 
         String content = CommonUtilsFile.readFileContent(bookTemplateFilePath);
-        content = content.replace("[###BookName###]","<a href='"+bookDTO.getSeoUrl()+"' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>");
+        content = content.replace("[###BookName###]","<a href='javascript:void(0)' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>");
         String mulu = "" ;
         List<BookChapterDTO> bookChapterDTOList = bookDTO.getBookChapterDTOList();
         //生成目录
@@ -82,7 +82,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                     continue;
                 }
                 for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
-                    mulu += "<a href='"+bookSectionDTO.getSeoUrl()+"' class='link_li'>"+bookSectionDTO.getBookSectionName()+"</a>";
+                    mulu += "<a href='"+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO.getSeoUrl()+".html"+"' class='link_li'>"+bookSectionDTO.getBookSectionName()+"</a>";
                 }
             }
         }
@@ -96,7 +96,8 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                 }
                 for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
                     String bookSetionHtml = content;
-                    bookSetionHtml = bookSetionHtml.replace("[###SeoKeywords###]",bookSectionDTO.getSeoKeywords())
+                    bookSetionHtml = bookSetionHtml.replace("[###SeoTitle###]",bookSectionDTO.getSeoTitle())
+                                                    .replace("[###SeoKeywords###]",bookSectionDTO.getSeoKeywords())
                                                     .replace("[###SeoDescription###]",bookSectionDTO.getSeoDescription())
                                                     .replace("[###BookSectionName###]",bookSectionDTO.getBookSectionName())
                                                     .replace("[###BookSectionContent###]",bookSectionDTO.getBookSectionContent());
