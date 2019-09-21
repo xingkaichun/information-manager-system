@@ -1,0 +1,102 @@
+body {
+    padding: 0;
+    margin : 0 auto;
+}
+
+#article_list {
+    .header {
+        height          : 50px;
+        display         : flex;
+        align-items     : center;
+        border-bottom   : 1px solid #e0e0e0;
+        padding         : 0 20px;
+        box-sizing      : border-box;
+        position        : fixed;
+        top             : 0;
+        width           : 100%;
+        background-color: #ffffff;
+        z-index         : 100;
+
+        .left_nav,
+        .rigth_nav {
+            height: 50px;
+        }
+
+        .left_nav .nav_li,
+        .rigth_nav .nav_li {
+            text-decoration: none;
+            color          : #333333;
+            display        : inline-block;
+            margin-right   : 20px;
+            height         : 50px;
+            line-height    : 50px;
+            box-sizing     : border-box;
+            &.active{
+                color: #3b6caa;
+                border-bottom: 3px solid #3b6caa;
+            }
+            &:hover {
+                color        : #3b6caa;
+                border-bottom: 3px solid #3b6caa;
+            }
+        }
+
+        .rigth_nav {
+            margin-left: auto;
+        }
+    }
+
+    .list {
+        margin     : 0 auto;
+        padding-top: 70px;
+        .top{
+            text-align: center;
+            color: #666;
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        @media (min-width: 768px) {
+            & {
+                width: 750px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            & {
+                width: 970px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            & {
+                width: 1170px;
+            }
+        }
+
+        .li {
+            padding: 10px;
+            box-sizing: border-box;
+            border-bottom: 2px dashed #999999;
+            .title{
+                font-size: 20px;
+                color: #2e3135;
+                text-decoration: none;
+                font-weight: bold;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+            .time{
+                font-size: 14px;
+                color: #999999;
+            }
+        }
+    }
+    .null_text{
+        margin: 0 auto;
+        padding-top: 100px;
+        text-align: center;
+    }
+}

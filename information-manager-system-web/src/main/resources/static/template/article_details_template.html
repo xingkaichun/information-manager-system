@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>文章</title>
+	<link rel="stylesheet" href="../css/article_details_template.css">
+</head>
+
+<body>
+	<div id="article_details">
+
+	</div>
+	<script type="text/template" id="article_details_template">
+		<div class="header">
+				<div class="left_nav">
+					<a href="#" class="nav_li">lucene教程</a>
+					<a href="#" class="nav_li">solr教程</a>
+					<a href="#" class="nav_li">elasticsearch教程</a>
+				</div>
+				<div class="rigth_nav">
+					<a href="./article_list.html" class="nav_li">帖子</a>
+					<a href="./my_article_list.html" class="nav_li">我的帖子</a>
+					<a href="./login.html" class="nav_li">{{UserInfo?UserInfo.UserName:'登陆'}}</a>
+				</div>
+			</div>
+			<div class="link_content">
+				<!-- <div class="Anchor_link">
+					<div class="Anchor_content" data-in="true">
+						<div class="title">内容</div>
+						<div class="mu_line">
+							<label class="line"></label>
+							<a href="#" class="link_li active">概览</a>
+							<a href="#" class="link_li">流的简单使用</a>
+							<a href="#" class="link_li">流的基础知识</a>
+							<a href="#" class="link_li">流的 API 操作</a>
+							<a href="#" class="link_li">并行流的使用</a>
+							<a href="#troubleshooting" class="link_li">troubleshooting</a>
+							<a href="#" class="link_li">结束语</a>
+							<a href="#" class="link_li">参考资源</a>
+							<a href="#" class="link_li">评论</a>
+						</div>
+					</div>
+				</div> -->
+				<div class="content" style=" margin: 0 auto;">
+					<h1>{{BbsArticleDTO.Title}}</h1>
+					<p>
+						{{# BbsArticleDTO.Content}}
+					</p>
+					<div class="comment_box">
+						<div class="title">评论</div>
+						<div class="comment_form" id="">
+							<div class="lable_form">
+								<div class="lable">{{UserInfo?UserInfo.UserName:'用户名'}}:</div>
+								<div class="form">
+									<div name="comment_val" contenteditable="true" placeholder="输入评论"></div>
+								</div>
+							</div>
+							<div class="form_btn">
+								<button class="sumbit_btn">评论</button>
+							</div>
+						</div>
+						<div class="comment_list">
+							{{if BbsArticleDTO.BbsArticleCommentDTOList&&BbsArticleDTO.BbsArticleCommentDTOList.length}}
+								{{each BbsArticleDTO.BbsArticleCommentDTOList as item}}
+								<div class="comment_li">
+									<div class="name">{{item.UserInfo.UserName}}</div>
+									<div class="comment_content">
+										{{item.Content}}	
+									</div>
+									<div class="time_btn">
+										<div class="time">	{{item.CreateTime}}	</div>
+										<div class="comment_btn" data-commentId="{{item.BbsArticleCommentId}}">
+											回复
+										</div>
+									</div>
+									<div class="comment_form" id="{{item.BbsArticleCommentId}}">
+											<div class="lable_form">
+												<div class="lable">{{item.user?item.user.UserName:'用户名'}}:</div>
+												<div class="form">
+													<div name="comment_val" contenteditable="true" placeholder="输入评论"></div>
+												</div>
+											</div>
+											<div class="form_btn">
+												<button class="sumbit_btn">评论</button>
+											</div>
+										</div>
+									{{include 'childTpl' item}}
+								</div>
+								{{/each}}
+							{{/if}}
+						</div>
+					</div>
+				</div>
+			</div>
+	</script>
+	<script type="text/template" id="childTpl">
+		{{if ChildrenBbsArticleCommentDTOList&&ChildrenBbsArticleCommentDTOList.length}}
+			{{each ChildrenBbsArticleCommentDTOList as item}}
+			<div class="comment_li">
+					<div class="name">{{item.UserInfo.UserName}}:</div>
+					<div class="comment_content">
+							{{item.Content}}	
+					</div>
+					<div class="time_btn">
+						<div class="time">{{item.CreateTime}}</div>
+						<div class="comment_btn" data-commentId="{{item.BbsArticleCommentId}}">
+							回复
+						</div>
+					</div>
+					<div class="comment_form" id="{{item.BbsArticleCommentId}}">
+							<div class="lable_form">
+								<div class="lable">{{item.user?item.user.UserName:'用户名'}}:</div>
+								<div class="form">
+									<div name="comment_val" contenteditable="true" placeholder="输入评论"></div>
+								</div>
+							</div>
+							<div class="form_btn">
+								<button class="sumbit_btn">评论</button>
+							</div>
+						</div>
+						{{include 'childTpl' item}}
+				</div>
+				{{/each}}
+			{{/if}}
+	</script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="../js/template.js"></script>
+	<script src="../js/article_details_template.js"></script>
+</body>
+
+</html>

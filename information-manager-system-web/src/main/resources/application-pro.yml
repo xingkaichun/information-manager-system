@@ -10,5 +10,7 @@ upload:
 
 project:
   template:
-    articleTemplateFilePath: /root/app/information-manager-system/front-end/static/template/InfoTemplate.html
-    articleTemplateProduceFileSaveDirectory: /root/app/information-manager-system/front-end/static/article/
+    articleTemplateFilePath: ###
+    articleTemplateProduceFileSaveDirectory: ###
+    bookTemplateFilePath: ###
+    bookTemplateProduceFileSaveDirectory: ###
