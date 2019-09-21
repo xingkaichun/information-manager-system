@@ -114,7 +114,7 @@ public class ArticleServiceImpl implements ArticleService {
             String articleHtml = content.replace("[###con_tilte###]",articleTitle)
                     .replace("[###con_info###]",articleInfo+downFileHtml)
                     .replace("[###con_text###]",articleContent);
-            CommonUtilsFile.writeFileContent(articleTemplateProduceFileSaveDirectory+articleId+".html",articleHtml);
+            CommonUtilsFile.writeFileContent(articleTemplateProduceFileSaveDirectory,articleId+".html",articleHtml);
         }
     }
 

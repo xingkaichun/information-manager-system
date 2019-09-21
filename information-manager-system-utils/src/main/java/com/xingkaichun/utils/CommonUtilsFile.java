@@ -18,10 +18,20 @@ public class CommonUtilsFile {
         }
         return content;
     }
-    public static void writeFileContent(String filePath,String content) throws IOException {
+    public static void writeFileContent(String fileDir,String fileName, String content) throws IOException {
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter(new File(filePath)));
+            //创建目录
+            File dir = new File(fileDir);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            //创建文件
+            File file = new File(dir,fileName);
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            bw = new BufferedWriter(new FileWriter(file));
             bw.write(content);
         } finally {
             if(bw!=null){bw.close();}

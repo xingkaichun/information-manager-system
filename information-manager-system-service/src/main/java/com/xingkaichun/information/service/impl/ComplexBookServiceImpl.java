@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -99,7 +100,8 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                                     .replace("[###SeoDescription###]",bookSectionDTO.getSeoDescription())
                                                     .replace("[###BookSectionName###]",bookSectionDTO.getBookSectionName())
                                                     .replace("[###BookSectionContent###]",bookSectionDTO.getBookSectionContent());
-                    CommonUtilsFile.writeFileContent(bookTemplateProduceFileSaveDirectory+bookSectionDTO.getSeoUrl(),bookSetionHtml);
+                    File dir = new File(bookTemplateProduceFileSaveDirectory,bookDTO.getSeoUrl());
+                    CommonUtilsFile.writeFileContent(dir.getAbsolutePath(),bookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
                 }
             }
         }
