@@ -53,7 +53,7 @@ public class BookController {
     @Autowired
     private BookSectionService bookSectionService;
     @Autowired
-    private ComplexBookService ComplexBookServiceImpl;
+    private ComplexBookService complexBookServiceImpl;
 
 
     @ApiOperation(value="新增书籍", notes="新增书籍")
@@ -81,6 +81,7 @@ public class BookController {
     public FreshServiceResult updateBook(@RequestBody UpdateBookRequest request){
         try{
             FreshServiceResult freshServiceResult = bookService.updateBook(request);
+            complexBookServiceImpl.createHtmlPage(request.getBookId());
             return freshServiceResult;
         } catch (Exception e){
             String message = "更新书籍失败";
@@ -94,7 +95,7 @@ public class BookController {
     @PostMapping("/QueryBookDetailsByBookId")
     public ServiceResult<QueryBookDetailsByBookIdResponse> queryBookDetailsByBookIdRequest(@RequestBody QueryBookDetailsByBookIdRequest request){
         try{
-            BookDTO bookDTO = ComplexBookServiceImpl.queryBookDetailsByBookIdRequest(request);
+            BookDTO bookDTO = complexBookServiceImpl.queryBookDetailsByBookIdRequest(request);
 
             QueryBookDetailsByBookIdResponse response = new QueryBookDetailsByBookIdResponse();
             response.setBookDTO(bookDTO);

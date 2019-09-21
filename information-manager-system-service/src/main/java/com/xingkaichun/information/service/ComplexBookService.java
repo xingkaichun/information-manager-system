@@ -6,4 +6,6 @@ import com.xingkaichun.information.dto.book.request.QueryBookDetailsByBookIdRequ
 public interface ComplexBookService {
 
     BookDTO queryBookDetailsByBookIdRequest(QueryBookDetailsByBookIdRequest request);
+
+    void createHtmlPage(String bookId) throws Exception;
 }
