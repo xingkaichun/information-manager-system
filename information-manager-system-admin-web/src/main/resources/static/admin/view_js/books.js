@@ -112,6 +112,13 @@ $(function(){
             success: function(data){
               console.log("data",data)
               if(data.ServiceCode=="SUCCESS"){
+                $("#addbook input[name='BookName']").val("")
+                $("#addbook input[name='BookDescription']").val("")
+                $("#addbook input[name='SeoUrl']").val("")
+                $("#addbook input[name='SeoTitle']").val("")
+                $("#addbook input[name='SeoKeywords']").val("")
+                $("#addbook input[name='SeoDescription']").val("")
+
                 getBookList()
                 $("#addbook").modal("hide")
               }

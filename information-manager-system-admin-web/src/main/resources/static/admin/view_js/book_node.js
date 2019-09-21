@@ -52,6 +52,14 @@ $(function(){
             dataType: "json",
             success: function(data){
                 if(data.ServiceCode=="SUCCESS"){
+                    $("#add-piece-Modal input[name='BookChapterName']").val("")
+                    $("#add-piece-Modal input[name='BookChapterDescription']").val("")
+                    $("#add-piece-Modal input[name='BookChapterOrder']").val(100)
+                    $("#add-piece-Modal input[name='SeoUrl']").val("")
+                    $("#add-piece-Modal input[name='SeoTitle']").val("")
+                    $("#add-piece-Modal input[name='SeoKeywords']").val("")
+                    $("#add-piece-Modal input[name='SeoDescription']").val("")
+
                     setPieceHtml(BookId)
                     $("#add-piece-Modal").modal("hide")
                 }
@@ -219,6 +227,15 @@ $(function(){
             dataType: "json",
             success: function(data){
                 if(data.ServiceCode=="SUCCESS"){
+                    $("#add-chapter-Modal input[name='BookSectionName']").val("")
+                    $("#add-chapter-Modal input[name='BookSectionDescription']").val("")
+                    $('#add_BookSectionContent').summernote("code","")
+                    $("#add-chapter-Modal input[name='BookSectionOrder']").val("")
+                    $("#add-chapter-Modal input[name='SeoUrl']").val("")
+                    $("#add-chapter-Modal input[name='SeoTitle']").val("")
+                    $("#add-chapter-Modal input[name='SeoKeywords']").val("")
+                    $("#add-chapter-Modal input[name='SeoDescription']").val("")
+
                     setPieceHtml(BookId)
                     $("#add-chapter-Modal").modal("hide")
                 }
