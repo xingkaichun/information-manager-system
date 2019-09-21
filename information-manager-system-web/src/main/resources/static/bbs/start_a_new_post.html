@@ -6,23 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>发表帖子</title>
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/bbs/start_a_new_post.css">
 </head>
 
 <body>
     <div class="header">
-        <div class="left_nav">
-            <a href="#" class="nav_li">lucene教程</a>
-            <a href="#" class="nav_li">solr教程</a>
-            <a href="#" class="nav_li">elasticsearch教程</a>
+            <nav class="jt-nav-bar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:;"><strong>logo</strong></a>
+                        <button type="button" class="navbar-toggle" data-id="collapse2">tool</button>
+                        <button type="button" class="navbar-toggle" data-id="collapse1">curriculum</button>
+                    </div>
+                    <div class="navbar-collapse" data-in="false" id="collapse1">
+                        <p class="navbar-text"><a href="#" class="nav_li">lucene教程</a></p>
+                        <p class="navbar-text"><a href="#" class="nav_li">solr教程</a></p>
+                        <p class="navbar-text"><a href="#" class="nav_li">elasticsearch教程</a></p>
+                    </div>
+                    <div class="navbar-collapse right" data-in="false" id="collapse2">
+                        <p class="navbar-text"><a href="/bbs/post_list.html" class="nav_li">论坛</a></p>
+                        <p class="navbar-text"><a href="/bbs/start_a_new_post.html" class="nav_li active">发帖</a></p>
+                        <p class="navbar-text"><a href="/login.html" class="nav_li">登录</a></p>
+                        <p class="navbar-text"><a href="/register.html" class="nav_li ">注册</a></p>
+                    </div>
+                </div>
+            </nav>
         </div>
-        <div id="rigth_nav" class="rigth_nav">
-            <a href='/bbs/start_a_new_post.html' class='nav_li active'>发帖</a>
-            <a href="/bbs/post_list.html" class="nav_li">论坛</a>
-            <a href="/login.html" class="nav_li">登录</a>
-            <a href="/register.html" class="nav_li">注册</a>
-        </div>
-    </div>
 
     <div id="publish_article">
         <div class="publish_article_form">
@@ -50,6 +60,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/js/header.js"></script>
     <script src="/js/bbs/template.js"></script>
     <script src="/js/bbs/start_a_new_post.js"></script>
     <script id="common_auto_login_js" src="/js/common_auto_login.js" data="start_a_new_post_page"></script>
