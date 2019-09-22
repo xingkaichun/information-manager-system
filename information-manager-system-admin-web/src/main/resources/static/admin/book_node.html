@@ -596,6 +596,9 @@
                                 placeholder="请输入篇名">
                         </div>
                         <div class="tool_btn">
+                            <button type="button" class="btn btn-info edit_piece_order_btn" data-BookChapterOrder="{{item.BookChapterOrder}}">
+                                {{item.BookChapterOrder}}
+                            </button>
                             <button type="button" class="btn btn-danger del_piece_btn">
                                 删篇
                             </button>
@@ -618,6 +621,9 @@
                                 <input type="text" name="chapter_name" disabled class="form-control" value="{{itm.BookSectionName}}" placeholder="请输入章名">
                             </div>
                             <div class="tool_btn">
+                                <button type="button" class="btn btn-info edit_chapter_order_btn" data-BookSectionOrder="{{itm.BookSectionOrder}}">
+                                    {{itm.BookSectionOrder}}
+                                </button>
                                 <button type="button" class="btn btn-danger del_chapter_btn">
                                     删章
                                 </button>

@@ -140,7 +140,33 @@ $(function(){
             });
         }
     })
-
+    //更改篇的排序
+    $(document).on("click",".piece_li .edit_piece_order_btn",function(){
+        var BookChapterId = $(this).parents(".piece_li").attr("data-BookChapterId")
+        var oldBookChapterOrder = $(this).attr("data-BookChapterOrder")
+        var bookChapterOrder = prompt("请输入篇的排序值", oldBookChapterOrder);
+        if (bookChapterOrder != null) {
+            $.ajax({
+                type: "post",
+                url: url+"/Book/UpdateBookChapter",
+                data:`{
+                    "BookChapterId":"${BookChapterId}",
+                    "BookChapterOrder": ${bookChapterOrder}
+                }`,
+                contentType:"application/json",
+                dataType: "json",
+                success: function(data){
+                    if(data.ServiceCode=="SUCCESS"){
+                        setPieceHtml(BookId)
+                    }
+                    alert(`${data.Message}`);
+                },
+                error:function(e){}
+            });
+        } else{
+            alert("排序值不能为空");
+        }
+    })
 
     $('#edit_BookSectionContent').summernote({
         height: 200,
@@ -318,6 +344,34 @@ $(function(){
                 },
                 error:function(e){}
             });
+        }
+    })
+
+    //更改小节的排序
+    $(document).on("click",".chapter_li .edit_chapter_order_btn",function(){
+        var bookSectionId = $(this).parents(".chapter_li").attr("data-booksectionid")
+        var oldBookSectionOrder = $(this).attr("data-BookSectionOrder")
+        var bookSectionOrder = prompt("请输入小节的排序值", oldBookSectionOrder);
+        if (bookSectionOrder != null && bookSectionOrder != '') {
+            $.ajax({
+                type: "post",
+                url: url+"/Book/UpdateBookSection",
+                data:`{
+                    "BookSectionId":"${bookSectionId}",
+                    "BookSectionOrder": ${bookSectionOrder}
+                }`,
+                contentType:"application/json",
+                dataType: "json",
+                success: function(data){
+                    if(data.ServiceCode=="SUCCESS"){
+                        setPieceHtml(BookId)
+                    }
+                    alert(`${data.Message}`);
+                },
+                error:function(e){}
+            });
+        } else{
+            alert("排序值不能为空");
         }
     })
 
