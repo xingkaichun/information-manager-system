@@ -11,7 +11,7 @@ public class CommonUtilsFile {
             br = new BufferedReader(new FileReader(new File(filePath)));
             String line = null ;
             while ((line=br.readLine())!=null){
-                content += line;
+                content += line +"\r\n";
             }
         } finally {
             if(br!=null){br.close();}

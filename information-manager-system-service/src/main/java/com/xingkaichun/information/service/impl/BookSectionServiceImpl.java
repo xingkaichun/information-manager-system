@@ -16,6 +16,7 @@ import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.BookSectionDomian;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.utils.CommonUtils;
+import com.xingkaichun.utils.CommonUtilsHtml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class BookSectionServiceImpl implements BookSectionService {
             if(CommonUtils.isNUllOrEmpty(request.getBookSectionOrder())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节排序值不能为空");
             }
-
+            request.setBookSectionContent(CommonUtilsHtml.handlerArticleContent(request.getBookSectionContent()));
             BookSectionDomian bookDomain = classCast2(request);
             bookSectionDao.addBookSection(bookDomain);
 
@@ -101,6 +102,7 @@ public class BookSectionServiceImpl implements BookSectionService {
             if(bookSectionDomian == null){
                 return FreshServiceResult.createSuccessFreshServiceResult("书籍小节不存在");
             }
+            request.setBookSectionContent(CommonUtilsHtml.handlerArticleContent(request.getBookSectionContent()));
             bookSectionDao.updateBookSection(request);
             //更新book时间戳
             UpdateBookRequest updateBookRequest = new UpdateBookRequest();

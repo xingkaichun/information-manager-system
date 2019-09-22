@@ -76,13 +76,13 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         //生成目录
         if(bookChapterDTOList!=null){
             for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
-                mulu += "<a href='javascript:void(0)' class='link_li'>"+bookChapterDTO.getBookChapterName()+"</a>";
+                mulu += "<a href='javascript:void(0)' class='link_li'>"+bookChapterDTO.getBookChapterName()+"</a>"+"\r\n";
                 List<BookSectionDTO> bookSectionDTOList = bookChapterDTO.getBookSectionDTOList();
                 if(bookSectionDTOList == null){
                     continue;
                 }
                 for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
-                    mulu += "<a href='"+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO.getSeoUrl()+".html"+"' class='link_li'>"+bookSectionDTO.getBookSectionName()+"</a>";
+                    mulu += "<a href='"+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO.getSeoUrl()+".html"+"' class='link_li'>"+bookSectionDTO.getBookSectionName()+"</a>"+"\r\n";
                 }
             }
         }
@@ -101,9 +101,9 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                                     .replace("[###SeoDescription###]",bookSectionDTO.getSeoDescription())
                                                     .replace("[###BookSectionName###]",bookSectionDTO.getBookSectionName())
                                                     .replace("[###BookSectionContent###]",bookSectionDTO.getBookSectionContent());
-                    File dir = new File(bookTemplateProduceFileSaveDirectory,bookDTO.getSeoUrl());
-                    File jiaochengDir = new File(dir,"jiaocheng");
-                    CommonUtilsFile.writeFileContent(jiaochengDir.getAbsolutePath(),bookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
+                    File jiaochengDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
+                    File bookDir = new File(jiaochengDir,bookDTO.getSeoUrl());
+                    CommonUtilsFile.writeFileContent(bookDir.getAbsolutePath(),bookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.xingkaichun.information.controller;
 
 import com.xingkaichun.utils.CommonUtils;
+import com.xingkaichun.utils.CommonUtilsHtml;
 import com.xingkaichun.utils.CommonUtilsSession;
 import com.xingkaichun.utils.CommonUtilsString;
 import com.xingkaichun.information.dto.article.ArticleDTO;
@@ -169,15 +170,7 @@ public class ArticleController {
     private void handlerArticleContent(ArticleDTO articleDTO){
         String content = articleDTO.getContent();
         if(!CommonUtilsString.isNullOrEmpty(content)){
-            content = content.replaceAll("</div><","</div>\r\n<");
-            content = content.replaceAll("</p><","</p>\r\n<");
-            content = content.replaceAll("><tbody>",">\r\n<tbody>");
-            content = content.replaceAll("<tbody><","<tbody>\r\n<");
-            content = content.replaceAll("</tbody><","</tbody>\r\n<");
-            content = content.replaceAll("</table><","</table>\r\n<");
-            content = content.replaceAll("</tr><","</tr>\r\n<");
-            content = content.replaceAll("<tr><","<tr>\r\n<");
-            content = content.replaceAll("</td><","</td>\r\n<");
+            articleDTO.setContent(CommonUtilsHtml.handlerArticleContent(content));
             articleDTO.setContent(content);
         }
     }
