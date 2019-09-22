@@ -102,7 +102,8 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                                     .replace("[###BookSectionName###]",bookSectionDTO.getBookSectionName())
                                                     .replace("[###BookSectionContent###]",bookSectionDTO.getBookSectionContent());
                     File dir = new File(bookTemplateProduceFileSaveDirectory,bookDTO.getSeoUrl());
-                    CommonUtilsFile.writeFileContent(dir.getAbsolutePath(),bookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
+                    File jiaochengDir = new File(dir,"jiaocheng");
+                    CommonUtilsFile.writeFileContent(jiaochengDir.getAbsolutePath(),bookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
                 }
             }
         }

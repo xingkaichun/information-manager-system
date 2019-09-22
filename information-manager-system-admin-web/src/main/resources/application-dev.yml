@@ -18,4 +18,4 @@ project:
     articleTemplateFilePath: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\template\post_details_template.html
     articleTemplateProduceFileSaveDirectory: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\article\
     bookTemplateFilePath: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-admin-web\src\main\resources\static\template\bookTemplate.html
-    bookTemplateProduceFileSaveDirectory: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-web\src\main\resources\static\jiaocheng
+    bookTemplateProduceFileSaveDirectory: C:\Users\123\IdeaProjects\information-manager-system\information-manager-system-web\src\main\resources\static
