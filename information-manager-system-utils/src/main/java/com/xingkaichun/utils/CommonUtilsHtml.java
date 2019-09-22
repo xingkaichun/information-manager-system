@@ -13,6 +13,13 @@ public class CommonUtilsHtml {
             html = html.replaceAll("</tr><","</tr>\r\n<");
             html = html.replaceAll("<tr><","<tr>\r\n<");
             html = html.replaceAll("</td><","</td>\r\n<");
+            html = html.replaceAll("</h1><","</h1>\r\n<");
+            html = html.replaceAll("</h2><","</h2>\r\n<");
+            html = html.replaceAll("</h3><","</h3>\r\n<");
+            html = html.replaceAll("</h4><","</h4>\r\n<");
+            html = html.replaceAll("</h5><","</h5>\r\n<");
+            html = html.replaceAll("</h6><","</h6>\r\n<");
+            html = html.replaceAll("</h7><","</h7>\r\n<");
         }
         return html;
     }
