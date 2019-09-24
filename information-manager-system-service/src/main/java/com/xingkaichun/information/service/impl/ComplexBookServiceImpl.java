@@ -70,20 +70,25 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         BookDTO bookDTO = queryBookDetailsByBookIdRequest(queryBookDetailsByBookIdRequest);
 
         String content = CommonUtilsFile.readFileContent(bookTemplateFilePath);
-        content = content.replace("[###BookName###]","<a href='javascript:void(0)' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>");
+        content = content.replace("[###BookName###]","<div class='rank-one-text'><a href='javascript:;' class='link_li'><b>"+bookDTO.getBookName()+"</b></a></div>"+"\r\n");
         String mulu = "" ;
         List<BookChapterDTO> bookChapterDTOList = bookDTO.getBookChapterDTOList();
         //生成目录
         if(bookChapterDTOList!=null){
             for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
-                mulu += "<a href='javascript:void(0)' class='link_li'>"+bookChapterDTO.getBookChapterName()+"</a>"+"\r\n";
+                mulu += "<div class=\"rank-two\">"+"\r\n";
+                mulu += "   <div class=\"rank-two-text\"><a href=\"javascript:;\" class=\"link_li\">"+bookChapterDTO.getBookChapterName()+"</a></div>"+"\r\n";
+                mulu += "   <div class=\"rank-three\">"+"\r\n";
+
                 List<BookSectionDTO> bookSectionDTOList = bookChapterDTO.getBookSectionDTOList();
-                if(bookSectionDTOList == null){
-                    continue;
+                if(bookSectionDTOList != null){
+                    for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
+                        String sectionUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO.getSeoUrl()+".html";
+                mulu += "       <div class=\"rank-three-text\"><a href=\""+sectionUrl+"\" class=\"link_li\">"+bookSectionDTO.getBookSectionName()+"</a></div>"+"\r\n";
+                    }
                 }
-                for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
-                    mulu += "<a href='"+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO.getSeoUrl()+".html"+"' class='link_li'>"+bookSectionDTO.getBookSectionName()+"</a>"+"\r\n";
-                }
+                mulu += "   </div>"+"\r\n";
+                mulu += "</div>"+"\r\n";
             }
         }
         content = content.replace("[###BookTableOfContents###]",mulu);
