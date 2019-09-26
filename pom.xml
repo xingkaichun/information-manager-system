@@ -12,7 +12,7 @@
         <module>information-manager-system-web</module>
         <module>information-manager-system-utils</module>
         <module>information-manager-system-model</module>
-        <module>informat-ionmanager-system-dto</module>
+        <module>information-manager-system-dto</module>
         <module>information-manager-system-dao</module>
         <module>information-manager-system-service</module>
     </modules>
