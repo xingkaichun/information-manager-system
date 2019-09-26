@@ -194,6 +194,7 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
