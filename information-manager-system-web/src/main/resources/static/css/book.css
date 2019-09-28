@@ -114,6 +114,25 @@ div[contenteditable="true"]:focus:before {
 #article_details .link_content .Anchor_link .Anchor_content {
   position: sticky;
 }
+#article_details .link_content .Anchor_link .Anchor_content .rank-one[is-open='false'] .rank-two {
+  display: none;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one[is-open='false'] .rank-one-text label {
+  transform: rotate(-90deg);
+  display: inline-block;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one[is-open='false'] .rank-one-text label img {
+  width: 15px;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-one-text {
+  position: relative;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-one-text label {
+  margin-left: 10px;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-one-text label img {
+  width: 15px;
+}
 #article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-one-text .link_li {
   display: block;
   font-size: 0.9375rem;
@@ -130,6 +149,22 @@ div[contenteditable="true"]:focus:before {
 }
 #article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-two {
   padding-left: 10px;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-two[is-open='false'] .rank-three {
+  display: none;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-two[is-open='false'] .rank-two-text label {
+  transform: rotate(-90deg);
+  display: inline-block;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-two[is-open='false'] .rank-two-text label img {
+  width: 15px;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-two .rank-two-text label {
+  margin-left: 10px;
+}
+#article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-two .rank-two-text label img {
+  width: 15px;
 }
 #article_details .link_content .Anchor_link .Anchor_content .rank-one .rank-two .rank-two-text .link_li {
   display: block;
