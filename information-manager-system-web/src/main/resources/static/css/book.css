@@ -45,6 +45,7 @@ div[contenteditable="true"]:focus:before {
     max-width: 100%;
     height: 100%;
     padding: 20px;
+    overflow-y: auto;
   }
   #article_details .link_content .content {
     width: 90%;
