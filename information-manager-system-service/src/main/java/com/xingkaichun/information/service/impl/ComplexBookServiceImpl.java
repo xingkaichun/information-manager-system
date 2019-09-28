@@ -101,7 +101,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                 }
                 for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
                     String bookSetionHtml = content;
-                    bookSetionHtml = bookSetionHtml.replace("[###SeoTitle###]",bookSectionDTO.getSeoTitle())
+                    bookSetionHtml = bookSetionHtml.replace("[###SeoTitle###]",bookSectionDTO.getSeoTitle()+"_"+bookDTO.getBookName())
                                                     .replace("[###SeoKeywords###]",bookSectionDTO.getSeoKeywords())
                                                     .replace("[###SeoDescription###]",bookSectionDTO.getSeoDescription())
                                                     .replace("[###BookSectionName###]",bookSectionDTO.getBookSectionName())
