@@ -95,6 +95,10 @@ $(function(){
             SeoKeywords:$("#addbook input[name='SeoKeywords']").val(),
             SeoDescription:$("#addbook input[name='SeoDescription']").val()
         }
+        if(params.SeoUrl == ''){
+            alert("SeoUrl不能为空");
+            return;
+        }
         $.ajax({
             type: "post",
             url: url+"/Book/Addbook",

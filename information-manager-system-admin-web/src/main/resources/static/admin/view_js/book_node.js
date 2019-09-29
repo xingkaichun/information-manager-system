@@ -34,6 +34,22 @@ $(function(){
             SeoKeywords:$("#add-piece-Modal input[name='SeoKeywords']").val(),
             SeoDescription:$("#add-piece-Modal input[name='SeoDescription']").val()
         }
+        if(params.BookChapterOrder == ''){
+           alert("书籍篇排序值不能为空");
+           return;
+        }
+        if(params.SeoTitle == ''){
+           alert("Seo网页标题不能为空");
+           return;
+        }
+        if(params.SeoKeywords == ''){
+           alert("Seo关键字不能为空");
+           return;
+        }
+        if(params.SeoDescription == ''){
+           alert("Seo描述不能为空");
+           return;
+        }
         console.log("params",params)
         $.ajax({
             type: "post",
@@ -92,6 +108,22 @@ $(function(){
             SeoKeywords:$("#edit-piece-Modal input[name='SeoKeywords']").val(),
             SeoDescription:$("#edit-piece-Modal input[name='SeoDescription']").val(),
             IsSoftDelete:$('#edit-piece-Modal input[name="IsSoftDelete"]:checked').val()
+        }
+        if(params.BookChapterOrder == ''){
+           alert("书籍篇排序值不能为空");
+           return;
+        }
+        if(params.SeoTitle == ''){
+           alert("Seo网页标题不能为空");
+           return;
+        }
+        if(params.SeoKeywords == ''){
+           alert("Seo关键字不能为空");
+           return;
+        }
+        if(params.SeoDescription == ''){
+           alert("Seo描述不能为空");
+           return;
         }
         console.log("params",params)
         $.ajax({
@@ -235,6 +267,26 @@ $(function(){
             SeoKeywords:$("#add-chapter-Modal input[name='SeoKeywords']").val(),
             SeoDescription:$("#add-chapter-Modal input[name='SeoDescription']").val()
         }
+        if(params.BookSectionOrder == ''){
+           alert("书籍小节排序值不能为空");
+           return;
+        }
+        if(params.SeoUrl == ''){
+           alert("Seo网页标题不能为空");
+           return;
+        }
+        if(params.SeoTitle == ''){
+           alert("Seo网页标题不能为空");
+           return;
+        }
+        if(params.SeoKeywords == ''){
+           alert("Seo关键字不能为空");
+           return;
+        }
+        if(params.SeoDescription == ''){
+           alert("Seo描述不能为空");
+           return;
+        }
         $.ajax({
             type: "post",
             url: url+"/Book/AddBookSection",
@@ -296,6 +348,26 @@ $(function(){
             SeoKeywords:$("#edit-chapter-Modal input[name='SeoKeywords']").val(),
             SeoDescription:$("#edit-chapter-Modal input[name='SeoDescription']").val(),
             IsSoftDelete:$('#edit-chapter-Modal input[name="IsSoftDelete"]:checked').val()
+        }
+        if(params.BookSectionOrder == ''){
+            alert("书籍小节排序值不能为空");
+            return;
+        }
+        if(params.SeoUrl == ''){
+            alert("Seo网页标题不能为空");
+            return;
+        }
+        if(params.SeoTitle == ''){
+            alert("Seo网页标题不能为空");
+            return;
+        }
+        if(params.SeoKeywords == ''){
+            alert("Seo关键字不能为空");
+            return;
+        }
+        if(params.SeoDescription == ''){
+            alert("Seo描述不能为空");
+            return;
         }
         $.ajax({
             type: "post",
