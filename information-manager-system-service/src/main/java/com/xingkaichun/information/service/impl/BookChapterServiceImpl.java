@@ -60,14 +60,8 @@ public class BookChapterServiceImpl implements BookChapterService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节名称不能为空");
             }
 
-            if(!CommonUtils.isNUllOrEmpty(request.getBookChapterOrder())){
-                return FreshServiceResult.createFailFreshServiceResult("系统自动分配书籍章节排序值");
-            }else{
-                QueryBookChapterListByBookIdRequest q = new QueryBookChapterListByBookIdRequest();
-                q.setBookId(request.getBookId());
-                List<BookChapterDomain> bookChapterDomainList = bookChapterDao.queryBookChapterListByBookId(bookId);
-                Integer maxOrder = getMaxBookChapterOrder(bookChapterDomainList);
-                request.setBookChapterOrder(maxOrder==null?1:maxOrder+1);
+            if(CommonUtils.isNUllOrEmpty(request.getBookChapterOrder())){
+                return FreshServiceResult.createFailFreshServiceResult("书籍章节排序值不能为空");
             }
 
             BookChapterDomain bookChapterDomain = classCast2(request);
@@ -86,20 +80,6 @@ public class BookChapterServiceImpl implements BookChapterService {
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
-    }
-
-    private Integer getMaxBookChapterOrder(List<BookChapterDomain> bookChapterDomainList) {
-        if(bookChapterDomainList==null||bookChapterDomainList.size()==0){
-            return null;
-        }
-        int max = 0;
-        for(BookChapterDomain bookChapterDomain:bookChapterDomainList){
-            int order = bookChapterDomain.getBookChapterOrder();
-            if(order>max){
-                max = order;
-            }
-        }
-        return max;
     }
 
     @Override
