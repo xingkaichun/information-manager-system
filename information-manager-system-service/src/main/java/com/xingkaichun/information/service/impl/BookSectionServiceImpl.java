@@ -12,7 +12,6 @@ import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSect
 import com.xingkaichun.information.dto.bookSection.request.QueryBookSectionListBybookChapterIdRequest;
 import com.xingkaichun.information.dto.bookSection.request.UpdateBookSectionRequest;
 import com.xingkaichun.information.model.BookChapterDomain;
-import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.BookSectionDomian;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.utils.CommonUtils;
