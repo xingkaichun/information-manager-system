@@ -12,7 +12,6 @@ import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSect
 import com.xingkaichun.information.dto.bookSection.request.QueryBookSectionListBybookChapterIdRequest;
 import com.xingkaichun.information.dto.bookSection.request.UpdateBookSectionRequest;
 import com.xingkaichun.information.model.BookChapterDomain;
-import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.BookSectionDomian;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.utils.CommonUtils;
@@ -64,8 +63,14 @@ public class BookSectionServiceImpl implements BookSectionService {
                 request.setBookSectionId(String.valueOf(UUID.randomUUID()));
             }
 
-            if(CommonUtils.isNUllOrEmpty(request.getBookSectionOrder())){
-                return FreshServiceResult.createFailFreshServiceResult("书籍小节排序值不能为空");
+            if(!CommonUtils.isNUllOrEmpty(request.getBookSectionOrder())){
+                return FreshServiceResult.createFailFreshServiceResult("系统自动分配书籍小节排序值");
+            }else{
+                QueryBookSectionListBybookChapterIdRequest q = new QueryBookSectionListBybookChapterIdRequest();
+                q.setBookChapterId(request.getBookChapterId());
+                List<BookSectionDomian> bookSectionDomianList = bookSectionDao.queryBookSectionListBybookChapterId(request.getBookChapterId());
+                Integer maxOrder = getMaxBookSectionOrder(bookSectionDomianList);
+                request.setBookSectionOrder(maxOrder==null?1:maxOrder+1);
             }
             request.setBookSectionContent(CommonUtilsHtml.handlerArticleContent(request.getBookSectionContent()));
             BookSectionDomian bookDomain = classCast2(request);
@@ -84,6 +89,20 @@ public class BookSectionServiceImpl implements BookSectionService {
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
+    }
+
+    private Integer getMaxBookSectionOrder(List<BookSectionDomian> bookSectionDomianList) {
+        if(bookSectionDomianList==null||bookSectionDomianList.size()==0){
+            return null;
+        }
+        int max = 0;
+        for(BookSectionDomian bookSectionDomian:bookSectionDomianList){
+            int order = bookSectionDomian.getBookSectionOrder();
+            if(order>max){
+                max = order;
+            }
+        }
+        return max;
     }
 
     @Override
