@@ -106,7 +106,7 @@ div[contenteditable="true"]:focus:before {
 }
 #article_details .link_content .Anchor_link {
   color: #323232;
-  min-width: 380px;
+  /* min-width: 380px; */
   box-sizing: border-box;
   padding-top: 20px;
   user-select: none;

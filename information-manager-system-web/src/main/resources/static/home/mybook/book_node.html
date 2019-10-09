@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="./img/favicon.html">
+
+    <title>书籍管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-reset.css" rel="stylesheet">
+
+    <!--external css-->
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css"
+        media="screen" />
+    <link rel="stylesheet" href="/css/owl.carousel.css" type="text/css">
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link href="/dist/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .flex_input {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex_input .f_input {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .flex_ul {
+            display: flex;
+        }
+
+        .flex_ul .page_ul {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+
+        .dropdown-menu li.t1 {
+            text-indent: 10px
+        }
+
+        .dropdown-menu li.t2 {
+            text-indent: 20px
+        }
+
+        .dropdown-menu li.t3 {
+            text-indent: 30px
+        }
+
+        .dropdown-menu li.t4 {
+            text-indent: 40px
+        }
+
+        .dropdown-menu li.t5 {
+            text-indent: 50px
+        }
+
+        .dropdown-menu li.t6 {
+            text-indent: 60px
+        }
+
+        .dropdown-menu li.t7 {
+            text-indent: 70px
+        }
+
+        .dropdown-menu li.t8 {
+            text-indent: 80px
+        }
+
+        .file_btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.428571429;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            background-color: #41cac0;
+            border-color: #41cac0;
+            color: #FFFFFF;
+            position: relative;
+        }
+
+        .file_btn .file_input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .file_list {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .file_list .file_li {
+            display: flex;
+            height: 45px;
+            padding: 0 16px;
+            align-items: center;
+            border: 1px solid #999999;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .file_list .file_close {
+            margin-left: 10px;
+        }
+
+        .modal-dialog {
+            width: 940px;
+            height: 100% !important;
+            padding: 0;
+        }
+
+        .modal-dialog .modal-content {
+            min-height: 100%;
+        }
+
+        .piece_list {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .piece_list .piece_li .piece_box {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .piece_list .piece_li .piece_box .form {
+            /* width: 300px; */
+            padding-right: 10px;
+        }
+
+        .piece_list .form {
+            margin-right: 10px;
+        }
+
+        .piece_list .piece_li {
+            margin-bottom: 10px;
+        }
+
+        .piece_list .piece_li .chapter_list {
+            margin-left: 30px;
+        }
+
+        .piece_list .piece_li .chapter_list .form {
+            /* width: 270px; */
+            padding-right: 10px;
+        }
+
+        .piece_list .piece_li .chapter_li {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        body {
+            background-color: #FFFFFF;
+        }
+
+        .btn-primary {
+            background-color: #FFFFFF;
+            border: 1px solid #555;
+            color: #555;
+            box-sizing: border-box;
+        }
+
+        .btn-primary:hover {
+            background-color: #555;
+            color: #FFFFFF;
+            border: 1px solid #555;
+
+        }
+
+        .piece_list_box {
+            display: flex;
+        }
+
+        .piece_list_box .piece_box,
+        .chapter_li {
+            display: flex;
+            align-items: center;
+        }
+
+        .piece_list {
+            width: 35%;
+        }
+
+        .piece-modal {
+            width: 65%;
+        }
+
+        .book-name span {
+            display: inline-block;
+            max-width: 140px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+
+        .book-name img {
+            vertical-align: middle;
+        }
+
+        .piece_box .book-name {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .lable-img {
+            width: 15px;
+        }
+
+        .piece_li[is-open="false"] .lable-img {
+            transform: rotate(-90deg);
+        }
+
+        .piece_li[is-open="false"] .chapter_list {
+            display: none;
+        }
+
+        .form-horizontal.tasi-form .form-group,
+        .modal-footer {
+            border: 0;
+        }
+
+        .modal-header {
+            background-color: #FFFFFF;
+            color: #666666;
+        }
+
+        .modal-header h4.modal-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bool-node">
+        <div class="header">
+            <nav class="jt-nav-bar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/"><strong>邢开春的网络日志</strong></a>
+                        <button type="button" class="navbar-toggle" data-id="collapse2">我</button>
+                        <button type="button" class="navbar-toggle" data-id="collapse1">教程</button>
+                    </div>
+                    <div class="navbar-collapse" data-in="false" id="collapse1">
+                        <p class="navbar-text"><a href="/jiaocheng/lucene/lucene_jiaocheng.html"
+                                class="nav_li">lucene教程</a></p>
+                        <p class="navbar-text"><a href="/jiaocheng/solr/solr_jiaocheng.html" class="nav_li">solr教程</a>
+                        </p>
+                        <p class="navbar-text"><a href="/jiaocheng/elasticsearch/elasticsearch_jiaocheng.html"
+                                class="nav_li">elasticsearch教程</a></p>
+                    </div>
+                    <div class="navbar-collapse right" data-in="false" id="collapse2">
+                        <p class="navbar-text"><a href="/bbs/post_list.html" class="nav_li">论坛</a></p>
+                        <p class="navbar-text"><a href="/bbs/start_a_new_post.html" class="nav_li">发帖</a></p>
+                        <p class="navbar-text"><a href="/login.html" class="nav_li">登录</a></p>
+                        <p class="navbar-text"><a href="/register.html" class="nav_li">注册</a></p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <section id="container" class="container-fluid" style="padding-top: 70px;">
+            <section class="panel">
+                <header class="panel-heading" id="head-title">
+                    <span class="text"></span>
+                    <button type="button" class="btn btn-primary btn-sm add_piece_btn" title="增篇">
+                        <i class="icon-plus"></i>
+                    </button>
+                </header>
+                <div class="piece_list_box">
+                    <div class="piece_list">
+
+                    </div>
+                    <div class="piece-modal">
+                        <div class="modal-li" id="add-piece-Modal" style="display: none;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        新增篇
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal tasi-form" method="get">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">篇名称</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="BookChapterName" class="form-control"
+                                                    placeholder="输入篇名称">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">篇的内容描述</label>
+                                            <div class="col-sm-10">
+                                                <textarea type="text" name="BookChapterDescription" class="form-control"
+                                                    value="" placeholder=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">篇的排序值</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" name="BookChapterOrder" class="form-control"
+                                                    value="100" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网址</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoUrl" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网页标题</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoTitle" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo关键字</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoKeywords" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo描述</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoDescription" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary sumbit_btn">
+                                        提交
+                                    </button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div>
+                        <div class="modal-li" id="edit-piece-Modal" style="display: none;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        修改篇
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal tasi-form" method="get">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">篇名称</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="BookChapterName" class="form-control"
+                                                    placeholder="输入篇名称">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">篇的内容描述</label>
+                                            <div class="col-sm-10">
+                                                <textarea type="text" name="BookChapterDescription" class="form-control"
+                                                    value="" placeholder=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">篇的排序值</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" name="BookChapterOrder" class="form-control"
+                                                    value="100" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网址</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoUrl" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网页标题</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoTitle" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo关键字</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoKeywords" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo描述</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoDescription" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">软删除标志</label>
+                                            <div class="col-sm-10">
+                                                <label>不软删:<input type="radio" name="IsSoftDelete" value="false"
+                                                        onclick="" /></label>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                <label>软删除:<input type="radio" name="IsSoftDelete" value="true"
+                                                        onclick="" /></label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary sumbit_btn">
+                                        提交
+                                    </button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div>
+                        <div class="modal-li" id="edit-chapter-Modal" style="display: none;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        修改章
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal tasi-form" method="get">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">章名称</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="BookSectionName" class="form-control"
+                                                    placeholder="输入章名称">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">节的内容描述</label>
+                                            <div class="col-sm-10">
+                                                <textarea type="text" name="BookSectionDescription" class="form-control"
+                                                    value="" placeholder=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">节的内容</label>
+                                            <div class="col-sm-10">
+                                                <div id="edit_BookSectionContent"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">节的排序值</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" name="BookSectionOrder" class="form-control"
+                                                    value="100" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网址</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoUrl" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网页标题</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoTitle" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo关键字</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoKeywords" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo描述</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoDescription" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">软删除标志</label>
+                                            <div class="col-sm-10">
+                                                <label>不软删:<input type="radio" name="IsSoftDelete" value="false"
+                                                        onclick="" /></label>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                <label>软删除:<input type="radio" name="IsSoftDelete" value="true"
+                                                        onclick="" /></label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary sumbit_btn">
+                                        提交
+                                    </button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div>
+                        <div class="modal-li" id="add-chapter-Modal" style="display: none;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        新增章
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal tasi-form" method="get">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">小节名称</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="BookSectionName" class="form-control"
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">节的内容描述</label>
+                                            <div class="col-sm-10">
+                                                <textarea type="text" name="BookSectionDescription" class="form-control"
+                                                    value="" placeholder=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">节的内容</label>
+                                            <div class="col-sm-10">
+                                                <div id="add_BookSectionContent"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">节的排序值</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" name="BookSectionOrder" class="form-control"
+                                                    value="100" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网址</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoUrl" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo网页标题</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoTitle" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo关键字</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoKeywords" class="form-control" alue=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Seo描述</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="SeoDescription" class="form-control" value=""
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary sumbit_btn">
+                                        提交
+                                    </button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex_ul">
+                    <ul class="pagination pagination-sm page_ul">
+
+                    </ul>
+                </div>
+            </section>
+
+        </section>
+        <!--main content end-->
+        </section>
+    </div>
+
+
+    <script type="text/html" id="piece_list">
+        {{if BookChapterDTOList}}
+            {{each BookChapterDTOList as item}}
+            <div class="piece_li" data-BookChapterId="{{item.BookChapterId}}">
+                    <div class="piece_box">
+                        <div class="form">
+                            <div class="book-name">
+                                    <span>{{item.BookChapterName}}</span>
+                                    
+                                    {{if item.BookSectionDTOList}}
+                                    <img src="/images/arrows.png" class="lable-img">
+                                    {{/if}}
+                            </div>
+                        </div>
+                        <div class="tool_btn">
+                            <button type="button" class="btn btn-info btn-xs edit_piece_order_btn" data-BookChapterOrder="{{item.BookChapterOrder}}">
+                                {{item.BookChapterOrder}}
+                            </button>
+                            <button type="button" class="btn btn-danger btn-xs del_piece_btn" title="删篇">
+                                <i class="icon-trash"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-xs edit_piece_btn" title="改篇">
+                                <i class="icon-pencil"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-xs add_chapter_btn" title="增章">
+                                <i class="icon-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chapter_list">
+                        {{each item.BookSectionDTOList as itm}}
+                        <div class="chapter_li" data-BookSectionId="{{itm.BookSectionId}}">
+                            <div class="form">
+                                <div class="book-name"><span>{{itm.BookSectionName}}</span></div>
+                            </div>
+                            <div class="tool_btn">
+                                <button type="button" class="btn btn-info btn-xs edit_chapter_order_btn" data-BookSectionOrder="{{itm.BookSectionOrder}}">
+                                    {{itm.BookSectionOrder}}
+                                </button>
+                                <button type="button" class="btn btn-danger btn-xs del_chapter_btn" title="删章">
+                                        <i class="icon-trash"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-xs edit_chapter_btn" title="改章">
+                                        <i class="icon-pencil"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/each}}
+        {{/if}}
+        
+    </script>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery-1.8.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/dist/summernote.js"></script>
+    <script src="/dist/lang/summernote-zh-CN.js"></script>
+    <script src="/view_js/template.js"></script>
+    <script src="/view_js/util.js"></script>
+    <script src="/view_js/book_node.js"></script>
+
+</body>
+
+</html>
