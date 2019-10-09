@@ -46,7 +46,7 @@ $(function(){
                     console.log(data)
                     alert(data.Message)
                     if(data.ServiceCode=='SUCCESS'){
-                        location.href="http://www.xingkaichun.com/"
+                        location.href="/"
                     }
                 },
                 error:function(e){

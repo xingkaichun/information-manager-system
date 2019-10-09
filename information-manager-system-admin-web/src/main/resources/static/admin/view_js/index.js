@@ -344,7 +344,7 @@ $(function(){
                 lists = list
                 for(var i=0,len =list.length;i<len;i++){
                     html+=`<tr>
-                                      <td><a target="_blank" href="http://www.xingkaichun.com/article/${list[i].ArticleId}.html">${list[i].ArticleId}</a></td>
+                                      <td><a target="_blank" href="/article/${list[i].ArticleId}.html">${list[i].ArticleId}</a></td>
                                       <td class="hidden-phone">${list[i].Title}</td>
                                       <td>${list[i].CreateTime}</td>
                                       <td>${list[i].LastEditTime}</td>
