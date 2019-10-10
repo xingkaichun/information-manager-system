@@ -45,6 +45,10 @@ $(function(){
                     <p class="navbar-text"><a href='/bbs/my_post_list.html' class='nav_li '>我的帖子</a></p>
                     <p class="navbar-text"><a href='javascript:void(0)' class='nav_li'>${data.Result.UserInfo.UserName}</a></p>`
                 }
+                if(page == "mybook_page"){
+                    showHtml=`<p class="navbar-text"><a href="javascript:void(0);" class="nav_li active">书籍管理</a></p>
+                    <p class="navbar-text"><a href='javascript:void(0)' class='nav_li'>${data.Result.UserInfo.UserName}</a></p>`
+                }
                 $("#collapse2").html(showHtml)
             } else {
                 if(page == "start_a_new_post_page"){
@@ -57,6 +61,10 @@ $(function(){
                 }
                 if(page == "post_list_page"){
                     alert("网站只对会员提供论坛功能。请先登录。即将跳转到登录页面...");
+                    location.href="/login.html"
+                }
+                if(page == "mybook_page"){
+                    alert("我的书籍模块只对会员开放。请先登录。即将跳转到登录页面...");
                     location.href="/login.html"
                 }
             }
