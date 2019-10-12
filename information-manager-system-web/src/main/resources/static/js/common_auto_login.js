@@ -17,29 +17,25 @@ $(function(){
                     showHtml=`<p class="navbar-text"><a href="javascript:void(0)" class="nav_li">${data.Result.UserInfo.UserName}</a></p>`
                 }
                 if(page == "post_list_page"){
-                    showHtml=`<p class="navbar-text"><a href='/bbs/post_list.html' class='nav_li active'>论坛</a></p>
-                                <p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a></p>
+                    showHtml=`<p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a></p>
                                 <p class="navbar-text"><a href='/bbs/my_post_list.html' class='nav_li'>我的帖子</a></p>
                                 <p class="navbar-text"><a href='javascript:void(0)' class='nav_li'>${data.Result.UserInfo.UserName}</a></p>`
     
                 }
                 if(page == "start_a_new_post_page"){
-                    showHtml=`<p class="navbar-text"><a href='/bbs/post_list.html' class='nav_li'>论坛</a></p>
-                                <p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li active'>发帖</a></p>
+                    showHtml=`<p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li active'>发帖</a></p>
                                 <p class="navbar-text"><a href='/bbs/my_post_list.html' class='nav_li'>我的帖子</a></p>
                                 <p class="navbar-text"><a href='javascript:void(0)' class='nav_li'>${data.Result.UserInfo.UserName}</a></p>`
 
                 }
                 if(page == "my_post_list_page"){
-                    showHtml=`<p class="navbar-text"><a href='/bbs/post_list.html' class='nav_li'>论坛</a></p>
-                                <p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a></p>
+                    showHtml=`<p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a></p>
                                 <p class="navbar-text"><a href='/bbs/my_post_list.html' class='nav_li active'>我的帖子</a></p>
                                 <p class="navbar-text"><a href='javascript:void(0)' class='nav_li'>${data.Result.UserInfo.UserName}</a></p>`
 
                 }
                 if(page == "post_details_template_page"){
-                    showHtml=`<p class="navbar-text"><a href='/bbs/post_list.html' class='nav_li'>论坛</a></p>
-                                <p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a></p>
+                    showHtml=`<p class="navbar-text"><a href='/bbs/start_a_new_post.html' class='nav_li'>发帖</a></p>
                                 <p class="navbar-text"><a href='/bbs/my_post_list.html' class='nav_li'>我的帖子</a></p>
                                 <p class="navbar-text"><a href='javascript:void(0)' class='nav_li'>${data.Result.UserInfo.UserName}</a></p>`
                 }
