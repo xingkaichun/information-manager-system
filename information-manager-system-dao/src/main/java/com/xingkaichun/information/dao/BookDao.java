@@ -15,4 +15,6 @@ public interface BookDao {
 
     List<BookDomain> queryBookList(QueryBookListRequest request);
     BookDomain queryBookByBookId(@Param("bookId")String bookId);
+
+    List<BookDomain> queryBookListByBookIds(List<String> bookIds);
 }

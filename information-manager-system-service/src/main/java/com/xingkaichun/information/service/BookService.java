@@ -20,4 +20,6 @@ public interface BookService {
     BookDTO queryBook(QueryBookDetailsByBookIdRequest request);
 
     boolean isHasOperateRight(HttpServletRequest httpServletRequest, String bookId);
+
+    List<BookDTO> queryBookListByBookIds(List<String> bookIds);
 }

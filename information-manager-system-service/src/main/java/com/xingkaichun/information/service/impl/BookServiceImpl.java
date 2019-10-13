@@ -144,6 +144,12 @@ public class BookServiceImpl implements BookService {
         return bookDomain.getAuthorId().equals(userDomain.getUserId());
     }
 
+    @Override
+    public List<BookDTO> queryBookListByBookIds(List<String> bookIds) {
+        List<BookDomain> bookDomains = bookDao.queryBookListByBookIds(bookIds);
+        return classCast(bookDomains);
+    }
+
     private List<BookDTO> classCast(List<BookDomain> bookDomainList) {
         if(CommonUtils.isNUllOrEmpty(bookDomainList)){
             return null;

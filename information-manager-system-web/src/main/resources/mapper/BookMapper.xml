@@ -85,4 +85,12 @@
     <include refid="BASE_TABLE"/>
     where bookId = #{bookId, jdbcType=VARCHAR}
   </select>
+
+  <select id="queryBookListByBookIds" parameterType="java.util.Collection" resultType="com.xingkaichun.information.model.BookDomain">
+    select * from <include refid="BASE_TABLE"/>
+    where bookId in
+    <foreach collection="collection" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
 </mapper>

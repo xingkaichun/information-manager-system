@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingkaichun.information.dao.UserFavoriteDao" >
+  <sql id="BASE_TABLE">
+    userfavorite
+  </sql>
+
+  <sql id="BASE_COLUMN">
+    userId,favoriteId,favoriteType,createTime,lastEditTime
+  </sql>
+
+  <insert id="addUserFavorite" parameterType="com.xingkaichun.information.dto.bookFavorite.request.AddFavoriteBookRequest">
+    INSERT INTO
+      <include refid="BASE_TABLE"/>
+      (userId,favoriteId,favoriteType)
+    VALUES(
+      #{userId, jdbcType=VARCHAR},
+      #{favoriteId, jdbcType=VARCHAR},
+      #{favoriteType, jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <delete id="physicsDeleteUserFavorite" parameterType="com.xingkaichun.information.dto.bookFavorite.request.PhysicsDeleteUserFavoriteRequest">
+    delete from <include refid="BASE_TABLE"/>
+    where userId = #{userId, jdbcType=VARCHAR}
+          and favoriteId = #{favoriteId, jdbcType=VARCHAR}
+          and favoriteType = #{favoriteType, jdbcType=VARCHAR}
+  </delete>
+
+  <select id="queryUserFavoriteList" parameterType="com.xingkaichun.information.dto.bookFavorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.model.UserFavoriteDomain">
+    SELECT
+    <include refid="BASE_COLUMN"/>
+    FROM
+    <include refid="BASE_TABLE"/>
+    where 1=1
+    <if test="userId != null and userId != ''">
+      and userId = #{userId, jdbcType=VARCHAR}
+    </if>
+    <if test="favoriteId != null and favoriteId != ''">
+      and favoriteId = #{favoriteId, jdbcType=VARCHAR}
+    </if>
+    <if test="favoriteType != null and favoriteType != ''">
+      and favoriteType = #{favoriteType, jdbcType=VARCHAR}
+    </if>
+    order by lastEditTime desc
+  </select>
+</mapper>
