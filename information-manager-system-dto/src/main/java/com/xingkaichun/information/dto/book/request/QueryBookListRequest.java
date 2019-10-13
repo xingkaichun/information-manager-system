@@ -4,4 +4,6 @@ import lombok.Data;
 
 @Data
 public class QueryBookListRequest {
+    private String authorId;
+    private String seoUrl;
 }

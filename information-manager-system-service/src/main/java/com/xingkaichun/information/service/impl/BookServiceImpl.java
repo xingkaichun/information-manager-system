@@ -37,6 +37,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public ServiceResult<BookDTO> addBook(HttpServletRequest request, AddBookRequest addBookRequest) {
         try{
+            QueryBookListRequest queryBookListRequest = new QueryBookListRequest();
+            queryBookListRequest.setSeoUrl(addBookRequest.getSeoUrl());
+            List<BookDomain> bookDomains = bookDao.queryBookList(queryBookListRequest);
+            if(bookDomains!=null&&bookDomains.size()>0){
+                return FreshServiceResult.createFailFreshServiceResult("SeoUrl已存在，请修改");
+            }
+
             addBookRequest.setAuthorId(CommonUtilsSession.getUser(request).getUserId());
             if(!CommonUtils.isNUllOrEmpty(addBookRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("系统自动分配书籍ID，请不要填写书籍ID");
@@ -110,7 +117,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public ServiceResult<List<BookDTO>> queryBookList(QueryBookListRequest request) {
         try{
-            List<BookDomain> bookDomainList = bookDao.queryBookList();
+            List<BookDomain> bookDomainList = bookDao.queryBookList(request);
             List<BookDTO> bookDTOList = classCast(bookDomainList);
             
             return FreshServiceResult.createSuccessServiceResult("查询书籍列表成功",bookDTOList);

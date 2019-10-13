@@ -1,5 +1,6 @@
 package com.xingkaichun.information.dao;
 
+import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
 import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.model.BookDomain;
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +13,6 @@ public interface BookDao {
     int updateBook(UpdateBookRequest updateBookRequest);
     int physicsDeleteBookByBookId(@Param("bookId")String bookId);
 
-    List<BookDomain> queryBookList();
+    List<BookDomain> queryBookList(QueryBookListRequest request);
     BookDomain queryBookByBookId(@Param("bookId")String bookId);
 }

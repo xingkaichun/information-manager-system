@@ -21,10 +21,12 @@ import com.xingkaichun.information.dto.bookSection.request.QueryBookSectionListB
 import com.xingkaichun.information.dto.bookSection.request.UpdateBookSectionRequest;
 import com.xingkaichun.information.dto.bookSection.response.AddBookSectionResponse;
 import com.xingkaichun.information.dto.bookSection.response.QueryBookSectionListBybookChapterIdResponse;
+import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.BookChapterService;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.information.service.ComplexBookService;
+import com.xingkaichun.utils.CommonUtilsSession;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -59,7 +61,7 @@ public class BookController {
     @ApiOperation(value="新增书籍", notes="新增书籍")
     @ResponseBody
     @PostMapping("/Addbook")
-    public ServiceResult<AddBookResponse> addArticle(@RequestBody AddBookRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<AddBookResponse> addbook(@RequestBody AddBookRequest request, HttpServletRequest httpServletRequest){
         try{
             ServiceResult<BookDTO> serviceResult = bookService.addBook(httpServletRequest,request);
             if(!ServiceResult.isSuccess(serviceResult)){
@@ -135,6 +137,8 @@ public class BookController {
     @PostMapping("/QueryBookList")
     public ServiceResult<QueryBookListResponse> queryBookList(@RequestBody QueryBookListRequest request, HttpServletRequest httpServletRequest){
         try{
+            UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
+            request.setAuthorId(userDomain.getUserId());
             ServiceResult<List<BookDTO>> serviceResult = bookService.queryBookList(request);
             if(!ServiceResult.isSuccess(serviceResult)){
                 return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
