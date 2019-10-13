@@ -18,4 +18,6 @@ public interface BookSectionService {
     FreshServiceResult physicsDeleteBookSectionByBookSectionId(PhysicsDeleteBookSectionByBookSectionIdRequest request);
 
     ServiceResult<List<BookSectionDTO>> queryBookSectionListBybookChapterId(QueryBookSectionListBybookChapterIdRequest request);
+
+    BookSectionDTO queryBookSectionDTOBySectionId(String bookSectionId);
 }

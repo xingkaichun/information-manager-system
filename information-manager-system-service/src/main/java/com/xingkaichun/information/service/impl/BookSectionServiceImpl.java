@@ -163,6 +163,12 @@ public class BookSectionServiceImpl implements BookSectionService {
         }
     }
 
+    @Override
+    public BookSectionDTO queryBookSectionDTOBySectionId(String bookSectionId) {
+        BookSectionDomian bookSectionDomian = bookSectionDao.queryBookSectionByBookSectionId(bookSectionId);
+        return classCast(bookSectionDomian);
+    }
+
     private List<BookSectionDTO> classCast(List<BookSectionDomian> domainList) {
         if(CommonUtils.isNUllOrEmpty(domainList)){
             return null;

@@ -6,8 +6,10 @@ import com.xingkaichun.information.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.*;
+import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
 import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
+import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.utils.CommonUtils;
 import com.xingkaichun.utils.CommonUtilsSession;
@@ -126,6 +128,13 @@ public class BookServiceImpl implements BookService {
             return null;
         }
         return classCast(bookDomain);
+    }
+
+    @Override
+    public boolean isHasOperateRight(HttpServletRequest httpServletRequest, String bookId) {
+        BookDomain bookDomain = bookDao.queryBookByBookId(bookId);
+        UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
+        return bookDomain.getAuthorId().equals(userDomain.getUserId());
     }
 
     private List<BookDTO> classCast(List<BookDomain> bookDomainList) {

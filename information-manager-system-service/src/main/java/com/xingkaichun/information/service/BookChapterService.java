@@ -17,4 +17,6 @@ public interface BookChapterService {
     FreshServiceResult physicsDeleteBookChapterByBookChapterId(PhysicsDeleteBookChapterByBookChapterIdRequest request);
 
     ServiceResult<List<BookChapterDTO>> queryBookChapterListByBookId(QueryBookChapterListByBookIdRequest request);
+
+    BookChapterDTO queryBookChapterByBookChapterId(String bookChapterId);
 }

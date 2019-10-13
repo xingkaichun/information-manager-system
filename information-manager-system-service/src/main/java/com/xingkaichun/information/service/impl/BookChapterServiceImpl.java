@@ -161,6 +161,12 @@ public class BookChapterServiceImpl implements BookChapterService {
         }
     }
 
+    @Override
+    public BookChapterDTO queryBookChapterByBookChapterId(String bookChapterId) {
+        BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(bookChapterId);
+        return classCast(bookChapterDomain);
+    }
+
     private List<BookChapterDTO> classCast(List<BookChapterDomain> bookChapterDomainList) {
         if(CommonUtils.isNUllOrEmpty(bookChapterDomainList)){
             return null;
