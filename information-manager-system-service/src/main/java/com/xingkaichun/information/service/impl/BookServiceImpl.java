@@ -37,11 +37,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public ServiceResult<BookDTO> addBook(HttpServletRequest request, AddBookRequest addBookRequest) {
         try{
-            QueryBookListRequest queryBookListRequest = new QueryBookListRequest();
-            queryBookListRequest.setSeoUrl(addBookRequest.getSeoUrl());
-            List<BookDomain> bookDomains = bookDao.queryBookList(queryBookListRequest);
-            if(bookDomains!=null&&bookDomains.size()>0){
-                return FreshServiceResult.createFailFreshServiceResult("SeoUrl已存在，请修改");
+            if(isSeoUrlExist(addBookRequest.getSeoUrl())){
+                return FreshServiceResult.createFailFreshServiceResult("Seo网址已存在，请修改");
             }
 
             addBookRequest.setAuthorId(CommonUtilsSession.getUser(request).getUserId());
@@ -69,6 +66,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public FreshServiceResult updateBook(UpdateBookRequest updateBookRequest) {
         try{
+            if(isSeoUrlExist(updateBookRequest.getSeoUrl())){
+                return FreshServiceResult.createFailFreshServiceResult("Seo网址已存在，请修改");
+            }
             if(CommonUtils.isNUllOrEmpty(updateBookRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
             }
@@ -193,5 +193,15 @@ public class BookServiceImpl implements BookService {
         domain.setSeoKeywords(dto.getSeoKeywords());
         domain.setSeoDescription(dto.getSeoDescription());
         return domain;
+    }
+
+    private boolean isSeoUrlExist(String seoUrl){
+        QueryBookListRequest queryBookListRequest = new QueryBookListRequest();
+        queryBookListRequest.setSeoUrl(seoUrl);
+        List<BookDomain> bookDomains = bookDao.queryBookList(queryBookListRequest);
+        if(bookDomains!=null&&bookDomains.size()>0){
+            return true;
+        }
+        return false;
     }
 }
