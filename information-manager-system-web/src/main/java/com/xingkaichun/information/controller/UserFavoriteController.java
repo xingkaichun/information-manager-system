@@ -9,7 +9,6 @@ import com.xingkaichun.information.dto.bookFavorite.request.QueryUserFavoriteLis
 import com.xingkaichun.information.dto.bookFavorite.response.QueryUserFavoriteListResponse;
 import com.xingkaichun.information.dto.favorite.UserFavoriteDto;
 import com.xingkaichun.information.model.UserDomain;
-import com.xingkaichun.information.model.UserFavoriteDomain;
 import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.information.service.UserFavoriteService;
 import com.xingkaichun.utils.CommonUtilsSession;
