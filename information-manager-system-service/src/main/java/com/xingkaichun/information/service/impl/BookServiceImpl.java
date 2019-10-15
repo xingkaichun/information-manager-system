@@ -66,15 +66,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public FreshServiceResult updateBook(UpdateBookRequest updateBookRequest) {
         try{
-            if(isSeoUrlExist(updateBookRequest.getSeoUrl())){
-                return FreshServiceResult.createFailFreshServiceResult("Seo网址已存在，请修改");
-            }
             if(CommonUtils.isNUllOrEmpty(updateBookRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
             }
             BookDomain bookDomain = bookDao.queryBookByBookId(updateBookRequest.getBookId());
             if(bookDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
+            }
+            if(!bookDomain.getSeoUrl().equals(updateBookRequest.getSeoUrl())){
+                //如果修改seourl，则不允许修改为已经存在的seourl
+                if(isSeoUrlExist(updateBookRequest.getSeoUrl())){
+                    return FreshServiceResult.createFailFreshServiceResult("Seo网址已存在，请修改");
+                }
             }
             bookDao.updateBook(updateBookRequest);
             return FreshServiceResult.createSuccessFreshServiceResult("更新书籍成功");
