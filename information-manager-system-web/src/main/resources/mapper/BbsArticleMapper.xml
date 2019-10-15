@@ -6,7 +6,7 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-    bbsArticleId,userId,title,content,createTime,isSoftDelete
+    bbsArticleId,userId,title,content,createTime,isSoftDelete,lastEditTime
   </sql>
 
   <insert id="addBbsArticle" parameterType="com.xingkaichun.information.model.BbsArticleDomain">
@@ -19,7 +19,8 @@
       #{title, jdbcType=VARCHAR},
       #{content, jdbcType=VARCHAR},
       #{createTime, jdbcType=TIMESTAMP},
-      false
+      false,
+      #{lastEditTime, jdbcType=TIMESTAMP}
     )
   </insert>
 
@@ -40,5 +41,19 @@
     SELECT * FROM <include refid="BASE_TABLE"/>
     where userId = #{_parameter, jdbcType=VARCHAR}
     ORDER BY createTime DESC;
+  </select>
+
+
+  <select id="queryBbsArticle" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest" resultType="com.xingkaichun.information.model.BbsArticleDomain">
+    SELECT * FROM <include refid="BASE_TABLE"/>
+    where 1=1
+    ORDER BY lastEditTime DESC
+    <if test="pageCondition != null">
+      limit #{pageCondition.from},#{pageCondition.pageSize}
+    </if>
+  </select>
+
+  <select id="queryBbsArticleCount" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest" resultType="java.lang.Integer">
+    SELECT count(1) FROM <include refid="BASE_TABLE"/>
   </select>
 </mapper>

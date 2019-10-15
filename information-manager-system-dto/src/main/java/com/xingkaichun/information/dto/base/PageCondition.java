@@ -10,6 +10,7 @@ public class PageCondition {
     private int pageNum;
     @JsonProperty("PageSize")
     private int pageSize;
+
     //拼装sql时使用，它的值自动生成
     private int from;
 
@@ -19,5 +20,9 @@ public class PageCondition {
     public PageCondition(int pageNum, int pageSize) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
+    }
+
+    public int getFrom() {
+        return (pageNum-1)*pageSize;
     }
 }

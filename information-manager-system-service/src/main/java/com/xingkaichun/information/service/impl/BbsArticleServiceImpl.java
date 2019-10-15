@@ -4,7 +4,10 @@ import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
+import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
+import com.xingkaichun.information.dto.base.PageCondition;
+import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
@@ -95,6 +98,15 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         return ServiceResult.createSuccessServiceResult("获取帖子详情成功",bbsArticleDTO);
     }
 
+    @Override
+    public PageInformation<BbsArticleDTO> queryBbsArticle(QueryBbsArticleRequest request) {
+        PageCondition pageCondition = request.getPageCondition();
+        List<BbsArticleDomain> bbsArticleDomainList = bbsArticleDao.queryBbsArticle(request);
+        int totalCount = bbsArticleDao.queryBbsArticleCount(request);
+        PageInformation<BbsArticleDTO> articleDTOPageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),totalCount,classCast(bbsArticleDomainList));
+        return articleDTOPageInformation;
+    }
+
     private List<BbsArticleDTO> classCast(List<BbsArticleDomain> bbsArticleDomainList) {
         if(CommonUtils.isNUllOrEmpty(bbsArticleDomainList)){
             return null;
@@ -114,6 +126,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         bbsArticleDTO.setSoftDelete(bbsArticleDomain.isSoftDelete());
         bbsArticleDTO.setTitle(bbsArticleDomain.getTitle());
         bbsArticleDTO.setUserId(bbsArticleDomain.getUserId());
+        bbsArticleDTO.setLastEditTime(bbsArticleDomain.getLastEditTime());
         return bbsArticleDTO;
     }
 
@@ -125,6 +138,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         bbsArticleDomain.setSoftDelete(bbsArticleDTO.isSoftDelete());
         bbsArticleDomain.setTitle(bbsArticleDTO.getTitle());
         bbsArticleDomain.setUserId(bbsArticleDTO.getUserId());
+        bbsArticleDomain.setLastEditTime(bbsArticleDTO.getLastEditTime());
         return bbsArticleDomain;
     }
 }

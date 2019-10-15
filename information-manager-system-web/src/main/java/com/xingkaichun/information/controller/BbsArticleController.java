@@ -1,16 +1,11 @@
 package com.xingkaichun.information.controller;
 
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
-import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByRandRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByUserIdRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleDetailByBbsArticleIdRequest;
-import com.xingkaichun.information.dto.BbsArticle.response.AddBbsArticleResponse;
-import com.xingkaichun.information.dto.BbsArticle.response.QueryBbsArticleByRandResponse;
-import com.xingkaichun.information.dto.BbsArticle.response.QueryBbsArticleByUserIdResponse;
-import com.xingkaichun.information.dto.BbsArticle.response.QueryBbsArticleDetailByBbsArticleIdResponse;
+import com.xingkaichun.information.dto.BbsArticle.request.*;
+import com.xingkaichun.information.dto.BbsArticle.response.*;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
 import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.dto.base.ServiceCode;
 import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.service.BbsArticleCommentService;
@@ -97,6 +92,26 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("随机获取帖子成功",queryBbsArticleByRandResponse);
         } catch (Exception e) {
             String message = "随机获取帖子出错";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailServiceResult(message);
+        } finally {
+        }
+    }
+
+    @ApiOperation(value="帖子分页", notes="帖子分页")
+    @ResponseBody
+    @PostMapping("/QueryBbsArticle")
+    public ServiceResult<QueryBbsArticleResponse> queryBbsArticle(@RequestBody QueryBbsArticleRequest request){
+
+        try {
+            PageInformation<BbsArticleDTO> bbsArticleDTOPageInformation = bbsArticleService.queryBbsArticle(request);
+
+            QueryBbsArticleResponse queryBbsArticleResponse = new QueryBbsArticleResponse();
+            queryBbsArticleResponse.setBbsArticleDTOPageInformation(bbsArticleDTOPageInformation);
+
+            return ServiceResult.createSuccessServiceResult("帖子分页成功",queryBbsArticleResponse);
+        } catch (Exception e) {
+            String message = "帖子分页出错";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {

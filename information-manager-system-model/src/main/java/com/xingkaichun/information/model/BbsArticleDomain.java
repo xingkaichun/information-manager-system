@@ -12,5 +12,6 @@ public class BbsArticleDomain {
     private String title;
     private String content;
     private Date createTime;
+    private Date lastEditTime;
     private boolean isSoftDelete;
 }

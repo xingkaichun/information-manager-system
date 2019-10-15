@@ -26,6 +26,10 @@ public class BbsArticleDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    @JsonProperty("LastEditTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastEditTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
 
