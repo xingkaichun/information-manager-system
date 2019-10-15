@@ -47,7 +47,7 @@
   <select id="queryBbsArticle" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest" resultType="com.xingkaichun.information.model.BbsArticleDomain">
     SELECT * FROM <include refid="BASE_TABLE"/>
     where 1=1
-    ORDER BY lastEditTime DESC
+    ORDER BY ${orderByField} DESC
     <if test="pageCondition != null">
       limit #{pageCondition.from},#{pageCondition.pageSize}
     </if>
