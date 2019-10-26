@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>[###SeoTitle###]</title>
+    <meta name="keywords" content="[###SeoKeywords###]" />
+    <meta name="description" content="[###SeoDescription###]" />
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="applicable-device"content="pc,mobile" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/common.css" type="text/css">
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+</head>
+<body>
+<!--通用顶部导航-->
+<div class="nav">
+    <div class="nav_logo"><a href="../../index.html"><img src="../../images/logo.png" alt="皮皮教程网"><h1>皮皮教程网</h1></a></div>
+    <ul class="nav_menu">
+        <li><a href="../course/lucene_course.html" class="on">教程</a></li>
+        <li><a href="../forum/forum.html">论坛</a></li>
+        <li><a href="#">工具</a></li>
+    </ul>
+    <div class="nav_login">
+        <label class="tips">4</label>
+        <!--未登录显示-->
+        <!--        <a href="../../login.html">-->
+        <!--            <span class="myhead"></span>-->
+        <!--        </a>-->
+        <!--登录显示-->
+        <a href="../home/home.html">
+            <span>admin</span>
+        </a>
+    </div>
+</div>
+<!--论坛内容区-->
+<div class="forum">
+    <div class="t course_t"><h1>Python入门 > 第一章 Python介绍 > </h1><div><a href="course_publish2.html" class="c_btn">返回</a></div></div>
+    <table border="0" cellpadding="0" cellspacing="0" class="course_add_1 course_add_cont">
+        <tr>
+            <td width="100">节名称</td>
+            <td><input type="text" class="txt" value="第一节 Python是什么"></td>
+        </tr>
+        <tr>
+            <td>节的描述</td>
+            <td><input type="text" class="txt"></td>
+        </tr>
+        <tr>
+            <td>节内容</td>
+            <td><div id="divDemo"></div></td>
+        </tr>
+        <tr>
+            <td>SEO网址</td>
+            <td><input type="text" class="txt"></td>
+        </tr>
+        <tr>
+            <td>SEO标题</td>
+            <td><input type="text" class="txt"></td>
+        </tr>
+        <tr>
+            <td>SEO关键字</td>
+            <td><input type="text" class="txt"></td>
+        </tr>
+        <tr>
+            <td>SEO描述</td>
+            <td><input type="text" class="txt"></td>
+        </tr>
+        <tr>
+            <td>软删除标志</td>
+            <td><input type="radio" name="te" value="de">软删除<input type="radio" name="te" value="dotde">不软删</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" class="c_btn c_btn_imp" value="保存"></td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="scrolltotop" id="scrolltotop"><img src="../../images/arrows2.png" alt=""></div>
+<script src="../../js/js.js"></script>
+<script type="text/javascript" src='../../js/jQuery.js'></script>
+<script type="text/javascript" src='../../editor/release/wangEditor.min.js'></script>
+<script type="text/javascript">
+    $(function (){
+        var E = window.wangEditor
+        var editor = new E('#divDemo')
+        editor.customConfig.uploadImgShowBase64 = true
+        editor.create()
+    });
+</script>
+</body>
+</html>
