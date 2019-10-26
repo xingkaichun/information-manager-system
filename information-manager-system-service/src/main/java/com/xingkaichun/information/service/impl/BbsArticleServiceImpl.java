@@ -1,5 +1,7 @@
 package com.xingkaichun.information.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
@@ -101,9 +103,9 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     @Override
     public PageInformation<BbsArticleDTO> queryBbsArticle(QueryBbsArticleRequest request) {
         PageCondition pageCondition = request.getPageCondition();
-        List<BbsArticleDomain> bbsArticleDomainList = bbsArticleDao.queryBbsArticle(request);
-        int totalCount = bbsArticleDao.queryBbsArticleCount(request);
-        PageInformation<BbsArticleDTO> articleDTOPageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),totalCount,classCast(bbsArticleDomainList));
+        PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
+        Page<BbsArticleDomain> page = bbsArticleDao.queryBbsArticle(request);
+        PageInformation<BbsArticleDTO> articleDTOPageInformation = new PageInformation<BbsArticleDTO>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),classCast(page.getResult()));
         return articleDTOPageInformation;
     }
 

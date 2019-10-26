@@ -1,5 +1,6 @@
 package com.xingkaichun.information.dao;
 
+import com.github.pagehelper.Page;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
 import com.xingkaichun.information.model.BbsArticleDomain;
 
@@ -11,6 +12,6 @@ public interface BbsArticleDao {
     List<BbsArticleDomain> queryBbsArticleByRand();
     List<BbsArticleDomain> queryBbsArticleByUserId(String userId);
 
-    List<BbsArticleDomain> queryBbsArticle(QueryBbsArticleRequest request);
+    Page<BbsArticleDomain> queryBbsArticle(QueryBbsArticleRequest request);
     int queryBbsArticleCount(QueryBbsArticleRequest request);
 }

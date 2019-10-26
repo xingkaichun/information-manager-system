@@ -7,18 +7,18 @@ import java.util.List;
 @Data
 public class PageInformation<T> {
     //当前页
-    private int pageNum;
+    private long pageNum;
     //每页的数量
-    private int pageSize;
+    private long pageSize;
     //总页数
-    private int pages;
+    private long pages;
     //总条数
-    private int totalCount;
+    private long totalCount;
     //当前页数据
     private List<T> data;
 
 
-    public PageInformation(int pageNum, int pageSize, int totalCount, List<T> data) {
+    public PageInformation(int pageNum, int pageSize, long totalCount, List<T> data) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.totalCount = totalCount;
