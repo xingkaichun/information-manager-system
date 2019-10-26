@@ -2,8 +2,8 @@ package com.xingkaichun.information.dto.article.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.common.dto.base.page.PageCondition;
 import com.xingkaichun.information.dto.article.ArticleDTO;
-import com.xingkaichun.information.dto.base.PageCondition;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,7 +13,7 @@ import java.util.Date;
 public class QueryArticleRequest extends ArticleDTO {
 
     @JsonProperty("PageCondition")
-    PageCondition pageCondition;
+    private PageCondition pageCondition;
 
     @JsonProperty("CreateTimeStart")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

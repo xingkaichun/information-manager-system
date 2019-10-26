@@ -1,8 +1,8 @@
 package com.xingkaichun.information.controller;
 
-import com.xingkaichun.information.dto.base.FreshServiceResult;
-import com.xingkaichun.information.dto.base.ServiceCode;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceCode;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.dto.user.request.LoginRequest;

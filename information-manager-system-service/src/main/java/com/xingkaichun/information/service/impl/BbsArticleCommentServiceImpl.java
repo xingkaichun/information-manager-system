@@ -4,7 +4,7 @@ import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
-import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
 import com.xingkaichun.information.model.BbsArticleDomain;
 import com.xingkaichun.information.service.BbsArticleCommentService;

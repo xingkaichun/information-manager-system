@@ -1,6 +1,6 @@
 package com.xingkaichun.information.controller;
 
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.file.FileDto;
 import com.xingkaichun.information.dto.file.response.FileUploadResponse;
 import com.xingkaichun.information.model.FileDomain;

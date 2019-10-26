@@ -1,8 +1,8 @@
 package com.xingkaichun.information.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xingkaichun.information.dto.base.FreshServiceResult;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

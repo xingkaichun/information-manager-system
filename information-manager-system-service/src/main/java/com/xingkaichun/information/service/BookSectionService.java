@@ -1,7 +1,7 @@
 package com.xingkaichun.information.service;
 
-import com.xingkaichun.information.dto.base.FreshServiceResult;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
 import com.xingkaichun.information.dto.bookSection.request.AddBookSectionRequest;
 import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSectionByBookSectionIdRequest;

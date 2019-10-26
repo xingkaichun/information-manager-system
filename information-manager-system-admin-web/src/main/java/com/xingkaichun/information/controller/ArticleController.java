@@ -10,9 +10,9 @@ import com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleReque
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
 import com.xingkaichun.information.dto.article.response.QueryArticleResponse;
-import com.xingkaichun.information.dto.base.FreshServiceResult;
-import com.xingkaichun.information.dto.base.PageInformation;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.PageInformation;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;

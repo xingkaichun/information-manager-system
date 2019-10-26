@@ -1,7 +1,7 @@
 package com.xingkaichun.information.controller;
 
-import com.xingkaichun.information.dto.base.FreshServiceResult;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.AddCategoryRequest;
 import com.xingkaichun.information.dto.category.request.DeleteCategoryRequest;

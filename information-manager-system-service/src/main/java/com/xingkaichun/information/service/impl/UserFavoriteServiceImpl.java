@@ -2,7 +2,7 @@ package com.xingkaichun.information.service.impl;
 
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.UserFavoriteDao;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.bookFavorite.request.AddFavoriteBookRequest;
 import com.xingkaichun.information.dto.bookFavorite.request.PhysicsDeleteUserFavoriteRequest;

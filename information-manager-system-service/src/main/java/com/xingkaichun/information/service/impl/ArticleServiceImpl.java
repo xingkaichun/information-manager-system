@@ -1,5 +1,7 @@
 package com.xingkaichun.information.service.impl;
 
+import com.xingkaichun.common.dto.base.page.PageCondition;
+import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.ArticleDao;
 import com.xingkaichun.information.dao.FileDao;
 import com.xingkaichun.information.dto.article.ArticleDTO;
@@ -7,8 +9,6 @@ import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest;
 import com.xingkaichun.information.dto.article.request.QueryArticleRequest;
 import com.xingkaichun.information.dto.article.request.UpdateArticleRequest;
-import com.xingkaichun.information.dto.base.PageCondition;
-import com.xingkaichun.information.dto.base.PageInformation;
 import com.xingkaichun.information.dto.category.CategoryDTO;
 import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
@@ -60,10 +60,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public PageInformation<ArticleDTO> queryArticle(QueryArticleRequest queryArticleRequest) {
         PageCondition pageCondition = queryArticleRequest.getPageCondition();
-        //PageHelper.startPage(queryArticleRequest.getPageCondition().getPageNum(), queryArticleRequest.getPageCondition().getPageSize());
         List<ArticleDomain> articleDomainList = articleDao.queryArticle(queryArticleRequest);
         int totalCount = articleDao.queryArticleTotalCount(queryArticleRequest);
-        //PageInfo result = new PageInfo(articleDomainList);
         PageInformation<ArticleDTO> articleDTOPageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),totalCount,classCast(articleDomainList));
         return articleDTOPageInformation;
     }

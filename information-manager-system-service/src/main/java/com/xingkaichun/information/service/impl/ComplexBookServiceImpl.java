@@ -1,7 +1,7 @@
 package com.xingkaichun.information.service.impl;
 
-import com.xingkaichun.information.dto.base.ServiceCode;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.ServiceCode;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.QueryBookDetailsByBookIdRequest;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;

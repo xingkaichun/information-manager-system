@@ -1,13 +1,13 @@
 package com.xingkaichun.information.controller;
 
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceCode;
+import com.xingkaichun.common.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
 import com.xingkaichun.information.dto.BbsArticle.response.*;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
-import com.xingkaichun.information.dto.base.FreshServiceResult;
-import com.xingkaichun.information.dto.base.PageInformation;
-import com.xingkaichun.information.dto.base.ServiceCode;
-import com.xingkaichun.information.dto.base.ServiceResult;
 import com.xingkaichun.information.service.BbsArticleCommentService;
 import com.xingkaichun.information.service.BbsArticleService;
 import com.xingkaichun.utils.CommonUtils;

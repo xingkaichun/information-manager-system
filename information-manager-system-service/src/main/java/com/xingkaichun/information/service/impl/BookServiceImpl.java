@@ -2,8 +2,8 @@ package com.xingkaichun.information.service.impl;
 
 import com.xingkaichun.information.dao.BookChapterDao;
 import com.xingkaichun.information.dao.BookDao;
-import com.xingkaichun.information.dto.base.FreshServiceResult;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.*;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;

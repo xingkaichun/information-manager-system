@@ -1,8 +1,8 @@
 package com.xingkaichun.information.dto.article.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dto.article.ArticleDTO;
-import com.xingkaichun.information.dto.base.PageInformation;
 import lombok.Data;
 
 @Data

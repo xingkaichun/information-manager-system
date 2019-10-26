@@ -1,7 +1,7 @@
 package com.xingkaichun.information.service;
 
 import com.github.pagehelper.PageInfo;
-import com.xingkaichun.information.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.UserDomain;

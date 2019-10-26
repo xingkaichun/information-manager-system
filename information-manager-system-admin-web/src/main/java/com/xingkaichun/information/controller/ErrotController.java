@@ -1,6 +1,6 @@
 package com.xingkaichun.information.controller;
 
-import com.xingkaichun.information.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.FreshServiceResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
