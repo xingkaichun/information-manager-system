@@ -8,6 +8,7 @@ import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
@@ -101,11 +102,11 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     }
 
     @Override
-    public PageInformation<BbsArticleDTO> queryBbsArticle(QueryBbsArticleRequest request) {
+    public PageInformation<BbsArticleDTOForShowListPage> queryBbsArticle(QueryBbsArticleRequest request) {
         PageCondition pageCondition = request.getPageCondition();
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
-        Page<BbsArticleDomain> page = bbsArticleDao.queryBbsArticle(request);
-        PageInformation<BbsArticleDTO> articleDTOPageInformation = new PageInformation<BbsArticleDTO>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),classCast(page.getResult()));
+        Page<BbsArticleDTOForShowListPage> page = bbsArticleDao.queryBbsArticle(request);
+        PageInformation<BbsArticleDTOForShowListPage> articleDTOPageInformation = new PageInformation<BbsArticleDTOForShowListPage>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
         return articleDTOPageInformation;
     }
 
@@ -129,7 +130,6 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         bbsArticleDTO.setTitle(bbsArticleDomain.getTitle());
         bbsArticleDTO.setUserId(bbsArticleDomain.getUserId());
         bbsArticleDTO.setLastEditTime(bbsArticleDomain.getLastEditTime());
-        bbsArticleDTO.setNumberOfComment(bbsArticleDomain.getNumberOfComment());
         return bbsArticleDTO;
     }
 
@@ -142,7 +142,6 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         bbsArticleDomain.setTitle(bbsArticleDTO.getTitle());
         bbsArticleDomain.setUserId(bbsArticleDTO.getUserId());
         bbsArticleDomain.setLastEditTime(bbsArticleDTO.getLastEditTime());
-        bbsArticleDomain.setNumberOfComment(bbsArticleDTO.getNumberOfComment());
         return bbsArticleDomain;
     }
 }

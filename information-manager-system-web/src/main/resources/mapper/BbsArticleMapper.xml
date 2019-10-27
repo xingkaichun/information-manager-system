@@ -44,8 +44,9 @@
   </select>
 
 
-  <select id="queryBbsArticle" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest" resultType="com.xingkaichun.information.model.BbsArticleDomain">
-    SELECT * FROM <include refid="BASE_TABLE"/>
+  <select id="queryBbsArticle" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest" resultType="com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage">
+    SELECT b.*,u.userName FROM <include refid="BASE_TABLE"/> b
+    left join `user` u on b.userId = u.userId
     where 1=1
     ORDER BY ${orderByField} DESC
   </select>

@@ -5,6 +5,7 @@ import com.xingkaichun.common.dto.base.ServiceCode;
 import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
 import com.xingkaichun.information.dto.BbsArticle.response.*;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
@@ -104,7 +105,7 @@ public class BbsArticleController {
     public ServiceResult<QueryBbsArticleResponse> queryBbsArticle(@RequestBody QueryBbsArticleRequest request){
 
         try {
-            PageInformation<BbsArticleDTO> bbsArticleDTOPageInformation = bbsArticleService.queryBbsArticle(request);
+            PageInformation<BbsArticleDTOForShowListPage> bbsArticleDTOPageInformation = bbsArticleService.queryBbsArticle(request);
 
             QueryBbsArticleResponse queryBbsArticleResponse = new QueryBbsArticleResponse();
             queryBbsArticleResponse.setBbsArticleDTOPageInformation(bbsArticleDTOPageInformation);

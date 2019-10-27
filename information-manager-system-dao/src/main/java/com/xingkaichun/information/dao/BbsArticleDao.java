@@ -1,6 +1,7 @@
 package com.xingkaichun.information.dao;
 
 import com.github.pagehelper.Page;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
 import com.xingkaichun.information.model.BbsArticleDomain;
 
@@ -12,7 +13,7 @@ public interface BbsArticleDao {
     List<BbsArticleDomain> queryBbsArticleByRand();
     List<BbsArticleDomain> queryBbsArticleByUserId(String userId);
 
-    Page<BbsArticleDomain> queryBbsArticle(QueryBbsArticleRequest request);
+    Page<BbsArticleDTOForShowListPage> queryBbsArticle(QueryBbsArticleRequest request);
 
     int updateBbsArticle(BbsArticleDomain bbsArticleDomain);
 }
