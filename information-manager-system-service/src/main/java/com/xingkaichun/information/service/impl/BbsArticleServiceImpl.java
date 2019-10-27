@@ -8,6 +8,7 @@ import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
@@ -83,21 +84,21 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     }
 
     @Override
-    public ServiceResult<BbsArticleDTO> queryBbsArticleDetailByBbsArticleId(String bbsArticleId) {
-        BbsArticleDomain bbsArticleDomain = bbsArticleDao.queryBbsArticleByBbsArticleId(bbsArticleId);
-        if(bbsArticleDomain == null){
+    public ServiceResult<BbsArticleDTOForDetailsPage> queryBbsArticleDetailByBbsArticleId(String bbsArticleId) {
+        BbsArticleDTOForDetailsPage bbsArticleDTO = bbsArticleDao.queryBbsArticleByBbsArticleIdForDetailsPage(bbsArticleId);
+        if(bbsArticleDTO == null){
             return ServiceResult.createFailServiceResult("帖子不存在");
         }
-        BbsArticleDTO bbsArticleDTO = classCast(bbsArticleDomain);
+/*        BbsArticleDTO bbsArticleDTO = classCast(bbsArticleDomain);
         fillBbsArticleDTO(bbsArticleDTO);
 
         List<BbsArticleCommentDomain> bbsArticleCommentDomainList = bbsArticleCommentDao.querybbsArticleCommentBybbsArticleId(bbsArticleId);
         List<BbsArticleCommentDTO> bbsArticleDTOList = BbsArticleCommentServiceImpl.classCast(bbsArticleCommentDomainList);
-        fillBbsArticleCommentDTO(bbsArticleDTOList);
+        fillBbsArticleCommentDTO(bbsArticleDTOList);*/
 
-        List<BbsArticleCommentDTO> parentBbsArticleCommentDTOList = CommonUtilBbsArticleCommentDTO.parentBbsArticleCommentDTOList(bbsArticleDTOList);
+/*        List<BbsArticleCommentDTO> parentBbsArticleCommentDTOList = CommonUtilBbsArticleCommentDTO.parentBbsArticleCommentDTOList(bbsArticleDTOList);
 
-        bbsArticleDTO.setBbsArticleCommentDTOList(parentBbsArticleCommentDTOList);
+        bbsArticleDTO.setBbsArticleCommentDTOList(parentBbsArticleCommentDTOList);*/
         return ServiceResult.createSuccessServiceResult("获取帖子详情成功",bbsArticleDTO);
     }
 

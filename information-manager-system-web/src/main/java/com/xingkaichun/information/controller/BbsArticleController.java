@@ -5,6 +5,7 @@ import com.xingkaichun.common.dto.base.ServiceCode;
 import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
 import com.xingkaichun.information.dto.BbsArticle.response.*;
@@ -61,16 +62,7 @@ public class BbsArticleController {
             addBbsArticleRequest.setBbsArticleId(String.valueOf(UUID.randomUUID()));
 
             bbsArticleService.addBbsArticle(addBbsArticleRequest);
-            ServiceResult<BbsArticleDTO> bbsArticleDTOServiceResult = bbsArticleService.queryBbsArticleDetailByBbsArticleId(addBbsArticleRequest.getBbsArticleId());
-            if(bbsArticleDTOServiceResult.getServiceCode()== ServiceCode.FAIL){
-                return FreshServiceResult.createFailFreshServiceResult(bbsArticleDTOServiceResult.getMessage());
-            }
-
-            BbsArticleDTO bbsArticleDTO = bbsArticleDTOServiceResult.getResult();
-            AddBbsArticleResponse addBbsArticleResponse = new AddBbsArticleResponse();
-            addBbsArticleResponse.setBbsArticleDTO(bbsArticleDTO);
-
-            return FreshServiceResult.createSuccessServiceResult("发帖成功",addBbsArticleResponse);
+            return FreshServiceResult.createSuccessServiceResult("发帖成功",null);
         } catch (Exception e) {
             String message = "发帖出错";
             LOGGER.error(message,e);
@@ -146,12 +138,12 @@ public class BbsArticleController {
     public ServiceResult<QueryBbsArticleDetailByBbsArticleIdResponse> queryBbsArticleDetailByBbsArticleId(@RequestBody QueryBbsArticleDetailByBbsArticleIdRequest queryBbsArticleDetailByBbsArticleIdRequest){
 
         try {
-            ServiceResult<BbsArticleDTO> bbsArticleDTOServiceResult = bbsArticleService.queryBbsArticleDetailByBbsArticleId(queryBbsArticleDetailByBbsArticleIdRequest.getBbsArticleId());
+            ServiceResult<BbsArticleDTOForDetailsPage> bbsArticleDTOServiceResult = bbsArticleService.queryBbsArticleDetailByBbsArticleId(queryBbsArticleDetailByBbsArticleIdRequest.getBbsArticleId());
             if(bbsArticleDTOServiceResult.getServiceCode()== ServiceCode.FAIL){
                 return FreshServiceResult.createFailFreshServiceResult(bbsArticleDTOServiceResult.getMessage());
             }
 
-            BbsArticleDTO bbsArticleDTO = bbsArticleDTOServiceResult.getResult();
+            BbsArticleDTOForDetailsPage bbsArticleDTO = bbsArticleDTOServiceResult.getResult();
             QueryBbsArticleDetailByBbsArticleIdResponse queryBbsArticleDetailByBbsArticleIdResponse = new QueryBbsArticleDetailByBbsArticleIdResponse();
             queryBbsArticleDetailByBbsArticleIdResponse.setBbsArticleDTO(bbsArticleDTO);
 

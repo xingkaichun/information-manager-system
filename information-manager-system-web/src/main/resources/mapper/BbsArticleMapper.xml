@@ -32,6 +32,12 @@
     where bbsArticleId = #{_parameter, jdbcType=VARCHAR}
   </select>
 
+  <select id="queryBbsArticleByBbsArticleIdForDetailsPage" parameterType="java.lang.String" resultType="com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage">
+    SELECT b.*,u.userName FROM <include refid="BASE_TABLE"/> b
+    left join `user` u on b.userId = u.userId
+    where bbsArticleId = #{_parameter, jdbcType=VARCHAR}
+  </select>
+
   <select id="queryBbsArticleByRand" resultType="com.xingkaichun.information.model.BbsArticleDomain">
     SELECT * FROM <include refid="BASE_TABLE"/>
     ORDER BY  RAND() LIMIT 10
