@@ -1,5 +1,8 @@
 package com.xingkaichun.information.dao;
 
+import com.github.pagehelper.Page;
+import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByUserRequest;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,4 +13,5 @@ public interface BbsArticleCommentDao {
     BbsArticleCommentDomain querybbsArticleCommentBybbsArticleCommentId(String bbsArticleCommentId);
     List<BbsArticleCommentDomain> querybbsArticleCommentBybbsArticleId(@Param("bbsArticleId") String bbsArticleId);
     int queryNumberOfComment(@Param("bbsArticleId") String bbsArticleId);
+    Page<BbsArticleCommentDTOForHomeShowList> queryBbsArticleCommentByUser(QueryBbsArticleCommentByUserRequest request);
 }

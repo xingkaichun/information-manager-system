@@ -45,4 +45,9 @@
     select count(*) from <include refid="BASE_TABLE"/>
     where bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR}
   </select>
+
+  <select id="queryBbsArticleCommentByUser" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByUserRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList">
+    SELECT * from <include refid="BASE_TABLE"/>
+    ORDER BY createTime DESC
+  </select>
 </mapper>

@@ -13,8 +13,10 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPa
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByUserIdRequest;
+import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByUserRequest;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
 import com.xingkaichun.information.model.BbsArticleDomain;
@@ -112,6 +114,15 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         Page<BbsArticleDTOForShowListPage> page = bbsArticleDao.queryBbsArticle(request);
         PageInformation<BbsArticleDTOForShowListPage> articleDTOPageInformation = new PageInformation<BbsArticleDTOForShowListPage>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
         return articleDTOPageInformation;
+    }
+
+    @Override
+    public PageInformation<BbsArticleCommentDTOForHomeShowList> queryBbsArticleCommentByUser(QueryBbsArticleCommentByUserRequest request) {
+        PageCondition pageCondition = request.getPageCondition();
+        PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
+        Page<BbsArticleCommentDTOForHomeShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByUser(request);
+        PageInformation<BbsArticleCommentDTOForHomeShowList> pagePageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        return pagePageInformation;
     }
 
     private List<BbsArticleDTO> classCast(List<BbsArticleDomain> bbsArticleDomainList) {

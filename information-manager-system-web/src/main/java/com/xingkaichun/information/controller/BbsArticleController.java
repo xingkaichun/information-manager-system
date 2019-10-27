@@ -10,6 +10,7 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPa
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
 import com.xingkaichun.information.dto.BbsArticle.response.*;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
 import com.xingkaichun.information.service.BbsArticleCommentService;
 import com.xingkaichun.information.service.BbsArticleService;
@@ -166,6 +167,28 @@ public class BbsArticleController {
     public FreshServiceResult AddBbsArticleComment(HttpServletRequest request, HttpServletResponse response,@RequestBody AddBbsArticleCommentRequest addBbsArticleCommentRequest){
         addBbsArticleCommentRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
         return bbsArticleCommentService.AddBbsArticleComment(addBbsArticleCommentRequest);
+    }
+
+    @ApiOperation(value="获取用户帖子评论", notes="获取用户帖子评论")
+    @ResponseBody
+    @PostMapping("/QueryBbsArticleCommentByUser")
+    public ServiceResult<QueryBbsArticleCommentByUserResponse> queryBbsArticleCommentByUser(HttpServletRequest req, @RequestBody QueryBbsArticleCommentByUserRequest request){
+
+        try {
+            String userId = CommonUtilsSession.getUser(req).getUserId();
+            request.setUserId(userId);
+            PageInformation<BbsArticleCommentDTOForHomeShowList> bbsArticleDTOList = bbsArticleService.queryBbsArticleCommentByUser(request);
+
+            QueryBbsArticleCommentByUserResponse response = new QueryBbsArticleCommentByUserResponse();
+            response.setBbsArticleCommentDTOPageInformation(bbsArticleDTOList);
+
+            return ServiceResult.createSuccessServiceResult("获取用户帖子成功",response);
+        } catch (Exception e) {
+            String message = "获取用户帖子出错";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailServiceResult(message);
+        } finally {
+        }
     }
     //endregion
 }

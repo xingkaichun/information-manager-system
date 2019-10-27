@@ -5,7 +5,9 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByUserIdRequest;
+import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByUserRequest;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.model.BbsArticleDomain;
 
 import java.util.List;
@@ -21,4 +23,5 @@ public interface BbsArticleDao {
     Page<BbsArticleDTOForShowListPage> queryBbsArticle(QueryBbsArticleRequest request);
 
     int updateBbsArticle(BbsArticleDomain bbsArticleDomain);
+
 }
