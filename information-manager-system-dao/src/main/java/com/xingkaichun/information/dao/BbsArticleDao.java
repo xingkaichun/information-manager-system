@@ -13,5 +13,6 @@ public interface BbsArticleDao {
     List<BbsArticleDomain> queryBbsArticleByUserId(String userId);
 
     Page<BbsArticleDomain> queryBbsArticle(QueryBbsArticleRequest request);
-    int queryBbsArticleCount(QueryBbsArticleRequest request);
+
+    int updateBbsArticle(BbsArticleDomain bbsArticleDomain);
 }

@@ -41,5 +41,8 @@
     where bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR}
   </select>
 
-
+  <select id="queryNumberOfComment" resultType="java.lang.Integer">
+    select count(*) from <include refid="BASE_TABLE"/>
+    where bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR}
+  </select>
 </mapper>

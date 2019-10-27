@@ -32,6 +32,8 @@ public class BbsArticleDTO {
     private Date lastEditTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
+    @JsonProperty("NumberOfComment")
+    private int numberOfComment;
 
     @JsonProperty("BbsArticleCommentDTOList")
     private List<BbsArticleCommentDTO> bbsArticleCommentDTOList;

@@ -9,4 +9,5 @@ public interface BbsArticleCommentDao {
     int addBbsArticleComment(BbsArticleCommentDomain bbsArticleCommentDomain);
     BbsArticleCommentDomain querybbsArticleCommentBybbsArticleCommentId(String bbsArticleCommentId);
     List<BbsArticleCommentDomain> querybbsArticleCommentBybbsArticleId(@Param("bbsArticleId") String bbsArticleId);
+    int queryNumberOfComment(@Param("bbsArticleId") String bbsArticleId);
 }

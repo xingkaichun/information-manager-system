@@ -129,6 +129,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         bbsArticleDTO.setTitle(bbsArticleDomain.getTitle());
         bbsArticleDTO.setUserId(bbsArticleDomain.getUserId());
         bbsArticleDTO.setLastEditTime(bbsArticleDomain.getLastEditTime());
+        bbsArticleDTO.setNumberOfComment(bbsArticleDomain.getNumberOfComment());
         return bbsArticleDTO;
     }
 
@@ -141,6 +142,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         bbsArticleDomain.setTitle(bbsArticleDTO.getTitle());
         bbsArticleDomain.setUserId(bbsArticleDTO.getUserId());
         bbsArticleDomain.setLastEditTime(bbsArticleDTO.getLastEditTime());
+        bbsArticleDomain.setNumberOfComment(bbsArticleDTO.getNumberOfComment());
         return bbsArticleDomain;
     }
 }

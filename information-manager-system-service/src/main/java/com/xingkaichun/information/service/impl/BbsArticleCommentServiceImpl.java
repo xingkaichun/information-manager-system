@@ -40,7 +40,7 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
             addBbsArticleCommentRequest.setBbsArticleCommentId(String.valueOf(UUID.randomUUID()));
 
             //若被评论的是帖子，校验被评论的帖子的存在
-            BbsArticleDomain bbsArticleDomain =bbsArticleDao.queryBbsArticleByBbsArticleId(addBbsArticleCommentRequest.getBbsArticleId());
+            BbsArticleDomain bbsArticleDomain = bbsArticleDao.queryBbsArticleByBbsArticleId(addBbsArticleCommentRequest.getBbsArticleId());
             if(bbsArticleDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("被评论的帖子不存在");
             }
@@ -53,6 +53,13 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
                 }
             }
             bbsArticleCommentDao.addBbsArticleComment(classCast(addBbsArticleCommentRequest));
+
+            //重新计算评论数目
+            int numberOfComment = bbsArticleCommentDao.queryNumberOfComment(addBbsArticleCommentRequest.getBbsArticleId());
+            BbsArticleDomain updateNumberOfComment = new BbsArticleDomain();
+            updateNumberOfComment.setBbsArticleId(addBbsArticleCommentRequest.getBbsArticleId());
+            updateNumberOfComment.setNumberOfComment(numberOfComment);
+            bbsArticleDao.updateBbsArticle(updateNumberOfComment);
         } catch (Exception e) {
             String message = "评论帖子出错";
             LOGGER.error(message,e);

@@ -49,4 +49,14 @@
     where 1=1
     ORDER BY ${orderByField} DESC
   </select>
+
+  <update id="updateBbsArticle" parameterType="com.xingkaichun.information.model.BbsArticleDomain">
+    update <include refid="BASE_TABLE"/>
+    set
+    <if test="numberOfComment != 0">
+      numberOfComment = #{numberOfComment, jdbcType=INTEGER},
+    </if>
+    bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR}
+    where bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR}
+  </update>
 </mapper>
