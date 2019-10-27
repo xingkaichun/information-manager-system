@@ -43,10 +43,10 @@
     ORDER BY  RAND() LIMIT 10
   </select>
 
-  <select id="queryBbsArticleByUserId" resultType="com.xingkaichun.information.model.BbsArticleDomain">
+  <select id="queryBbsArticleByUserId" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByUserIdRequest" resultType="com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage">
     SELECT * FROM <include refid="BASE_TABLE"/>
-    where userId = #{_parameter, jdbcType=VARCHAR}
-    ORDER BY createTime DESC;
+    where userId = #{userId, jdbcType=VARCHAR}
+    ORDER BY createTime DESC
   </select>
 
 

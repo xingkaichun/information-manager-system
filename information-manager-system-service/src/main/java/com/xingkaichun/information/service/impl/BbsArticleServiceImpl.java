@@ -9,8 +9,10 @@ import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
+import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByUserIdRequest;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.user.UserInfo;
@@ -76,11 +78,12 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     }
 
     @Override
-    public List<BbsArticleDTO> queryBbsArticleByUserId(String userId) {
-        List<BbsArticleDomain>  bbsArticleDomainList = bbsArticleDao.queryBbsArticleByUserId(userId);
-        List<BbsArticleDTO> bbsArticleDTOList = classCast(bbsArticleDomainList);
-        fillBbsArticleDTO(bbsArticleDTOList);
-        return bbsArticleDTOList;
+    public PageInformation<BbsArticleDTOForHomeShowListPage> queryBbsArticleByUserId(QueryBbsArticleByUserIdRequest request) {
+        PageCondition pageCondition = request.getPageCondition();
+        PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
+        Page<BbsArticleDTOForHomeShowListPage> page = bbsArticleDao.queryBbsArticleByUserId(request);
+        PageInformation<BbsArticleDTOForHomeShowListPage> pagePageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        return pagePageInformation;
     }
 
     @Override

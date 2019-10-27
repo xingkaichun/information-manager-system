@@ -6,6 +6,7 @@ import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
 import com.xingkaichun.information.dto.BbsArticle.response.*;
@@ -114,11 +115,12 @@ public class BbsArticleController {
     @ApiOperation(value="获取用户帖子", notes="获取用户帖子")
     @ResponseBody
     @PostMapping("/QueryBbsArticleByUserId")
-    public ServiceResult<QueryBbsArticleByUserIdResponse> queryBbsArticleByUserId(HttpServletRequest request, @RequestBody QueryBbsArticleByUserIdRequest queryBbsArticleByUserIdRequest){
+    public ServiceResult<QueryBbsArticleByUserIdResponse> queryBbsArticleByUserId(HttpServletRequest req, @RequestBody QueryBbsArticleByUserIdRequest request){
 
         try {
-            String userId = CommonUtilsSession.getUser(request).getUserId();
-            List<BbsArticleDTO> bbsArticleDTOList = bbsArticleService.queryBbsArticleByUserId(userId);
+            String userId = CommonUtilsSession.getUser(req).getUserId();
+            request.setUserId(userId);
+            PageInformation<BbsArticleDTOForHomeShowListPage> bbsArticleDTOList = bbsArticleService.queryBbsArticleByUserId(request);
 
             QueryBbsArticleByUserIdResponse queryBbsArticleByUserIdResponse = new QueryBbsArticleByUserIdResponse();
             queryBbsArticleByUserIdResponse.setBbsArticleDTOList(bbsArticleDTOList);
