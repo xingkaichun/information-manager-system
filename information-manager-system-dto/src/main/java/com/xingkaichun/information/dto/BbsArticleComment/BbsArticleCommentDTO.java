@@ -33,6 +33,9 @@ public class BbsArticleCommentDTO {
     @JsonProperty("ChildrenBbsArticleCommentDTOList")
     private List<BbsArticleCommentDTO> childrenBbsArticleCommentDTOList;
 
+    @JsonProperty("ForBbsArticleCommentId")
+    private String forBbsArticleCommentId;
+
     public BbsArticleCommentDTO() {
         childrenBbsArticleCommentDTOList = new ArrayList<>();
     }

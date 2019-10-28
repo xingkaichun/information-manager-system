@@ -36,8 +36,9 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
             }
             if(!CommonUtils.isNUllOrEmpty(addBbsArticleCommentRequest.getBbsArticleCommentId())){
                 return FreshServiceResult.createFailFreshServiceResult("系统自动分配帖子评论记录的Id,请不要填写");
+            } else {
+                addBbsArticleCommentRequest.setBbsArticleCommentId(String.valueOf(UUID.randomUUID()));
             }
-            addBbsArticleCommentRequest.setBbsArticleCommentId(String.valueOf(UUID.randomUUID()));
 
             //若被评论的是帖子，校验被评论的帖子的存在
             BbsArticleDomain bbsArticleDomain = bbsArticleDao.queryBbsArticleByBbsArticleId(addBbsArticleCommentRequest.getBbsArticleId());
@@ -51,6 +52,9 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
                 if(bbsArticleCommentDomain==null){
                     return FreshServiceResult.createFailFreshServiceResult("被评论的帖子评论不存在");
                 }
+                addBbsArticleCommentRequest.setForBbsArticleCommentId(bbsArticleCommentDomain.getBbsArticleCommentId());
+            }else{
+                addBbsArticleCommentRequest.setForBbsArticleCommentId(addBbsArticleCommentRequest.getBbsArticleCommentId());
             }
             bbsArticleCommentDao.addBbsArticleComment(classCast(addBbsArticleCommentRequest));
 
@@ -102,6 +106,7 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
         domain.setSoftDelete(bbsArticleCommentDTO.isSoftDelete());
         domain.setUserId(bbsArticleCommentDTO.getUserId());
         domain.setParentBbsArticleCommentId(bbsArticleCommentDTO.getParentBbsArticleCommentId());
+        domain.setForBbsArticleCommentId(bbsArticleCommentDTO.getForBbsArticleCommentId());
         return domain;
     }
 

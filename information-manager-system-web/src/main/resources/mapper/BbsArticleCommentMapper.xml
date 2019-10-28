@@ -6,7 +6,7 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-    bbsArticleId,bbsArticleCommentId,parentBbsArticleCommentId,userId,content,createTime,isSoftDelete
+    bbsArticleId,bbsArticleCommentId,parentBbsArticleCommentId,userId,content,createTime,isSoftDelete,forBbsArticleCommentId
   </sql>
 
   <insert id="addBbsArticleComment" parameterType="com.xingkaichun.information.model.BbsArticleCommentDomain">
@@ -20,7 +20,8 @@
       #{userId, jdbcType=VARCHAR},
       #{content, jdbcType=VARCHAR},
       #{createTime, jdbcType=TIMESTAMP},
-      false
+      false,
+      #{forBbsArticleCommentId, jdbcType=VARCHAR}
     )
   </insert>
 

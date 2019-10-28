@@ -16,4 +16,7 @@ public class BbsArticleCommentDomain {
     private String content;
     private Date createTime;
     private boolean isSoftDelete;
+
+    private String forBbsArticleCommentId;
+
 }
