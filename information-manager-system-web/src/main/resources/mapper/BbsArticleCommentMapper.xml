@@ -50,4 +50,11 @@
     SELECT * from <include refid="BASE_TABLE"/>
     ORDER BY createTime DESC
   </select>
+
+  <select id="queryBbsArticleCommentByBbsArticleIdRequest" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByBbsArticleIdRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
+    SELECT * from <include refid="BASE_TABLE"/> bac join
+    user u
+    on bac.bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR} and (bac.parentBbsArticleCommentId is null or bac.parentBbsArticleCommentId='') and bac.userId=u.userId
+    ORDER BY bac.createTime DESC
+  </select>
 </mapper>

@@ -10,6 +10,7 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPa
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
 import com.xingkaichun.information.dto.BbsArticle.response.*;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
 import com.xingkaichun.information.service.BbsArticleCommentService;
@@ -185,6 +186,25 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("获取用户帖子成功",response);
         } catch (Exception e) {
             String message = "获取用户帖子出错";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailServiceResult(message);
+        } finally {
+        }
+    }
+
+    @ApiOperation(value="获取帖子评论", notes="获取帖子评论")
+    @ResponseBody
+    @PostMapping("/QueryBbsArticleCommentByBbsArticleId")
+    public ServiceResult<QueryBbsArticleCommentByBbsArticleIdResponse> queryBbsArticleCommentByBbsArticleId(@RequestBody QueryBbsArticleCommentByBbsArticleIdRequest request){
+        try {
+            PageInformation<BbsArticleCommentDTOForBbsShowList> bbsArticleDTOList = bbsArticleService.queryBbsArticleCommentByBbsArticleId(request);
+
+            QueryBbsArticleCommentByBbsArticleIdResponse response = new QueryBbsArticleCommentByBbsArticleIdResponse();
+            response.setBbsArticleCommentDTOInformation(bbsArticleDTOList);
+
+            return ServiceResult.createSuccessServiceResult("获取帖子评论成功",response);
+        } catch (Exception e) {
+            String message = "获取帖子评论出错";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {

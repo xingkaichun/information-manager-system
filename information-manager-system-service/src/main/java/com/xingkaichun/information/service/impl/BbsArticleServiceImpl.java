@@ -11,11 +11,9 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
-import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByUserIdRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByUserRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
+import com.xingkaichun.information.dto.BbsArticle.request.*;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
@@ -105,6 +103,15 @@ public class BbsArticleServiceImpl implements BbsArticleService {
 
         bbsArticleDTO.setBbsArticleCommentDTOList(parentBbsArticleCommentDTOList);*/
         return ServiceResult.createSuccessServiceResult("获取帖子详情成功",bbsArticleDTO);
+    }
+
+    public PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleId(QueryBbsArticleCommentByBbsArticleIdRequest request){
+        PageCondition pageCondition = request.getPageCondition();
+        PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
+        Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByBbsArticleIdRequest(request);
+        PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        //fillBbsArticleCommentDTO(bbsArticleDTOList);
+        return pageInformation;
     }
 
     @Override

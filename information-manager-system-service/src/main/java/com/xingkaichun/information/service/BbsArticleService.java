@@ -6,10 +6,8 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
-import com.xingkaichun.information.dto.BbsArticle.request.AddBbsArticleRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleByUserIdRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByUserRequest;
-import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleRequest;
+import com.xingkaichun.information.dto.BbsArticle.request.*;
+import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 
 import java.util.List;
@@ -27,4 +25,7 @@ public interface BbsArticleService {
     PageInformation<BbsArticleDTOForShowListPage> queryBbsArticle(QueryBbsArticleRequest request);
 
     PageInformation<BbsArticleCommentDTOForHomeShowList> queryBbsArticleCommentByUser(QueryBbsArticleCommentByUserRequest request);
+
+    PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleId(QueryBbsArticleCommentByBbsArticleIdRequest request);
+
 }
