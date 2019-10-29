@@ -15,6 +15,7 @@ import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.user.UserInfo;
+import com.xingkaichun.information.model.BbsArticleCommentDomain;
 import com.xingkaichun.information.model.BbsArticleDomain;
 import com.xingkaichun.information.service.BbsArticleService;
 import com.xingkaichun.information.service.UserService;
@@ -101,6 +102,12 @@ public class BbsArticleServiceImpl implements BbsArticleService {
 
     @Override
     public PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByForBbsArticleCommentId(QueryBbsArticleCommentByForBbsArticleCommentIdRequest request) {
+        BbsArticleCommentDomain bbsArticleCommentDomain = bbsArticleCommentDao.querybbsArticleCommentBybbsArticleCommentId(request.getBbsArticleCommentId());
+        if(bbsArticleCommentDomain==null){
+            return null;
+        } else {
+            request.setForBbsArticleCommentId(bbsArticleCommentDomain.getForBbsArticleCommentId());
+        }
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByForBbsArticleCommentId(request);
         PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());

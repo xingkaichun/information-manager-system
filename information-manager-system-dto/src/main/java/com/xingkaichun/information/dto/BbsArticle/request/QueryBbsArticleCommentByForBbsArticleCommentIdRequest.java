@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class QueryBbsArticleCommentByForBbsArticleCommentIdRequest {
 
+    @JsonProperty("BbsArticleCommentId")
+    private String bbsArticleCommentId;
     @JsonProperty("ForBbsArticleCommentId")
     private String forBbsArticleCommentId;
     @JsonProperty("PageCondition")
