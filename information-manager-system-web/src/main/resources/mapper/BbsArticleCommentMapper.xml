@@ -34,7 +34,7 @@
     where bbsArticleCommentId = #{_parameter, jdbcType=VARCHAR}
   </select>
 
-  <select id="querybbsArticleCommentBybbsArticleId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BbsArticleCommentDomain">
+  <select id="queryAllBbsArticleCommentBybbsArticleId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BbsArticleCommentDomain">
     SELECT
     <include refid="BASE_COLUMN"/>
     FROM
@@ -52,7 +52,7 @@
     ORDER BY createTime DESC
   </select>
 
-  <select id="queryBbsArticleCommentByBbsArticleIdRequest" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByBbsArticleIdRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
+  <select id="queryBbsArticleCommentByBbsArticleId" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByBbsArticleIdRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
     SELECT bac.*,u.userId as FromUserId,u.userName as FromUserName from <include refid="BASE_TABLE"/> bac join
     user u
     on bac.bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR} and (bac.parentBbsArticleCommentId is null or bac.parentBbsArticleCommentId='') and bac.userId=u.userId

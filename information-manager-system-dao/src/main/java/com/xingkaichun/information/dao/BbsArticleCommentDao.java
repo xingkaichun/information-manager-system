@@ -14,10 +14,10 @@ import java.util.List;
 public interface BbsArticleCommentDao {
     int addBbsArticleComment(BbsArticleCommentDomain bbsArticleCommentDomain);
     BbsArticleCommentDomain querybbsArticleCommentBybbsArticleCommentId(String bbsArticleCommentId);
-    List<BbsArticleCommentDomain> querybbsArticleCommentBybbsArticleId(@Param("bbsArticleId") String bbsArticleId);
+    List<BbsArticleCommentDomain> queryAllBbsArticleCommentBybbsArticleId(@Param("bbsArticleId") String bbsArticleId);
     int queryNumberOfComment(@Param("bbsArticleId") String bbsArticleId);
     Page<BbsArticleCommentDTOForHomeShowList> queryBbsArticleCommentByUser(QueryBbsArticleCommentByUserRequest request);
 
-    Page<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleIdRequest(QueryBbsArticleCommentByBbsArticleIdRequest request);
+    Page<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleId(QueryBbsArticleCommentByBbsArticleIdRequest request);
     Page<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByForBbsArticleCommentId(QueryBbsArticleCommentByForBbsArticleCommentIdRequest request);
 }

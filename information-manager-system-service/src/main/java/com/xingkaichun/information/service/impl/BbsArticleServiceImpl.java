@@ -3,7 +3,6 @@ package com.xingkaichun.information.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xingkaichun.common.dto.base.ServiceResult;
-import com.xingkaichun.common.dto.base.page.PageCondition;
 import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
@@ -104,7 +103,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
 
     public PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleId(QueryBbsArticleCommentByBbsArticleIdRequest request){
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
-        Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByBbsArticleIdRequest(request);
+        Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByBbsArticleId(request);
         PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         //fillBbsArticleCommentDTO(bbsArticleDTOList);
         return pageInformation;
