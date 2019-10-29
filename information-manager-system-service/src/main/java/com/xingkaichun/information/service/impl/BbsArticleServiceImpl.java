@@ -88,16 +88,6 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         if(bbsArticleDTO == null){
             return ServiceResult.createFailServiceResult("帖子不存在");
         }
-/*        BbsArticleDTO bbsArticleDTO = classCast(bbsArticleDomain);
-        fillBbsArticleDTO(bbsArticleDTO);
-
-        List<BbsArticleCommentDomain> bbsArticleCommentDomainList = bbsArticleCommentDao.querybbsArticleCommentBybbsArticleId(bbsArticleId);
-        List<BbsArticleCommentDTO> bbsArticleDTOList = BbsArticleCommentServiceImpl.classCast(bbsArticleCommentDomainList);
-        fillBbsArticleCommentDTO(bbsArticleDTOList);*/
-
-/*        List<BbsArticleCommentDTO> parentBbsArticleCommentDTOList = CommonUtilBbsArticleCommentDTO.parentBbsArticleCommentDTOList(bbsArticleDTOList);
-
-        bbsArticleDTO.setBbsArticleCommentDTOList(parentBbsArticleCommentDTOList);*/
         return ServiceResult.createSuccessServiceResult("获取帖子详情成功",bbsArticleDTO);
     }
 
@@ -114,7 +104,6 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByForBbsArticleCommentId(request);
         PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
-        //fillBbsArticleCommentDTO(bbsArticleDTOList);
         return pageInformation;
     }
 
