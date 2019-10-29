@@ -29,7 +29,7 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
     private BbsArticleCommentDao bbsArticleCommentDao;
 
     @Override
-    public FreshServiceResult AddBbsArticleComment(AddBbsArticleCommentRequest addBbsArticleCommentRequest) {
+    public FreshServiceResult addBbsArticleComment(AddBbsArticleCommentRequest addBbsArticleCommentRequest) {
         try {
             if(CommonUtils.isNUllOrEmpty(addBbsArticleCommentRequest.getBbsArticleId())){
                 return FreshServiceResult.createFailFreshServiceResult("被评论的帖子ID不能为空");
@@ -44,6 +44,8 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
             BbsArticleDomain bbsArticleDomain = bbsArticleDao.queryBbsArticleByBbsArticleId(addBbsArticleCommentRequest.getBbsArticleId());
             if(bbsArticleDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("被评论的帖子不存在");
+            } else {
+                addBbsArticleCommentRequest.setToUserId(bbsArticleDomain.getUserId());
             }
             //若被评论的是帖子评论，校验被评论的帖子评论的存在
             String parentBbsArticleCommentId = addBbsArticleCommentRequest.getParentBbsArticleCommentId();
@@ -53,6 +55,7 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
                     return FreshServiceResult.createFailFreshServiceResult("被评论的帖子评论不存在");
                 }
                 addBbsArticleCommentRequest.setForBbsArticleCommentId(bbsArticleCommentDomain.getBbsArticleCommentId());
+                addBbsArticleCommentRequest.setToUserId(bbsArticleCommentDomain.getToUserId());
             }else{
                 addBbsArticleCommentRequest.setForBbsArticleCommentId(addBbsArticleCommentRequest.getBbsArticleCommentId());
             }
@@ -105,6 +108,7 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
         domain.setCreateTime(bbsArticleCommentDTO.getCreateTime());
         domain.setSoftDelete(bbsArticleCommentDTO.isSoftDelete());
         domain.setUserId(bbsArticleCommentDTO.getUserId());
+        domain.setToUserId(bbsArticleCommentDTO.getToUserId());
         domain.setParentBbsArticleCommentId(bbsArticleCommentDTO.getParentBbsArticleCommentId());
         domain.setForBbsArticleCommentId(bbsArticleCommentDTO.getForBbsArticleCommentId());
         return domain;

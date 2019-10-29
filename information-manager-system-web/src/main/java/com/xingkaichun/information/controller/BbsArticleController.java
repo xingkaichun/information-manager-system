@@ -165,9 +165,9 @@ public class BbsArticleController {
     @ApiOperation(value="评论帖子", notes="评论帖子")
     @ResponseBody
     @PostMapping("/AddBbsArticleComment")
-    public FreshServiceResult AddBbsArticleComment(HttpServletRequest request, HttpServletResponse response,@RequestBody AddBbsArticleCommentRequest addBbsArticleCommentRequest){
+    public FreshServiceResult addBbsArticleComment(HttpServletRequest request, HttpServletResponse response,@RequestBody AddBbsArticleCommentRequest addBbsArticleCommentRequest){
         addBbsArticleCommentRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
-        return bbsArticleCommentService.AddBbsArticleComment(addBbsArticleCommentRequest);
+        return bbsArticleCommentService.addBbsArticleComment(addBbsArticleCommentRequest);
     }
 
     @ApiOperation(value="获取用户帖子评论", notes="获取用户帖子评论")

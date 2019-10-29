@@ -20,6 +20,8 @@ public class BbsArticleCommentDTO {
     private String parentBbsArticleCommentId;
     @JsonProperty("UserId")
     private String userId;
+    @JsonProperty("ToUserId")
+    private String toUserId;
     @JsonProperty("UserInfo")
     private UserInfo userInfo;
     @JsonProperty("Content")

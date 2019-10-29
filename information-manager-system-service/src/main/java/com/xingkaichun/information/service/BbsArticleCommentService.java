@@ -5,6 +5,6 @@ import com.xingkaichun.common.dto.base.FreshServiceResult;
 
 public interface BbsArticleCommentService {
 
-    FreshServiceResult AddBbsArticleComment(AddBbsArticleCommentRequest addBbsArticleCommentRequest);
+    FreshServiceResult addBbsArticleComment(AddBbsArticleCommentRequest addBbsArticleCommentRequest);
 
 }

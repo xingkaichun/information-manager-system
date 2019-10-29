@@ -13,6 +13,7 @@ public class BbsArticleCommentDomain {
     //父评论ID
     private String parentBbsArticleCommentId;
     private String userId;
+    private String toUserId;
     private String content;
     private Date createTime;
     private boolean isSoftDelete;
