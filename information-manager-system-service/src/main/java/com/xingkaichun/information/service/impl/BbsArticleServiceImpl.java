@@ -77,10 +77,9 @@ public class BbsArticleServiceImpl implements BbsArticleService {
 
     @Override
     public PageInformation<BbsArticleDTOForHomeShowListPage> queryBbsArticleByUserId(QueryBbsArticleByUserIdRequest request) {
-        PageCondition pageCondition = request.getPageCondition();
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleDTOForHomeShowListPage> page = bbsArticleDao.queryBbsArticleByUserId(request);
-        PageInformation<BbsArticleDTOForHomeShowListPage> pagePageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        PageInformation<BbsArticleDTOForHomeShowListPage> pagePageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         return pagePageInformation;
     }
 
@@ -104,39 +103,35 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     }
 
     public PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleId(QueryBbsArticleCommentByBbsArticleIdRequest request){
-        PageCondition pageCondition = request.getPageCondition();
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByBbsArticleIdRequest(request);
-        PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         //fillBbsArticleCommentDTO(bbsArticleDTOList);
         return pageInformation;
     }
 
     @Override
     public PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByForBbsArticleCommentId(QueryBbsArticleCommentByForBbsArticleCommentIdRequest request) {
-        PageCondition pageCondition = request.getPageCondition();
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByForBbsArticleCommentId(request);
-        PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         //fillBbsArticleCommentDTO(bbsArticleDTOList);
         return pageInformation;
     }
 
     @Override
     public PageInformation<BbsArticleDTOForShowListPage> queryBbsArticle(QueryBbsArticleRequest request) {
-        PageCondition pageCondition = request.getPageCondition();
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleDTOForShowListPage> page = bbsArticleDao.queryBbsArticle(request);
-        PageInformation<BbsArticleDTOForShowListPage> articleDTOPageInformation = new PageInformation<BbsArticleDTOForShowListPage>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        PageInformation<BbsArticleDTOForShowListPage> articleDTOPageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         return articleDTOPageInformation;
     }
 
     @Override
     public PageInformation<BbsArticleCommentDTOForHomeShowList> queryBbsArticleCommentByUser(QueryBbsArticleCommentByUserRequest request) {
-        PageCondition pageCondition = request.getPageCondition();
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleCommentDTOForHomeShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByUser(request);
-        PageInformation<BbsArticleCommentDTOForHomeShowList> pagePageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        PageInformation<BbsArticleCommentDTOForHomeShowList> pagePageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         return pagePageInformation;
     }
 
