@@ -16,11 +16,9 @@ import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.user.UserInfo;
-import com.xingkaichun.information.model.BbsArticleCommentDomain;
 import com.xingkaichun.information.model.BbsArticleDomain;
 import com.xingkaichun.information.service.BbsArticleService;
 import com.xingkaichun.information.service.UserService;
-import com.xingkaichun.utils.CommonUtilBbsArticleCommentDTO;
 import com.xingkaichun.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,6 +107,16 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         PageCondition pageCondition = request.getPageCondition();
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByBbsArticleIdRequest(request);
+        PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
+        //fillBbsArticleCommentDTO(bbsArticleDTOList);
+        return pageInformation;
+    }
+
+    @Override
+    public PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByForBbsArticleCommentId(QueryBbsArticleCommentByForBbsArticleCommentIdRequest request) {
+        PageCondition pageCondition = request.getPageCondition();
+        PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
+        Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByForBbsArticleCommentId(request);
         PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(pageCondition.getPageNum(),pageCondition.getPageSize(),page.getTotal(),page.getResult());
         //fillBbsArticleCommentDTO(bbsArticleDTOList);
         return pageInformation;

@@ -2,6 +2,7 @@ package com.xingkaichun.information.dao;
 
 import com.github.pagehelper.Page;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByBbsArticleIdRequest;
+import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByForBbsArticleCommentIdRequest;
 import com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByUserRequest;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
@@ -18,4 +19,5 @@ public interface BbsArticleCommentDao {
     Page<BbsArticleCommentDTOForHomeShowList> queryBbsArticleCommentByUser(QueryBbsArticleCommentByUserRequest request);
 
     Page<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleIdRequest(QueryBbsArticleCommentByBbsArticleIdRequest request);
+    Page<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByForBbsArticleCommentId(QueryBbsArticleCommentByForBbsArticleCommentIdRequest request);
 }

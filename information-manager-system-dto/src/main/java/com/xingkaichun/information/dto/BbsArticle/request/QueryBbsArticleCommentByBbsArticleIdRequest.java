@@ -11,5 +11,5 @@ public class QueryBbsArticleCommentByBbsArticleIdRequest {
     private String bbsArticleId;
 
     @JsonProperty("PageCondition")
-    PageCondition pageCondition;
+    private PageCondition pageCondition;
 }

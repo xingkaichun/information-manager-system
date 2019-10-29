@@ -210,5 +210,24 @@ public class BbsArticleController {
         } finally {
         }
     }
+
+    @ApiOperation(value="获取帖子评论的评论", notes="获取帖子评论的评论")
+    @ResponseBody
+    @PostMapping("/QueryBbsArticleCommentByForBbsArticleCommentId")
+    public ServiceResult<QueryBbsArticleCommentByForBbsArticleCommentIdResponse> queryBbsArticleCommentByForBbsArticleCommentId(@RequestBody QueryBbsArticleCommentByForBbsArticleCommentIdRequest request){
+        try {
+            PageInformation<BbsArticleCommentDTOForBbsShowList> bbsArticleDTOList = bbsArticleService.queryBbsArticleCommentByForBbsArticleCommentId(request);
+
+            QueryBbsArticleCommentByForBbsArticleCommentIdResponse response = new QueryBbsArticleCommentByForBbsArticleCommentIdResponse();
+            response.setBbsArticleCommentDTOInformation(bbsArticleDTOList);
+
+            return ServiceResult.createSuccessServiceResult("获取帖子评论的评论成功",response);
+        } catch (Exception e) {
+            String message = "获取帖子评论的评论出错";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailServiceResult(message);
+        } finally {
+        }
+    }
     //endregion
 }

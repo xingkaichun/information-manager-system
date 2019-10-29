@@ -28,4 +28,5 @@ public interface BbsArticleService {
 
     PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleId(QueryBbsArticleCommentByBbsArticleIdRequest request);
 
+    PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByForBbsArticleCommentId(QueryBbsArticleCommentByForBbsArticleCommentIdRequest request);
 }

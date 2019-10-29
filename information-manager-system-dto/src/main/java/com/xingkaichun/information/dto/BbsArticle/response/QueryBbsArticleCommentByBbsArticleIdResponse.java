@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 public class QueryBbsArticleCommentByBbsArticleIdResponse {
     @JsonProperty("BbsArticleCommentDTOInformation")
-    PageInformation<BbsArticleCommentDTOForBbsShowList> bbsArticleCommentDTOInformation;
+    private PageInformation<BbsArticleCommentDTOForBbsShowList> bbsArticleCommentDTOInformation;
 }
