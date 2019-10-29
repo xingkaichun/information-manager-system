@@ -53,16 +53,16 @@
   </select>
 
   <select id="queryBbsArticleCommentByBbsArticleId" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByBbsArticleIdRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
-    SELECT bac.*,u.userId as FromUserId,u.userName as FromUserName from <include refid="BASE_TABLE"/> bac join
-    user u
-    on bac.bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR} and (bac.parentBbsArticleCommentId is null or bac.parentBbsArticleCommentId='') and bac.userId=u.userId
+    SELECT bac.*,fromUser.userId as FromUserId,fromUser.userName as FromUserName from <include refid="BASE_TABLE"/> bac join
+    user fromUser
+    on bac.bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR} and (bac.parentBbsArticleCommentId is null or bac.parentBbsArticleCommentId='') and bac.userId=fromUser.userId
     ORDER BY bac.createTime DESC
   </select>
 
   <select id="queryBbsArticleCommentByForBbsArticleCommentId" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByForBbsArticleCommentIdRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
-    SELECT bac.*,u.userId as FromUserId,u.userName as FromUserName from <include refid="BASE_TABLE"/> bac join
-    user u
-    on bac.forBbsArticleCommentId = #{forBbsArticleCommentId, jdbcType=VARCHAR} and (bac.parentBbsArticleCommentId is not null and bac.parentBbsArticleCommentId != '') and bac.userId=u.userId
+    SELECT bac.*,fromUser.userId as FromUserId,fromUser.userName as FromUserName from <include refid="BASE_TABLE"/> bac join
+    user fromUser
+    on bac.forBbsArticleCommentId = #{forBbsArticleCommentId, jdbcType=VARCHAR} and (bac.parentBbsArticleCommentId is not null and bac.parentBbsArticleCommentId != '') and bac.userId=fromUser.userId
     ORDER BY bac.createTime DESC
   </select>
 </mapper>
