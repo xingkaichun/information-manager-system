@@ -3,6 +3,7 @@ package com.xingkaichun.information.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xingkaichun.common.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.page.PageCondition;
 import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
@@ -95,9 +96,24 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     public PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleCommentByBbsArticleId(QueryBbsArticleCommentByBbsArticleIdRequest request){
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByBbsArticleId(request);
+        List<BbsArticleCommentDTOForBbsShowList> bbsArticleCommentDTOList = page.getResult();
+        //填充二级评论
+        fillComment(bbsArticleCommentDTOList);
         PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
-        //fillBbsArticleCommentDTO(bbsArticleDTOList);
         return pageInformation;
+    }
+
+    private void fillComment(List<BbsArticleCommentDTOForBbsShowList> bbsArticleCommentDTOList) {
+        if(bbsArticleCommentDTOList==null){
+            return;
+        }
+        for(BbsArticleCommentDTOForBbsShowList bbsArticleCommentDTO:bbsArticleCommentDTOList){
+            QueryBbsArticleCommentByForBbsArticleCommentIdRequest request = new QueryBbsArticleCommentByForBbsArticleCommentIdRequest();
+            request.setBbsArticleCommentId(bbsArticleCommentDTO.getBbsArticleCommentId());
+            request.setPageCondition(new PageCondition(1,10));
+            PageInformation<BbsArticleCommentDTOForBbsShowList> queryBbsArticleComment = queryBbsArticleCommentByForBbsArticleCommentId(request);
+            bbsArticleCommentDTO.setBbsArticleCommentDTOList(queryBbsArticleComment);
+        }
     }
 
     @Override

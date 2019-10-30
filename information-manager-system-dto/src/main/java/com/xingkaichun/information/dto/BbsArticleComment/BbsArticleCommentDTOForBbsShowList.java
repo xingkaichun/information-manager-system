@@ -2,6 +2,7 @@ package com.xingkaichun.information.dto.BbsArticleComment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xingkaichun.common.dto.base.page.PageInformation;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,4 +33,7 @@ public class BbsArticleCommentDTOForBbsShowList {
     private String toUserId;
     @JsonProperty("ToUserName")
     private String toUserName;
+
+    @JsonProperty("BbsArticleCommentDTOList")
+    private PageInformation<BbsArticleCommentDTOForBbsShowList> bbsArticleCommentDTOList;
 }
