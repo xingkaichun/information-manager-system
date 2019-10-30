@@ -61,9 +61,11 @@
   </select>
 
   <select id="queryBbsArticleCommentByForBbsArticleCommentId" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryBbsArticleCommentByForBbsArticleCommentIdRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
-    SELECT bac.*,fromUser.userId as FromUserId,fromUser.userName as FromUserName from <include refid="BASE_TABLE"/> bac join
-    user fromUser
-    on bac.forBbsArticleCommentId = #{forBbsArticleCommentId, jdbcType=VARCHAR} and (bac.parentBbsArticleCommentId is not null and bac.parentBbsArticleCommentId != '') and bac.userId=fromUser.userId
+    SELECT bac.*,fromUser.userId as FromUserId,fromUser.userName as FromUserName,toUser.userId as toUserId,toUser.userName as toUserName from <include refid="BASE_TABLE"/> bac
+    join user fromUser
+    on bac.forBbsArticleCommentId = #{forBbsArticleCommentId, jdbcType=VARCHAR} and bac.bbsArticleCommentId != bac.forBbsArticleCommentId and (bac.parentBbsArticleCommentId is not null and bac.parentBbsArticleCommentId != '') and bac.userId=fromUser.userId
+    join user toUser
+    on bac.userId=toUser.userId
     ORDER BY bac.createTime DESC
   </select>
 </mapper>
