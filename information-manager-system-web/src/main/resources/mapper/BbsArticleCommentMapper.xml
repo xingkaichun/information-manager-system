@@ -68,4 +68,16 @@
     on bac.userId=toUser.userId
     ORDER BY bac.createTime DESC
   </select>
+
+  <select id="queryTwoUserBbsArticleComment" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryTwoUserBbsArticleCommentRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
+    SELECT bac.*,fromUser.userId as FromUserId,fromUser.userName as FromUserName,toUser.userName as toUserName from bbsarticlecommentdomain bac
+    join user fromUser
+    on bac.bbsArticleId = '1c36af8e-4b0a-4921-87f8-8116d5e47ed9'
+    and (bac.userId = '18e35cf9-4b5e-489d-a72f-94dc677e651a' or bac.userId = '937739d9-906a-4bba-869e-f08df426daca')
+    and (bac.toUserId = '18e35cf9-4b5e-489d-a72f-94dc677e651a' or bac.toUserId = '937739d9-906a-4bba-869e-f08df426daca')
+    and bac.userId=fromUser.userId
+    join user toUser
+    on bac.toUserId=toUser.userId
+    ORDER BY bac.createTime ASC
+  </select>
 </mapper>

@@ -119,6 +119,12 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     }
 
     @Override
+    public List<BbsArticleCommentDTOForBbsShowList> queryTwoUserBbsArticleComment(QueryTwoUserBbsArticleCommentRequest request) {
+        List<BbsArticleCommentDTOForBbsShowList> list = bbsArticleCommentDao.queryTwoUserBbsArticleComment(request);
+        return list;
+    }
+
+    @Override
     public PageInformation<BbsArticleDTOForShowListPage> queryBbsArticle(QueryBbsArticleRequest request) {
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
         Page<BbsArticleDTOForShowListPage> page = bbsArticleDao.queryBbsArticle(request);
