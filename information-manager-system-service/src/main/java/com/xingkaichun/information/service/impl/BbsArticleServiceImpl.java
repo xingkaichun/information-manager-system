@@ -12,7 +12,6 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
-import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.user.UserInfo;
@@ -62,18 +61,6 @@ public class BbsArticleServiceImpl implements BbsArticleService {
     private void fillBbsArticleDTO(BbsArticleDTO bbsArticleDTO) {
         UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleDTO.getUserId());
         bbsArticleDTO.setUserInfo(userInfo);
-    }
-    private void fillBbsArticleCommentDTO(List<BbsArticleCommentDTO> bbsArticleDTOList) {
-        if(bbsArticleDTOList == null){
-            return;
-        }
-        for(BbsArticleCommentDTO bbsArticleCommentDTO:bbsArticleDTOList){
-            BbsArticleCommentDTO(bbsArticleCommentDTO);
-        }
-    }
-    private void BbsArticleCommentDTO(BbsArticleCommentDTO bbsArticleCommentDTO) {
-        UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleCommentDTO.getUserId());
-        bbsArticleCommentDTO.setUserInfo(userInfo);
     }
 
     @Override
