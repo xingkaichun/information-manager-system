@@ -58,6 +58,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
             fillBbsArticleDTO(bbsArticleDTO);
         }
     }
+
     private void fillBbsArticleDTO(BbsArticleDTO bbsArticleDTO) {
         UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleDTO.getUserId());
         bbsArticleDTO.setUserInfo(userInfo);
