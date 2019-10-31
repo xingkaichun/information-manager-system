@@ -63,19 +63,7 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleDTO.getUserId());
         bbsArticleDTO.setUserInfo(userInfo);
     }
-    private void fillBbsArticleCommentDTO(List<BbsArticleCommentDTO> bbsArticleDTOList) {
-        if(bbsArticleDTOList == null){
-            return;
-        }
-        for(BbsArticleCommentDTO bbsArticleCommentDTO:bbsArticleDTOList){
-            BbsArticleCommentDTO(bbsArticleCommentDTO);
-        }
-    }
-    private void BbsArticleCommentDTO(BbsArticleCommentDTO bbsArticleCommentDTO) {
-        UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleCommentDTO.getUserId());
-        bbsArticleCommentDTO.setUserInfo(userInfo);
-    }
-
+    
     @Override
     public PageInformation<BbsArticleDTOForHomeShowListPage> queryBbsArticleByUserId(QueryBbsArticleByUserIdRequest request) {
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
