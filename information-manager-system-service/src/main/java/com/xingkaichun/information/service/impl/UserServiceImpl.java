@@ -48,9 +48,6 @@ public class UserServiceImpl implements UserService {
         if(!CommonUtils.isNUll(userDao.queryUserByUserName(userDto.getUserName()))){
             return FreshServiceResult.createFailFreshServiceResult("用户名已经存在");
         }
-        if(!CommonUtils.isNUll(userDao.queryUserByPhone(userDto.getPhone()))){
-            return FreshServiceResult.createFailFreshServiceResult("手机号已经存在");
-        }
 
         userDto.setUserId(String.valueOf(UUID.randomUUID()));
         userDto.setPasswordSalt(String.valueOf(UUID.randomUUID()));
