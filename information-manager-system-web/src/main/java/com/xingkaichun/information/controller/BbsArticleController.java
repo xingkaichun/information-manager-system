@@ -1,5 +1,6 @@
 package com.xingkaichun.information.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceCode;
 import com.xingkaichun.common.dto.base.ServiceResult;
@@ -68,10 +69,17 @@ public class BbsArticleController {
             return FreshServiceResult.createSuccessServiceResult("发帖成功",null);
         } catch (Exception e) {
             String message = "发帖出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         } finally {
         }
+    }
+
+    private String getRequestString(Object request) {
+        if(request==null){
+            return "";
+        }
+        return JSON.toJSONString(request);
     }
 
     @ApiOperation(value="随机获取帖子", notes="随机获取帖子")
@@ -88,7 +96,7 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("随机获取帖子成功",queryBbsArticleByRandResponse);
         } catch (Exception e) {
             String message = "随机获取帖子出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {
         }
@@ -108,7 +116,7 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("帖子分页成功",queryBbsArticleResponse);
         } catch (Exception e) {
             String message = "帖子分页出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {
         }
@@ -130,7 +138,7 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("获取用户帖子成功",queryBbsArticleByUserIdResponse);
         } catch (Exception e) {
             String message = "获取用户帖子出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {
         }
@@ -139,10 +147,10 @@ public class BbsArticleController {
     @ApiOperation(value="获取帖子详情", notes="获取帖子详情")
     @ResponseBody
     @PostMapping("/QueryBbsArticleDetailByBbsArticleId")
-    public ServiceResult<QueryBbsArticleDetailByBbsArticleIdResponse> queryBbsArticleDetailByBbsArticleId(@RequestBody QueryBbsArticleDetailByBbsArticleIdRequest queryBbsArticleDetailByBbsArticleIdRequest){
+    public ServiceResult<QueryBbsArticleDetailByBbsArticleIdResponse> queryBbsArticleDetailByBbsArticleId(@RequestBody QueryBbsArticleDetailByBbsArticleIdRequest request){
 
         try {
-            ServiceResult<BbsArticleDTOForDetailsPage> bbsArticleDTOServiceResult = bbsArticleService.queryBbsArticleDetailByBbsArticleId(queryBbsArticleDetailByBbsArticleIdRequest.getBbsArticleId());
+            ServiceResult<BbsArticleDTOForDetailsPage> bbsArticleDTOServiceResult = bbsArticleService.queryBbsArticleDetailByBbsArticleId(request.getBbsArticleId());
             if(bbsArticleDTOServiceResult.getServiceCode()== ServiceCode.FAIL){
                 return FreshServiceResult.createFailFreshServiceResult(bbsArticleDTOServiceResult.getMessage());
             }
@@ -154,7 +162,7 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("获取帖子详情成功",queryBbsArticleDetailByBbsArticleIdResponse);
         } catch (Exception e) {
             String message = "获取帖子详情出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {
         }
@@ -166,8 +174,15 @@ public class BbsArticleController {
     @ResponseBody
     @PostMapping("/AddBbsArticleComment")
     public FreshServiceResult addBbsArticleComment(HttpServletRequest request, HttpServletResponse response,@RequestBody AddBbsArticleCommentRequest addBbsArticleCommentRequest){
-        addBbsArticleCommentRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
-        return bbsArticleCommentService.addBbsArticleComment(addBbsArticleCommentRequest);
+        try {
+            addBbsArticleCommentRequest.setUserId(CommonUtilsSession.getUser(request).getUserId());
+            return bbsArticleCommentService.addBbsArticleComment(addBbsArticleCommentRequest);
+        } catch (Exception e) {
+            String message = "评论帖子出错";
+            LOGGER.error(message+getRequestString(request),e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        } finally {
+        }
     }
 
     @ApiOperation(value="获取用户帖子评论", notes="获取用户帖子评论")
@@ -186,7 +201,7 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("获取用户帖子成功",response);
         } catch (Exception e) {
             String message = "获取用户帖子出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {
         }
@@ -205,7 +220,7 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("获取帖子评论成功",response);
         } catch (Exception e) {
             String message = "获取帖子评论出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {
         }
@@ -224,7 +239,7 @@ public class BbsArticleController {
             return ServiceResult.createSuccessServiceResult("获取帖子评论的评论成功",response);
         } catch (Exception e) {
             String message = "获取帖子评论的评论出错";
-            LOGGER.error(message,e);
+            LOGGER.error(message+getRequestString(request),e);
             return FreshServiceResult.createFailServiceResult(message);
         } finally {
         }
