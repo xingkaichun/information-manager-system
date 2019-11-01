@@ -1,10 +1,10 @@
 package com.xingkaichun.information.service.impl;
 
+import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.information.dao.BbsArticleCommentDao;
 import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.BbsArticleComment.request.AddBbsArticleCommentRequest;
-import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.information.model.BbsArticleCommentDomain;
 import com.xingkaichun.information.model.BbsArticleDomain;
 import com.xingkaichun.information.service.BbsArticleCommentService;
@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service(value = "bbsArticleCommentService")
@@ -76,30 +74,6 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
         return FreshServiceResult.createSuccessFreshServiceResult("评论帖子成功");
     }
 
-
-    public static List<BbsArticleCommentDTO> classCast(List<BbsArticleCommentDomain> domainList) {
-        if(CommonUtils.isNUllOrEmpty(domainList)){
-            return null;
-        }
-        List<BbsArticleCommentDTO> dtoList = new ArrayList<>();
-        for (BbsArticleCommentDomain domain:domainList){
-            dtoList.add(classCast(domain));
-        }
-        return dtoList;
-    }
-
-    private static BbsArticleCommentDTO classCast(BbsArticleCommentDomain domain) {
-        BbsArticleCommentDTO dto = new BbsArticleCommentDTO();
-        dto.setBbsArticleCommentId(domain.getBbsArticleCommentId());
-        dto.setBbsArticleId(domain.getBbsArticleId());
-        dto.setContent(domain.getContent());
-        dto.setCreateTime(domain.getCreateTime());
-        dto.setSoftDelete(domain.isSoftDelete());
-        dto.setUserId(domain.getUserId());
-        dto.setParentBbsArticleCommentId(domain.getParentBbsArticleCommentId());
-        return dto;
-    }
-
     private static BbsArticleCommentDomain classCast(BbsArticleCommentDTO bbsArticleCommentDTO) {
         BbsArticleCommentDomain domain = new BbsArticleCommentDomain();
         domain.setBbsArticleCommentId(bbsArticleCommentDTO.getBbsArticleCommentId());
@@ -113,6 +87,5 @@ public class BbsArticleCommentServiceImpl implements BbsArticleCommentService {
         domain.setForBbsArticleCommentId(bbsArticleCommentDTO.getForBbsArticleCommentId());
         return domain;
     }
-
 
 }
