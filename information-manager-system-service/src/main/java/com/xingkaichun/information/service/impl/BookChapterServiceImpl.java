@@ -64,8 +64,8 @@ public class BookChapterServiceImpl implements BookChapterService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节排序值不能为空");
             }
 
-            int bookChapterOrder = nextBookChapterOrder(bookId);
-            request.setBookChapterOrder(bookChapterOrder);
+/*            int bookChapterOrder = nextBookChapterOrder(bookId);
+            request.setBookChapterOrder(bookChapterOrder);*/
 
             BookChapterDomain bookChapterDomain = classCast2(request);
             bookChapterDao.addBookChapter(bookChapterDomain);

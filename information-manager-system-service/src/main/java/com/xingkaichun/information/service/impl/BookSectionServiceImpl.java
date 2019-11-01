@@ -68,8 +68,8 @@ public class BookSectionServiceImpl implements BookSectionService {
             }
             request.setBookSectionContent(CommonUtilsHtml.handlerArticleContent(request.getBookSectionContent()));
 
-            int bookSectionOrder = nextBookSectionOrder(request.getBookChapterId());
-            request.setBookSectionOrder(bookSectionOrder);
+/*            int bookSectionOrder = nextBookSectionOrder(request.getBookChapterId());
+            request.setBookSectionOrder(bookSectionOrder);*/
 
             BookSectionDomian bookDomain = classCast2(request);
             bookSectionDao.addBookSection(bookDomain);
