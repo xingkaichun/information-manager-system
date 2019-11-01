@@ -67,6 +67,10 @@ public class BookSectionServiceImpl implements BookSectionService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节排序值不能为空");
             }
             request.setBookSectionContent(CommonUtilsHtml.handlerArticleContent(request.getBookSectionContent()));
+
+            int bookSectionOrder = nextBookSectionOrder(request.getBookChapterId());
+            request.setBookSectionOrder(bookSectionOrder);
+
             BookSectionDomian bookDomain = classCast2(request);
             bookSectionDao.addBookSection(bookDomain);
 
@@ -83,6 +87,20 @@ public class BookSectionServiceImpl implements BookSectionService {
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
+    }
+
+    private int nextBookSectionOrder(String bookChapterId) {
+        List<BookSectionDomian> bookSectionDomianList = bookSectionDao.queryBookSectionListBybookChapterId(bookChapterId);
+        if(bookSectionDomianList==null||bookSectionDomianList.size()==0){
+            return 1;
+        }
+        int max = 0 ;
+        for(BookSectionDomian bookSectionDomian:bookSectionDomianList){
+            if(max<bookSectionDomian.getBookSectionOrder()){
+                max=bookSectionDomian.getBookSectionOrder();
+            }
+        }
+        return max;
     }
 
     @Override

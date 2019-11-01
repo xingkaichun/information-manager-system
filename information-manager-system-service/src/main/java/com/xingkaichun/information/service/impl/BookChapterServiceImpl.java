@@ -64,6 +64,9 @@ public class BookChapterServiceImpl implements BookChapterService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节排序值不能为空");
             }
 
+            int bookChapterOrder = nextBookChapterOrder(bookId);
+            request.setBookChapterOrder(bookChapterOrder);
+
             BookChapterDomain bookChapterDomain = classCast2(request);
             bookChapterDao.addBookChapter(bookChapterDomain);
 
@@ -80,6 +83,20 @@ public class BookChapterServiceImpl implements BookChapterService {
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
+    }
+
+    private int nextBookChapterOrder(String bookId) {
+        List<BookChapterDomain> bookChapterDomainList = bookChapterDao.queryBookChapterListByBookId(bookId);
+        if(bookChapterDomainList==null||bookChapterDomainList.size()==0){
+            return 1;
+        }
+        int max = 0 ;
+        for(BookChapterDomain bookChapterDomain:bookChapterDomainList){
+            if(max<bookChapterDomain.getBookChapterOrder()){
+                max=bookChapterDomain.getBookChapterOrder();
+            }
+        }
+        return max;
     }
 
     @Override
