@@ -19,8 +19,6 @@ public interface UserDao {
 
     UserDomain queryUserByUserName(String userName);
 
-    UserDomain queryUserByPhone(String phone);
-
     int updateUserToken(UserDomain userDomain);
 
     UserDomain queryOneUserByUserToken(String userToken);

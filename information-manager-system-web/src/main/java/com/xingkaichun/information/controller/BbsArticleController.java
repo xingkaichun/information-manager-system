@@ -244,5 +244,24 @@ public class BbsArticleController {
         } finally {
         }
     }
+
+    @ApiOperation(value="获取两个人的对话评论", notes="获取两个人的对话评论")
+    @ResponseBody
+    @PostMapping("/queryTwoUserBbsArticleComment")
+    public ServiceResult<QueryTwoUserBbsArticleCommentResponse> queryTwoUserBbsArticleComment(@RequestBody QueryTwoUserBbsArticleCommentRequest request){
+        try {
+            List<BbsArticleCommentDTOForBbsShowList> bbsArticleCommentDTOList = bbsArticleService.queryTwoUserBbsArticleComment(request);
+
+            QueryTwoUserBbsArticleCommentResponse response = new QueryTwoUserBbsArticleCommentResponse();
+            response.setBbsArticleCommentDTOList(bbsArticleCommentDTOList);
+
+            return ServiceResult.createSuccessServiceResult("获取两个人的对话评论",response);
+        } catch (Exception e) {
+            String message = "获取两个人的对话评论";
+            LOGGER.error(message+getRequestString(request),e);
+            return FreshServiceResult.createFailServiceResult(message);
+        } finally {
+        }
+    }
     //endregion
 }

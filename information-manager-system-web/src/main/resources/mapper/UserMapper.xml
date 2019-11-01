@@ -83,14 +83,6 @@
     where userName = #{_parameter, jdbcType=VARCHAR}
   </select>
 
-  <select id="queryUserByPhone" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.UserDomain">
-    SELECT
-    <include refid="BASE_COLUMN"/>
-    FROM
-    <include refid="BASE_TABLE"/>
-    where phone = #{_parameter, jdbcType=VARCHAR}
-  </select>
-
   <select id="queryOneUserByUserToken" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.UserDomain">
     SELECT
     <include refid="BASE_COLUMN"/>

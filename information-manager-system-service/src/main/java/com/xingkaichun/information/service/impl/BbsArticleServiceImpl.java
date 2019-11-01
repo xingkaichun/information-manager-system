@@ -12,7 +12,6 @@ import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForDetailsPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForHomeShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTOForShowListPage;
 import com.xingkaichun.information.dto.BbsArticle.request.*;
-import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTO;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList;
 import com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForHomeShowList;
 import com.xingkaichun.information.dto.user.UserInfo;
@@ -59,11 +58,13 @@ public class BbsArticleServiceImpl implements BbsArticleService {
             fillBbsArticleDTO(bbsArticleDTO);
         }
     }
+
     private void fillBbsArticleDTO(BbsArticleDTO bbsArticleDTO) {
         UserInfo userInfo = userService.queryOneUserByUserId2(bbsArticleDTO.getUserId());
         bbsArticleDTO.setUserInfo(userInfo);
     }
-    
+
+
     @Override
     public PageInformation<BbsArticleDTOForHomeShowListPage> queryBbsArticleByUserId(QueryBbsArticleByUserIdRequest request) {
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
@@ -116,6 +117,12 @@ public class BbsArticleServiceImpl implements BbsArticleService {
         Page<BbsArticleCommentDTOForBbsShowList> page = bbsArticleCommentDao.queryBbsArticleCommentByForBbsArticleCommentId(request);
         PageInformation<BbsArticleCommentDTOForBbsShowList> pageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         return pageInformation;
+    }
+
+    @Override
+    public List<BbsArticleCommentDTOForBbsShowList> queryTwoUserBbsArticleComment(QueryTwoUserBbsArticleCommentRequest request) {
+        List<BbsArticleCommentDTOForBbsShowList> list = bbsArticleCommentDao.queryTwoUserBbsArticleComment(request);
+        return list;
     }
 
     @Override
