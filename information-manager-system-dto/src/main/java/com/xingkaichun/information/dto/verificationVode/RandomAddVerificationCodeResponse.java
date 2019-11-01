@@ -1,4 +1,4 @@
-package com.xingkaichun.information.dto.verificationCode;
+package com.xingkaichun.information.dto.verificationVode;
 
 import lombok.Data;
 

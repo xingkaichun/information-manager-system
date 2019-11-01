@@ -44,7 +44,7 @@ public class UserController {
 
         try {
             if(CommonUtils.isNUllOrEmpty(userDto.getVerificationCode())){
-                return FreshServiceResult.createFailFreshServiceResult("验证码不能为空");
+                return FreshServiceResult.createFailFreshServiceResult("邀请码不能为空");
             }
             ServiceResult<UserInfo> userInfoServiceResult = userService.addUser(userDto);
             if(userInfoServiceResult.getServiceCode()== ServiceCode.FAIL){

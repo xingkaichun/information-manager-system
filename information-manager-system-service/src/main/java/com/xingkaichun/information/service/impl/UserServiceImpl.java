@@ -5,10 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.xingkaichun.information.dao.UserDao;
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceResult;
+import com.xingkaichun.information.dao.VerificationCodeDao;
 import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.UserDomain;
+import com.xingkaichun.information.model.VerificationCodeDomain;
 import com.xingkaichun.information.service.UserService;
+import com.xingkaichun.information.service.VerificationCodeService;
 import com.xingkaichun.utils.CommonUtils;
 import com.xingkaichun.utils.CommonUtilsMd5;
 import com.xingkaichun.utils.CommonUtilsSession;
@@ -26,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private VerificationCodeDao verificationCodeDao;
 
     @Override
     public ServiceResult<UserInfo> addUser(UserDto userDto) {
@@ -40,6 +45,20 @@ public class UserServiceImpl implements UserService {
         }
         if(CommonUtils.isNUllOrEmpty(userDto.getPassword())){
             return FreshServiceResult.createFailFreshServiceResult("密码不能为空");
+        }
+        //校验邀请码是否已经使用
+        VerificationCodeDomain verificationCodeDomain;
+        String verificationCode = userDto.getVerificationCode();
+        if(CommonUtils.isNUllOrEmpty(verificationCode)){
+            return FreshServiceResult.createFailFreshServiceResult("用户名不能为空");
+        }else{
+            verificationCodeDomain = verificationCodeDao.queryByVerificationCode(verificationCode);
+            if(verificationCodeDomain==null){
+                return FreshServiceResult.createFailFreshServiceResult("请输入正确的邀请码");
+            }
+            if(verificationCodeDomain.isUsed()){
+                return FreshServiceResult.createFailFreshServiceResult("邀请码已经被使用过了，请输入一个未使用的邀请码");
+            }
         }
         //校验用户是否已经存在
         if(!CommonUtils.isNUll(userDao.queryUserByEmail(userDto.getEmail()))){
@@ -58,6 +77,10 @@ public class UserServiceImpl implements UserService {
         userDao.insert(userDomain);
 
         UserDomain userDomain2 = userDao.queryUserByUserId(userDomain.getUserId());
+
+        //销毁邀请码
+        verificationCodeDomain.setUsed(true);
+        verificationCodeDao.update(verificationCodeDomain);
 
         return ServiceResult.createSuccessServiceResult("新增用戶成功",classCast(userDomain2));
     }

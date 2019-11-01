@@ -17,18 +17,6 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     @Autowired
     private VerificationCodeDao verificationCodeDao;
 
-    int insert(VerificationCodeDomain domain){
-        return verificationCodeDao.insert(domain);
-    }
-
-    VerificationCodeDomain queryByVerificationCode(String verificationCode){
-        return verificationCodeDao.queryByVerificationCode(verificationCode);
-    }
-
-    int update(VerificationCodeDomain domain){
-        return verificationCodeDao.update(domain);
-    }
-
     @Override
     public void randomAddVerificationCode(RandomAddVerificationCodeRequest request) {
         List<VerificationCodeDomain> list = new ArrayList<>();
