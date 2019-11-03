@@ -5,7 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.UserFavoriteDao;
+import com.xingkaichun.information.dto.BbsArticle.BbsArticleDTO;
 import com.xingkaichun.information.dto.book.BookDTO;
+import com.xingkaichun.information.dto.favorite.UserFavoriteBbsArticleDto;
+import com.xingkaichun.information.dto.favorite.UserFavoriteBookDto;
 import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
@@ -34,10 +37,18 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
     }
 
     @Override
-    public PageInformation<BookDTO> queryUserFavoriteList(QueryUserFavoriteListRequest request) {
+    public PageInformation<UserFavoriteBookDto> queryUserFavoriteBookList(QueryUserFavoriteListRequest request) {
         PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
-        Page<BookDTO> page = userFavoriteDao.queryUserFavoriteBookList(request);
-        PageInformation<BookDTO> pagePageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
+        Page<UserFavoriteBookDto> page = userFavoriteDao.queryUserFavoriteBookList(request);
+        PageInformation<UserFavoriteBookDto> pagePageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
+        return pagePageInformation;
+    }
+
+    @Override
+    public PageInformation<UserFavoriteBbsArticleDto> queryUserFavoriteBbsArticleList(QueryUserFavoriteListRequest request) {
+        PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
+        Page<UserFavoriteBbsArticleDto> page = userFavoriteDao.queryUserFavoriteBbsArticleList(request);
+        PageInformation<UserFavoriteBbsArticleDto> pagePageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         return pagePageInformation;
     }
 }

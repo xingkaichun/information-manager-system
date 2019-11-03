@@ -3,12 +3,13 @@ package com.xingkaichun.information.controller;
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.common.dto.base.page.PageInformation;
-import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.favorite.FavoriteType;
-import com.xingkaichun.information.dto.favorite.UserFavoriteDto;
+import com.xingkaichun.information.dto.favorite.UserFavoriteBbsArticleDto;
+import com.xingkaichun.information.dto.favorite.UserFavoriteBookDto;
 import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
+import com.xingkaichun.information.dto.favorite.response.QueryUserFavoriteBbsArticleListResponse;
 import com.xingkaichun.information.dto.favorite.response.QueryUserFavoriteBookListResponse;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.BookService;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/UserFavorite")
@@ -58,10 +58,11 @@ public class UserFavoriteController {
             queryUserFavoriteListRequest.setUserId(request.getUserId());
             queryUserFavoriteListRequest.setFavoriteId(request.getFavoriteId());
             queryUserFavoriteListRequest.setFavoriteType(request.getFavoriteType());
-            PageInformation<BookDTO> userFavoriteDtoList = userFavoriteService.queryUserFavoriteList(queryUserFavoriteListRequest);
+            PageInformation<UserFavoriteBookDto> userFavoriteDtoList = userFavoriteService.queryUserFavoriteBookList(queryUserFavoriteListRequest);
             if(userFavoriteDtoList!=null&&userFavoriteDtoList.getTotalDataCount()>0){
                 return FreshServiceResult.createSuccessFreshServiceResult("已经收藏");
             }
+
             userFavoriteService.addUserFavorite(request);
             return FreshServiceResult.createSuccessFreshServiceResult("添加收藏成功");
         } catch (Exception e){
@@ -98,16 +99,36 @@ public class UserFavoriteController {
 
     @ResponseBody
     @PostMapping("/QueryUserFavoriteBookList")
-    public ServiceResult<QueryUserFavoriteBookListResponse> queryUserFavoriteList(@RequestBody QueryUserFavoriteListRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<QueryUserFavoriteBookListResponse> queryUserFavoriteBookList(@RequestBody QueryUserFavoriteListRequest request, HttpServletRequest httpServletRequest){
         try{
             UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
             request.setUserId(userDomain.getUserId());
             request.setFavoriteType(FavoriteType.BOOK.name());
 
-            PageInformation<BookDTO> userFavoriteBookDtoList = userFavoriteService.queryUserFavoriteList(request);
+            PageInformation<UserFavoriteBookDto> userFavoriteBookDtoList = userFavoriteService.queryUserFavoriteBookList(request);
 
             QueryUserFavoriteBookListResponse queryUserFavoriteListResponse = new QueryUserFavoriteBookListResponse();
-            queryUserFavoriteListResponse.setBookDTOList(userFavoriteBookDtoList);
+            queryUserFavoriteListResponse.setUserFavoriteBookDtoList(userFavoriteBookDtoList);
+            return ServiceResult.createSuccessServiceResult("获取收藏列表成功",queryUserFavoriteListResponse);
+        } catch (Exception e){
+            String message = "获取收藏列表失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/QueryUserFavoriteBbsArticleList")
+    public ServiceResult<QueryUserFavoriteBbsArticleListResponse> queryUserFavoriteBbsArticleList(@RequestBody QueryUserFavoriteListRequest request, HttpServletRequest httpServletRequest){
+        try{
+            UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
+            request.setUserId(userDomain.getUserId());
+            request.setFavoriteType(FavoriteType.BBS_ARTICLE.name());
+
+            PageInformation<UserFavoriteBbsArticleDto> bbsArticleDTOList = userFavoriteService.queryUserFavoriteBbsArticleList(request);
+
+            QueryUserFavoriteBbsArticleListResponse queryUserFavoriteListResponse = new QueryUserFavoriteBbsArticleListResponse();
+            queryUserFavoriteListResponse.setUserFavoriteBbsArticleDtoList(bbsArticleDTOList);
             return ServiceResult.createSuccessServiceResult("获取收藏列表成功",queryUserFavoriteListResponse);
         } catch (Exception e){
             String message = "获取收藏列表失败";

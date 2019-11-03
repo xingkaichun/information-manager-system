@@ -2,11 +2,11 @@ package com.xingkaichun.information.dto.favorite.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xingkaichun.common.dto.base.page.PageInformation;
-import com.xingkaichun.information.dto.book.BookDTO;
+import com.xingkaichun.information.dto.favorite.UserFavoriteBookDto;
 import lombok.Data;
 
 @Data
 public class QueryUserFavoriteBookListResponse {
-    @JsonProperty("BookDTOList")
-    private PageInformation<BookDTO> bookDTOList;
+    @JsonProperty("UserFavoriteBookDtoList")
+    private PageInformation<UserFavoriteBookDto> userFavoriteBookDtoList;
 }

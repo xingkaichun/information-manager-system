@@ -27,13 +27,23 @@
           and favoriteType = #{favoriteType, jdbcType=VARCHAR}
   </delete>
 
-  <select id="queryUserFavoriteBookList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.dto.book.BookDTO">
+  <select id="queryUserFavoriteBookList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBookDto">
     SELECT b.BookId,b.BookName,b.CreateTime,b.LastEditTime FROM userfavorite uf
     inner join bookdomain b
     on
       uf.userId = #{userId, jdbcType=VARCHAR}
       and uf.favoriteType = #{favoriteType, jdbcType=VARCHAR}
       and uf.favoriteId = b.bookId
+    order by uf.lastEditTime desc
+  </select>
+
+  <select id="queryUserFavoriteBbsArticleList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBbsArticleDto">
+    SELECT ba.bbsArticleId,ba.title,ba.LastEditTime FROM userfavorite uf
+    inner join BbsArticleDTO ba
+    on
+    uf.userId = #{userId, jdbcType=VARCHAR}
+    and uf.favoriteType = #{favoriteType, jdbcType=VARCHAR}
+    and uf.favoriteId = ba.bbsArticleId
     order by uf.lastEditTime desc
   </select>
 </mapper>
