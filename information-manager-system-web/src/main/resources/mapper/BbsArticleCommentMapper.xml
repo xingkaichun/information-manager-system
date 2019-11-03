@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xingkaichun.information.dao.BbsArticleCommentDao" >
   <sql id="BASE_TABLE">
-    bbsarticlecommentdomain
+    bbsarticlecomment
   </sql>
 
   <sql id="BASE_COLUMN">
@@ -70,7 +70,7 @@
   </select>
 
   <select id="queryTwoUserBbsArticleComment" parameterType="com.xingkaichun.information.dto.BbsArticle.request.QueryTwoUserBbsArticleCommentRequest" resultType="com.xingkaichun.information.dto.BbsArticleComment.BbsArticleCommentDTOForBbsShowList">
-    SELECT bac.*,fromUser.userId as FromUserId,fromUser.userName as FromUserName,toUser.userName as toUserName from bbsarticlecommentdomain bac
+    SELECT bac.*,fromUser.userId as FromUserId,fromUser.userName as FromUserName,toUser.userName as toUserName from bbsarticlecomment bac
     join user fromUser
     on bac.bbsArticleId = '1c36af8e-4b0a-4921-87f8-8116d5e47ed9'
     and (bac.userId = '18e35cf9-4b5e-489d-a72f-94dc677e651a' or bac.userId = '937739d9-906a-4bba-869e-f08df426daca')

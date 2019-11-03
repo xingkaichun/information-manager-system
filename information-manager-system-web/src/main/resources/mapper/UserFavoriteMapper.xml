@@ -46,7 +46,7 @@
   <select id="queryUserFavoriteBookList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest"
           resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBookDto">
     SELECT uf.CreateTime as addFavoriteTime,b.BookId,b.BookName FROM userfavorite uf
-    inner join bookdomain b
+    inner join book b
     on
       uf.userId = #{userId, jdbcType=VARCHAR}
       and uf.favoriteType = #{favoriteType, jdbcType=VARCHAR}
@@ -57,7 +57,7 @@
   <select id="queryUserFavoriteBbsArticleList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest"
           resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBbsArticleDto">
     SELECT uf.CreateTime as addFavoriteTime,ba.bbsArticleId,ba.title FROM userfavorite uf
-    inner join bbsarticledomain ba
+    inner join bbsarticle ba
     on
     uf.userId = #{userId, jdbcType=VARCHAR}
     and uf.favoriteType = #{favoriteType, jdbcType=VARCHAR}
