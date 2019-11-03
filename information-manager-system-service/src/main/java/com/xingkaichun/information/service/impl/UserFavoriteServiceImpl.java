@@ -9,14 +9,9 @@ import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
-import com.xingkaichun.information.dto.favorite.UserFavoriteDto;
-import com.xingkaichun.information.model.UserFavoriteDomain;
 import com.xingkaichun.information.service.UserFavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service(value = "userFavoriteService")
@@ -44,22 +39,5 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
         Page<BookDTO> page = userFavoriteDao.queryUserFavoriteBookList(request);
         PageInformation<BookDTO> pagePageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
         return pagePageInformation;
-    }
-
-    private List<UserFavoriteDto> classCast(List<UserFavoriteDomain> userFavoriteDomain) {
-        if(userFavoriteDomain==null){return null;}
-        List<UserFavoriteDto> userFavoriteDtoList = new ArrayList<>();
-        for(UserFavoriteDomain domain:userFavoriteDomain){
-            userFavoriteDtoList.add(classCast(domain));
-        }
-        return userFavoriteDtoList;
-    }
-
-    private UserFavoriteDto classCast(UserFavoriteDomain domain) {
-        UserFavoriteDto dto = new UserFavoriteDto();
-        dto.setFavoriteId(domain.getFavoriteId());
-        dto.setUserId(domain.getUserId());
-        dto.setFavoriteType(domain.getFavoriteType());
-        return dto;
     }
 }
