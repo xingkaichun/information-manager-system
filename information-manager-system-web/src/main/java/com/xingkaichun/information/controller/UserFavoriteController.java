@@ -3,10 +3,11 @@ package com.xingkaichun.information.controller;
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
-import com.xingkaichun.information.dto.bookFavorite.request.AddFavoriteBookRequest;
-import com.xingkaichun.information.dto.bookFavorite.request.PhysicsDeleteUserFavoriteRequest;
-import com.xingkaichun.information.dto.bookFavorite.request.QueryUserFavoriteListRequest;
-import com.xingkaichun.information.dto.bookFavorite.response.QueryUserFavoriteListResponse;
+import com.xingkaichun.information.dto.favorite.FavoriteType;
+import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
+import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
+import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
+import com.xingkaichun.information.dto.favorite.response.QueryUserFavoriteBookListResponse;
 import com.xingkaichun.information.dto.favorite.UserFavoriteDto;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.BookService;
@@ -37,8 +38,8 @@ public class UserFavoriteController {
     private BookService bookService;
 
     @ResponseBody
-    @PostMapping("/AddFavoriteBook")
-    public FreshServiceResult addFavoriteBook(@RequestBody AddFavoriteBookRequest request, HttpServletRequest httpServletRequest){
+    @PostMapping("/AddFavorite")
+    public FreshServiceResult addFavorite(@RequestBody AddFavoriteRequest request, HttpServletRequest httpServletRequest){
         try{
             UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
             if(userDomain==null){
@@ -49,12 +50,14 @@ public class UserFavoriteController {
             if(request.getFavoriteId()==null){
                 return FreshServiceResult.createSuccessFreshServiceResult("喜欢的ID不能为空");
             }
-            request.setFavoriteType("book");
+            if(request.getFavoriteType()==null){
+                return FreshServiceResult.createSuccessFreshServiceResult("喜欢的类型不能为空");
+            }
 
             QueryUserFavoriteListRequest queryUserFavoriteListRequest = new QueryUserFavoriteListRequest();
             queryUserFavoriteListRequest.setUserId(request.getUserId());
             queryUserFavoriteListRequest.setFavoriteId(request.getFavoriteId());
-            queryUserFavoriteListRequest.setFavoriteType("book");
+            queryUserFavoriteListRequest.setFavoriteType(request.getFavoriteType());
             List<UserFavoriteDto> userFavoriteDtoList = userFavoriteService.queryUserFavoriteList(queryUserFavoriteListRequest);
             if(userFavoriteDtoList!=null&&userFavoriteDtoList.size()>0){
                 return FreshServiceResult.createSuccessFreshServiceResult("已经收藏");
@@ -69,12 +72,21 @@ public class UserFavoriteController {
     }
 
     @ResponseBody
-    @PostMapping("/PhysicsDeleteUserFavoriteBook")
+    @PostMapping("/PhysicsDeleteUserFavorite")
     public FreshServiceResult physicsDeleteUserFavorite(@RequestBody PhysicsDeleteUserFavoriteRequest request, HttpServletRequest httpServletRequest){
         try{
             UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
-            request.setUserId(userDomain.getUserId());
-            request.setFavoriteType("book");
+            if(userDomain==null){
+                return FreshServiceResult.createSuccessFreshServiceResult("用户未登录");
+            } else {
+                request.setUserId(userDomain.getUserId());
+            }
+            if(request.getFavoriteId()==null){
+                return FreshServiceResult.createSuccessFreshServiceResult("喜欢的ID不能为空");
+            }
+            if(request.getFavoriteType()==null){
+                return FreshServiceResult.createSuccessFreshServiceResult("喜欢的类型不能为空");
+            }
             userFavoriteService.physicsDeleteUserFavorite(request);
             return FreshServiceResult.createSuccessFreshServiceResult("删除收藏成功");
         } catch (Exception e){
@@ -86,11 +98,11 @@ public class UserFavoriteController {
 
     @ResponseBody
     @PostMapping("/QueryUserFavoriteBookList")
-    public ServiceResult<QueryUserFavoriteListResponse> queryUserFavoriteList(@RequestBody QueryUserFavoriteListRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<QueryUserFavoriteBookListResponse> queryUserFavoriteList(@RequestBody QueryUserFavoriteListRequest request, HttpServletRequest httpServletRequest){
         try{
             UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
             request.setUserId(userDomain.getUserId());
-            request.setFavoriteType("book");
+            request.setFavoriteType(FavoriteType.BOOK.name());
 
             List<UserFavoriteDto> userFavoriteDtoList = userFavoriteService.queryUserFavoriteList(request);
             if(userFavoriteDtoList==null||userFavoriteDtoList.size()==0){
@@ -102,7 +114,7 @@ public class UserFavoriteController {
             }
             List<BookDTO> bookDTOList = bookService.queryBookListByBookIds(bookIds);
 
-            QueryUserFavoriteListResponse queryUserFavoriteListResponse = new QueryUserFavoriteListResponse();
+            QueryUserFavoriteBookListResponse queryUserFavoriteListResponse = new QueryUserFavoriteBookListResponse();
             queryUserFavoriteListResponse.setBookDTOList(bookDTOList);
             return ServiceResult.createSuccessServiceResult("获取收藏列表成功",queryUserFavoriteListResponse);
         } catch (Exception e){

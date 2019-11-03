@@ -9,7 +9,7 @@
     userId,favoriteId,favoriteType,createTime,lastEditTime
   </sql>
 
-  <insert id="addUserFavorite" parameterType="com.xingkaichun.information.dto.bookFavorite.request.AddFavoriteBookRequest">
+  <insert id="addUserFavorite" parameterType="com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest">
     INSERT INTO
       <include refid="BASE_TABLE"/>
       (userId,favoriteId,favoriteType)
@@ -20,14 +20,14 @@
     )
   </insert>
 
-  <delete id="physicsDeleteUserFavorite" parameterType="com.xingkaichun.information.dto.bookFavorite.request.PhysicsDeleteUserFavoriteRequest">
+  <delete id="physicsDeleteUserFavorite" parameterType="com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest">
     delete from <include refid="BASE_TABLE"/>
     where userId = #{userId, jdbcType=VARCHAR}
           and favoriteId = #{favoriteId, jdbcType=VARCHAR}
           and favoriteType = #{favoriteType, jdbcType=VARCHAR}
   </delete>
 
-  <select id="queryUserFavoriteList" parameterType="com.xingkaichun.information.dto.bookFavorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.model.UserFavoriteDomain">
+  <select id="queryUserFavoriteList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.model.UserFavoriteDomain">
     SELECT
     <include refid="BASE_COLUMN"/>
     FROM

@@ -2,14 +2,11 @@ package com.xingkaichun.information.service.impl;
 
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.UserFavoriteDao;
-import com.xingkaichun.common.dto.base.ServiceResult;
-import com.xingkaichun.information.dto.book.BookDTO;
-import com.xingkaichun.information.dto.bookFavorite.request.AddFavoriteBookRequest;
-import com.xingkaichun.information.dto.bookFavorite.request.PhysicsDeleteUserFavoriteRequest;
-import com.xingkaichun.information.dto.bookFavorite.request.QueryUserFavoriteListRequest;
+import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
+import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
+import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
 import com.xingkaichun.information.dto.favorite.UserFavoriteDto;
 import com.xingkaichun.information.model.UserFavoriteDomain;
-import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.information.service.UserFavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +25,7 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
     private BookDao bookDao;
 
     @Override
-    public void addUserFavorite(AddFavoriteBookRequest request) {
+    public void addUserFavorite(AddFavoriteRequest request) {
         userFavoriteDao.addUserFavorite(request);
     }
 
