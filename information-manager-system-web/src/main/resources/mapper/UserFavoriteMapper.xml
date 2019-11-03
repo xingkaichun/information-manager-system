@@ -43,6 +43,22 @@
     </trim>
   </select>
 
+  <select id="queryUserFavoriteSize" parameterType="com.xingkaichun.information.model.UserFavoriteDomain"
+          resultType="java.lang.Integer">
+    SELECT count(1) FROM userfavorite uf
+    <trim prefix="where" prefixOverrides="and">
+      <if test="userId != null and userId != ''">
+        and uf.userId = #{userId, jdbcType=VARCHAR}
+      </if>
+      <if test="favoriteType != null and favoriteType != ''">
+        and uf.favoriteType = #{favoriteType, jdbcType=VARCHAR}
+      </if>
+      <if test="favoriteId != null and favoriteId != ''">
+        and uf.favoriteId = #{favoriteId, jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
   <select id="queryUserFavoriteBookList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest"
           resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBookDto">
     SELECT uf.CreateTime as addFavoriteTime,b.BookId,b.BookName FROM userfavorite uf

@@ -15,4 +15,5 @@ public class BbsArticleDomain {
     private Date lastEditTime;
     private boolean isSoftDelete;
     private int numberOfComment;
+    private int numberOfSupport;
 }

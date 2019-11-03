@@ -3,19 +3,20 @@ package com.xingkaichun.information.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xingkaichun.common.dto.base.page.PageInformation;
+import com.xingkaichun.information.dao.BbsArticleDao;
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.UserFavoriteDao;
+import com.xingkaichun.information.dto.favorite.FavoriteType;
 import com.xingkaichun.information.dto.favorite.UserFavoriteBbsArticleDto;
 import com.xingkaichun.information.dto.favorite.UserFavoriteBookDto;
 import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
+import com.xingkaichun.information.model.BbsArticleDomain;
 import com.xingkaichun.information.model.UserFavoriteDomain;
 import com.xingkaichun.information.service.UserFavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service(value = "userFavoriteService")
@@ -27,6 +28,9 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
     @Autowired
     private BookDao bookDao;
 
+    @Autowired
+    private BbsArticleDao bbsArticleDao;
+
     @Override
     public void addUserFavorite(AddFavoriteRequest request) {
 
@@ -34,15 +38,37 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
         queryUserFavorite.setUserId(request.getUserId());
         queryUserFavorite.setFavoriteId(request.getFavoriteId());
         queryUserFavorite.setFavoriteType(request.getFavoriteType());
-        List<UserFavoriteDomain> userFavoriteDomainList = userFavoriteDao.queryUserFavorite(queryUserFavorite);
-        if(userFavoriteDomainList == null || userFavoriteDomainList.size()==0){
+        int userFavoriteSize = userFavoriteDao.queryUserFavoriteSize(queryUserFavorite);
+        if(userFavoriteSize==0){
             userFavoriteDao.addUserFavorite(request);
+            if(FavoriteType.BBS_ARTICLE.name().equals(request.getFavoriteType())){
+                updateSupportOfBbsArticle(request.getFavoriteId());
+            }
         }
+
+    }
+
+    /**
+     * 更新帖子赞的数量
+     */
+    private void updateSupportOfBbsArticle(String bbsArticleId) {
+        UserFavoriteDomain querySizeOfSupportBbsArticle = new UserFavoriteDomain();
+        querySizeOfSupportBbsArticle.setFavoriteId(bbsArticleId);
+        querySizeOfSupportBbsArticle.setFavoriteType(FavoriteType.BBS_ARTICLE.name());
+        int sizeOfSupportBbsArticle = userFavoriteDao.queryUserFavoriteSize(querySizeOfSupportBbsArticle);
+
+        BbsArticleDomain bbsArticleDomain = new BbsArticleDomain();
+        bbsArticleDomain.setBbsArticleId(bbsArticleId);
+        bbsArticleDomain.setNumberOfSupport(sizeOfSupportBbsArticle);
+        bbsArticleDao.updateBbsArticle(bbsArticleDomain);
     }
 
     @Override
     public void physicsDeleteUserFavorite(PhysicsDeleteUserFavoriteRequest request) {
         userFavoriteDao.physicsDeleteUserFavorite(request);
+        if(FavoriteType.BBS_ARTICLE.name().equals(request.getFavoriteType())){
+            updateSupportOfBbsArticle(request.getFavoriteId());
+        }
     }
 
     @Override

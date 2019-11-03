@@ -16,6 +16,7 @@ public interface UserFavoriteDao {
     void physicsDeleteUserFavorite(PhysicsDeleteUserFavoriteRequest request);
 
     List<UserFavoriteDomain> queryUserFavorite(UserFavoriteDomain request);
+    int queryUserFavoriteSize(UserFavoriteDomain request);
 
     Page<UserFavoriteBookDto> queryUserFavoriteBookList(QueryUserFavoriteListRequest request);
 

@@ -63,6 +63,9 @@
     <if test="numberOfComment != 0">
       numberOfComment = #{numberOfComment, jdbcType=INTEGER},
     </if>
+    <if test="numberOfSupport != 0">
+      numberOfSupport = #{numberOfSupport, jdbcType=INTEGER},
+    </if>
     bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR}
     where bbsArticleId = #{bbsArticleId, jdbcType=VARCHAR}
   </update>
