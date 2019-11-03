@@ -28,7 +28,7 @@
   </delete>
 
   <select id="queryUserFavoriteBookList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.dto.book.BookDTO">
-    SELECT b.* FROM userfavorite uf
+    SELECT b.BookId,b.BookName,b.CreateTime,b.LastEditTime FROM userfavorite uf
     inner join bookdomain b
     on
       uf.userId = #{userId, jdbcType=VARCHAR}
