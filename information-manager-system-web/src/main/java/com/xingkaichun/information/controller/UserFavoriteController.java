@@ -54,15 +54,6 @@ public class UserFavoriteController {
                 return FreshServiceResult.createSuccessFreshServiceResult("喜欢的类型不能为空");
             }
 
-            QueryUserFavoriteListRequest queryUserFavoriteListRequest = new QueryUserFavoriteListRequest();
-            queryUserFavoriteListRequest.setUserId(request.getUserId());
-            queryUserFavoriteListRequest.setFavoriteId(request.getFavoriteId());
-            queryUserFavoriteListRequest.setFavoriteType(request.getFavoriteType());
-            PageInformation<UserFavoriteBookDto> userFavoriteDtoList = userFavoriteService.queryUserFavoriteBookList(queryUserFavoriteListRequest);
-            if(userFavoriteDtoList!=null&&userFavoriteDtoList.getTotalDataCount()>0){
-                return FreshServiceResult.createSuccessFreshServiceResult("已经收藏");
-            }
-
             userFavoriteService.addUserFavorite(request);
             return FreshServiceResult.createSuccessFreshServiceResult("添加收藏成功");
         } catch (Exception e){

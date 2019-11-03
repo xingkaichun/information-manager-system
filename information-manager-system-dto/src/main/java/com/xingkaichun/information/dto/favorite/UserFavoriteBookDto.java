@@ -11,8 +11,6 @@ import java.util.Date;
 public class UserFavoriteBookDto {
     @JsonProperty("BookId")
     private String bookId;
-    @JsonProperty("AuthorId")
-    private String authorId;
     @JsonProperty("BookName")
     private String bookName;
 

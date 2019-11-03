@@ -27,8 +27,25 @@
           and favoriteType = #{favoriteType, jdbcType=VARCHAR}
   </delete>
 
-  <select id="queryUserFavoriteBookList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBookDto">
-    SELECT b.BookId,b.BookName,b.CreateTime,b.LastEditTime FROM userfavorite uf
+  <select id="queryUserFavorite" parameterType="com.xingkaichun.information.model.UserFavoriteDomain"
+          resultType="com.xingkaichun.information.model.UserFavoriteDomain">
+    SELECT * FROM userfavorite uf
+    <trim prefix="where" prefixOverrides="and">
+      <if test="userId != null and userId != ''">
+        and uf.userId = #{userId, jdbcType=VARCHAR}
+      </if>
+      <if test="favoriteType != null and favoriteType != ''">
+        and uf.favoriteType = #{favoriteType, jdbcType=VARCHAR}
+      </if>
+      <if test="favoriteId != null and favoriteId != ''">
+        and uf.favoriteId = #{favoriteId, jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
+  <select id="queryUserFavoriteBookList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest"
+          resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBookDto">
+    SELECT uf.CreateTime as addFavoriteTime,b.BookId,b.BookName FROM userfavorite uf
     inner join bookdomain b
     on
       uf.userId = #{userId, jdbcType=VARCHAR}
@@ -37,9 +54,10 @@
     order by uf.lastEditTime desc
   </select>
 
-  <select id="queryUserFavoriteBbsArticleList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest" resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBbsArticleDto">
-    SELECT ba.bbsArticleId,ba.title,ba.LastEditTime FROM userfavorite uf
-    inner join BbsArticleDTO ba
+  <select id="queryUserFavoriteBbsArticleList" parameterType="com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest"
+          resultType="com.xingkaichun.information.dto.favorite.UserFavoriteBbsArticleDto">
+    SELECT uf.CreateTime as addFavoriteTime,ba.bbsArticleId,ba.title FROM userfavorite uf
+    inner join bbsarticledomain ba
     on
     uf.userId = #{userId, jdbcType=VARCHAR}
     and uf.favoriteType = #{favoriteType, jdbcType=VARCHAR}
