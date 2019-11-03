@@ -2,13 +2,14 @@ package com.xingkaichun.information.controller;
 
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceResult;
+import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.favorite.FavoriteType;
+import com.xingkaichun.information.dto.favorite.UserFavoriteDto;
 import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
 import com.xingkaichun.information.dto.favorite.response.QueryUserFavoriteBookListResponse;
-import com.xingkaichun.information.dto.favorite.UserFavoriteDto;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.information.service.UserFavoriteService;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -58,8 +58,8 @@ public class UserFavoriteController {
             queryUserFavoriteListRequest.setUserId(request.getUserId());
             queryUserFavoriteListRequest.setFavoriteId(request.getFavoriteId());
             queryUserFavoriteListRequest.setFavoriteType(request.getFavoriteType());
-            List<UserFavoriteDto> userFavoriteDtoList = userFavoriteService.queryUserFavoriteList(queryUserFavoriteListRequest);
-            if(userFavoriteDtoList!=null&&userFavoriteDtoList.size()>0){
+            PageInformation<BookDTO> userFavoriteDtoList = userFavoriteService.queryUserFavoriteList(queryUserFavoriteListRequest);
+            if(userFavoriteDtoList!=null&&userFavoriteDtoList.getTotalDataCount()>0){
                 return FreshServiceResult.createSuccessFreshServiceResult("已经收藏");
             }
             userFavoriteService.addUserFavorite(request);
@@ -104,18 +104,10 @@ public class UserFavoriteController {
             request.setUserId(userDomain.getUserId());
             request.setFavoriteType(FavoriteType.BOOK.name());
 
-            List<UserFavoriteDto> userFavoriteDtoList = userFavoriteService.queryUserFavoriteList(request);
-            if(userFavoriteDtoList==null||userFavoriteDtoList.size()==0){
-                return ServiceResult.createSuccessServiceResult("获取收藏列表成功",null);
-            }
-            List<String> bookIds = new ArrayList<>();
-            for(UserFavoriteDto userFavoriteDto:userFavoriteDtoList){
-                bookIds.add(userFavoriteDto.getFavoriteId());
-            }
-            List<BookDTO> bookDTOList = bookService.queryBookListByBookIds(bookIds);
+            PageInformation<BookDTO> userFavoriteBookDtoList = userFavoriteService.queryUserFavoriteList(request);
 
             QueryUserFavoriteBookListResponse queryUserFavoriteListResponse = new QueryUserFavoriteBookListResponse();
-            queryUserFavoriteListResponse.setBookDTOList(bookDTOList);
+            queryUserFavoriteListResponse.setBookDTOList(userFavoriteBookDtoList);
             return ServiceResult.createSuccessServiceResult("获取收藏列表成功",queryUserFavoriteListResponse);
         } catch (Exception e){
             String message = "获取收藏列表失败";

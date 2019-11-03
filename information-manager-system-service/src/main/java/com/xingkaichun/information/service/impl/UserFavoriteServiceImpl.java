@@ -1,7 +1,11 @@
 package com.xingkaichun.information.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.UserFavoriteDao;
+import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
@@ -35,9 +39,11 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
     }
 
     @Override
-    public List<UserFavoriteDto> queryUserFavoriteList(QueryUserFavoriteListRequest request) {
-        List<UserFavoriteDomain> userFavoriteDomain = userFavoriteDao.queryUserFavoriteList(request);
-        return classCast(userFavoriteDomain);
+    public PageInformation<BookDTO> queryUserFavoriteList(QueryUserFavoriteListRequest request) {
+        PageHelper.startPage(request.getPageCondition().getPageNum(),request.getPageCondition().getPageSize());
+        Page<BookDTO> page = userFavoriteDao.queryUserFavoriteBookList(request);
+        PageInformation<BookDTO> pagePageInformation = new PageInformation<>(page.getPageNum(),page.getPageSize(),page.getTotal(),page.getResult());
+        return pagePageInformation;
     }
 
     private List<UserFavoriteDto> classCast(List<UserFavoriteDomain> userFavoriteDomain) {

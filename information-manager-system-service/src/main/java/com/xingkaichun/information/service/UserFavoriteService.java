@@ -1,5 +1,7 @@
 package com.xingkaichun.information.service;
 
+import com.xingkaichun.common.dto.base.page.PageInformation;
+import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.favorite.request.AddFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.PhysicsDeleteUserFavoriteRequest;
 import com.xingkaichun.information.dto.favorite.request.QueryUserFavoriteListRequest;
@@ -13,5 +15,5 @@ public interface UserFavoriteService {
 
     void physicsDeleteUserFavorite(PhysicsDeleteUserFavoriteRequest request);
 
-    List<UserFavoriteDto> queryUserFavoriteList(QueryUserFavoriteListRequest request);
+    PageInformation<BookDTO> queryUserFavoriteList(QueryUserFavoriteListRequest request);
 }
