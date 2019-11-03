@@ -145,9 +145,9 @@ public class BookSectionServiceImpl implements BookSectionService {
             if(bookSectionDomian==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节不存在");
             }
-            if(!bookSectionDomian.isSoftDelete()){
+/*            if(!bookSectionDomian.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节软删除标识为不可删");
-            }
+            }*/
             bookSectionDao.physicsDeleteBookSectionByBookSectionId(request.getBookSectionId());
 
             //更新book时间戳

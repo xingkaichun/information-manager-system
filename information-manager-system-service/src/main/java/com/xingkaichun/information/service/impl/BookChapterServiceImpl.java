@@ -137,9 +137,9 @@ public class BookChapterServiceImpl implements BookChapterService {
             if(bookChapterDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节不存在");
             }
-            if(!bookChapterDomain.isSoftDelete()){
+/*            if(!bookChapterDomain.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节软删除标识为不可删");
-            }
+            }*/
             //校验 章节下不能有小节
             List<BookSectionDomian> bookSectionDomianList = bookSectionDao.queryBookSectionListBybookChapterId(request.getBookChapterId());
             if(!CommonUtils.isNUllOrEmpty(bookSectionDomianList)){

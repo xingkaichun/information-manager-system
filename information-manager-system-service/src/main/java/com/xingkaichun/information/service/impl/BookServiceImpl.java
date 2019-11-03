@@ -99,9 +99,9 @@ public class BookServiceImpl implements BookService {
             if(bookDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
             }
-            if(!bookDomain.isSoftDelete()){
+/*            if(!bookDomain.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍软删除标识为不可删");
-            }
+            }*/
             //校验 书籍下不能有章节
             List<BookChapterDomain> bookChapterDomainList = bookChapterDao.queryBookChapterListByBookId(physicsDeleteBookByBookIdRequest.getBookId());
             if(!CommonUtils.isNUllOrEmpty(bookChapterDomainList)){
