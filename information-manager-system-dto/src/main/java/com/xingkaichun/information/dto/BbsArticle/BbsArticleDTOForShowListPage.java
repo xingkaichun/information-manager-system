@@ -34,4 +34,7 @@ public class BbsArticleDTOForShowListPage {
 
     @JsonProperty("NumberOfComment")
     private int numberOfComment;
+
+    @JsonProperty("NumberOfSupport")
+    private int numberOfSupport;
 }
