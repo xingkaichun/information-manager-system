@@ -41,7 +41,7 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
         int userFavoriteSize = userFavoriteDao.queryUserFavoriteSize(queryUserFavorite);
         if(userFavoriteSize==0){
             userFavoriteDao.addUserFavorite(request);
-            if(FavoriteType.BBS_ARTICLE.name().equals(request.getFavoriteType())){
+            if(FavoriteType.BBS_ARTICLE_SUPPORT.name().equals(request.getFavoriteType())){
                 updateSupportOfBbsArticle(request.getFavoriteId());
             }
         }
@@ -54,7 +54,7 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
     private void updateSupportOfBbsArticle(String bbsArticleId) {
         UserFavoriteDomain querySizeOfSupportBbsArticle = new UserFavoriteDomain();
         querySizeOfSupportBbsArticle.setFavoriteId(bbsArticleId);
-        querySizeOfSupportBbsArticle.setFavoriteType(FavoriteType.BBS_ARTICLE.name());
+        querySizeOfSupportBbsArticle.setFavoriteType(FavoriteType.BBS_ARTICLE_SUPPORT.name());
         int sizeOfSupportBbsArticle = userFavoriteDao.queryUserFavoriteSize(querySizeOfSupportBbsArticle);
 
         BbsArticleDomain bbsArticleDomain = new BbsArticleDomain();
@@ -66,7 +66,7 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
     @Override
     public void physicsDeleteUserFavorite(PhysicsDeleteUserFavoriteRequest request) {
         userFavoriteDao.physicsDeleteUserFavorite(request);
-        if(FavoriteType.BBS_ARTICLE.name().equals(request.getFavoriteType())){
+        if(FavoriteType.BBS_ARTICLE_SUPPORT.name().equals(request.getFavoriteType())){
             updateSupportOfBbsArticle(request.getFavoriteId());
         }
     }

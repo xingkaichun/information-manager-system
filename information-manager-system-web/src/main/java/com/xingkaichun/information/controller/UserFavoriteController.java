@@ -114,7 +114,7 @@ public class UserFavoriteController {
         try{
             UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
             request.setUserId(userDomain.getUserId());
-            request.setFavoriteType(FavoriteType.BBS_ARTICLE.name());
+            request.setFavoriteType(FavoriteType.BBS_ARTICLE_SUPPORT.name());
 
             PageInformation<UserFavoriteBbsArticleDto> bbsArticleDTOList = userFavoriteService.queryUserFavoriteBbsArticleList(request);
 
