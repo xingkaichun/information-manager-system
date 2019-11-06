@@ -32,14 +32,10 @@
 <div class="forum">
     <div class="t"><h1>发表帖子</h1><a href="forum.html" class="btn_normal">返回论坛</a></div>
     <ul class="publish_post">
-        <li><input type="text" placeholder="请输入标题" class="txt ipt"></li>
-        <li>
-            <div style="text-align:left;">
-                <div id="divDemo"></div>
-            </div>
-        </li>
+        <li><input type="text" placeholder="请输入标题" class="txt ipt" name="title"></li>
+        <li><div class="forum_publish_cont" name="content" contenteditable="true" placeholder="请输入内容"></div></li>
         <li><input type="file" class=""></li>
-        <li><input type="button" value="提交" class="btn_important"></li>
+        <li><input type="button" value="提交" class="btn_important" id="sumbit_btn"></li>
     </ul>
 
 </div>
@@ -48,14 +44,6 @@
 <script src="/js/jQuery.js"></script>
 <script src="/js/js.js"></script>
 <script id="common_auto_login_js" src="/js/common_auto_login.js" data="home_page"></script>
-<script type="text/javascript" src='/framework/editor/release/wangEditor.min.js'></script>
-<script type="text/javascript">
-    $(function (){
-        var E = window.wangEditor
-        var editor = new E('#divDemo')
-        editor.customConfig.uploadImgShowBase64 = true
-        editor.create()
-    });
-</script>
+<script src="/js/forum_publish.js"></script>
 </body>
 </html>

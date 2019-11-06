@@ -89,6 +89,7 @@ html,body{
 }
 .course_list_item{
     width: 30%;
+    height: 90px;
     float: left;
     margin: 0 3% 10px 0;
 }
@@ -230,7 +231,7 @@ html,body{
 /*论坛*/
 .forum{
     width: 1200px;
-    height: 100%;
+    height: auto;
     margin: 50px auto 0 auto;
     background: #fff;
     padding: 70px 50px 70px 50px;
@@ -382,6 +383,10 @@ html,body{
     color: #999;
     font-size: 12px;
 }
+.forum_comment_list .cont a.show_reply{
+    margin-right: 50px;
+    color: #fb6b25;
+}
 .forum_comment_list .cont a:hover{
     color: #fb6b25;
 }
@@ -390,11 +395,31 @@ html,body{
     color: #999;
     margin: 0 3px;
 }
+.reply_comment{
+    display: none;
+}
+#get_more_comment{
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    color: #666;
+    cursor: pointer;
+}
+.nodata{
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    color: #666;
+}
 .input_reply{
     position: relative;
     overflow: hidden;
     padding-right: 80px;
     margin: 10px 0;
+    display: none;
+}
+.input_reply.input_reply2{
+    display: block;
 }
 .input_reply input{
     height: 33px;
@@ -428,6 +453,13 @@ html,body{
 }
 .publish_post li{
     margin: 20px 0;
+}
+.forum_publish_cont{
+    border: 1px solid #ddd;
+    padding: 20px;
+    color: #666;
+    box-sizing: border-box;
+    min-height: 300px;
 }
 /*我的主页*/
 .home{

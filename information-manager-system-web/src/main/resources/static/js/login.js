@@ -43,7 +43,7 @@ $(function(){
                 contentType:"application/json",
                 dataType: "json",
                 success: function(data){
-                    console.log(data)
+                    // console.log(data)
                     alert(data.Message)
                     if(data.ServiceCode=='SUCCESS'){
                         location.href="/"

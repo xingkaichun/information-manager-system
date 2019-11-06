@@ -89,7 +89,7 @@
 
     <delete id="physicsDeleteArticle" parameterType="com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest">
         delete from <include refid="BASE_TABLE"/>
-        where articleId = #{articleId, jdbcType=VARCHAR} and isSoftDelete = true
+        where articleId = #{articleId, jdbcType=VARCHAR}
     </delete>
 
     <update id="updateArticle" parameterType="com.xingkaichun.information.model.ArticleDomain">

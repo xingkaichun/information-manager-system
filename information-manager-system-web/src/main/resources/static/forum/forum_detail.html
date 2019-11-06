@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>[###SeoTitle###]</title>
@@ -28,62 +28,72 @@
         </a>
     </div>
 </div>
-<!--论坛内容区-->
+论坛内容区
 <div class="forum">
-    <h1 class="forum_title">时间旅行可以让你更加深刻地了解 React 的独特优势</h1>
-    <div class="forum_title_info"><span>by：admin</span><span>2019-10-27 10:36</span></div>
-    <div class="forum_detail">
-        <p>我们将会在这个教程中开发一个小游戏。你可能并不打算做游戏开发，然后就直接跳过了这个教程——但是不妨尝试一下！你将在该教程中学到关于构建 React 应用的基础知识，掌握这些知识后，你将会对 React 有更加深刻的理解。</p>
-        <p>在继续后面的教程之前，推荐你先玩一下这个井字棋。在游戏里，你会看到游戏面板的右边有一个标有序号的列表。这个列表记录了游戏中的每个步骤，并且会随着游戏的进行不断更新。</p>
-        <p>我们假定你已经对 HTML 和 JavaScript 都比较熟悉了。即便你之前使用其他编程语言，你也可以跟上这篇教程的。除此之外，我们假定你也已经熟悉了一些编程的概念，例如，函数、对象、数组，以及 class 的一些内容。</p>
-    </div>
+    <!--文章内容-->
+    <div id="article_details"></div>
+    <script type="text/template" id="article_details_template">
+        <h1 class="forum_title">{{BbsArticleDTO.Title}}</h1>
+        <div class="forum_title_info"><span>by：{{BbsArticleDTO.UserName}}</span><span>{{BbsArticleDTO.CreateTime}}</span></div>
+        <div class="forum_detail">
+            {{BbsArticleDTO.Content}}
+        </div>
+    </script>
+    <!--一级评论-->
     <div class="forum_comment">评论</div>
+    <div class="input_reply input_reply2">
+        <input type="text" name="comment_val" contenteditable="true" value="" placeholder="请输入评论"><button onclick="commentArticle()">评论</button>
+    </div>
+    <div id="comment_list"></div>
+    <script type="text/template" id="comment_list_template">
+        {{if BbsArticleCommentDTOInformation&&BbsArticleCommentDTOInformation.length}}
+            <ul class="forum_comment_list">
+                {{each BbsArticleCommentDTOInformation as item}}
+                <li>
+                    <div class="head">
+                        <img src="/images/head.png" alt="">
+                    </div>
+                    <div class="cont" id="{{item.BbsArticleCommentId}}">
+                        <div class="comment"><span class="name">{{item.FromUserName}} ：</span><span>{{item.Content}}</span></div>
+                        <div class="reply">
+                            <span class="time">{{item.CreateTime}}</span>
+                            <a href="javscript:void(0)" onclick="commentInput()" >回复</a>
+                            <a href="javscript:void(0)" onclick="showReply()" class="show_reply">{{item.BbsArticleCommentDTOList.TotalDataCount}}条回复</a>
+                        </div>
+                        <div class="input_reply">
+                            <input type="text" name="comment_val" contenteditable="true" value="" placeholder="请输入评论"><button onclick="replyComment(0)">评论</button>
+                        </div>
+                    </div>
+                    <div class="reply_comment"><!--二级评论-->
+                        {{if item.BbsArticleCommentDTOList.Data&&item.BbsArticleCommentDTOList.Data.length}}
+                        {{each item.BbsArticleCommentDTOList.Data as item}}
+                        <div class="cont border">
+                            <div class=""><span class="name">{{item.FromUserName}} <label>回复</label>{{item.ToUserName}} ：</span><span>{{item.Content}} </span></div>
+                            <div class="reply"><span class="time">{{item.CreateTime}}</span><a href="javscript:void(0)" onclick="commentInput()">回复</a></div>
+                            <div class="input_reply">
+                                <input type="text" name="comment_val" contenteditable="true" value="" placeholder="请输入评论"><button onclick="replyComment()">评论</button>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+                </li>
+                {{/each}}
+             </ul>
+        {{/if}}
+    </script>
     <ul class="forum_comment_list">
-        <li>
-            <div class="head">
-                <img src="/images/head.png" alt="">
-            </div>
-            <div class="cont"><!--主评论-->
-                <div class="comment"><span class="name">令狐冲：</span><span>在继续后面的教程之前，推右边有一个标有你先玩有一个标有先井字棋并不打算做游戏开发，然后就直接跳过了这个教程并不打算做游戏开发，然后就直接跳过了这个教程——并不打算做游戏开发，然后就直接跳过了这个教程</span></div>
-                <div class="reply"><span class="time">2019-10-27 10:36</span><a href="javscript:void(0)" onclick="conmentInput()">回复</a></div>
-            </div>
-            <div class="cont border"><!--回复评论,带border-->
-                <div class="comment"><span class="name">岳不群：</span><span>在继续后面这个教程并不打算做游戏开发，然后就直接跳过了这接跳过了这个教程</span></div>
-                <div class="reply"><span class="time">2019-10-27 10:36</span><a href="javscript:void(0)" onclick="conmentInput()">回复</a></div>
-            </div>
-            <div class="cont border"><!--回复评论,带border-->
-                <div class=""><span class="name">令狐冲<label>回复</label>岳不群：</span><span>在继续后面这个教过了这接跳过了这个教程</span></div>
-                <div class="reply"><span class="time">2019-10-27 10:36</span><a href="javscript:void(0)" onclick="conmentInput()">回复</a></div>
-            </div>
-            <div class="cont border"><!--回复评论,带border-->
-                <div class=""><span class="name">令狐冲<label>回复</label>岳不群：</span><span>在继续后面这个教过了</span></div>
-                <div class="reply"><span class="time">2019-10-27 10:36</span><a href="javscript:void(0)" onclick="conmentInput()">回复</a></div>
-            </div>
-        </li>
-        <li>
-            <div class="head">
-                <img src="/images/head.png" alt="">
-            </div>
-            <div class="cont"><!--主评论-->
-                <div class="comment"><span class="name">张三丰：</span><span>写的不错，点赞</span></div>
-                <div class="reply"><span class="time">2019-10-27 10:36</span><a href="javscript:void(0)" onclick="conmentInput()">回复</a></div>
-            </div>
-        </li>
-        <li>
-            <div class="head">
-                <img src="/images/head.png" alt="">
-            </div>
-            <div class="cont"><!--主评论-->
-                <div class="comment"><span class="name">灭绝师太：</span><span>这么好的帖子，怎么没人顶</span></div>
-                <div class="reply"><span class="time">2019-10-27 10:36</span><a href="javscript:void(0)" onclick="conmentInput()">回复</a></div>
-            </div>
-        </li>
+        <li onclick="getMoreComment()" id="get_more_comment">显示更多评论</li>
     </ul>
+
 </div>
 
 <div class="scrolltotop" id="scrolltotop"><img src="/images/arrows2.png" alt=""></div>
 <script src="/js/jQuery.js"></script>
+<script src="/js/template.js"></script>
+<script src="/js/bbs/forum_detail.js"></script>
 <script src="/js/js.js"></script>
 <script id="common_auto_login_js" src="/js/common_auto_login.js" data="home_page"></script>
+
 </body>
 </html>

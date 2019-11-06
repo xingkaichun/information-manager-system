@@ -78,7 +78,7 @@
 
   <delete id="physicsDeleteBookSectionByBookSectionId" parameterType="java.lang.String">
     delete from <include refid="BASE_TABLE"/>
-    where bookSectionId = #{bookSectionId, jdbcType=VARCHAR} and isSoftDelete = true
+    where bookSectionId = #{bookSectionId, jdbcType=VARCHAR}
   </delete>
 
   <select id="queryBookSectionListBybookChapterId" resultType="com.xingkaichun.information.model.BookSectionDomian">

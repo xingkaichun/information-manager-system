@@ -66,22 +66,7 @@ function scrollTotop() {
 }
 scrollTotop();
 
-/*点击出现评论框*/
-function conmentInput() {
-    var a = event.srcElement ? event.srcElement : event.target;
-    var b = a.parentNode;
-    var oDiv = b.parentNode;
-    var comment = document.createElement("div");
-    comment.className="input_reply";
-    comment.innerHTML="<input type=\"text\" placeholder=\"请输入评论\"><button>回复</button>";
-    if (a.index == true) {
-        oDiv.removeChild(oDiv.children[2]);
-        a.index = false;
-    } else {
-        oDiv.appendChild(comment);
-        a.index = true;
-    }
-}
+
 
 /*移动端左侧菜单按钮事件*/
 function toggleMenu(id1,id2) {
@@ -117,16 +102,6 @@ function courseNav(event) {
     }
 }
 
-/*弹出框*/
-function popBox(e) {
-    var popbox = document.getElementById("pop_box");
-    if (e == true){
-        popbox.style.display = 'block';
-    }else {
-        popbox.style.display = 'none';
-    }
-}
-
 /*教程发布 文章排列升序*/
 function sortUp(event) {
     window.event? window.event.cancelBubble = true : e.stopPropagation();
@@ -140,6 +115,11 @@ function sortUp(event) {
     }else {
         curLi.parentNode.insertBefore(curLi, oLis[curLi_index - 1]);
     }
+}
+
+//返回
+function goBack() {
+    window.history.go(-1);
 }
 
 

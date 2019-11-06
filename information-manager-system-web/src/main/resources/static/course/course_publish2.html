@@ -28,67 +28,53 @@
         </a>
     </div>
 </div>
-<!--论坛内容区-->
+<!--内容区-->
 <div class="forum">
-    <div class="t course_t"><h1>Python入门</h1><div><a href="#" class="c_btn c_btn_imp" onclick="popBox(true)">添加章</a><a href="course_publish.html" class="c_btn">返回</a></div></div>
-    <ul class="course_add_1">
-        <li>
-            <div onclick="flexMenu(event)">
-                <a href="#">第一章 Python介绍<img src="/images/arrows.png" alt=""></a>
-                <img src="/images/delete.png" alt="删除">
-                <img src="/images/up.png" alt="升序" onclick="sortUp(event)">
-            </div>
-            <ul class="course_add_2">
-                <li>
-                    <a href="course_publish3.html">第一节 Python是什么</a>
+    <div class="t course_t"><h1>Python入门</h1><div><a href="#" class="c_btn c_btn_imp"  onclick="addCourse()">添加章</a><a href="javascript:void(0)" onclick="goBack()" class="c_btn">返回</a></div></div>
+    <div id="chapter_list"></div>
+    <script type="text/template" id="chapter_list_template">
+        {{if BookChapterDTOList&&BookChapterDTOList.length}}
+        <ul class="course_add_1">
+            {{each BookChapterDTOList as item}}
+            <li>
+                <div onclick="flexMenu(event)" id="{{item.BookChapterId}}">
+                    <a href="#">{{item.BookChapterName}}<img src="/images/arrows.png" alt=""></a>
                     <img src="/images/delete.png" alt="删除">
-                    <span><img src="/images/up.png" alt="升序" onclick="sortUp(event)"></span>
-                </li>
-                <li>
-                    <a href="course_publish3.html">第二节 Python能做什么</a>
-                    <img src="/images/delete.png" alt="删除">
-                    <span><img src="/images/up.png" alt="升序" onclick="sortUp(event)"></span>
-                </li>
-                <li class="add" onclick="popBox(true)">
-                    + 添加节
-                </li>
-            </ul>
-        </li>
-        <li>
-            <div onclick="flexMenu(event)">
-                <a href="#">第二章 Python基础<img src="/images/arrows.png" alt=""></a>
-                <img src="/images/delete.png" alt="删除">
-                <img src="/images/up.png" alt="升序" onclick="sortUp(event)">
-            </div>
-            <ul class="course_add_2">
-                <li class="add" onclick="popBox(true)">
-                    + 添加节
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <!--弹出框-->
-    <div class="create_main" id="pop_box">
-        <div class="create_cont">
-            <div class="t">添加章<span onclick="popBox()">X</span></div>
-            <table border="0" cellpadding="0" cellspacing="0" class="course_add_cont course_add_cont2">
-                <tr>
-                    <td width="100">名称</td>
-                    <td><input type="text" class="txt"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="button" class="c_btn c_btn_imp" value="保存" onclick="popBox()"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+                    <img src="/images/up.png" alt="升序" onclick="sortUp(event)">
+                    <img src="/images/modify.png" onclick="modifyCourse()" alt="修改">
+                </div>
+                <ul class="course_add_2">
+                    {{if item.BookSectionDTOList&&item.BookSectionDTOList.length}}
+                        {{each item.BookSectionDTOList as value}}
+                            <li>
+                                <a href="./course_publish3.html?BookChapterId={{value.BookChapterId}}&BookSectionId={{value.BookSectionId}}">{{value.BookSectionName}}</a>
+                                <img src="/images/delete.png" alt="删除">
+                                <span><img src="/images/up.png" alt="升序" onclick="sortUp(event)"></span>
+                            </li>
+                        {{/each}}
+                    {{/if}}
+                    <li class="add" onclick="addChapter()">
+                        + 添加节
+                    </li>
+                </ul>
+
+            </li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <div class="">暂无章节</div>
+        {{/if}}
+    </script>
+    <div id="chapter_container"></div>
+
 
 </div>
 
 <div class="scrolltotop" id="scrolltotop"><img src="/images/arrows2.png" alt=""></div>
 <script src="/js/jQuery.js"></script>
+<script src="/js/template.js"></script>
 <script src="/js/js.js"></script>
+<script src="/js/course/course_publish2.js"></script>
 <script id="common_auto_login_js" src="/js/common_auto_login.js" data="home_page"></script>
 </body>
 </html>

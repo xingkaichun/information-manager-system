@@ -1,6 +1,6 @@
+
 $(function(){
     var url=""
-
     $.ajax({
         type: "post",
         url: url+"/User/GetUserInfo",
@@ -8,7 +8,6 @@ $(function(){
         dataType: "json",
         async:false,
         success: function(data){
-            console.log(data)
             var jsElement = document.getElementById("common_auto_login_js");
             var page = jsElement.getAttribute("data");
             if(data.ServiceCode=='SUCCESS'){

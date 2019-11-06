@@ -70,7 +70,7 @@
 
   <delete id="physicsDeleteBookChapterByBookChapterId" parameterType="java.lang.String">
     delete from <include refid="BASE_TABLE"/>
-    where bookChapterId = #{bookChapterId, jdbcType=VARCHAR} and isSoftDelete = true
+    where bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
   </delete>
 
   <select id="queryBookChapterListByBookId" resultType="com.xingkaichun.information.model.BookChapterDomain">

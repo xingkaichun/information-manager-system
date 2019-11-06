@@ -184,7 +184,11 @@ public class BookController {
     @PostMapping("/UpdateBookChapter")
     public FreshServiceResult updateBookChapter(@RequestBody UpdateBookChapterRequest request, HttpServletRequest httpServletRequest){
         try{
-            boolean isHasOperateRight = bookService.isHasOperateRight(httpServletRequest,request.getBookId());
+            BookChapterDTO bookChapterDTO = bookChapterService.queryBookChapterByBookChapterId(request.getBookChapterId());
+            if(bookChapterDTO==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
+            }
+            boolean isHasOperateRight = bookService.isHasOperateRight(httpServletRequest,bookChapterDTO.getBookId());
             if(!isHasOperateRight){
                 return FreshServiceResult.createFailFreshServiceResult("你没有权限操作该书籍");
             }
