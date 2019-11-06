@@ -70,25 +70,23 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         BookDTO bookDTO = queryBookDetailsByBookIdRequest(queryBookDetailsByBookIdRequest);
 
         String content = CommonUtilsFile.readFileContent(bookTemplateFilePath);
-        content = content.replace("[###BookName###]","<div class='rank-one-text'><a href='javascript:;' class='link_li'><b>"+bookDTO.getBookName()+"</b></a></div>"+"\r\n");
+        content = content.replace("[###BookName###]","<a href='javascript:;' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>"+"\r\n");
         String mulu = "" ;
         List<BookChapterDTO> bookChapterDTOList = bookDTO.getBookChapterDTOList();
         //生成目录
         if(bookChapterDTOList!=null){
             for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
-                mulu += "<div class=\"rank-two\">"+"\r\n";
-                mulu += "   <div class=\"rank-two-text\"><a href=\"javascript:;\" class=\"link_li\">"+bookChapterDTO.getBookChapterName()+"</a></div>"+"\r\n";
-                mulu += "   <div class=\"rank-three\">"+"\r\n";
+                mulu += "<dl class=\"menu_left_list\">"+"\r\n";
+                mulu += "   <dt onclick=\"flexMenu(event)\">"+bookChapterDTO.getBookChapterName()+"<img src=\"/images/arrows.png\" alt=\"\"></dt>"+"\r\n";
 
                 List<BookSectionDTO> bookSectionDTOList = bookChapterDTO.getBookSectionDTOList();
                 if(bookSectionDTOList != null){
                     for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
                         String sectionUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO.getSeoUrl()+".html";
-                mulu += "       <div class=\"rank-three-text\"><a href=\""+sectionUrl+"\" class=\"link_li\">"+bookSectionDTO.getBookSectionName()+"</a></div>"+"\r\n";
+                mulu += "       <dd><a href=\""+sectionUrl+"\" class=\"link_li\">"+bookSectionDTO.getBookSectionName()+"</a></dd>"+"\r\n";
                     }
                 }
-                mulu += "   </div>"+"\r\n";
-                mulu += "</div>"+"\r\n";
+                mulu += "</dl>"+"\r\n";
             }
         }
         content = content.replace("[###BookTableOfContents###]",mulu);
