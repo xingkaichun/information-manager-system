@@ -37,7 +37,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public ServiceResult<BookDTO> addBook(HttpServletRequest request, AddBookRequest addBookRequest) {
         try{
-            ServiceResult seoUrlLegalServiceResult = isSeoUrlLegal(addBookRequest.getSeoUrl());
+            ServiceResult seoUrlLegalServiceResult = isBookSeoUrlLegal(addBookRequest.getSeoUrl());
             if(seoUrlLegalServiceResult.getServiceCode() == ServiceCode.FAIL){
                 return FreshServiceResult.createFailFreshServiceResult(seoUrlLegalServiceResult.getMessage());
             }
@@ -75,7 +75,7 @@ public class BookServiceImpl implements BookService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
             }
             if(!bookDomain.getSeoUrl().equals(updateBookRequest.getSeoUrl())){
-                ServiceResult seoUrlLegalServiceResult = isSeoUrlLegal(updateBookRequest.getSeoUrl());
+                ServiceResult seoUrlLegalServiceResult = isBookSeoUrlLegal(updateBookRequest.getSeoUrl());
                 if(seoUrlLegalServiceResult.getServiceCode() == ServiceCode.FAIL){
                     return FreshServiceResult.createFailFreshServiceResult(seoUrlLegalServiceResult.getMessage());
                 }
@@ -208,11 +208,11 @@ public class BookServiceImpl implements BookService {
     /**
      * seourl网址不能为空，不能重复
      */
-    private ServiceResult isSeoUrlLegal(String seoUrl){
+    private ServiceResult isBookSeoUrlLegal(String seoUrl){
         if(seoUrl == null || "".equals(seoUrl)){
             return ServiceResult.createFailServiceResult("Seo网址不能为空，请修改。");
         }
-        if(!isSeoUrlExist(seoUrl)){
+        if(isSeoUrlExist(seoUrl)){
             return ServiceResult.createFailServiceResult("Seo网址已存在，请修改。");
         }
         return ServiceResult.createSuccessServiceResult("Seo网址合法，该Seo网址暂未有人使用。",null);

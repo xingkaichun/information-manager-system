@@ -1,10 +1,12 @@
 package com.xingkaichun.information.service.impl;
 
 import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceCode;
 import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dao.BookChapterDao;
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.BookSectionDao;
+import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
 import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
 import com.xingkaichun.information.dto.bookSection.request.AddBookSectionRequest;
@@ -12,6 +14,7 @@ import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSect
 import com.xingkaichun.information.dto.bookSection.request.QueryBookSectionListBybookChapterIdRequest;
 import com.xingkaichun.information.dto.bookSection.request.UpdateBookSectionRequest;
 import com.xingkaichun.information.model.BookChapterDomain;
+import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.BookSectionDomian;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.utils.CommonUtils;
@@ -63,6 +66,11 @@ public class BookSectionServiceImpl implements BookSectionService {
                 request.setBookSectionId(String.valueOf(UUID.randomUUID()));
             }
 
+            ServiceResult seoUrlLegalServiceResult = isBookSectionSeoUrlLegal(request.getBookId(),request.getSeoUrl());
+            if(seoUrlLegalServiceResult.getServiceCode() == ServiceCode.FAIL){
+                return FreshServiceResult.createFailFreshServiceResult(seoUrlLegalServiceResult.getMessage());
+            }
+
 /*            if(CommonUtils.isNUllOrEmpty(request.getBookSectionOrder())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节排序值不能为空");
             }*/
@@ -87,6 +95,24 @@ public class BookSectionServiceImpl implements BookSectionService {
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
+    }
+
+    private ServiceResult isBookSectionSeoUrlLegal(String bookId, String seoUrl) {
+        if(seoUrl == null || "".equals(seoUrl)){
+            return ServiceResult.createFailServiceResult("Seo网址不能为空，请修改。");
+        }
+        if(isBookSectionSeoUrlExist(bookId,seoUrl)){
+            return ServiceResult.createFailServiceResult("Seo网址已存在，请修改。");
+        }
+        return ServiceResult.createSuccessServiceResult("Seo网址合法，该Seo网址暂未有人使用。",null);
+    }
+
+    private boolean isBookSectionSeoUrlExist(String bookId, String seoUrl) {
+        BookSectionDomian request = new BookSectionDomian();
+        request.setBookId(bookId);
+        request.setSeoUrl(seoUrl);
+        List<BookSectionDomian> bookSectionDomianList = bookSectionDao.queryBookSection(request);
+        return (bookSectionDomianList != null) && bookSectionDomianList.size() > 0;
     }
 
     private int nextBookSectionOrder(String bookChapterId) {
@@ -119,6 +145,13 @@ public class BookSectionServiceImpl implements BookSectionService {
             if(bookSectionDomian == null){
                 return FreshServiceResult.createSuccessFreshServiceResult("书籍小节不存在");
             }
+            if(!bookSectionDomian.getSeoUrl().equals(request.getSeoUrl())){
+                ServiceResult seoUrlLegalServiceResult = isBookSectionSeoUrlLegal(bookSectionDomian.getBookId(),request.getSeoUrl());
+                if(seoUrlLegalServiceResult.getServiceCode() == ServiceCode.FAIL){
+                    return FreshServiceResult.createFailFreshServiceResult(seoUrlLegalServiceResult.getMessage());
+                }
+            }
+
             request.setBookSectionContent(CommonUtilsHtml.handlerArticleContent(request.getBookSectionContent()));
             bookSectionDao.updateBookSection(request);
             //更新book时间戳
