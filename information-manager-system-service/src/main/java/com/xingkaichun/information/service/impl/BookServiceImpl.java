@@ -1,12 +1,12 @@
 package com.xingkaichun.information.service.impl;
 
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceCode;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dao.BookChapterDao;
 import com.xingkaichun.information.dao.BookDao;
-import com.xingkaichun.common.dto.base.FreshServiceResult;
-import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.BookDTO;
 import com.xingkaichun.information.dto.book.request.*;
-import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
 import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.UserDomain;
@@ -37,8 +37,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public ServiceResult<BookDTO> addBook(HttpServletRequest request, AddBookRequest addBookRequest) {
         try{
-            if(isSeoUrlExist(addBookRequest.getSeoUrl())){
-                return FreshServiceResult.createFailFreshServiceResult("Seo网址已存在，请修改");
+            ServiceResult seoUrlLegalServiceResult = isSeoUrlLegal(addBookRequest.getSeoUrl());
+            if(seoUrlLegalServiceResult.getServiceCode() == ServiceCode.FAIL){
+                return FreshServiceResult.createFailFreshServiceResult(seoUrlLegalServiceResult.getMessage());
             }
 
             addBookRequest.setAuthorId(CommonUtilsSession.getUser(request).getUserId());
@@ -74,9 +75,9 @@ public class BookServiceImpl implements BookService {
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
             }
             if(!bookDomain.getSeoUrl().equals(updateBookRequest.getSeoUrl())){
-                //如果修改seourl，则不允许修改为已经存在的seourl
-                if(isSeoUrlExist(updateBookRequest.getSeoUrl())){
-                    return FreshServiceResult.createFailFreshServiceResult("Seo网址已存在，请修改");
+                ServiceResult seoUrlLegalServiceResult = isSeoUrlLegal(updateBookRequest.getSeoUrl());
+                if(seoUrlLegalServiceResult.getServiceCode() == ServiceCode.FAIL){
+                    return FreshServiceResult.createFailFreshServiceResult(seoUrlLegalServiceResult.getMessage());
                 }
             }
             bookDao.updateBook(updateBookRequest);
@@ -202,6 +203,19 @@ public class BookServiceImpl implements BookService {
         domain.setSeoKeywords(dto.getSeoKeywords());
         domain.setSeoDescription(dto.getSeoDescription());
         return domain;
+    }
+
+    /**
+     * seourl网址不能为空，不能重复
+     */
+    private ServiceResult isSeoUrlLegal(String seoUrl){
+        if(seoUrl == null || "".equals(seoUrl)){
+            return ServiceResult.createFailServiceResult("Seo网址不能为空，请修改。");
+        }
+        if(!isSeoUrlExist(seoUrl)){
+            return ServiceResult.createFailServiceResult("Seo网址已存在，请修改。");
+        }
+        return ServiceResult.createSuccessServiceResult("Seo网址合法，该Seo网址暂未有人使用。",null);
     }
 
     private boolean isSeoUrlExist(String seoUrl){
