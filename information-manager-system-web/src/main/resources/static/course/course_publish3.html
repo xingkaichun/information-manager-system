@@ -44,7 +44,7 @@
         </tr>
         <tr>
             <td>节内容</td>
-            <td><div id="divDemo" name="content"></div></td>
+            <td><div id="editor" ></div></td>
         </tr>
         <tr>
             <td>SEO网址</td>
@@ -73,7 +73,7 @@
     </table>
 
 </div>
-    <div id="co">{{Section.BookSectionContent}}</div>
+<!--    <div id="co">{{Section.BookSectionContent}}</div>-->
 </script>
 
 <div class="scrolltotop" id="scrolltotop"><img src="/images/arrows2.png" alt=""></div>
@@ -81,20 +81,10 @@
 <script src="/js/template.js"></script>
 <script src="/js/js.js"></script>
 <script id="common_auto_login_js" src="/js/common_auto_login.js" data="home_page"></script>
-<script src="/js/course/course_publish3.js"></script>
 <script type="text/javascript" src='/framework/editor/release/wangEditor.min.js'></script>
+<script src="/js/course/course_publish3.js"></script>
 <script type="text/javascript">
-    $(function (){
-        var E = window.wangEditor
-        var editor = new E('#divDemo')
-        editor.customConfig.uploadImgShowBase64 = true
-        editor.create()
-        var section_content= document.getElementById("co");
-        section_content.style.display = 'none';
-        var odiv = document.getElementById("divDemo").children[1].children[0];
-        odiv.innerHTML = section_content.innerHTML;
-        section_content.innerHTML = "";
-    });
+
 </script>
 </body>
 </html>

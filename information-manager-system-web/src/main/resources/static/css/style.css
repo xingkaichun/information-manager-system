@@ -173,6 +173,7 @@ html,body{
 }
 .cont_right{
     width: 950px;
+    min-height: 800px;
     float: left;
     background: #fff;
     border-left:1px solid #f1f1f1;
@@ -188,15 +189,30 @@ html,body{
     line-height: 30px;
     margin-bottom: 20px;
 }
+/*文章内容区 文章样式*/
+.cont_right.article_style pre{
+    background: #f5f5f5;
+    border: 1px dotted #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.cont_right.article_style blockquote{
+    background: #fff4e8;
+    border-left: 4px solid #f5ceac;
+    padding: 10px;
+    margin-bottom: 20px;
+}
 /*文章内容区 左侧菜单*/
 .cont_left a{
     color: #333;
     font-size: 16px;
 }
 .menu_left_title{
+    margin: 70px 0 20px 0 ;
+}
+.menu_left_title a b{
     font-size: 18px;
     font-weight: bold;
-    margin: 70px 0 20px 0 ;
 }
 .menu_left_list{
     line-height: 40px;

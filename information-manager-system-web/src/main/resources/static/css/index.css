@@ -69,10 +69,10 @@ html,body{height: 100%}
 }
 .login_box div{
     display: block;
-    height: 40px;
     margin: 20px 0 0 0;
     border:1px solid #ccc;
     overflow: hidden;
+    padding-top: 1px;
 }
 .login_box img{
     display: inline-block;
