@@ -198,7 +198,7 @@ public class BookController {
         }
     }
 
-    @ApiOperation(value="更新书籍章节", notes="更新书籍章节")
+    @ApiOperation(value="交换章节排序", notes="交换章节排序")
     @ResponseBody
     @PostMapping("/SwapBookChapterOrder")
     public FreshServiceResult swapBookChapterOrder(@RequestBody SwapBookChapterOrderRequest request, HttpServletRequest httpServletRequest){
@@ -221,7 +221,7 @@ public class BookController {
             FreshServiceResult serviceResult = bookChapterService.swapBookChapterOrder(request);
             return serviceResult;
         } catch (Exception e){
-            String message = "更新书籍章节失败";
+            String message = "交换章节排序失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
@@ -310,6 +310,35 @@ public class BookController {
             return serviceResult;
         } catch (Exception e){
             String message = "更新书籍小节失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="交换小节排序", notes="交换小节排序")
+    @ResponseBody
+    @PostMapping("/SwapBookSectionOrder")
+    public FreshServiceResult swapBookSectionOrder(@RequestBody SwapBookSectionOrderRequest request, HttpServletRequest httpServletRequest){
+        try{
+            BookSectionDTO bookSectionADTO = bookSectionService.queryBookSectionDTOBySectionId(request.getBookSectionAId());
+            if(bookSectionADTO==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
+            }
+            BookSectionDTO bookSectionBDTO = bookSectionService.queryBookSectionDTOBySectionId(request.getBookSectionBId());
+            if(bookSectionBDTO==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
+            }
+            if(!bookSectionADTO.getBookId().equals(bookSectionBDTO.getBookId())){
+                return FreshServiceResult.createFailFreshServiceResult("不是同一本书籍");
+            }
+            boolean isHasOperateRight = bookService.isHasOperateRight(httpServletRequest,bookSectionADTO.getBookId());
+            if(!isHasOperateRight){
+                return FreshServiceResult.createFailFreshServiceResult("你没有权限操作该书籍");
+            }
+            FreshServiceResult serviceResult = bookSectionService.swapBookSectionOrder(request);
+            return serviceResult;
+        } catch (Exception e){
+            String message = "交换小节排序失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
         }

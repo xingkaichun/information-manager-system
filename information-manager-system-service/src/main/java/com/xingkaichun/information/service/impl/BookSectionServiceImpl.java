@@ -8,6 +8,9 @@ import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.BookSectionDao;
 import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
 import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
+import com.xingkaichun.information.dto.bookChapter.request.SwapBookChapterOrderRequest;
+import com.xingkaichun.information.dto.bookChapter.request.SwapBookSectionOrderRequest;
+import com.xingkaichun.information.dto.bookChapter.request.UpdateBookChapterRequest;
 import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
 import com.xingkaichun.information.dto.bookSection.request.AddBookSectionRequest;
 import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSectionByBookSectionIdRequest;
@@ -23,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -218,6 +222,24 @@ public class BookSectionServiceImpl implements BookSectionService {
     public BookSectionDTO queryBookSectionDTOBySectionId(String bookSectionId) {
         BookSectionDomian bookSectionDomian = bookSectionDao.queryBookSectionByBookSectionId(bookSectionId);
         return classCast(bookSectionDomian);
+    }
+
+    @Transactional
+    @Override
+    public FreshServiceResult swapBookSectionOrder(SwapBookSectionOrderRequest request) {
+        BookSectionDomian BookSectionADomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionAId());
+        BookSectionDomian BookSectionBDomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionBId());
+
+        UpdateBookSectionRequest updateA = new UpdateBookSectionRequest();
+        updateA.setBookSectionId(BookSectionADomian.getBookSectionId());
+        updateA.setBookSectionOrder(BookSectionBDomian.getBookSectionOrder());
+        bookSectionDao.updateBookSection(updateA);
+
+        UpdateBookSectionRequest updateB = new UpdateBookSectionRequest();
+        updateB.setBookSectionId(BookSectionBDomian.getBookSectionId());
+        updateB.setBookSectionOrder(BookSectionADomian.getBookSectionOrder());
+        bookSectionDao.updateBookSection(updateB);
+        return FreshServiceResult.createSuccessFreshServiceResult("交换小节排序成功");
     }
 
     private List<BookSectionDTO> classCast(List<BookSectionDomian> domainList) {

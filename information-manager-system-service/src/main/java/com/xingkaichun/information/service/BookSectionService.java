@@ -2,6 +2,7 @@ package com.xingkaichun.information.service;
 
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceResult;
+import com.xingkaichun.information.dto.bookChapter.request.SwapBookSectionOrderRequest;
 import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
 import com.xingkaichun.information.dto.bookSection.request.AddBookSectionRequest;
 import com.xingkaichun.information.dto.bookSection.request.PhysicsDeleteBookSectionByBookSectionIdRequest;
@@ -20,4 +21,6 @@ public interface BookSectionService {
     ServiceResult<List<BookSectionDTO>> queryBookSectionListBybookChapterId(QueryBookSectionListBybookChapterIdRequest request);
 
     BookSectionDTO queryBookSectionDTOBySectionId(String bookSectionId);
+
+    FreshServiceResult swapBookSectionOrder(SwapBookSectionOrderRequest request);
 }
