@@ -1,16 +1,13 @@
 package com.xingkaichun.information.service.impl;
 
+import com.xingkaichun.common.dto.base.FreshServiceResult;
+import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dao.BookChapterDao;
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dao.BookSectionDao;
-import com.xingkaichun.common.dto.base.FreshServiceResult;
-import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
-import com.xingkaichun.information.dto.bookChapter.request.AddBookChapterRequest;
-import com.xingkaichun.information.dto.bookChapter.request.PhysicsDeleteBookChapterByBookChapterIdRequest;
-import com.xingkaichun.information.dto.bookChapter.request.QueryBookChapterListByBookIdRequest;
-import com.xingkaichun.information.dto.bookChapter.request.UpdateBookChapterRequest;
+import com.xingkaichun.information.dto.bookChapter.request.*;
 import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.BookSectionDomian;
@@ -20,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +86,7 @@ public class BookChapterServiceImpl implements BookChapterService {
     private int nextBookChapterOrder(String bookId) {
         List<BookChapterDomain> bookChapterDomainList = bookChapterDao.queryBookChapterListByBookId(bookId);
         if(bookChapterDomainList==null||bookChapterDomainList.size()==0){
-            return 1;
+            return 100;
         }
         int max = 0 ;
         for(BookChapterDomain bookChapterDomain:bookChapterDomainList){
@@ -182,6 +180,24 @@ public class BookChapterServiceImpl implements BookChapterService {
     public BookChapterDTO queryBookChapterByBookChapterId(String bookChapterId) {
         BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(bookChapterId);
         return classCast(bookChapterDomain);
+    }
+
+    @Transactional
+    @Override
+    public FreshServiceResult swapBookChapterOrder(SwapBookChapterOrderRequest request) {
+        BookChapterDomain bookAChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterAId());
+        BookChapterDomain bookBChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterBId());
+
+        UpdateBookChapterRequest updateABookChapterRequest = new UpdateBookChapterRequest();
+        updateABookChapterRequest.setBookChapterId(bookAChapterDomain.getBookChapterId());
+        updateABookChapterRequest.setBookChapterOrder(bookBChapterDomain.getBookChapterOrder());
+        bookChapterDao.updateBookChapter(updateABookChapterRequest);
+
+        UpdateBookChapterRequest updateBBookChapterRequest = new UpdateBookChapterRequest();
+        updateBBookChapterRequest.setBookChapterId(bookBChapterDomain.getBookChapterId());
+        updateBBookChapterRequest.setBookChapterOrder(bookAChapterDomain.getBookChapterOrder());
+        bookChapterDao.updateBookChapter(updateBBookChapterRequest);
+        return FreshServiceResult.createSuccessFreshServiceResult("交换章节排序成功");
     }
 
     private List<BookChapterDTO> classCast(List<BookChapterDomain> bookChapterDomainList) {

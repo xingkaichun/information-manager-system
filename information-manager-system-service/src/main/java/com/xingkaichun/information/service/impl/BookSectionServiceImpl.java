@@ -118,7 +118,7 @@ public class BookSectionServiceImpl implements BookSectionService {
     private int nextBookSectionOrder(String bookChapterId) {
         List<BookSectionDomian> bookSectionDomianList = bookSectionDao.queryBookSectionListBybookChapterId(bookChapterId);
         if(bookSectionDomianList==null||bookSectionDomianList.size()==0){
-            return 1;
+            return 100;
         }
         int max = 0 ;
         for(BookSectionDomian bookSectionDomian:bookSectionDomianList){

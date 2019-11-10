@@ -8,10 +8,7 @@ import com.xingkaichun.information.dto.book.response.AddBookResponse;
 import com.xingkaichun.information.dto.book.response.QueryBookDetailsByBookIdResponse;
 import com.xingkaichun.information.dto.book.response.QueryBookListResponse;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
-import com.xingkaichun.information.dto.bookChapter.request.AddBookChapterRequest;
-import com.xingkaichun.information.dto.bookChapter.request.PhysicsDeleteBookChapterByBookChapterIdRequest;
-import com.xingkaichun.information.dto.bookChapter.request.QueryBookChapterListByBookIdRequest;
-import com.xingkaichun.information.dto.bookChapter.request.UpdateBookChapterRequest;
+import com.xingkaichun.information.dto.bookChapter.request.*;
 import com.xingkaichun.information.dto.bookChapter.response.AddBookChapterResponse;
 import com.xingkaichun.information.dto.bookChapter.response.QueryBookChapterListByBookIdResponse;
 import com.xingkaichun.information.dto.bookSection.BookSectionDTO;
@@ -193,6 +190,35 @@ public class BookController {
                 return FreshServiceResult.createFailFreshServiceResult("你没有权限操作该书籍");
             }
             FreshServiceResult serviceResult = bookChapterService.updateBookChapter(request);
+            return serviceResult;
+        } catch (Exception e){
+            String message = "更新书籍章节失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
+    @ApiOperation(value="更新书籍章节", notes="更新书籍章节")
+    @ResponseBody
+    @PostMapping("/SwapBookChapterOrder")
+    public FreshServiceResult swapBookChapterOrder(@RequestBody SwapBookChapterOrderRequest request, HttpServletRequest httpServletRequest){
+        try{
+            BookChapterDTO bookAChapterDTO = bookChapterService.queryBookChapterByBookChapterId(request.getBookChapterAId());
+            if(bookAChapterDTO==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
+            }
+            BookChapterDTO bookBChapterDTO = bookChapterService.queryBookChapterByBookChapterId(request.getBookChapterBId());
+            if(bookBChapterDTO==null){
+                return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
+            }
+            if(!bookAChapterDTO.getBookId().equals(bookBChapterDTO.getBookId())){
+                return FreshServiceResult.createFailFreshServiceResult("不是同一本书籍");
+            }
+            boolean isHasOperateRight = bookService.isHasOperateRight(httpServletRequest,bookAChapterDTO.getBookId());
+            if(!isHasOperateRight){
+                return FreshServiceResult.createFailFreshServiceResult("你没有权限操作该书籍");
+            }
+            FreshServiceResult serviceResult = bookChapterService.swapBookChapterOrder(request);
             return serviceResult;
         } catch (Exception e){
             String message = "更新书籍章节失败";
