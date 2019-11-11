@@ -139,6 +139,11 @@ public class BookSectionServiceImpl implements BookSectionService {
             if(CommonUtils.isNUllOrEmpty(request.getBookSectionId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节ID不能为空");
             }
+            if(request.getBookSectionName()!=null){
+                if("".equals(request.getBookSectionName())){
+                    return FreshServiceResult.createFailFreshServiceResult("书籍小节名称不能为空");
+                }
+            }
             if(!CommonUtils.isNUllOrEmpty(request.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("不允许更改书籍ID");
             }
