@@ -343,7 +343,7 @@ html,body{
     margin-top: 30px;
 }
 .forum_detail img{
-    width: 100%;
+
 }
 .forum_comment{
     border-bottom: 1px dashed #aaaaaa;
@@ -426,6 +426,10 @@ html,body{
     text-align: center;
     line-height: 30px;
     color: #666;
+}
+.no_data{
+    width: 100%;
+    text-align: center;
 }
 .input_reply{
     position: relative;
@@ -682,6 +686,13 @@ html,body{
     margin: 14px 0 0 5px;
     width: 12px;
 }
+.course_add_1.course_add_cont img{
+    float: none;
+    width: auto;
+    cursor: auto;
+    margin: 0;
+    opacity: 1;
+}
 .course_add_cont td{
     padding: 10px 0;
 }
@@ -734,7 +745,61 @@ html,body{
 #pop_box{
     display: none;
 }
-
+.confirm_popbox{
+    width: 100%;
+    height: 100%;
+    background: url("../images/bg0.png");
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+}
+.confirm_popbox>div{
+    width: 400px;
+    height: 180px;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 50px;
+    margin:  300px auto;
+    border: 1px solid #ccc;
+    box-shadow: 0px 50px 150px #999;
+}
+.confirm_popbox div{
+    font-size: 16px;
+}
+.confirm_popbox button{
+    margin: 30px 30px 0 30px;
+}
+.pop_box{
+    width: 100%;
+    height: 100%;
+    background: url("../images/bg0.png");
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+}
+.pop_box>div{
+    width: 400px;
+    height: 180px;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 50px;
+    margin:  300px auto;
+    border: 1px solid #ccc;
+    box-shadow: 0px 50px 150px #999;
+}
+.pop_box button{
+    margin-top: 30px;
+}
+.pop_box h1{
+    font-size: 18px;
+}
+a.pop{
+    margin-top: 20px;
+}
 /*滑动到顶*/
 .scrolltotop{
     width: 40px;

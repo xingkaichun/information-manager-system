@@ -120,6 +120,7 @@ p{
     background: #fff;
     padding: 0 20px;
     cursor: pointer;
+    display: inline-block;
 }
 .c_btn:hover{
     background: #bbb;

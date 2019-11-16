@@ -37,8 +37,6 @@ function getSectionContent() {
                     parameters.section_content = section_list[i].BookSectionContent;
                     parameters.section_url = section_list[i].SeoUrl;
                     parameters.bookid = section_list[i].BookId;
-                    console.log(parameters.section_url);
-                    console.log(parameters.bookid);
                 }
             }
         },
@@ -63,9 +61,9 @@ function userInputInfo() {
     return user;
 }
 
-//获取书籍URL
+//获取书籍URL，书籍名称
 function getBookUrl() {
-    var book_url = {};
+    var book = {};
     $.ajax({
         type: "post",
         url: url + "/Book/QueryBookDetailsByBookId",
@@ -76,17 +74,31 @@ function getBookUrl() {
         dataType: "json",
         async: false,
         success: function (data) {
-            book_url.a = data.Result.BookDTO.SeoUrl;
+            book.book_url = data.Result.BookDTO.SeoUrl;
+            book.book_name = data.Result.BookDTO.BookName;
+            book.chapter = data.Result.BookDTO.BookChapterDTOList;
+            for (var i=0; i<book.chapter.length; i++){
+                if (book.chapter[i].BookChapterId == getSectionIdByUrl().BookChapterId){
+                    book.chapter_name = book.chapter[i].BookChapterName;
+                }
+            }
         },
         error: function (e) {
         }
     });
-    return book_url;
+    return book;
 }
+
+//编辑器内容展示
+var E = window.wangEditor;
+var editor = new E(document.getElementById('editor'));
+editor.create();
+editor.txt.html(parameters.section_content);
 
 //修改小节
 function modifySection() {
-    userInputInfo();
+    var str =  userInputInfo().content;
+    str = str.replace(/"/g,'\\"');
     $.ajax({
             type: "post",
             url: url+"/Book/UpdateBookSection",
@@ -95,7 +107,7 @@ function modifySection() {
                     "BookSectionId": "${getSectionIdByUrl().BookSectionId}",
                     "BookSectionName": "${userInputInfo().name}",
                     "BookSectionDescription": "${userInputInfo().description}",
-                    "BookSectionContent": "${userInputInfo().content}",
+                    "BookSectionContent": "${str}",
                     "SeoUrl": "${userInputInfo().seo_url}",
                     "SeoTitle": "${userInputInfo().seo_title}",
                     "SeoKeywords": "${userInputInfo().seo_keywords}",
@@ -105,20 +117,42 @@ function modifySection() {
             dataType: "json",
             async:false,
             success: function(data){
-                alert("修改成功！");
-                location.href="/jiaocheng/"+getBookUrl().a+"/"+parameters.section_url+".html";
+                popBox("提交成功，等待管理员审核",0);
+                // location.href="/jiaocheng/"+getBookUrl().book_url+"/"+parameters.section_url+".html";
             },
             error:function(e){
             }
         });
 }
 
+//插入图片
+$("input[name='upload_img']").change(function(){
+    console.log(this.files);
+    for(var i=0,len = this.files.length;i<len;i++){
+        var dataFrom = new FormData();
+        dataFrom.append("file",  this.files[i])
+        $.ajax({
+            url:  url+"/File/FileUpload",
+            type: "post",
+            processData: false,
+            contentType: false,
+            traditional: true,
+            dataType: "json",
+            data:dataFrom,
+            async: false,
+            success: function success(data) {
+                $(".w-e-text").append(`<img style='display:block;' src='${data.Result.FileDto.FilePath}'/>`)
+            }
+        })
+    }
 
-//编辑器
-var E = window.wangEditor;
-var editor = new E(document.getElementById('editor'));
-editor.create();
-editor.txt.html(parameters.section_content);
+})
+
+//标题
+var bookName = document.getElementById("book_name");
+var chapterkName = document.getElementById("chapter_name");
+bookName.innerHTML = getBookUrl().book_name;
+chapterkName.innerHTML = getBookUrl().chapter_name;
 
 
 

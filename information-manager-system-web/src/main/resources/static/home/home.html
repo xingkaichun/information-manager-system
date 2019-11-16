@@ -42,6 +42,8 @@
     <div class="mobile_list" onclick="toggleMenu('home_left','home_right')"><img src="/images/menu_list.png" alt=""></div>
     <div class="home_right">
         <div id="home_right"></div>
+        <!--分页-->
+        <div class="paging" id="paging"></div>
     </div>
 </div>
 <!--我的帖子-->
@@ -58,10 +60,6 @@
                     </li>
                 {{/each}}
         </ul>
-        <!--分页-->
-        <div class="paging">
-            <span>上一页</span><span class="on">1</span><span>2</span><span>...</span><span>10</span><span>下一页</span>
-        </div>
     {{else}}
         <div>暂无帖子</div>
     {{/if}}

@@ -172,7 +172,7 @@ function submitAddData(para) {
             dataType: "json",
             async:false,
             success: function(data){
-                alert("修改成功！");  //(modify_step:5)
+                popBox("修改成功");  //(modify_step:5)
                 closePopBox();  //(modify_step:6)
                 getCourseList();  //(modify_step:7)
             },
@@ -195,7 +195,7 @@ function submitAddData(para) {
             dataType: "json",
             async:false,
             success: function(data){
-                alert("新增成功！");  //(add_step:4)
+                popBox("新增教程成功");  //(add_step:4)
                 closePopBox();  //(add_step:5)
                 getCourseList();  //(add_step:6)
             },
@@ -220,25 +220,49 @@ function modifyCourse() {
     createPopBox(0);
 }
 
-
+//弹出框
+function deletePopBox() {
+    var pop_box_container = document.getElementById("pop_box_container");
+    var oDiv = document.createElement("div");
+    click_course_id.id = getCourseIdByUrl().BookId;
+    oDiv.className = "confirm_popbox";
+    oDiv.innerHTML = "<div>"+
+        "<div>确认删除？</div>"+
+        "<button class='c_btn' onclick=\"destoryPopBox()\">取消</button>"+
+        "<button class='c_btn c_btn_imp' onclick=\"deleteCourse()\">确认</button>"+
+        "</div>";
+    pop_box_container.appendChild(oDiv);
+    $("#pop_box_container").fadeIn();
+}
+//销毁弹出框
+function destoryPopBox() {
+    var pop_box_container = document.getElementById("pop_box_container");
+    pop_box_container.removeChild(pop_box_container.lastChild);
+    $("#pop_box_container").fadeOut();
+}
 
 //删除教程
-// function deleteCourse() {
-//     $.ajax({
-//         type: "post",
-//         url: url + "/Book/PhysicsDeleteBookByBookId",
-//         contentType: "application/json",
-//         data: `{
-//                 "BookId":""
-//         }`,
-//         dataType: "json",
-//         async: false,
-//         success: function (data) {
-//             alert("删除教程成功！");
-//         },
-//         error: function (e) {
-//         }
-//     });
-// }
+function deleteCourse() {
+    $.ajax({
+        type: "post",
+        url: url + "/Book/PhysicsDeleteBookByBookId",
+        contentType: "application/json",
+        data: `{
+                "BookId":"${click_course_id.id}"
+        }`,
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.ServiceCode = "FAIL"){
+                popBox(data.Message);
+            }
+            // destoryPopBox();
+            getCourseList();
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
 
 

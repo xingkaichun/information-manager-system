@@ -34,9 +34,7 @@
     <div class="t"><h1>精彩帖子</h1><a href="publish_post.html" class="btn_important">发帖</a></div>
     <div id="article_list"></div>
     <!--分页-->
-    <div class="paging">
-        <span>上一页</span><span class="on">1</span><span>2</span><span>...</span><span>10</span><span>下一页</span>
-    </div>
+    <div class="paging" id="paging"></div>
 </div>
 <script type="text/template" id="article_list_template">
     {{if BbsArticleDTOPageInformation&&BbsArticleDTOPageInformation.length}}
@@ -44,7 +42,7 @@
             {{each BbsArticleDTOPageInformation as item}}
                 <li>
                     <a href="./forum_detail.html?BbsArticleId={{item.BbsArticleId}}">
-                        <div class="p_titel"><img src="/images/dialog.png" alt="帖子">{{item.Title}}<span>80条评论</span></div>
+                        <div class="p_titel"><img src="/images/dialog.png" alt="帖子">{{item.Title}}<span>{{item.NumberOfComment}}条评论</span></div>
                         <div class="p_time">{{item.CreateTime}}</div>
                         <div class="p_author">by: {{item.UserName}}</div>
                     </a>
@@ -55,7 +53,7 @@
         <div class="">暂无帖子</div>
     {{/if}}
 </script>
-
+<div id="pop_box_container" style="display: none"></div>
 <div class="scrolltotop" id="scrolltotop"><img src="/images/arrows2.png" alt=""></div>
 <script src="/js/jQuery.js"></script>
 <script src="/js/template.js"></script>

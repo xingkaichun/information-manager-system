@@ -50,16 +50,20 @@
             success: function(data){
                 console.log(data)
                 if(data.Result!=null){
-                    article_data.BbsArticleDTO = data.Result.BbsArticleDTO
+                    article_data.BbsArticleDTO = data.Result.BbsArticleDTO;
+                    article_data.content = data.Result.BbsArticleDTO.Content;
                 }
             },
             error:function(e){}
         });
-        var article_html = template("article_details_template",article_data)
-        $("#article_details").html(article_html)
+        var article_html = template("article_details_template",article_data);
+        $("#article_details").html(article_html);
     }
     getArticleDetail();
 
+    console.log(article_data.content);
+    var post_content = document.getElementById("post_content");
+    post_content.innerHTML = article_data.content;
 
     //获取一级二级评论并展示
     //需要参数：帖子id、显示条件
