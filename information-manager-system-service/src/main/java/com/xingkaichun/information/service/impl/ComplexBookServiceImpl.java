@@ -70,6 +70,10 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         BookDTO bookDTO = queryBookDetailsByBookIdRequest(queryBookDetailsByBookIdRequest);
 
         List<BookChapterDTO> bookChapterDTOList = bookDTO.getBookChapterDTOList();
+
+        boolean finishCreateHomePage = false;
+        String homePageContent = "";
+        String homePageMulu = "";
         //生成小节HTML
         if(bookChapterDTOList!=null){
             for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
@@ -77,43 +81,66 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                 if(bookSectionDTOList == null){
                     continue;
                 }
-                for(BookSectionDTO bookSectionDTO:bookSectionDTOList){
+                for(BookSectionDTO currentBookSectionDTO:bookSectionDTOList){
 
                     String content = CommonUtilsFile.readFileContent(bookTemplateFilePath);
-                    content = content.replace("[###BookName###]","<a href='javascript:;' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>"+"\r\n");
-                    String mulu = "" ;
-                    List<BookChapterDTO> bookChapterDTOList2 = bookDTO.getBookChapterDTOList();
-                    //生成目录
-                    if(bookChapterDTOList2!=null){
-                        for(BookChapterDTO bookChapterDTO2:bookChapterDTOList2){
-                            mulu += "<dl class=\"menu_left_list\">"+"\r\n";
-                            mulu += "   <dt onclick=\"flexMenu(event)\">"+bookChapterDTO2.getBookChapterName()+"<img src=\"/images/arrows.png\" alt=\"\"></dt>"+"\r\n";
-
-                            List<BookSectionDTO> bookSectionDTOList2 = bookChapterDTO2.getBookSectionDTOList();
-                            if(bookSectionDTOList2 != null){
-                                for(BookSectionDTO bookSectionDTO2:bookSectionDTOList2){
-                                    boolean isCurrentSection = bookSectionDTO.getBookSectionId().equals(bookSectionDTO2.getBookSectionId());
-                                    String sectionCssClass = isCurrentSection?" class=\"on\" ":"";
-                                    String sectionUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO2.getSeoUrl()+".html";
-                                    mulu += "       <dd><a href=\""+sectionUrl+"\" "+sectionCssClass+">"+bookSectionDTO2.getBookSectionName()+"</a></dd>"+"\r\n";
-                                }
-                            }
-                            mulu += "</dl>"+"\r\n";
-                        }
+                    String bookUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+".html";
+                    content = content.replace("[###BookName###]","<a href='"+bookUrl+"' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>"+"\r\n");
+                    if(!finishCreateHomePage){
+                        homePageContent = content;
                     }
+                    //生成目录
+                    String mulu = createChapterHtml(bookDTO,currentBookSectionDTO);
                     content = content.replace("[###BookTableOfContents###]",mulu);
-
+                    if(!finishCreateHomePage){
+                        homePageMulu = createChapterHtml(bookDTO,null);
+                        homePageContent = homePageContent.replace("[###BookTableOfContents###]",homePageMulu);
+                    }
                     String bookSetionHtml = content;
-                    bookSetionHtml = bookSetionHtml.replace("[###SeoTitle###]",bookSectionDTO.getSeoTitle()+"_"+bookDTO.getBookName())
-                                                    .replace("[###SeoKeywords###]",bookSectionDTO.getSeoKeywords())
-                                                    .replace("[###SeoDescription###]",bookSectionDTO.getSeoDescription())
-                                                    .replace("[###BookSectionName###]",bookSectionDTO.getBookSectionName())
-                                                    .replace("[###BookSectionContent###]",bookSectionDTO.getBookSectionContent());
+                    bookSetionHtml = bookSetionHtml.replace("[###SeoTitle###]",currentBookSectionDTO.getSeoTitle()+"_"+bookDTO.getBookName())
+                                                    .replace("[###SeoKeywords###]",currentBookSectionDTO.getSeoKeywords())
+                                                    .replace("[###SeoDescription###]",currentBookSectionDTO.getSeoDescription())
+                                                    .replace("[###BookSectionName###]",currentBookSectionDTO.getBookSectionName())
+                                                    .replace("[###BookSectionContent###]",currentBookSectionDTO.getBookSectionContent());
                     File jiaochengDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
                     File bookDir = new File(jiaochengDir,bookDTO.getSeoUrl());
-                    CommonUtilsFile.writeFileContent(bookDir.getAbsolutePath(),bookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
+                    CommonUtilsFile.writeFileContent(bookDir.getAbsolutePath(),currentBookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
+                    if(!finishCreateHomePage){
+                        homePageContent = homePageContent.replace("[###SeoTitle###]",bookDTO.getSeoTitle()+"_"+bookDTO.getBookName())
+                                .replace("[###SeoKeywords###]",bookDTO.getSeoKeywords())
+                                .replace("[###SeoDescription###]",bookDTO.getSeoDescription())
+                                .replace("[###BookSectionName###]",bookDTO.getBookName())
+                                .replace("[###BookSectionContent###]",bookDTO.getBookDescription());
+                        File jiaochengHomePageDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
+                        CommonUtilsFile.writeFileContent(jiaochengHomePageDir.getAbsolutePath(),bookDTO.getSeoUrl()+".html",homePageContent);
+                        finishCreateHomePage = true;
+                    }
                 }
             }
         }
+    }
+
+    private String createChapterHtml(BookDTO bookDTO,BookSectionDTO currentBookSectionDTO) {
+        String mulu = "" ;
+        List<BookChapterDTO> bookChapterDTOList = bookDTO.getBookChapterDTOList();
+        for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
+            mulu += "<dl class=\"menu_left_list\">"+"\r\n";
+            mulu += "   <dt onclick=\"flexMenu(event)\">"+bookChapterDTO.getBookChapterName()+"<img src=\"/images/arrows.png\" alt=\"\"></dt>"+"\r\n";
+
+            List<BookSectionDTO> bookSectionDTOList2 = bookChapterDTO.getBookSectionDTOList();
+            if(bookSectionDTOList2 != null){
+                for(BookSectionDTO bookSectionDTO2:bookSectionDTOList2){
+                    boolean isCurrentSection = false;
+                    if(currentBookSectionDTO != null){
+                        isCurrentSection = currentBookSectionDTO.getBookSectionId().equals(bookSectionDTO2.getBookSectionId());
+                    }
+                    String sectionCssClass = isCurrentSection?" class=\"on\" ":"";
+                    String sectionUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO2.getSeoUrl()+".html";
+                    mulu += "       <dd><a href=\""+sectionUrl+"\" "+sectionCssClass+">"+bookSectionDTO2.getBookSectionName()+"</a></dd>"+"\r\n";
+                }
+            }
+            mulu += "</dl>"+"\r\n";
+        }
+        return mulu;
     }
 }

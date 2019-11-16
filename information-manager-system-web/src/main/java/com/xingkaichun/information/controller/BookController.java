@@ -23,6 +23,7 @@ import com.xingkaichun.information.service.BookChapterService;
 import com.xingkaichun.information.service.BookSectionService;
 import com.xingkaichun.information.service.BookService;
 import com.xingkaichun.information.service.ComplexBookService;
+import com.xingkaichun.utils.CommonUtils;
 import com.xingkaichun.utils.CommonUtilsSession;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -181,6 +182,13 @@ public class BookController {
     @PostMapping("/UpdateBookChapter")
     public FreshServiceResult updateBookChapter(@RequestBody UpdateBookChapterRequest request, HttpServletRequest httpServletRequest){
         try{
+            if(request.getBookChapterName() != null){
+                request.setBookChapterName(request.getBookChapterName().trim());
+            }
+            if(CommonUtils.isNUllOrEmpty(request.getBookChapterName())){
+                return FreshServiceResult.createFailFreshServiceResult("书籍章节名称不能为空");
+            }
+
             BookChapterDTO bookChapterDTO = bookChapterService.queryBookChapterByBookChapterId(request.getBookChapterId());
             if(bookChapterDTO==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");

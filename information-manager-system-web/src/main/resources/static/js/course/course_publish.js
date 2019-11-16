@@ -166,9 +166,8 @@ function submitAddData(para) {
                 "SeoUrl":"${userInputInfo().seo_url}",
                 "SeoTitle":"${userInputInfo().seo_title}",
                 "SeoKeywords":"${userInputInfo().seo_keywords}",
-                "SeoDescription":"${userInputInfo().seo_description}",
-                "IsSoftDelete":false
-        }`,
+                "SeoDescription":"${userInputInfo().seo_description}"
+            }`,
             dataType: "json",
             async:false,
             success: function(data){
@@ -191,13 +190,15 @@ function submitAddData(para) {
                 "SeoTitle":"${userInputInfo().seo_title}",
                 "SeoKeywords":"${userInputInfo().seo_keywords}",
                 "SeoDescription":"${userInputInfo().seo_description}"
-        }`,
+            }`,
             dataType: "json",
             async:false,
             success: function(data){
-                popBox("新增教程成功");  //(add_step:4)
-                closePopBox();  //(add_step:5)
-                getCourseList();  //(add_step:6)
+                popBox(data.Message);  //(add_step:4)
+                if(data.ServiceCode=="SUCCESS"){
+                    closePopBox();  //(add_step:5)
+                    getCourseList();  //(add_step:6)
+                }
             },
             error:function(e){
             }
@@ -253,11 +254,11 @@ function deleteCourse() {
         dataType: "json",
         async: false,
         success: function (data) {
-            if (data.ServiceCode = "FAIL"){
-                popBox(data.Message);
+            popBox(data.Message);
+            if(data.ServiceCode=="SUCCESS"){
+                // destoryPopBox();
+                getCourseList();
             }
-            // destoryPopBox();
-            getCourseList();
         },
         error: function (e) {
             console.log(e);

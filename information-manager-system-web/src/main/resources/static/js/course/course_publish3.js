@@ -111,8 +111,7 @@ function modifySection() {
                     "SeoUrl": "${userInputInfo().seo_url}",
                     "SeoTitle": "${userInputInfo().seo_title}",
                     "SeoKeywords": "${userInputInfo().seo_keywords}",
-                    "SeoDescription": "${userInputInfo().seo_description}",
-                    "IsSoftDelete": false
+                    "SeoDescription": "${userInputInfo().seo_description}"
             }`,
             dataType: "json",
             async:false,

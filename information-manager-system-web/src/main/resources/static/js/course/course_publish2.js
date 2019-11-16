@@ -119,15 +119,16 @@ function submitAddData(para) {
                     "SeoUrl": "${userInputInfo().seo_url}",
                     "SeoTitle": "${userInputInfo().seo_title}",
                     "SeoKeywords": "${userInputInfo().seo_keywords}",
-                    "SeoDescription": "${userInputInfo().seo_description}",
-                    "IsSoftDelete": false
+                    "SeoDescription": "${userInputInfo().seo_description}"
         }`,
             dataType: "json",
             async:false,
             success: function(data){
-                popBox("修改章成功");
-                closePopBox();
-                getChapterList();
+                popBox(data.Message);  //(add_step:4)
+                if(data.ServiceCode=="SUCCESS"){
+                    closePopBox();
+                    getChapterList();
+                }
             },
             error:function(e){
             }
@@ -149,9 +150,11 @@ function submitAddData(para) {
             dataType: "json",
             async:false,
             success: function(data){
-                popBox("新增章成功");
-                closePopBox();
-                getChapterList();
+                popBox(data.Message);  //(add_step:4)
+                if(data.ServiceCode=="SUCCESS"){
+                    closePopBox();
+                    getChapterList();
+                }
             },
             error:function(e){
             }
@@ -174,9 +177,11 @@ function submitAddData(para) {
             dataType: "json",
             async:false,
             success: function(data){
-                popBox("新增小节成功");
-                closePopBox();
-                getChapterList();
+                popBox(data.Message);  //(add_step:4)
+                if(data.ServiceCode=="SUCCESS"){
+                    closePopBox();
+                    getChapterList();
+                }
             },
             error:function(e){
             }
@@ -278,7 +283,7 @@ function deleteData(e) {
         url: url+"/Book/"+ele.url,
         contentType:"application/json",
         data:`{
-                    "${ele.id}":"${all.click_item_id}"
+            "${ele.id}":"${all.click_item_id}"
         }`,
         dataType: "json",
         async:false,

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>[###SeoTitle###]</title>
+    <title>教程管理-皮皮教程网</title>
     <meta name="keywords" content="[###SeoKeywords###]" />
     <meta name="description" content="[###SeoDescription###]" />
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
 </div>
 <!--内容区-->
 <div class="forum">
-    <div class="t course_t"><h1>教程管理</h1><div><input type="text" class="c_txt" placeholder="请输入教程名称"><input type="button" class="c_btn" value="搜索"></div></div>
+    <div class="t course_t"><h1>我的教程列表</h1><div><input type="text" class="c_txt" placeholder="请输入教程名称"><input type="button" class="c_btn" value="搜索"></div></div>
     <div id="course_list"></div>
     <script type="text/template" id="course_list_template">
 
@@ -38,8 +38,16 @@
             {{if BookDTOList&&BookDTOList.length}}
                 {{each BookDTOList as item}}
                 <li>
-                    <a href="./course_publish2.html?BookId={{item.BookId}}"><h1>{{item.BookName}}</h1></a>
-                    <div><span class="modify" onclick="modifyCourse()"></span><span class="delete" onclick="deletePopBox()"></span></div>
+                    <a target="_blank" href="/course/course_publish2.html?BookId={{item.BookId}}"><h1>{{item.BookName}}</h1></a>
+                    <div>
+                        <!--修改书籍详情-->
+                        <span class="modify" onclick="modifyCourse()"></span>
+                        <!--跳转到书籍章节管理页面--><!--TODO 图标-->
+                        <span class="modify" onclick="javascript:window.open('/course/course_publish2.html?BookId={{item.BookId}}')"></span>
+                        <!--跳转到用户看到的教程页--><!--TODO 图标-->
+                        <span class="modify" onclick="javascript:window.open('/jiaocheng/{{item.SeoUrl}}.html')"></span>
+                        <span class="delete" onclick="deletePopBox()"></span>
+                    </div>
                 </li>
                 {{/each}}
             {{/if}}
