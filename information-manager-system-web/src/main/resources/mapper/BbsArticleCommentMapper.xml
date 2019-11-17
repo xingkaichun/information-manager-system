@@ -65,7 +65,7 @@
     join user fromUser
     on bac.forBbsArticleCommentId = #{forBbsArticleCommentId, jdbcType=VARCHAR} and bac.bbsArticleCommentId != bac.forBbsArticleCommentId and (bac.parentBbsArticleCommentId is not null and bac.parentBbsArticleCommentId != '') and bac.userId=fromUser.userId
     join user toUser
-    on bac.userId=toUser.userId
+    on bac.toUserId=toUser.userId
     ORDER BY bac.createTime DESC
   </select>
 
