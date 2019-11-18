@@ -23,4 +23,8 @@ public interface BookSectionService {
     BookSectionDTO queryBookSectionDTOBySectionId(String bookSectionId);
 
     FreshServiceResult swapBookSectionOrder(SwapBookSectionOrderRequest request);
+
+    BookSectionDTO previousBookSectionDTO(BookSectionDTO currentBookSectionDTO);
+
+    BookSectionDTO nextBookSectionDTO(BookSectionDTO currentBookSectionDTO);
 }

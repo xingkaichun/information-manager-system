@@ -14,4 +14,5 @@ public interface BookSectionDao {
     List<BookSectionDomian> queryBookSectionListBybookChapterId(@Param("bookChapterId")String bookChapterId);
     BookSectionDomian queryBookSectionByBookSectionId(@Param("bookSectionId")String bookSectionId);
     List<BookSectionDomian> queryBookSection(BookSectionDomian bookSectionDomian);
+    List<BookSectionDomian> orderBookSection(@Param("bookId")String bookId);
 }

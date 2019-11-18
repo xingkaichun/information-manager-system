@@ -112,4 +112,16 @@
       </if>
     </trim>
   </select>
+
+  <select id="orderBookSection" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookSectionDomian">
+    SELECT
+    bs.bookId,bs.bookChapterId,bs.bookSectionId,bs.bookSectionName,bs.bookSectionOrder,
+    bs.createTime,bs.lastEditTime,bs.isSoftDelete,
+    bs.seoUrl,bs.seoTitle,bs.seoKeywords,bs.seoDescription
+    FROM
+    <include refid="BASE_TABLE"/> bs
+    inner join bookchapter bc
+    on bs.bookId = #{bookId, jdbcType=VARCHAR} and bs.bookChapterId = bc.bookChapterId
+    order by bc.bookChapterOrder asc,bs.bookSectionOrder asc
+  </select>
 </mapper>

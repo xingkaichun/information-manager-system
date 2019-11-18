@@ -27,11 +27,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.nio.cs.ext.MacHebrew;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service(value = "bookSectionServiceImpl")
 public class BookSectionServiceImpl implements BookSectionService {
@@ -232,19 +231,51 @@ public class BookSectionServiceImpl implements BookSectionService {
     @Transactional
     @Override
     public FreshServiceResult swapBookSectionOrder(SwapBookSectionOrderRequest request) {
-        BookSectionDomian BookSectionADomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionAId());
-        BookSectionDomian BookSectionBDomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionBId());
+        BookSectionDomian bookSectionADomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionAId());
+        BookSectionDomian bookSectionBDomian = bookSectionDao.queryBookSectionByBookSectionId(request.getBookSectionBId());
 
         UpdateBookSectionRequest updateA = new UpdateBookSectionRequest();
-        updateA.setBookSectionId(BookSectionADomian.getBookSectionId());
-        updateA.setBookSectionOrder(BookSectionBDomian.getBookSectionOrder());
+        updateA.setBookSectionId(bookSectionADomian.getBookSectionId());
+        updateA.setBookSectionOrder(bookSectionBDomian.getBookSectionOrder());
         bookSectionDao.updateBookSection(updateA);
 
         UpdateBookSectionRequest updateB = new UpdateBookSectionRequest();
-        updateB.setBookSectionId(BookSectionBDomian.getBookSectionId());
-        updateB.setBookSectionOrder(BookSectionADomian.getBookSectionOrder());
+        updateB.setBookSectionId(bookSectionBDomian.getBookSectionId());
+        updateB.setBookSectionOrder(bookSectionADomian.getBookSectionOrder());
         bookSectionDao.updateBookSection(updateB);
         return FreshServiceResult.createSuccessFreshServiceResult("交换小节排序成功");
+    }
+
+    @Override
+    public BookSectionDTO previousBookSectionDTO(BookSectionDTO currentBookSectionDTO) {
+        List<BookSectionDomian> bookSectionDomianList = bookSectionDao.orderBookSection(currentBookSectionDTO.getBookId());
+        BookSectionDomian previousBookSectionDomian = null;
+        for(int i=0;i<bookSectionDomianList.size();i++){
+            BookSectionDomian domian =  bookSectionDomianList.get(i);
+            if(domian.getBookSectionId().equals(currentBookSectionDTO.getBookSectionId())){
+                break;
+            }
+            previousBookSectionDomian = domian;
+        }
+        return classCast(previousBookSectionDomian);
+    }
+
+    @Override
+    public BookSectionDTO nextBookSectionDTO(BookSectionDTO currentBookSectionDTO) {
+        List<BookSectionDomian> bookSectionDomianList = bookSectionDao.orderBookSection(currentBookSectionDTO.getBookId());
+        BookSectionDomian nextBookSectionDomian = null;
+        boolean isBegin = false;
+        for(BookSectionDomian domian:bookSectionDomianList){
+            if(domian.getBookSectionId().equals(currentBookSectionDTO.getBookSectionId())){
+                isBegin = true;
+                continue;
+            }
+            if(isBegin){
+                nextBookSectionDomian = domian;
+                break;
+            }
+        }
+        return classCast(nextBookSectionDomian);
     }
 
     private List<BookSectionDTO> classCast(List<BookSectionDomian> domainList) {
@@ -259,6 +290,7 @@ public class BookSectionServiceImpl implements BookSectionService {
     }
 
     private BookSectionDTO classCast(BookSectionDomian domain) {
+        if(domain == null){return null;}
         BookSectionDTO dto = new BookSectionDTO();
         dto.setBookId(domain.getBookId());
         dto.setBookChapterId(domain.getBookChapterId());

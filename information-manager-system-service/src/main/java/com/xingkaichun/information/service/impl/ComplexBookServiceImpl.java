@@ -97,11 +97,37 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                         homePageContent = homePageContent.replace("[###BookTableOfContents###]",homePageMulu);
                     }
                     String bookSetionHtml = content;
+
+                    BookSectionDTO previousBookSectionDTO = previousBookSectionDTO(currentBookSectionDTO);
+                    String previousPage = previousBookSectionDTO==null?
+                            "已经是第一章节了":
+                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+previousBookSectionDTO.getBookSectionName()+"</a>";
+
+                    String previousPageHomePage = "";
+                    if(!finishCreateHomePage){
+                        previousPageHomePage = "已经是第一章节了";
+                        previousPage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+".html"+"\">"+bookDTO.getBookName()+"简介"+"</a>";
+                    }
+
+                    BookSectionDTO nextBookSectionDTO = nextBookSectionDTO(currentBookSectionDTO);
+                    String nextPage = nextBookSectionDTO==null?
+                            "已经是最后章节了":
+                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+nextBookSectionDTO.getBookSectionName()+"</a>";
+
+                    String nextPageHomePage = "";
+                    if(!finishCreateHomePage){
+                        nextPageHomePage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+currentBookSectionDTO.getBookSectionName()+"</a>";
+                    }
+
+
                     bookSetionHtml = bookSetionHtml.replace("[###SeoTitle###]",currentBookSectionDTO.getSeoTitle()+"_"+bookDTO.getBookName())
                                                     .replace("[###SeoKeywords###]",currentBookSectionDTO.getSeoKeywords())
                                                     .replace("[###SeoDescription###]",currentBookSectionDTO.getSeoDescription())
                                                     .replace("[###BookSectionName###]",currentBookSectionDTO.getBookSectionName())
-                                                    .replace("[###BookSectionContent###]",currentBookSectionDTO.getBookSectionContent());
+                                                    .replace("[###BookSectionContent###]",currentBookSectionDTO.getBookSectionContent())
+                                                    .replace("[###上一页###]",previousPage)
+                                                    .replace("[###下一页###]",nextPage)
+                                                    ;
                     File jiaochengDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
                     File bookDir = new File(jiaochengDir,bookDTO.getSeoUrl());
                     CommonUtilsFile.writeFileContent(bookDir.getAbsolutePath(),currentBookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
@@ -110,7 +136,10 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                 .replace("[###SeoKeywords###]",bookDTO.getSeoKeywords())
                                 .replace("[###SeoDescription###]",bookDTO.getSeoDescription())
                                 .replace("[###BookSectionName###]",bookDTO.getBookName())
-                                .replace("[###BookSectionContent###]",bookDTO.getBookDescription());
+                                .replace("[###BookSectionContent###]",bookDTO.getBookDescription())
+                                .replace("[###上一页###]",previousPageHomePage)
+                                .replace("[###下一页###]",nextPageHomePage)
+                                ;
                         File jiaochengHomePageDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
                         CommonUtilsFile.writeFileContent(jiaochengHomePageDir.getAbsolutePath(),bookDTO.getSeoUrl()+".html",homePageContent);
                         finishCreateHomePage = true;
@@ -118,6 +147,14 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                 }
             }
         }
+    }
+
+    private BookSectionDTO previousBookSectionDTO(BookSectionDTO currentBookSectionDTO) {
+        return bookSectionService.previousBookSectionDTO(currentBookSectionDTO);
+    }
+
+    private BookSectionDTO nextBookSectionDTO(BookSectionDTO currentBookSectionDTO) {
+        return bookSectionService.nextBookSectionDTO(currentBookSectionDTO);
     }
 
     private String createChapterHtml(BookDTO bookDTO,BookSectionDTO currentBookSectionDTO) {
