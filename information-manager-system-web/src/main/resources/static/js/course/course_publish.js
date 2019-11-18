@@ -64,7 +64,8 @@ function createPopBox(e) {
         SeoDescription: ""
     };
     if (e == 0){
-        user = getCurrentCourse();  //(modify_step:1)
+        user = getCurrentCourse();
+        click_course_id.bookdesc = user.BookDescription;
         course_title = "修改教程";
     }else {
         course_title = "新增教程";
@@ -81,7 +82,7 @@ function createPopBox(e) {
                 "</tr>" +
                 "<tr>" +
                     "<td>教程描述</td>" +
-                    "<td><input type=\"text\" value=\""+user.BookDescription+"\" name=\"description\" class=\"txt\"></td>" +
+                    "<td><div id=\"editor\" ></div></td>" +
                 "</tr>" +
                 "<tr>" +
                     "<td>SEO网址</td>" +
@@ -106,13 +107,20 @@ function createPopBox(e) {
             "</table>" +
         "</div>";
     course_container.appendChild(oDiv);  //(add_step:1)(modify_step:2)
+
+    //编辑器内容展示
+    var E = window.wangEditor;
+    click_course_id.editor = new E(document.getElementById('editor'));
+    click_course_id.editor.create();
+    click_course_id.editor.txt.html(click_course_id.bookdesc);
+
 }
 
 //获取用户输入信息
 function userInputInfo() {  //(add_step:2)(modify_step:3)
     var user = {};
     user.name = $("#add_course input[name=name]").val();
-    user.description = $("#add_course input[name=description]").val();
+    user.description = click_course_id.editor.txt.html();
     user.seo_url = $("#add_course input[name=seo_url]").val();
     user.seo_title = $("#add_course input[name=seo_title]").val();
     user.seo_keywords = $("#add_course input[name=seo_keywords]").val();
@@ -265,5 +273,4 @@ function deleteCourse() {
         }
     });
 }
-
 

@@ -41,9 +41,10 @@ function flexMenu(event) {
 function scrollTotop() {
     var backTop = document.getElementById("scrolltotop");
     var flag = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+    var clientwidth = document.body.clientWidth ;
     window.onscroll = function () {
         var scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
-        if (scrollTop > 1 && flag == false) {  //按钮出现的条件
+        if (scrollTop > 1 && flag == false && clientwidth>1000) {  //按钮出现的条件
             backTop.style.display = "block";
         } else {
             backTop.style.display = "none";

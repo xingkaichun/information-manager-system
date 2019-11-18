@@ -43,9 +43,9 @@
                         <!--修改书籍详情-->
                         <span class="modify" onclick="modifyCourse()"></span>
                         <!--跳转到书籍章节管理页面--><!--TODO 图标-->
-                        <span class="modify" onclick="javascript:window.open('/course/course_publish2.html?BookId={{item.BookId}}')"></span>
+                        <span class="detail" onclick="javascript:window.open('/course/course_publish2.html?BookId={{item.BookId}}')"></span>
                         <!--跳转到用户看到的教程页--><!--TODO 图标-->
-                        <span class="modify" onclick="javascript:window.open('/jiaocheng/{{item.SeoUrl}}.html')"></span>
+                        <span class="view" onclick="javascript:window.open('/jiaocheng/{{item.SeoUrl}}.html')"></span>
                         <span class="delete" onclick="deletePopBox()"></span>
                     </div>
                 </li>
@@ -63,8 +63,10 @@
 <div class="scrolltotop" id="scrolltotop"><img src="/images/arrows2.png" alt=""></div>
 <script src="/js/jQuery.js"></script>
 <script src="/js/template.js"></script>
+<script type="text/javascript" src='/framework/editor/release/wangEditor.min.js'></script>
 <script src="/js/js.js"></script>
 <script src="/js/course/course_publish.js"></script>
 <script id="common_auto_login_js" src="/js/common_auto_login.js" data="home_page"></script>
+
 </body>
 </html>
