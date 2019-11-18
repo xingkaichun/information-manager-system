@@ -101,22 +101,22 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                     BookSectionDTO previousBookSectionDTO = previousBookSectionDTO(currentBookSectionDTO);
                     String previousPage = previousBookSectionDTO==null?
                             "已经是第一章节了":
-                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+previousBookSectionDTO.getBookSectionName()+"</a>";
+                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+"上一章:"+previousBookSectionDTO.getBookSectionName()+"</a>";
 
                     String previousPageHomePage = "";
                     if(!finishCreateHomePage){
                         previousPageHomePage = "已经是第一章节了";
-                        previousPage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+".html"+"\">"+bookDTO.getBookName()+"简介"+"</a>";
+                        previousPage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+".html"+"\">"+"上一章:"+bookDTO.getBookName()+"简介"+"</a>";
                     }
 
                     BookSectionDTO nextBookSectionDTO = nextBookSectionDTO(currentBookSectionDTO);
                     String nextPage = nextBookSectionDTO==null?
                             "已经是最后章节了":
-                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+nextBookSectionDTO.getBookSectionName()+"</a>";
+                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章:"+nextBookSectionDTO.getBookSectionName()+"</a>";
 
                     String nextPageHomePage = "";
                     if(!finishCreateHomePage){
-                        nextPageHomePage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+currentBookSectionDTO.getBookSectionName()+"</a>";
+                        nextPageHomePage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章:"+currentBookSectionDTO.getBookSectionName()+"</a>";
                     }
 
 
