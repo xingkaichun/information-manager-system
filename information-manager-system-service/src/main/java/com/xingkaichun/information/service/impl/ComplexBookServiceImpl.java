@@ -123,7 +123,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                     bookSetionHtml = bookSetionHtml.replace("[###SeoTitle###]",currentBookSectionDTO.getSeoTitle()+"_"+bookDTO.getBookName())
                                                     .replace("[###SeoKeywords###]",currentBookSectionDTO.getSeoKeywords())
                                                     .replace("[###SeoDescription###]",currentBookSectionDTO.getSeoDescription())
-                                                    .replace("[###BookSectionName###]",currentBookSectionDTO.getBookSectionName())
+                                                    .replace("[###BookSectionName###]",currentBookSectionDTO.getBookSectionName()+"_"+bookDTO.getBookName())
                                                     .replace("[###BookSectionContent###]",currentBookSectionDTO.getBookSectionContent())
                                                     .replace("[###上一页###]",previousPage)
                                                     .replace("[###下一页###]",nextPage)
