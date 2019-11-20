@@ -72,8 +72,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         List<BookChapterDTO> bookChapterDTOList = bookDTO.getBookChapterDTOList();
 
         boolean finishCreateHomePage = false;
-        String homePageContent = "";
-        String homePageMulu = "";
+        String homePageHtml = "";
         //生成小节HTML
         if(bookChapterDTOList!=null){
             for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
@@ -83,37 +82,38 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                 }
                 for(BookSectionDTO currentBookSectionDTO:bookSectionDTOList){
 
-                    String content = CommonUtilsFile.readFileContent(bookTemplateFilePath);
+                    String bookSetionHtml = CommonUtilsFile.readFileContent(bookTemplateFilePath);
                     String bookUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+".html";
-                    content = content.replace("[###BookName###]","<a href='"+bookUrl+"' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>"+"\r\n");
-                    if(!finishCreateHomePage){
-                        homePageContent = content;
-                    }
-                    //生成目录
-                    String mulu = createChapterHtml(bookDTO,currentBookSectionDTO);
-                    content = content.replace("[###BookTableOfContents###]",mulu);
-                    if(!finishCreateHomePage){
-                        homePageMulu = createChapterHtml(bookDTO,null);
-                        homePageContent = homePageContent.replace("[###BookTableOfContents###]",homePageMulu);
-                    }
-                    String bookSetionHtml = content;
+                    //左侧目录 书籍名称
+                    String bookName = "<a href='"+bookUrl+"' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>"+"\r\n";
 
+                    if(!finishCreateHomePage){
+                        homePageHtml = bookSetionHtml;
+                    }
+
+                    //左侧目录
+                    String bookTableOfContents = createChapterHtml(bookDTO,currentBookSectionDTO);
+                    String bookTableOfContentsHomePage = "";
+                    if(!finishCreateHomePage){
+                        bookTableOfContentsHomePage = createChapterHtml(bookDTO,null);
+                    }
+
+                    //上一章节链接
                     BookSectionDTO previousBookSectionDTO = previousBookSectionDTO(currentBookSectionDTO);
                     String previousPage = previousBookSectionDTO==null?
                             "已经是第一章节了":
                             "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+"上一章:"+previousBookSectionDTO.getBookSectionName()+"</a>";
-
                     String previousPageHomePage = "";
                     if(!finishCreateHomePage){
                         previousPageHomePage = "已经是第一章节了";
                         previousPage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+".html"+"\">"+"上一章:"+bookDTO.getBookName()+"简介"+"</a>";
                     }
 
+                    //下一章节链接
                     BookSectionDTO nextBookSectionDTO = nextBookSectionDTO(currentBookSectionDTO);
                     String nextPage = nextBookSectionDTO==null?
                             "已经是最后章节了":
                             "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章:"+nextBookSectionDTO.getBookSectionName()+"</a>";
-
                     String nextPageHomePage = "";
                     if(!finishCreateHomePage){
                         nextPageHomePage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章:"+currentBookSectionDTO.getBookSectionName()+"</a>";
@@ -127,21 +127,25 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                                     .replace("[###BookSectionContent###]",currentBookSectionDTO.getBookSectionContent())
                                                     .replace("[###上一页###]",previousPage)
                                                     .replace("[###下一页###]",nextPage)
+                                                    .replace("[###BookTableOfContents###]",bookTableOfContents)
+                                                    .replace("[###BookName###]",bookName)
                                                     ;
                     File jiaochengDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
                     File bookDir = new File(jiaochengDir,bookDTO.getSeoUrl());
                     CommonUtilsFile.writeFileContent(bookDir.getAbsolutePath(),currentBookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
                     if(!finishCreateHomePage){
-                        homePageContent = homePageContent.replace("[###SeoTitle###]",bookDTO.getSeoTitle()+"_"+bookDTO.getBookName())
+                        homePageHtml = homePageHtml.replace("[###SeoTitle###]",bookDTO.getSeoTitle()+"_"+bookDTO.getBookName())
                                 .replace("[###SeoKeywords###]",bookDTO.getSeoKeywords())
                                 .replace("[###SeoDescription###]",bookDTO.getSeoDescription())
                                 .replace("[###BookSectionName###]",bookDTO.getBookName())
                                 .replace("[###BookSectionContent###]",bookDTO.getBookDescription())
                                 .replace("[###上一页###]",previousPageHomePage)
                                 .replace("[###下一页###]",nextPageHomePage)
+                                .replace("[###BookTableOfContents###]",bookTableOfContentsHomePage)
+                                .replace("[###BookName###]",bookName)
                                 ;
                         File jiaochengHomePageDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
-                        CommonUtilsFile.writeFileContent(jiaochengHomePageDir.getAbsolutePath(),bookDTO.getSeoUrl()+".html",homePageContent);
+                        CommonUtilsFile.writeFileContent(jiaochengHomePageDir.getAbsolutePath(),bookDTO.getSeoUrl()+".html",homePageHtml);
                         finishCreateHomePage = true;
                     }
                 }
