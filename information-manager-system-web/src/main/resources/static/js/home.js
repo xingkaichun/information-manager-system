@@ -11,6 +11,8 @@ function getPostList(cur_page=1){
         async:false,
         success: function(data){
             userID = data.Result.UserInfo.UserId;
+            var userName = document.getElementById("user_name");
+            userName.innerHTML = data.Result.UserInfo.UserName;
             var jsElement = document.getElementById("common_auto_login_js");
             var page = jsElement.getAttribute("data");
             if(data.ServiceCode=='SUCCESS'){

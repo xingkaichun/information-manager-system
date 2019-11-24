@@ -53,7 +53,6 @@ function userInputInfo() {
     var user = {};
     user.name = $("#section_info input[name=name]").val();
     user.description = $("#section_info input[name=section_description]").val();
-    user.content = editor.txt.html();
     user.seo_url = $("#section_info input[name=seo_url]").val();
     user.seo_title = $("#section_info input[name=seo_title]").val();
     user.seo_keywords = $("#section_info input[name=seo_keywords]").val();
@@ -89,15 +88,11 @@ function getBookUrl() {
     return book;
 }
 
-//编辑器内容展示
-var E = window.wangEditor;
-var editor = new E(document.getElementById('editor'));
-editor.create();
-editor.txt.html(parameters.section_content);
+
 
 //修改小节
 function modifySection() {
-    var str =  userInputInfo().content;
+    var str =  getContent();
     str = str.replace(/"/g,'\\"');
     $.ajax({
             type: "post",
@@ -140,7 +135,7 @@ $("input[name='upload_img']").change(function(){
             data:dataFrom,
             async: false,
             success: function success(data) {
-                $(".w-e-text").append(`<img style='display:block;' src='${data.Result.FileDto.FilePath}'/>`)
+                $(".edui-body-container").append(`<img style='display:block;' src='${data.Result.FileDto.FilePath}'/>`)
             }
         })
     }
@@ -155,6 +150,20 @@ chapterkName.innerHTML = getBookUrl().chapter_name;
 
 
 
+//编辑器内容展示
+
+var um = UM.getEditor('myEditor');
+// UE.getEditor('editor').setContent(parameters.section_content);
+function setContent() {
+    UM.getEditor('myEditor').setContent(parameters.section_content);
+}
+function getContent() {
+     var a = UM.getEditor('myEditor').getContent();
+     return a;
+}
+window.onload = function(){
+    setContent();
+}
 
 
 
