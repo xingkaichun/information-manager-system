@@ -101,22 +101,22 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                     //上一章节链接
                     BookSectionDTO previousBookSectionDTO = previousBookSectionDTO(currentBookSectionDTO);
                     String previousPage = previousBookSectionDTO==null?
-                            "已经是第一章节了":
-                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+"上一章:"+previousBookSectionDTO.getBookSectionName()+"</a>";
+                            "<a id=\"prev\" href=\"javascript:void(0)\">"+"已经是第一章节了"+"</a>":
+                            "<a id=\"prev\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+"上一章" /*: +previousBookSectionDTO.getBookSectionName() */ +"</a>";
                     String previousPageHomePage = "";
                     if(!finishCreateHomePage){
-                        previousPageHomePage = "已经是第一章节了";
-                        previousPage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+".html"+"\">"+"上一章:"+bookDTO.getBookName()+"简介"+"</a>";
+                        previousPageHomePage = "<a id=\"prev\" href=\"javascript:void(0)\">"+"已经是第一章节了"+"</a>";
+                        previousPage = "<a id=\"prev\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+".html"+"\">"+"上一章"/*: +bookDTO.getBookName()+"简介"*/+"</a>";
                     }
 
                     //下一章节链接
                     BookSectionDTO nextBookSectionDTO = nextBookSectionDTO(currentBookSectionDTO);
                     String nextPage = nextBookSectionDTO==null?
-                            "已经是最后章节了":
-                            "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章:"+nextBookSectionDTO.getBookSectionName()+"</a>";
+                            "<a id=\"next\" href=\"javascript:void(0)\">"+"已经是最后章节了"+"</a>":
+                            "<a id=\"next\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章" /* : +nextBookSectionDTO.getBookSectionName() */ +"</a>";
                     String nextPageHomePage = "";
                     if(!finishCreateHomePage){
-                        nextPageHomePage = "<a href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章:"+currentBookSectionDTO.getBookSectionName()+"</a>";
+                        nextPageHomePage = "<a id=\"next\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章" /* : +currentBookSectionDTO.getBookSectionName()*/ +"</a>";
                     }
 
 

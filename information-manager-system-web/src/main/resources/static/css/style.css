@@ -130,6 +130,7 @@ html,body{
     padding-left: 10px;
     box-sizing: border-box;
     font-size: 18px;
+    text-align: center;
 }
 .next_page{
     margin-top: 50px;
@@ -139,7 +140,7 @@ html,body{
     padding: 10px 20px;
     border: 1px solid #ddd;
     background: #fff;
-    margin-right: 50px;
+    /*margin-right: 50px;*/
     color: #666;
 }
 .next_page a:hover{
@@ -944,6 +945,44 @@ a.pop{
         width: 100%;
         padding: 0;
     }
+}
+
+@media screen and (min-width: 768px) {
+   #prev{
+    background: #fafafa;
+    border: 2px solid #f9f9f9;
+    border-radius: 5px;
+    color: #f56722;
+    float: left;
+    margin-left: 200px;
+   }
+   #next{
+    background: #fafafa;
+    border: 2px solid #f9f9f9;
+    border-radius: 5px;
+    color: #f56722;
+    float: right;
+    margin-right: 200px;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   #prev{
+    background: #fafafa;
+    border: 2px solid #f9f9f9;
+    border-radius: 5px;
+    color: #f56722;
+    float: left;
+    margin-left: 100px;
+   }
+   #next{
+    background: #fafafa;
+    border: 2px solid #f9f9f9;
+    border-radius: 5px;
+    color: #f56722;
+    float: right;
+    margin-right: 100px;
+   }
 }
 
 
