@@ -10,7 +10,7 @@ upload:
 
 project:
   template:
-    articleTemplateFilePath: /root/app/information-manager-system/front-end/static/template/InfoTemplate.html
-    articleTemplateProduceFileSaveDirectory: /root/app/information-manager-system/front-end/static/article/
-    bookTemplateFilePath: /root/app/information-manager-system-web/front-end/static/template/bookTemplate.html
-    bookTemplateProduceFileSaveDirectory: /root/app/information-manager-system-web/front-end/static/
+    articleTemplateFilePath: /opt/app/information-manager-system/front-end/static/template/InfoTemplate.html
+    articleTemplateProduceFileSaveDirectory: /opt/app/information-manager-system/front-end/static/article/
+    bookTemplateFilePath: /opt/app/information-manager-system-web/front-end/static/template/bookTemplate.html
+    bookTemplateProduceFileSaveDirectory: /opt/app/information-manager-system-web/front-end/static/
