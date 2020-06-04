@@ -6,7 +6,7 @@
 #
 # Structure for table "article"
 #
-
+USE jiaochengshu;
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `articleId` varchar(255) NOT NULL DEFAULT '',
