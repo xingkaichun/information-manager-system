@@ -1,17 +1,19 @@
 application:
   host: localhost
 
+server:
+  tomcat:
+    #长时间不进行上传操作，导致/tmp下面的tomcat临时文件目录被删除，上传文件时获取不到文件目录，导致报错
+    basedir: F:\temp\jiaochengshu\tomcat\information-manager-system-web-temp\
+
 upload:
-  fileDirectory: D:\temp\files\
+  fileDirectory: F:\temp\jiaochengshu\information-manager-system-files\
 
 spring:
   http:
     multipart:
-      location: D:\temp\tomcat-temp\information-manager-system-web\
-#长时间不进行上传操作，导致/tmp下面的tomcat临时文件目录被删除，上传文件时获取不到文件目录，导致报错
-server:
-  tomcat:
-    basedir: F:\tmp\tomcat\information-manager-system-web\
+      # 上传文件的临时目录
+      location: F:\temp\jiaochengshu\tomcat\information-manager-system-web-io\
 
 project:
   template:
