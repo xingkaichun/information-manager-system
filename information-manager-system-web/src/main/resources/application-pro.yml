@@ -1,5 +1,5 @@
 application:
-  host: 139.9.125.122
+  host: 121.36.139.115
 
 server:
   tomcat:
