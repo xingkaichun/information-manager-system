@@ -3,14 +3,14 @@ application:
 
 server:
   tomcat:
-    basedir: /root/app/tmp/tomcatio/information-manager-system-web/
+    basedir: /opt/app/jiaochengshu/information-manager-system-tomcatiotemp/
 
 upload:
-  fileDirectory: /root/app/files/
+  fileDirectory: /opt/app/jiaochengshu/information-manager-system-files/
 
 project:
   template:
-    articleTemplateFilePath: /opt/app/information-manager-system/front-end/static/template/InfoTemplate.html
-    articleTemplateProduceFileSaveDirectory: /opt/app/information-manager-system/front-end/static/article/
-    bookTemplateFilePath: /opt/app/information-manager-system-web/front-end/static/template/bookTemplate.html
-    bookTemplateProduceFileSaveDirectory: /opt/app/information-manager-system-web/front-end/static/
+    articleTemplateFilePath: /opt/app/jiaochengshu/information-manager-system/front-end/static/template/InfoTemplate.html
+    articleTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system/front-end/static/article/
+    bookTemplateFilePath: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/template/bookTemplate.html
+    bookTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/
