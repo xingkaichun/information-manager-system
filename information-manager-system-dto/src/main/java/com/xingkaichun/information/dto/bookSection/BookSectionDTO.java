@@ -2,6 +2,7 @@ package com.xingkaichun.information.dto.bookSection;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,6 +10,8 @@ import java.util.Date;
 
 @Data
 public class BookSectionDTO {
+    @JsonProperty("Id")
+    private Integer id;
     @JsonProperty("BookId")
     private String bookId;
     @JsonProperty("BookChapterId")

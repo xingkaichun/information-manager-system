@@ -6,7 +6,7 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-    bookId,bookChapterId,bookSectionId,bookSectionName,bookSectionDescription,bookSectionContent,bookSectionOrder,
+    id,bookId,bookChapterId,bookSectionId,bookSectionName,bookSectionDescription,bookSectionContent,bookSectionOrder,
     createTime,lastEditTime,isSoftDelete,
     seoUrl,seoTitle,seoKeywords,seoDescription
   </sql>
@@ -115,7 +115,7 @@
 
   <select id="orderBookSection" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookSectionDomian">
     SELECT
-    bs.bookId,bs.bookChapterId,bs.bookSectionId,bs.bookSectionName,bs.bookSectionOrder,
+    bs.id,bs.bookId,bs.bookChapterId,bs.bookSectionId,bs.bookSectionName,bs.bookSectionOrder,
     bs.createTime,bs.lastEditTime,bs.isSoftDelete,
     bs.seoUrl,bs.seoTitle,bs.seoKeywords,bs.seoDescription
     FROM

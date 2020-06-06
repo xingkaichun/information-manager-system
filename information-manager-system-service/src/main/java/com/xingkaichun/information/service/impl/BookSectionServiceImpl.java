@@ -292,6 +292,7 @@ public class BookSectionServiceImpl implements BookSectionService {
     private BookSectionDTO classCast(BookSectionDomian domain) {
         if(domain == null){return null;}
         BookSectionDTO dto = new BookSectionDTO();
+        dto.setId(domain.getId());
         dto.setBookId(domain.getBookId());
         dto.setBookChapterId(domain.getBookChapterId());
         dto.setBookSectionId(domain.getBookSectionId());

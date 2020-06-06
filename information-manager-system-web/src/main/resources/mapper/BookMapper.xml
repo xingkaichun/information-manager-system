@@ -6,7 +6,7 @@
   </sql>
 
   <sql id="BASE_COLUMN">
-    bookId,authorId,bookName,bookDescription,
+    id,bookId,authorId,bookName,bookDescription,
     createTime,lastEditTime,isSoftDelete,
     seoUrl,seoTitle,seoKeywords,seoDescription
   </sql>

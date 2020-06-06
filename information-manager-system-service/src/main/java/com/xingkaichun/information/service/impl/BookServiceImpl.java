@@ -167,6 +167,7 @@ public class BookServiceImpl implements BookService {
 
     private BookDTO classCast(BookDomain domain) {
         BookDTO dto = new BookDTO();
+        dto.setId(domain.getId());
         dto.setBookId(domain.getBookId());
         dto.setAuthorId(domain.getAuthorId());
         dto.setBookName(domain.getBookName());

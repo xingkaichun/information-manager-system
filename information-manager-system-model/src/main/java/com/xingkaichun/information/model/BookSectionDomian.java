@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class BookSectionDomian {
+    private Integer id;
     private String bookId;
     private String bookChapterId;
     private String bookSectionId;

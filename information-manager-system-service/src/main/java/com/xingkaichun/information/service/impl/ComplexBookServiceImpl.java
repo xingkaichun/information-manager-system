@@ -83,7 +83,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                 for(BookSectionDTO currentBookSectionDTO:bookSectionDTOList){
 
                     String bookSetionHtml = CommonUtilsFile.readFileContent(bookTemplateFilePath);
-                    String bookUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+".html";
+                    String bookUrl = "/jiaocheng/"+bookDTO.getId()+"/"+bookDTO.getSeoUrl()+".html";
                     //左侧目录 书籍名称
                     String bookName = "<a href='"+bookUrl+"' class='link_li'><b>"+bookDTO.getBookName()+"</b></a>"+"\r\n";
 
@@ -102,21 +102,21 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                     BookSectionDTO previousBookSectionDTO = previousBookSectionDTO(currentBookSectionDTO);
                     String previousPage = previousBookSectionDTO==null?
                             "<a id=\"prev\" href=\"javascript:void(0)\">"+"已经是第一章节了"+"</a>":
-                            "<a id=\"prev\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+"上一章" /*: +previousBookSectionDTO.getBookSectionName() */ +"</a>";
+                            "<a id=\"prev\" href=\""+"/jiaocheng/"+bookDTO.getId()+"/"+bookDTO.getSeoUrl()+"/"+previousBookSectionDTO.getId()+"/"+previousBookSectionDTO.getSeoUrl()+".html"+"\">"+"上一章" /*: +previousBookSectionDTO.getBookSectionName() */ +"</a>";
                     String previousPageHomePage = "";
                     if(!finishCreateHomePage){
                         previousPageHomePage = "<a id=\"prev\" href=\"javascript:void(0)\">"+"已经是第一章节了"+"</a>";
-                        previousPage = "<a id=\"prev\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+".html"+"\">"+"上一章"/*: +bookDTO.getBookName()+"简介"*/+"</a>";
+                        previousPage = "<a id=\"prev\" href=\""+"/jiaocheng/"+bookDTO.getId()+"/"+bookDTO.getSeoUrl()+".html"+"\">"+"上一章"/*: +bookDTO.getBookName()+"简介"*/+"</a>";
                     }
 
                     //下一章节链接
                     BookSectionDTO nextBookSectionDTO = nextBookSectionDTO(currentBookSectionDTO);
                     String nextPage = nextBookSectionDTO==null?
                             "<a id=\"next\" href=\"javascript:void(0)\">"+"已经是最后章节了"+"</a>":
-                            "<a id=\"next\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章" /* : +nextBookSectionDTO.getBookSectionName() */ +"</a>";
+                            "<a id=\"next\" href=\""+"/jiaocheng/"+bookDTO.getId()+"/"+bookDTO.getSeoUrl()+"/"+nextBookSectionDTO.getId()+"/"+nextBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章" /* : +nextBookSectionDTO.getBookSectionName() */ +"</a>";
                     String nextPageHomePage = "";
                     if(!finishCreateHomePage){
-                        nextPageHomePage = "<a id=\"next\" href=\""+"/jiaocheng/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章" /* : +currentBookSectionDTO.getBookSectionName()*/ +"</a>";
+                        nextPageHomePage = "<a id=\"next\" href=\""+"/jiaocheng/"+bookDTO.getId()+"/"+bookDTO.getSeoUrl()+"/"+currentBookSectionDTO.getId()+"/"+currentBookSectionDTO.getSeoUrl()+".html"+"\">"+"下一章" /* : +currentBookSectionDTO.getBookSectionName()*/ +"</a>";
                     }
 
 
@@ -130,9 +130,10 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                                     .replace("[###BookTableOfContents###]",bookTableOfContents)
                                                     .replace("[###BookName###]",bookName)
                                                     ;
-                    File jiaochengDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
-                    File bookDir = new File(jiaochengDir,bookDTO.getSeoUrl());
-                    CommonUtilsFile.writeFileContent(bookDir.getAbsolutePath(),currentBookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
+                    File jiaochengDir = new File(new File(bookTemplateProduceFileSaveDirectory,"jiaocheng"),String.valueOf(bookDTO.getId()));
+                    jiaochengDir = new File(jiaochengDir,bookDTO.getSeoUrl());
+                    File sectionDir = new File(jiaochengDir.getAbsolutePath(),String.valueOf(currentBookSectionDTO.getId()));
+                    CommonUtilsFile.writeFileContent(sectionDir.getAbsolutePath(),currentBookSectionDTO.getSeoUrl()+".html",bookSetionHtml);
                     if(!finishCreateHomePage){
                         homePageHtml = homePageHtml.replace("[###SeoTitle###]",bookDTO.getSeoTitle()+"_"+bookDTO.getBookName())
                                 .replace("[###SeoKeywords###]",bookDTO.getSeoKeywords())
@@ -144,7 +145,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                 .replace("[###BookTableOfContents###]",bookTableOfContentsHomePage)
                                 .replace("[###BookName###]",bookName)
                                 ;
-                        File jiaochengHomePageDir = new File(bookTemplateProduceFileSaveDirectory,"jiaocheng");
+                        File jiaochengHomePageDir = new File(new File(bookTemplateProduceFileSaveDirectory,"jiaocheng"),String.valueOf(bookDTO.getId()));
                         CommonUtilsFile.writeFileContent(jiaochengHomePageDir.getAbsolutePath(),bookDTO.getSeoUrl()+".html",homePageHtml);
                         finishCreateHomePage = true;
                     }
@@ -176,7 +177,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                         isCurrentSection = currentBookSectionDTO.getBookSectionId().equals(bookSectionDTO2.getBookSectionId());
                     }
                     String sectionCssClass = isCurrentSection?" class=\"on\" ":"";
-                    String sectionUrl = "/jiaocheng/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO2.getSeoUrl()+".html";
+                    String sectionUrl = "/jiaocheng/"+bookDTO.getId()+"/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO2.getId()+"/"+bookSectionDTO2.getSeoUrl()+".html";
                     mulu += "       <dd><a href=\""+sectionUrl+"\" "+sectionCssClass+">"+bookSectionDTO2.getBookSectionName()+"</a></dd>"+"\r\n";
                 }
             }
