@@ -1,5 +1,7 @@
 package com.xingkaichun.information.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,9 +14,11 @@ import java.util.Map;
 @Controller
 class MyErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MyErrorController.class);
+
     @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request,Exception e){
-        e.printStackTrace();
+        logger.error("全局异常处理捕获到异常。",e);
         ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("timestamp",System.currentTimeMillis());
         modelAndView.addObject("error","StackTrace");
