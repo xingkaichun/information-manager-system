@@ -37,6 +37,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.xingkaichun</groupId>
+                <artifactId>ueditor-core</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xingkaichun</groupId>
                 <artifactId>common-dto</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
