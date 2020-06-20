@@ -14,6 +14,7 @@ class MyErrorController implements org.springframework.boot.web.servlet.error.Er
 
     @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request,Exception e){
+        e.printStackTrace();
         ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("timestamp",System.currentTimeMillis());
         modelAndView.addObject("error","StackTrace");
