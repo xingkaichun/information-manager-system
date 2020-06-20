@@ -1,5 +1,7 @@
 var url = "";
 var parameters = {};
+var click_course_id = {};
+var ue = UE.getEditor('editor');
 
 //通过URL获取小节ID
 function getSectionIdByUrl() {
@@ -45,14 +47,25 @@ function getSectionContent() {
     });
     var section_content_html = template("course_list_template",section_content);
     $("#section_content").html(section_content_html);
+    //调用编辑器
+    setTimeout(function () {
+        UE.getEditor('editor').setContent(parameters.section_content, true);
+    },1000)
 }
 getSectionContent();
+// async function aaa(){
+//     getSectionContent();
+//     // await setContent(parameters.section_content,true);
+//     await UE.getEditor('editor').setContent(parameters.section_content, true);
+// }
+// aaa()
 
 //获取用户输入信息
 function userInputInfo() {
     var user = {};
     user.name = $("#section_info input[name=name]").val();
     user.description = $("#section_info input[name=section_description]").val();
+    user.content = UE.getEditor('editor').getContent();
     user.seo_url = $("#section_info input[name=seo_url]").val();
     user.seo_title = $("#section_info input[name=seo_title]").val();
     user.seo_keywords = $("#section_info input[name=seo_keywords]").val();
@@ -92,8 +105,12 @@ function getBookUrl() {
 
 //修改小节
 function modifySection() {
-    var str =  getContent();
-    str = str.replace(/"/g,'\\"');
+    var str =  userInputInfo().content;
+    var str1 = str.replace(/\\/g,'\/');
+    var str2 = str1.replace(/"/g,'\\"');
+    // console.log(userInputInfo().content)
+    console.log(str)
+    // console.log(str2)
     $.ajax({
             type: "post",
             url: url+"/Book/UpdateBookSection",
@@ -102,7 +119,7 @@ function modifySection() {
                     "BookSectionId": "${getSectionIdByUrl().BookSectionId}",
                     "BookSectionName": "${userInputInfo().name}",
                     "BookSectionDescription": "${userInputInfo().description}",
-                    "BookSectionContent": "${str}",
+                    "BookSectionContent": "${str2}",
                     "SeoUrl": "${userInputInfo().seo_url}",
                     "SeoTitle": "${userInputInfo().seo_title}",
                     "SeoKeywords": "${userInputInfo().seo_keywords}",
@@ -148,22 +165,49 @@ var chapterkName = document.getElementById("chapter_name");
 bookName.innerHTML = getBookUrl().book_name;
 chapterkName.innerHTML = getBookUrl().chapter_name;
 
+//源码编辑内容
+// var edit_code = document.getElementById('edit_code')
+// var count = 0;
+// edit_code.addEventListener('click',function () {
+//     var oldContent = click_course_id.editor.txt.html();
+//     var editor = document.getElementById('editor');
+//     var editDiv = editor.firstChild.nextSibling.firstChild;
+//
+//     var entityMap = {
+//         '&': '&amp;',
+//         '<': '&lt;',
+//         '>': '&gt;',
+//         '"': '&quot;',
+//         "'": '&#39;',
+//         '/': '&#x2F;',
+//         '`': '&#x60;',
+//         '=': '&#x3D;'
+//     };
+//     function escapeHtml(string) {
+//         return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+//             return entityMap[s];
+//         });
+//     }
+//     if ( count == 0 ){
+//         editDiv.innerHTML = escapeHtml(oldContent);
+//         count = 1;
+//     }else {
+//         editDiv.innerHTML = editDiv.textContent
+//         count = 0
+//     }
+//
+// });
 
 
-//编辑器内容展示
 
-var um = UM.getEditor('myEditor');
-// UE.getEditor('editor').setContent(parameters.section_content);
-function setContent() {
-    UM.getEditor('myEditor').setContent(parameters.section_content);
-}
-function getContent() {
-     var a = UM.getEditor('myEditor').getContent();
-     return a;
-}
-window.onload = function(){
-    setContent();
-}
+//初始化编辑器
+// function setContent(data,isAppendTo) {
+//     var ue = UE.getEditor('editor');
+//     // console.log(data)
+//     UE.getEditor('editor').setContent(data, isAppendTo);
+// }
+
+
 
 
 
