@@ -47,4 +47,7 @@ public class BookDTO {
 
     @JsonProperty("BookChapterDTOList")
     private List<BookChapterDTO> bookChapterDTOList;
+
+    @JsonProperty("AuditStatus")
+    private Integer auditStatus;
 }

@@ -20,4 +20,6 @@ public class BookChapterDomain {
     private String seoTitle;
     private String seoKeywords;
     private String seoDescription;
+
+    private Integer auditStatus;
 }

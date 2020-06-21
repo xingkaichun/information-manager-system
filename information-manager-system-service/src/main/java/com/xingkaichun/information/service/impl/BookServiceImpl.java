@@ -6,7 +6,10 @@ import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dao.BookChapterDao;
 import com.xingkaichun.information.dao.BookDao;
 import com.xingkaichun.information.dto.book.BookDTO;
-import com.xingkaichun.information.dto.book.request.*;
+import com.xingkaichun.information.dto.book.request.AddBookRequest;
+import com.xingkaichun.information.dto.book.request.PhysicsDeleteBookByBookIdRequest;
+import com.xingkaichun.information.dto.book.request.QueryBookListRequest;
+import com.xingkaichun.information.dto.book.request.UpdateBookRequest;
 import com.xingkaichun.information.model.BookChapterDomain;
 import com.xingkaichun.information.model.BookDomain;
 import com.xingkaichun.information.model.UserDomain;
@@ -65,7 +68,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public FreshServiceResult updateBook(UpdateBookRequest updateBookRequest) {
+    public ServiceResult<BookDTO> updateBook(UpdateBookRequest updateBookRequest) {
         try{
             if(CommonUtils.isNUllOrEmpty(updateBookRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
@@ -81,7 +84,10 @@ public class BookServiceImpl implements BookService {
                 }
             }
             bookDao.updateBook(updateBookRequest);
-            return FreshServiceResult.createSuccessFreshServiceResult("更新书籍成功");
+
+            BookDTO bookDTO = queryBookByBookId(updateBookRequest.getBookId());
+
+            return ServiceResult.createSuccessServiceResult("更新书籍成功",bookDTO);
         } catch (Exception e){
             String message = "更新书籍失败";
             LOGGER.error(message,e);
@@ -90,7 +96,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public FreshServiceResult physicsDeleteBookByBookId(PhysicsDeleteBookByBookIdRequest physicsDeleteBookByBookIdRequest) {
+    public ServiceResult<BookDTO> physicsDeleteBookByBookId(PhysicsDeleteBookByBookIdRequest physicsDeleteBookByBookIdRequest) {
         try{
             if(CommonUtils.isNUllOrEmpty(physicsDeleteBookByBookIdRequest.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍ID不能为空");
@@ -100,6 +106,8 @@ public class BookServiceImpl implements BookService {
             if(bookDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍不存在");
             }
+
+            BookDTO bookDTO = classCast(bookDomain);
 /*            if(!bookDomain.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍软删除标识为不可删");
             }*/
@@ -110,7 +118,8 @@ public class BookServiceImpl implements BookService {
             }
 
             bookDao.physicsDeleteBookByBookId(physicsDeleteBookByBookIdRequest.getBookId());
-            return FreshServiceResult.createSuccessFreshServiceResult("删除书籍成功");
+
+            return ServiceResult.createSuccessServiceResult("删除书籍成功",bookDTO);
         } catch (Exception e){
             String message = "删除书籍失败";
             LOGGER.error(message,e);
@@ -133,11 +142,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO queryBook(QueryBookDetailsByBookIdRequest request) {
-        BookDomain bookDomain = bookDao.queryBookByBookId(request.getBookId());
-        if(bookDomain==null){
-            return null;
-        }
+    public BookDTO queryBookByBookId(String bookId) {
+        BookDomain bookDomain = bookDao.queryBookByBookId(bookId);
         return classCast(bookDomain);
     }
 
@@ -146,12 +152,6 @@ public class BookServiceImpl implements BookService {
         BookDomain bookDomain = bookDao.queryBookByBookId(bookId);
         UserDomain userDomain = CommonUtilsSession.getUser(httpServletRequest);
         return bookDomain.getAuthorId().equals(userDomain.getUserId());
-    }
-
-    @Override
-    public List<BookDTO> queryBookListByBookIds(List<String> bookIds) {
-        List<BookDomain> bookDomains = bookDao.queryBookListByBookIds(bookIds);
-        return classCast(bookDomains);
     }
 
     private List<BookDTO> classCast(List<BookDomain> bookDomainList) {
@@ -181,6 +181,8 @@ public class BookServiceImpl implements BookService {
         dto.setSeoTitle(domain.getSeoTitle());
         dto.setSeoKeywords(domain.getSeoKeywords());
         dto.setSeoDescription(domain.getSeoDescription());
+
+        dto.setAuditStatus(domain.getAuditStatus());
         return dto;
     }
 
@@ -203,6 +205,8 @@ public class BookServiceImpl implements BookService {
         domain.setSeoTitle(dto.getSeoTitle());
         domain.setSeoKeywords(dto.getSeoKeywords());
         domain.setSeoDescription(dto.getSeoDescription());
+
+        domain.setAuditStatus(dto.getAuditStatus());
         return domain;
     }
 

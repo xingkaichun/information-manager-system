@@ -54,6 +54,9 @@
     <if test="seoDescription != null and seoDescription != ''">
       seoDescription = #{seoDescription, jdbcType=VARCHAR},
     </if>
+    <if test="auditStatus != null">
+      auditStatus = #{auditStatus, jdbcType=INTEGER},
+    </if>
     bookId = #{bookId, jdbcType=VARCHAR}
     where bookId = #{bookId, jdbcType=VARCHAR}
   </update>
@@ -64,10 +67,7 @@
   </delete>
 
   <select id="queryBookList" parameterType="com.xingkaichun.information.dto.book.request.QueryBookListRequest" resultType="com.xingkaichun.information.model.BookDomain">
-    SELECT
-    <include refid="BASE_COLUMN"/>
-    FROM
-    <include refid="BASE_TABLE"/>
+    SELECT * FROM <include refid="BASE_TABLE"/>
     where 1=1
     <if test="authorId != null and authorId != ''">
       and authorId = #{authorId, jdbcType=VARCHAR}
@@ -79,18 +79,7 @@
   </select>
 
   <select id="queryBookByBookId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookDomain">
-    SELECT
-    <include refid="BASE_COLUMN"/>
-    FROM
-    <include refid="BASE_TABLE"/>
+    SELECT * FROM <include refid="BASE_TABLE"/>
     where bookId = #{bookId, jdbcType=VARCHAR}
-  </select>
-
-  <select id="queryBookListByBookIds" parameterType="java.util.Collection" resultType="com.xingkaichun.information.model.BookDomain">
-    select * from <include refid="BASE_TABLE"/>
-    where bookId in
-    <foreach collection="collection" item="item" index="index" open="(" close=")" separator=",">
-      #{item}
-    </foreach>
   </select>
 </mapper>

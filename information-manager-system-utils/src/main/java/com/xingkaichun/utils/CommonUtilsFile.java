@@ -37,4 +37,16 @@ public class CommonUtilsFile {
             if(bw!=null){bw.close();}
         }
     }
+    public static boolean deleteFile(File file) {
+        if (!file.exists()) {
+            return true;
+        }
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File f : files) {
+                deleteFile(f);
+            }
+        }
+        return file.delete();
+    }
 }

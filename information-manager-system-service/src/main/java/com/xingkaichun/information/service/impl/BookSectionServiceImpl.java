@@ -133,8 +133,10 @@ public class BookSectionServiceImpl implements BookSectionService {
     }
 
     @Override
-    public FreshServiceResult updateBookSection(UpdateBookSectionRequest request) {
+    public ServiceResult<BookSectionDTO> updateBookSection(UpdateBookSectionRequest request) {
         try{
+            String bookSectionId = request.getBookSectionId();
+
             if(CommonUtils.isNUllOrEmpty(request.getBookSectionId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节ID不能为空");
             }
@@ -162,12 +164,14 @@ public class BookSectionServiceImpl implements BookSectionService {
 
             request.setBookSectionContent(CommonUtilsHtml.handlerArticleContent(request.getBookSectionContent()));
             bookSectionDao.updateBookSection(request);
+
             //更新book时间戳
             UpdateBookRequest updateBookRequest = new UpdateBookRequest();
             updateBookRequest.setBookId(bookSectionDomian.getBookId());
             bookDao.updateBook(updateBookRequest);
 
-            return FreshServiceResult.createSuccessFreshServiceResult("更新书籍小节成功");
+            BookSectionDTO bookSectionDTO = queryBookSectionDTOBySectionId(bookSectionId);
+            return ServiceResult.createSuccessServiceResult("更新书籍小节成功",bookSectionDTO);
         } catch (Exception e){
             String message = "更新书籍小节失败";
             LOGGER.error(message,e);
@@ -176,7 +180,7 @@ public class BookSectionServiceImpl implements BookSectionService {
     }
 
     @Override
-    public FreshServiceResult physicsDeleteBookSectionByBookSectionId(PhysicsDeleteBookSectionByBookSectionIdRequest request) {
+    public ServiceResult<BookSectionDTO> physicsDeleteBookSectionByBookSectionId(PhysicsDeleteBookSectionByBookSectionIdRequest request) {
         try{
             if(CommonUtils.isNUllOrEmpty(request.getBookSectionId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节ID不能为空");
@@ -186,6 +190,9 @@ public class BookSectionServiceImpl implements BookSectionService {
             if(bookSectionDomian==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节不存在");
             }
+
+            BookSectionDTO bookSectionDTO = classCast(bookSectionDomian);
+
 /*            if(!bookSectionDomian.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍小节软删除标识为不可删");
             }*/
@@ -196,7 +203,7 @@ public class BookSectionServiceImpl implements BookSectionService {
             updateBookRequest.setBookId(bookSectionDomian.getBookId());
             bookDao.updateBook(updateBookRequest);
 
-            return FreshServiceResult.createSuccessFreshServiceResult("删除书籍小节成功");
+            return ServiceResult.createSuccessServiceResult("删除书籍小节成功",bookSectionDTO);
         } catch (Exception e){
             String message = "删除书籍小节失败";
             LOGGER.error(message,e);
@@ -309,6 +316,8 @@ public class BookSectionServiceImpl implements BookSectionService {
         dto.setSeoTitle(domain.getSeoTitle());
         dto.setSeoKeywords(domain.getSeoKeywords());
         dto.setSeoDescription(domain.getSeoDescription());
+
+        dto.setAuditStatus(domain.getAuditStatus());
         return dto;
     }
 
@@ -334,6 +343,8 @@ public class BookSectionServiceImpl implements BookSectionService {
         domain.setSeoTitle(dto.getSeoTitle());
         domain.setSeoKeywords(dto.getSeoKeywords());
         domain.setSeoDescription(dto.getSeoDescription());
+
+        domain.setAuditStatus(dto.getAuditStatus());
         return domain;
     }
 

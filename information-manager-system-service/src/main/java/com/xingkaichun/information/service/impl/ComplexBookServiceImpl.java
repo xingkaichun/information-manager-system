@@ -39,7 +39,7 @@ public class ComplexBookServiceImpl implements ComplexBookService {
 
     @Override
     public BookDTO queryBookDetailsByBookIdRequest(QueryBookDetailsByBookIdRequest request) {
-        BookDTO bookDTO = bookService.queryBook(request);
+        BookDTO bookDTO = bookService.queryBookByBookId(request.getBookId());
         if(bookDTO==null){
             return null;
         }
@@ -65,14 +65,21 @@ public class ComplexBookServiceImpl implements ComplexBookService {
 
     @Override
     public void createHtmlPage(String bookId) throws IOException {
+        if(bookId == null || "".equals(bookId.trim())){
+            throw new RuntimeException("bookId不能为空");
+        }
+
         QueryBookDetailsByBookIdRequest queryBookDetailsByBookIdRequest = new QueryBookDetailsByBookIdRequest();
         queryBookDetailsByBookIdRequest.setBookId(bookId);
         BookDTO bookDTO = queryBookDetailsByBookIdRequest(queryBookDetailsByBookIdRequest);
-
         List<BookChapterDTO> bookChapterDTOList = bookDTO.getBookChapterDTOList();
 
+        File jiaochengHomePageDir = new File(new File(bookTemplateProduceFileSaveDirectory,"jiaocheng"),String.valueOf(bookDTO.getId()));
+        String homePageHtml = "<!DOCTYPE html><head><meta charset=\"UTF-8\"></head><body><h1>书籍不完整，没有具体的章节内容，请尽快补充<h1></body>";
+        CommonUtilsFile.writeFileContent(jiaochengHomePageDir.getAbsolutePath(),bookDTO.getSeoUrl()+".html",homePageHtml);
+
         boolean finishCreateHomePage = false;
-        String homePageHtml = "";
+        homePageHtml = "";
         //生成小节HTML
         if(bookChapterDTOList!=null){
             for(BookChapterDTO bookChapterDTO:bookChapterDTOList){
@@ -145,13 +152,30 @@ public class ComplexBookServiceImpl implements ComplexBookService {
                                 .replace("[###BookTableOfContents###]",bookTableOfContentsHomePage)
                                 .replace("[###BookName###]",bookName)
                                 ;
-                        File jiaochengHomePageDir = new File(new File(bookTemplateProduceFileSaveDirectory,"jiaocheng"),String.valueOf(bookDTO.getId()));
                         CommonUtilsFile.writeFileContent(jiaochengHomePageDir.getAbsolutePath(),bookDTO.getSeoUrl()+".html",homePageHtml);
                         finishCreateHomePage = true;
                     }
                 }
             }
         }
+    }
+
+    @Override
+    public void deleteHtmlPage(String bookId) throws Exception {
+        if(bookId == null || "".equals(bookId.trim())){
+            throw new RuntimeException("bookId不能为空");
+        }
+
+        QueryBookDetailsByBookIdRequest queryBookDetailsByBookIdRequest = new QueryBookDetailsByBookIdRequest();
+        queryBookDetailsByBookIdRequest.setBookId(bookId);
+        BookDTO bookDTO = queryBookDetailsByBookIdRequest(queryBookDetailsByBookIdRequest);
+
+        if(bookDTO == null){
+            throw new RuntimeException("没有查询到书籍，无法进行删除Html操作。");
+        }
+
+        File jiaochengDirectory = new File(new File(bookTemplateProduceFileSaveDirectory,"jiaocheng"),String.valueOf(bookDTO.getId()));
+        CommonUtilsFile.deleteFile(jiaochengDirectory);
     }
 
     private BookSectionDTO previousBookSectionDTO(BookSectionDTO currentBookSectionDTO) {

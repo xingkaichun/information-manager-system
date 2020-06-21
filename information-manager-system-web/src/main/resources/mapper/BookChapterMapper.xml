@@ -64,6 +64,9 @@
     <if test="seoDescription != null and seoDescription != ''">
       seoDescription = #{seoDescription, jdbcType=VARCHAR},
     </if>
+    <if test="auditStatus != null">
+      auditStatus = #{auditStatus, jdbcType=INTEGER},
+    </if>
     bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
     where bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
   </update>
@@ -74,19 +77,13 @@
   </delete>
 
   <select id="queryBookChapterListByBookId" resultType="com.xingkaichun.information.model.BookChapterDomain">
-    SELECT
-    <include refid="BASE_COLUMN"/>
-    FROM
-    <include refid="BASE_TABLE"/>
+    SELECT * FROM <include refid="BASE_TABLE"/>
     where bookId = #{bookId, jdbcType=VARCHAR}
     order by bookChapterOrder asc
   </select>
 
   <select id="queryBookChapterByBookChapterId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookChapterDomain">
-    SELECT
-    <include refid="BASE_COLUMN"/>
-    FROM
-    <include refid="BASE_TABLE"/>
+    SELECT * FROM <include refid="BASE_TABLE"/>
     where bookChapterId = #{bookChapterId, jdbcType=VARCHAR}
   </select>
 </mapper>

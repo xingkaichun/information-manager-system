@@ -10,8 +10,8 @@ import java.util.List;
 public interface BookChapterService {
 
     ServiceResult<BookChapterDTO> addBookChapter(AddBookChapterRequest request);
-    FreshServiceResult updateBookChapter(UpdateBookChapterRequest request);
-    FreshServiceResult physicsDeleteBookChapterByBookChapterId(PhysicsDeleteBookChapterByBookChapterIdRequest request);
+    ServiceResult<BookChapterDTO> updateBookChapter(UpdateBookChapterRequest request);
+    ServiceResult<BookChapterDTO> physicsDeleteBookChapterByBookChapterId(PhysicsDeleteBookChapterByBookChapterIdRequest request);
 
     ServiceResult<List<BookChapterDTO>> queryBookChapterListByBookId(QueryBookChapterListByBookIdRequest request);
 

@@ -8,4 +8,6 @@ public interface ComplexBookService {
     BookDTO queryBookDetailsByBookIdRequest(QueryBookDetailsByBookIdRequest request);
 
     void createHtmlPage(String bookId) throws Exception;
+
+    void deleteHtmlPage(String bookId) throws Exception;
 }

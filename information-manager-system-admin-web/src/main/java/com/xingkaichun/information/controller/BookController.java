@@ -2,11 +2,9 @@ package com.xingkaichun.information.controller;
 
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceResult;
-import com.xingkaichun.information.dto.book.request.*;
-import com.xingkaichun.information.dto.book.response.AddBookResponse;
 import com.xingkaichun.information.dto.book.BookDTO;
-import com.xingkaichun.information.dto.book.response.QueryBookDetailsByBookIdResponse;
-import com.xingkaichun.information.dto.book.response.QueryBookListResponse;
+import com.xingkaichun.information.dto.book.request.*;
+import com.xingkaichun.information.dto.book.response.*;
 import com.xingkaichun.information.dto.bookChapter.BookChapterDTO;
 import com.xingkaichun.information.dto.bookChapter.request.AddBookChapterRequest;
 import com.xingkaichun.information.dto.bookChapter.request.PhysicsDeleteBookChapterByBookChapterIdRequest;
@@ -65,6 +63,9 @@ public class BookController {
             if(!ServiceResult.isSuccess(serviceResult)){
                 return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
             }
+
+            reCreateBookHtmlByBookId(serviceResult.getResult().getBookId());
+
             AddBookResponse response = new AddBookResponse();
             response.setBookDTO(serviceResult.getResult());
             return ServiceResult.createSuccessServiceResult("新增书籍成功",response);
@@ -78,11 +79,20 @@ public class BookController {
     @ApiOperation(value="更新书籍", notes="更新书籍")
     @ResponseBody
     @PostMapping("/UpdateBook")
-    public FreshServiceResult updateBook(@RequestBody UpdateBookRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<UpdateBookResponse> updateBook(@RequestBody UpdateBookRequest request, HttpServletRequest httpServletRequest){
         try{
-            FreshServiceResult freshServiceResult = bookService.updateBook(request);
-            complexBookServiceImpl.createHtmlPage(request.getBookId());
-            return freshServiceResult;
+            ServiceResult<BookDTO> serviceResult = bookService.updateBook(request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return ServiceResult.createFailServiceResult(serviceResult.getMessage());
+            }
+
+            BookDTO bookDTO = serviceResult.getResult();
+
+            reCreateBookHtmlByBookId(bookDTO.getBookId());
+
+            UpdateBookResponse updateBookResponse = new UpdateBookResponse();
+            updateBookResponse.setBookDTO(bookDTO);
+            return ServiceResult.createSuccessServiceResult("",updateBookResponse);
         } catch (Exception e){
             String message = "更新书籍失败";
             LOGGER.error(message,e);
@@ -99,7 +109,6 @@ public class BookController {
 
             QueryBookDetailsByBookIdResponse response = new QueryBookDetailsByBookIdResponse();
             response.setBookDTO(bookDTO);
-
             return ServiceResult.createSuccessServiceResult("查询书籍详情成功",response);
         } catch (Exception e){
             String message = "查询书籍详情失败";
@@ -108,13 +117,22 @@ public class BookController {
         }
     }
 
+
     @ApiOperation(value="物理删除书籍", notes="物理删除书籍")
     @ResponseBody
     @PostMapping("/PhysicsDeleteBookByBookId")
-    public FreshServiceResult physicsDeleteBookByBookId(@RequestBody PhysicsDeleteBookByBookIdRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<PhysicsDeleteBookByBookIdResponse> physicsDeleteBookByBookId(@RequestBody PhysicsDeleteBookByBookIdRequest request, HttpServletRequest httpServletRequest){
         try{
-            FreshServiceResult freshServiceResult = bookService.physicsDeleteBookByBookId(request);
-            return freshServiceResult;
+            ServiceResult<BookDTO> serviceResult = bookService.physicsDeleteBookByBookId(request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return ServiceResult.createFailServiceResult(serviceResult.getMessage());
+            }
+
+            complexBookServiceImpl.deleteHtmlPage(request.getBookId());
+
+            PhysicsDeleteBookByBookIdResponse physicsDeleteBookByBookIdResponse = new PhysicsDeleteBookByBookIdResponse();
+            physicsDeleteBookByBookIdResponse.setBookDTO(serviceResult.getResult());
+            return ServiceResult.createSuccessServiceResult("物理删除书籍成功",physicsDeleteBookByBookIdResponse);
         } catch (Exception e){
             String message = "物理删除书籍失败";
             LOGGER.error(message,e);
@@ -153,8 +171,11 @@ public class BookController {
             if(!ServiceResult.isSuccess(serviceResult)){
                 return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
             }
+            BookChapterDTO bookChapterDTO = serviceResult.getResult();
+            reCreateBookHtmlByBookId(bookChapterDTO.getBookId());
+
             AddBookChapterResponse response = new AddBookChapterResponse();
-            response.setBookChapterDTO(serviceResult.getResult());
+            response.setBookChapterDTO(bookChapterDTO);
             return ServiceResult.createSuccessServiceResult("新增书籍章节成功",response);
         } catch (Exception e){
             String message = "新增书籍章节失败";
@@ -166,10 +187,19 @@ public class BookController {
     @ApiOperation(value="更新书籍章节", notes="更新书籍章节")
     @ResponseBody
     @PostMapping("/UpdateBookChapter")
-    public FreshServiceResult updateBookChapter(@RequestBody UpdateBookChapterRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<UpdateBookChapterResponse> updateBookChapter(@RequestBody UpdateBookChapterRequest request, HttpServletRequest httpServletRequest){
         try{
-            FreshServiceResult serviceResult = bookChapterService.updateBookChapter(request);
-            return serviceResult;
+            ServiceResult<BookChapterDTO> serviceResult = bookChapterService.updateBookChapter(request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return ServiceResult.createFailServiceResult(serviceResult.getMessage());
+            }
+
+            BookChapterDTO bookChapterDTO = serviceResult.getResult();
+            reCreateBookHtmlByBookId(bookChapterDTO.getBookId());
+
+            UpdateBookChapterResponse updateBookChapterResponse = new UpdateBookChapterResponse();
+            updateBookChapterResponse.setBookChapterDTO(bookChapterDTO);
+            return ServiceResult.createSuccessServiceResult("更新书籍章节成功",updateBookChapterResponse);
         } catch (Exception e){
             String message = "更新书籍章节失败";
             LOGGER.error(message,e);
@@ -180,10 +210,19 @@ public class BookController {
     @ApiOperation(value="物理删除书籍章节", notes="物理删除书籍章节")
     @ResponseBody
     @PostMapping("/PhysicsDeleteBookChapterByBookChapterId")
-    public FreshServiceResult physicsDeleteBookChapterByBookChapterId(@RequestBody PhysicsDeleteBookChapterByBookChapterIdRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<PhysicsDeleteBookChapterByBookChapterIdResponse> physicsDeleteBookChapterByBookChapterId(@RequestBody PhysicsDeleteBookChapterByBookChapterIdRequest request, HttpServletRequest httpServletRequest){
         try{
-            FreshServiceResult freshServiceResult = bookChapterService.physicsDeleteBookChapterByBookChapterId(request);
-            return freshServiceResult;
+            ServiceResult<BookChapterDTO> serviceResult = bookChapterService.physicsDeleteBookChapterByBookChapterId(request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return ServiceResult.createFailServiceResult(serviceResult.getMessage());
+            }
+
+            BookChapterDTO bookChapterDTO = serviceResult.getResult();
+            reCreateBookHtmlByBookId(bookChapterDTO.getBookId());
+
+            PhysicsDeleteBookChapterByBookChapterIdResponse response = new PhysicsDeleteBookChapterByBookChapterIdResponse();
+            response.setBookChapterDTO(bookChapterDTO);
+            return ServiceResult.createSuccessServiceResult("物理删除书籍成功",response);
         } catch (Exception e){
             String message = "物理删除书籍章节失败";
             LOGGER.error(message,e);
@@ -226,8 +265,12 @@ public class BookController {
             if(!ServiceResult.isSuccess(serviceResult)){
                 return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
             }
+
+            BookSectionDTO bookSectionDTO = serviceResult.getResult();
+            reCreateBookHtmlByBookId(bookSectionDTO.getBookId());
+
             AddBookSectionResponse response = new AddBookSectionResponse();
-            response.setBookSectionDTO(serviceResult.getResult());
+            response.setBookSectionDTO(bookSectionDTO);
             return ServiceResult.createSuccessServiceResult("新增书籍小节成功",response);
         } catch (Exception e){
             String message = "新增书籍小节失败";
@@ -239,10 +282,19 @@ public class BookController {
     @ApiOperation(value="更新书籍小节", notes="更新书籍小节")
     @ResponseBody
     @PostMapping("/UpdateBookSection")
-    public FreshServiceResult updateBookSection(@RequestBody UpdateBookSectionRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<UpdateBookSectionResponse> updateBookSection(@RequestBody UpdateBookSectionRequest request, HttpServletRequest httpServletRequest){
         try{
-            FreshServiceResult serviceResult = bookSectionService.updateBookSection(request);
-            return serviceResult;
+            ServiceResult<BookSectionDTO> serviceResult = bookSectionService.updateBookSection(request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
+            }
+
+            BookSectionDTO bookSectionDTO = serviceResult.getResult();
+            reCreateBookHtmlByBookId(bookSectionDTO.getBookId());
+
+            UpdateBookSectionResponse response = new UpdateBookSectionResponse();
+            response.setBookSectionDTO(bookSectionDTO);
+            return ServiceResult.createSuccessServiceResult("更新书籍小节成功",response);
         } catch (Exception e){
             String message = "更新书籍小节失败";
             LOGGER.error(message,e);
@@ -253,10 +305,19 @@ public class BookController {
     @ApiOperation(value="物理删除书籍小节", notes="物理删除书籍小节")
     @ResponseBody
     @PostMapping("/PhysicsDeleteBookSectionByBookSectionId")
-    public FreshServiceResult physicsDeleteBookSectionByBookSectionId(@RequestBody PhysicsDeleteBookSectionByBookSectionIdRequest request, HttpServletRequest httpServletRequest){
+    public ServiceResult<PhysicsDeleteBookSectionByBookSectionIdResponse> physicsDeleteBookSectionByBookSectionId(@RequestBody PhysicsDeleteBookSectionByBookSectionIdRequest request, HttpServletRequest httpServletRequest){
         try{
-            FreshServiceResult freshServiceResult = bookSectionService.physicsDeleteBookSectionByBookSectionId(request);
-            return freshServiceResult;
+            ServiceResult<BookSectionDTO> serviceResult = bookSectionService.physicsDeleteBookSectionByBookSectionId(request);
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
+            }
+
+            BookSectionDTO bookSectionDTO = serviceResult.getResult();
+            reCreateBookHtmlByBookId(bookSectionDTO.getBookId());
+
+            PhysicsDeleteBookSectionByBookSectionIdResponse response = new PhysicsDeleteBookSectionByBookSectionIdResponse();
+            response.setBookSectionDTO(bookSectionDTO);
+            return ServiceResult.createSuccessServiceResult("物理删除书籍小节成功",response);
         } catch (Exception e){
             String message = "物理删除书籍小节失败";
             LOGGER.error(message,e);
@@ -283,5 +344,8 @@ public class BookController {
         }
     }
 
-
+    private void reCreateBookHtmlByBookId(String bookId) throws Exception {
+        complexBookServiceImpl.deleteHtmlPage(bookId);
+        complexBookServiceImpl.createHtmlPage(bookId);
+    }
 }

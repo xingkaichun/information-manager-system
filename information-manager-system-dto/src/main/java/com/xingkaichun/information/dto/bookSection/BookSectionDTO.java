@@ -2,7 +2,6 @@ package com.xingkaichun.information.dto.bookSection;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.models.auth.In;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -48,4 +47,7 @@ public class BookSectionDTO {
     private Date lastEditTime;
     @JsonProperty("IsSoftDelete")
     private boolean isSoftDelete;
+
+    @JsonProperty("AuditStatus")
+    private Integer auditStatus;
 }

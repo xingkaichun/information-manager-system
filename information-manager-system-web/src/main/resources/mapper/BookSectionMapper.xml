@@ -72,6 +72,9 @@
     <if test="seoDescription != null and seoDescription != ''">
       seoDescription = #{seoDescription, jdbcType=VARCHAR},
     </if>
+    <if test="auditStatus != null">
+      auditStatus = #{auditStatus, jdbcType=INTEGER},
+    </if>
     bookSectionId = #{bookSectionId, jdbcType=VARCHAR}
     where bookSectionId = #{bookSectionId, jdbcType=VARCHAR}
   </update>
@@ -91,18 +94,12 @@
   </select>
 
   <select id="queryBookSectionByBookSectionId" parameterType="java.lang.String" resultType="com.xingkaichun.information.model.BookSectionDomian">
-    SELECT
-    <include refid="BASE_COLUMN"/>
-    FROM
-    <include refid="BASE_TABLE"/>
+    SELECT * FROM <include refid="BASE_TABLE"/>
     where bookSectionId = #{bookSectionId, jdbcType=VARCHAR}
   </select>
 
   <select id="queryBookSection" parameterType="com.xingkaichun.information.model.BookSectionDomian" resultType="com.xingkaichun.information.model.BookSectionDomian">
-    SELECT
-    <include refid="BASE_COLUMN"/>
-    FROM
-    <include refid="BASE_TABLE"/>
+    SELECT * FROM <include refid="BASE_TABLE"/>
     <trim prefix="where" prefixOverrides="and">
       <if test="bookId != null and bookId != ''">
         and bookId = #{bookId, jdbcType=VARCHAR}

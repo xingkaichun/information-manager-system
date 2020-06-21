@@ -98,25 +98,29 @@ public class BookChapterServiceImpl implements BookChapterService {
     }
 
     @Override
-    public FreshServiceResult updateBookChapter(UpdateBookChapterRequest request) {
+    public ServiceResult<BookChapterDTO> updateBookChapter(UpdateBookChapterRequest request) {
         try{
-            if(CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
+            String bookChapterId = request.getBookChapterId();
+
+            if(CommonUtils.isNUllOrEmpty(bookChapterId)){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节ID不能为空");
             }
             if(!CommonUtils.isNUllOrEmpty(request.getBookId())){
                 return FreshServiceResult.createFailFreshServiceResult("不允许更改书籍ID");
             }
-            BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(request.getBookChapterId());
+            BookChapterDomain bookChapterDomain = bookChapterDao.queryBookChapterByBookChapterId(bookChapterId);
             if(bookChapterDomain == null){
                 return FreshServiceResult.createSuccessFreshServiceResult("书籍章节不存在");
             }
             bookChapterDao.updateBookChapter(request);
+
             //更新book时间戳
             UpdateBookRequest updateBookRequest = new UpdateBookRequest();
             updateBookRequest.setBookId(bookChapterDomain.getBookId());
             bookDao.updateBook(updateBookRequest);
 
-            return FreshServiceResult.createSuccessFreshServiceResult("更新书籍章节成功");
+            BookChapterDTO bookChapterDTO = queryBookChapterByBookChapterId(bookChapterId);
+            return ServiceResult.createSuccessServiceResult("更新书籍章节成功",bookChapterDTO);
         } catch (Exception e){
             String message = "更新书籍章节失败";
             LOGGER.error(message,e);
@@ -125,7 +129,7 @@ public class BookChapterServiceImpl implements BookChapterService {
     }
 
     @Override
-    public FreshServiceResult physicsDeleteBookChapterByBookChapterId(PhysicsDeleteBookChapterByBookChapterIdRequest request) {
+    public ServiceResult<BookChapterDTO> physicsDeleteBookChapterByBookChapterId(PhysicsDeleteBookChapterByBookChapterIdRequest request) {
         try{
             if(CommonUtils.isNUllOrEmpty(request.getBookChapterId())){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节ID不能为空");
@@ -135,6 +139,8 @@ public class BookChapterServiceImpl implements BookChapterService {
             if(bookChapterDomain==null){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节不存在");
             }
+
+            BookChapterDTO bookChapterDTO = classCast(bookChapterDomain);
 /*            if(!bookChapterDomain.isSoftDelete()){
                 return FreshServiceResult.createFailFreshServiceResult("书籍章节软删除标识为不可删");
             }*/
@@ -150,7 +156,8 @@ public class BookChapterServiceImpl implements BookChapterService {
             UpdateBookRequest updateBookRequest = new UpdateBookRequest();
             updateBookRequest.setBookId(bookChapterDomain.getBookId());
             bookDao.updateBook(updateBookRequest);
-            return FreshServiceResult.createSuccessFreshServiceResult("删除书籍章节成功");
+
+            return ServiceResult.createSuccessServiceResult("删除书籍章节成功",bookChapterDTO);
         } catch (Exception e){
             String message = "删除书籍章节失败";
             LOGGER.error(message,e);
@@ -227,6 +234,8 @@ public class BookChapterServiceImpl implements BookChapterService {
         dto.setSeoTitle(domain.getSeoTitle());
         dto.setSeoKeywords(domain.getSeoKeywords());
         dto.setSeoDescription(domain.getSeoDescription());
+
+        dto.setAuditStatus(domain.getAuditStatus());
         return dto;
     }
 
@@ -250,6 +259,8 @@ public class BookChapterServiceImpl implements BookChapterService {
         domain.setSeoTitle(dto.getSeoTitle());
         domain.setSeoKeywords(dto.getSeoKeywords());
         domain.setSeoDescription(dto.getSeoDescription());
+
+        domain.setAuditStatus(dto.getAuditStatus());
         return domain;
     }
 }

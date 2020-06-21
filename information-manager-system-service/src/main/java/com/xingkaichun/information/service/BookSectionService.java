@@ -15,8 +15,8 @@ import java.util.List;
 public interface BookSectionService {
 
     ServiceResult<BookSectionDTO> addBookSection(HttpServletRequest httpServletRequest, AddBookSectionRequest request);
-    FreshServiceResult updateBookSection(UpdateBookSectionRequest request);
-    FreshServiceResult physicsDeleteBookSectionByBookSectionId(PhysicsDeleteBookSectionByBookSectionIdRequest request);
+    ServiceResult<BookSectionDTO> updateBookSection(UpdateBookSectionRequest request);
+    ServiceResult<BookSectionDTO> physicsDeleteBookSectionByBookSectionId(PhysicsDeleteBookSectionByBookSectionIdRequest request);
 
     ServiceResult<List<BookSectionDTO>> queryBookSectionListBybookChapterId(QueryBookSectionListBybookChapterIdRequest request);
 
