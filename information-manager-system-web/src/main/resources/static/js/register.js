@@ -52,6 +52,7 @@ $(function(){
         console.log("params",params)
         if(params.verify==-1){
             $.ajax({
+                async:false,
                 type: "post",
                 url: url+"/User/AddUser",
                 data:`{"UserId":"",
@@ -64,9 +65,9 @@ $(function(){
                 success: function(data){
                     console.log(data)
                     alert(data.Message)
-                    if(data.ServiceCode=='SUCCESS'){
-                        alert("注册成功")
-                        location.href="/"
+                    if(data.ServiceCode == 'SUCCESS'){
+                        //TODO 跳转功能失效
+                        window.location.href = "/";
                     }
                 },
                 error:function(e){
