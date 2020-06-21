@@ -55,6 +55,7 @@
                                     <img src="/images/delete.png" alt="删除" onclick="deletePopBox(1)">
                                     <img src="/images/up.png" alt="升序" onclick="sectionSortUp(1)">
                                     <img src="/images/modify.png" onclick="javasript:location.href='/course/course_publish3.html?BookChapterId={{value.BookChapterId}}&BookSectionId={{value.BookSectionId}}'" alt="修改">
+                                    <img src="/images/view.png" onclick="javasript:jumpToBookSectionPage('{{value.BookSectionId}}')" alt="查看">
                                 </div>
                             </li>
                         {{/each}}

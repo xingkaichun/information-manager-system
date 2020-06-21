@@ -81,12 +81,14 @@ public class BookController {
     @PostMapping("/PhysicsDeleteBookByBookId")
     public ServiceResult<PhysicsDeleteBookByBookIdResponse> physicsDeleteBookByBookId(@RequestBody PhysicsDeleteBookByBookIdRequest request, HttpServletRequest httpServletRequest){
         try{
+            complexBookService.deleteHtmlPage(request.getBookId());
+
+
             ServiceResult<BookDTO> serviceResult = bookService.physicsDeleteBookByBookId(request);
             if(!ServiceResult.isSuccess(serviceResult)){
                 return ServiceResult.createFailServiceResult(serviceResult.getMessage());
             }
 
-            complexBookService.deleteHtmlPage(request.getBookId());
 
             PhysicsDeleteBookByBookIdResponse physicsDeleteBookByBookIdResponse = new PhysicsDeleteBookByBookIdResponse();
             physicsDeleteBookByBookIdResponse.setBookDTO(serviceResult.getResult());
@@ -461,6 +463,30 @@ public class BookController {
             return FreshServiceResult.createFailFreshServiceResult(message);
         }
     }
+
+
+
+
+    @ApiOperation(value="获取小节URL", notes="获取小节URL")
+    @ResponseBody
+    @PostMapping("/GetSectionPageUrlByBookSectionId")
+    public ServiceResult<GetSectionPageUrlByBookSectionIdResponse> getSectionPageUrlByBookSectionId(@RequestBody GetSectionPageUrlByBookSectionIdRequest request, HttpServletRequest httpServletRequest){
+        try{
+            ServiceResult<String> serviceResult = complexBookService.getSectionPageUrlByBookSectionId(request.getBookSectionId());
+            if(!ServiceResult.isSuccess(serviceResult)){
+                return FreshServiceResult.createFailFreshServiceResult(serviceResult.getMessage());
+            }
+
+            GetSectionPageUrlByBookSectionIdResponse response = new GetSectionPageUrlByBookSectionIdResponse();
+            response.setSectionPageUrl(serviceResult.getResult());
+            return ServiceResult.createSuccessServiceResult("获取小节URL成功",response);
+        } catch (Exception e){
+            String message = "获取小节URL失败";
+            LOGGER.error(message,e);
+            return FreshServiceResult.createFailFreshServiceResult(message);
+        }
+    }
+
 
     private void reCreateBookHtmlByBookId(String bookId) throws Exception {
         complexBookService.deleteHtmlPage(bookId);

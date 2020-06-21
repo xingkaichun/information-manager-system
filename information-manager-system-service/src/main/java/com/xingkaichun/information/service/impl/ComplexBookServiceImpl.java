@@ -178,6 +178,28 @@ public class ComplexBookServiceImpl implements ComplexBookService {
         CommonUtilsFile.deleteFile(jiaochengDirectory);
     }
 
+    @Override
+    public ServiceResult<String> getSectionPageUrlByBookSectionId(String bookSectionId) {
+        BookSectionDTO bookSectionDTO = bookSectionService.queryBookSectionDTOBySectionId(bookSectionId);
+        if(bookSectionDTO == null){
+            return ServiceResult.createFailServiceResult("数据库中没有查询到该小节");
+        }
+        BookChapterDTO bookChapterDTO = bookChapterService.queryBookChapterByBookChapterId(bookSectionDTO.getBookChapterId());
+        if(bookChapterDTO == null){
+            return ServiceResult.createFailServiceResult("数据库中没有查询到该小节对应的章");
+        }
+        BookDTO bookDTO = bookService.queryBookByBookId(bookSectionDTO.getBookId());
+        if(bookDTO == null){
+            return ServiceResult.createFailServiceResult("数据库中没有查询到该小节对应的书籍");
+        }
+        String sectionPageUrl = "/jiaocheng/"+bookDTO.getId()+"/"+bookDTO.getSeoUrl()+"/"+bookSectionDTO.getId()+"/"+bookSectionDTO.getSeoUrl()+".html";
+        return ServiceResult.createSuccessServiceResult("获取小节URL成功",sectionPageUrl);
+    }
+
+
+
+
+
     private BookSectionDTO previousBookSectionDTO(BookSectionDTO currentBookSectionDTO) {
         return bookSectionService.previousBookSectionDTO(currentBookSectionDTO);
     }

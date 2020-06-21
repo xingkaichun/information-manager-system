@@ -288,12 +288,8 @@ function deleteData(e) {
         dataType: "json",
         async:false,
         success: function(data){
-            if (data.ServiceCode = "FAIL"){
-                popBox(data.Message);
-                // destoryPopBox();
-            }
+            popBox(data.Message);
             getChapterList();
-
         },
         error:function(e){
         }
@@ -340,6 +336,29 @@ function sectionSortUp(e) {
             }
         });
     }
+}
+
+//跳转到小节页面
+function jumpToBookSectionPage(bookSectionId) {
+    $.ajax({
+        type: "post",
+        url: url+"/Book/GetSectionPageUrlByBookSectionId",
+        contentType:"application/json",
+        data:`{
+            "BookSectionId":"${bookSectionId}"
+        }`,
+        dataType: "json",
+        async:false,
+        success: function(data){
+            if (data.ServiceCode == "FAIL"){
+                popBox(data.Message);
+            } else {
+                window.open(data.Result.SectionPageUrl);
+            }
+        },
+        error:function(e){
+        }
+    });
 }
 
 //标题
