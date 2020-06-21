@@ -69,6 +69,7 @@ function getChapterList() {
         success: function (data) {
             chapter_list.BookChapterDTOList = data.Result.BookDTO.BookChapterDTOList;
             all.book_name = data.Result.BookDTO.BookName;
+            all.bookDTO = data.Result.BookDTO;
         },
         error: function (e) {
         }
@@ -363,4 +364,6 @@ function jumpToBookSectionPage(bookSectionId) {
 
 //标题
 var bookName = document.getElementById("book_name");
-bookName.innerHTML = all.book_name;
+var bookUrl = "/jiaocheng/" + all.bookDTO.Id +"/" + all.bookDTO.SeoUrl + ".html";
+//TODO
+bookName.innerHTML = all.book_name+"<a target='_blank' href='"+bookUrl+"'>跳转图片占位符</a>";
