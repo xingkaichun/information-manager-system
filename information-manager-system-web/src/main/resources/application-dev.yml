@@ -21,3 +21,6 @@ project:
     articleTemplateProduceFileSaveDirectory: D:\workspace\githubjava\information-manager-system\information-manager-system-web\target\classes\static\article\
     bookTemplateFilePath: D:\workspace\githubjava\information-manager-system\information-manager-system-web\src\main\resources\static\template\bookTemplate.html
     bookTemplateProduceFileSaveDirectory: D:\workspace\githubjava\information-manager-system\information-manager-system-web\target\classes\static\
+
+FileSystem:
+  UploadFileUrl: http://121.36.139.115:8080/UploadFile

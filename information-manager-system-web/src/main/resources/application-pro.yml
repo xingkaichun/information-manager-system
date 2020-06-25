@@ -14,3 +14,6 @@ project:
     articleTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system/front-end/static/article/
     bookTemplateFilePath: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/template/bookTemplate.html
     bookTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/
+
+FileSystem:
+  UploadFileUrl: http://121.36.139.115:8080/UploadFile

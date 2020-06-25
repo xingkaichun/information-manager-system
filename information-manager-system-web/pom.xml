@@ -16,8 +16,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.xingkaichun</groupId>
-            <artifactId>ueditor-core</artifactId>
+            <groupId>com.xingkaichun.plugins.ueditor</groupId>
+            <artifactId>spring-boot-start-ueditor-upload-to-file-system</artifactId>
         </dependency>
         <dependency>
             <groupId>com.xingkaichun</groupId>

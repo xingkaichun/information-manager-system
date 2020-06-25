@@ -36,8 +36,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.xingkaichun</groupId>
-                <artifactId>ueditor-core</artifactId>
+                <groupId>com.xingkaichun.plugins.ueditor</groupId>
+                <artifactId>spring-boot-start-ueditor-upload-to-file-system</artifactId>
                 <version>1.0.0</version>
             </dependency>
             <dependency>
