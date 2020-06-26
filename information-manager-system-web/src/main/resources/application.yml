@@ -1,5 +1,5 @@
 application:
-  host: localhost
+  name: information-manager-system-web
 
 server:
   port: 80

@@ -1,16 +1,18 @@
-application:
-  host: 121.36.139.115
-
 server:
   tomcat:
-    basedir: /opt/app/jiaochengshu/information-manager-system-tomcatiotemp/
+    basedir: /opt/app/jiaochengshu/information-manager-system-web-tomcatiotemp/
 
-project:
-  template:
-    articleTemplateFilePath: /opt/app/jiaochengshu/information-manager-system/front-end/static/template/InfoTemplate.html
-    articleTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system/front-end/static/article/
-    bookTemplateFilePath: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/template/bookTemplate.html
-    bookTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/
+spring:
+  http:
+    multipart:
+      location: /opt/app/jiaochengshu/information-manager-system-web-io/
 
 FileSystem:
   UploadFileUrl: http://121.36.139.115:8080/UploadFile
+
+project:
+  template:
+    articleTemplateFilePath: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/template/InfoTemplate.html
+    articleTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/article/
+    bookTemplateFilePath: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/template/bookTemplate.html
+    bookTemplateProduceFileSaveDirectory: /opt/app/jiaochengshu/information-manager-system-web/front-end/static/
