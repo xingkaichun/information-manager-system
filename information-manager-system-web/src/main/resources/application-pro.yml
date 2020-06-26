@@ -5,9 +5,6 @@ server:
   tomcat:
     basedir: /opt/app/jiaochengshu/information-manager-system-tomcatiotemp/
 
-upload:
-  fileDirectory: /opt/app/jiaochengshu/information-manager-system-files/
-
 project:
   template:
     articleTemplateFilePath: /opt/app/jiaochengshu/information-manager-system/front-end/static/template/InfoTemplate.html

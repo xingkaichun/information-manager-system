@@ -12,9 +12,6 @@ spring:
       # 上传文件的临时目录
       location: C:\workspace\temp-files\information-manager-system\information-manager-system-web-io\
 
-upload:
-  fileDirectory: C:\workspace\temp-files\information-manager-system\information-manager-system-web-files\
-
 FileSystem:
   UploadFileUrl: http://121.36.139.115:8080/UploadFile
 

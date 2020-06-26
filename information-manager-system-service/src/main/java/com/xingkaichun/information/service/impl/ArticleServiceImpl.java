@@ -3,7 +3,6 @@ package com.xingkaichun.information.service.impl;
 import com.xingkaichun.common.dto.base.page.PageCondition;
 import com.xingkaichun.common.dto.base.page.PageInformation;
 import com.xingkaichun.information.dao.ArticleDao;
-import com.xingkaichun.information.dao.FileDao;
 import com.xingkaichun.information.dto.article.ArticleDTO;
 import com.xingkaichun.information.dto.article.request.AddArticleRequest;
 import com.xingkaichun.information.dto.article.request.PhysicsDeleteArticleRequest;
@@ -14,7 +13,6 @@ import com.xingkaichun.information.dto.category.request.QueryCategoryRequest;
 import com.xingkaichun.information.dto.category.response.QueryCategoryResponse;
 import com.xingkaichun.information.dto.file.FileDto;
 import com.xingkaichun.information.model.ArticleDomain;
-import com.xingkaichun.information.model.FileDomain;
 import com.xingkaichun.information.service.ArticleService;
 import com.xingkaichun.information.service.CategoryService;
 import com.xingkaichun.utils.CommonUtils;
@@ -37,9 +35,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleDao articleDao;
-
-    @Autowired
-    private FileDao fileDao;
 
     @Value("${project.template.articleTemplateFilePath}")
     public String articleTemplateFilePath;
@@ -176,10 +171,10 @@ public class ArticleServiceImpl implements ArticleService {
         String[] attachedFileIds = attachedFiles.split(",");
         List<FileDto> attachedFileDetails = new ArrayList<>();
         for(String af:attachedFileIds){
-            List<FileDomain> fileDomains = fileDao.queryFile(new FileDomain(af,null,null,null,null));
+/*            List<FileDomain> fileDomains = fileDao.queryFile(new FileDomain(af,null,null,null,null));
             if(!CommonUtils.isNUllOrEmpty(fileDomains)){
                 attachedFileDetails.addAll(FileServiceImpl.classCast(fileDomains));
-            }
+            }*/
         }
         return attachedFileDetails;
     }
