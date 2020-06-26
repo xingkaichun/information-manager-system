@@ -17,9 +17,9 @@ public class InformationManagerSystemWebApplication {
 		ConfigurableApplicationContext context = SpringApplication.run(InformationManagerSystemWebApplication.class, args);
 
 
+		//TODO 优雅方式
 		String fileSystemUploadFileUrl = context.getEnvironment().getProperty("FileSystem.UploadFileUrl");
 		System.setProperty("FileSystem.UploadFileUrl",fileSystemUploadFileUrl);
-
 	}
 
 
