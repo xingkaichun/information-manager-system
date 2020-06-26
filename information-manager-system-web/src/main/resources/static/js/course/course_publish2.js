@@ -366,4 +366,4 @@ function jumpToBookSectionPage(bookSectionId) {
 var bookName = document.getElementById("book_name");
 var bookUrl = "/jiaocheng/" + all.bookDTO.Id +"/" + all.bookDTO.SeoUrl + ".html";
 //TODO
-bookName.innerHTML = all.book_name+"<a target='_blank' href='"+bookUrl+"'>跳转图片占位符</a>";
+bookName.innerHTML = all.book_name+"<a target='_blank' href='"+bookUrl+"'><img class='see_page' src='../../images/view.png' alt=''></a>";

@@ -41,7 +41,7 @@ $(function(){
         }
         return params
     }
-    $("#login_btn").click(function(){
+    $("#register_btn").click(function(){
         var params =verifyFun({
             username:'',
             email:'',
@@ -63,11 +63,10 @@ $(function(){
                 contentType:"application/json",
                 dataType: "json",
                 success: function(data){
-                    console.log(data)
-                    alert(data.Message)
+                    // console.log(data)
                     if(data.ServiceCode == 'SUCCESS'){
-                        //TODO 跳转功能失效
-                        window.location.href = "/";
+                        alert(data.Message)
+                        location.href = "/";
                     }
                 },
                 error:function(e){

@@ -21,6 +21,7 @@ var tools = (function () {
 /*文章内容左侧伸缩菜单*/
 function flexMenu(event) {
     // var a = event.target;
+
     var a = event.srcElement ? event.srcElement : event.target;
     var b = a.parentNode;
     var c = b.children;
@@ -35,6 +36,10 @@ function flexMenu(event) {
         }
         c.index = true;
     }
+}
+
+function defaultEvent(event) {
+    event.stopPropagation();
 }
 
 /*滚动到顶部*/

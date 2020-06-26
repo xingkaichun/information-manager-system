@@ -246,7 +246,8 @@ html,body{
 }
 .menu_left_list img{
     width: 12px;
-    vertical-align: -1px;
+    vertical-align: -10px;
+    margin-left: 5px;
 }
 .menu_left_list dt{
     cursor: pointer;
@@ -985,7 +986,73 @@ a.pop{
    }
 }
 
+.see_page{
+    height: 20px;
+    vertical-align: -5px;
+    margin-left: 10px;
+    opacity: 0.5;
+}
 
+/*前台页面*/
+.page_style h1, .page_style h2, .page_style h3, .page_style h4, .page_style h5{
+    margin: 20px 0;
+}
+.page_style pre{
+    background: #f5f5f5;
+    border: 1px solid #e1e1e1;
+    border-radius: 3px;
+    padding: 10px;
+}
+.page_style blockquote{
+    background: #FFFAF0;
+    border: 1px solid #fae7c8;
+    border-left-width: 5px;
+    border-radius: 3px;
+    margin: 20px 0;
+    padding: 10px;
+}
+.page_style table{
+    border-right: 1px solid #e1e1e1;
+    margin: 20px 0;
+    border-spacing:0px;
+}
+.page_style table th{
+    background: #f5f5f5;
+    border: 1px solid #e1e1e1;
+    height: 40px;
+    line-height: 40px;
+    border-right: none;
+    text-align: left;
+    padding-left: 10px;
+}
+.page_style table td{
+    border: 1px solid #e1e1e1;
+    height: 40px;
+    line-height: 40px;
+    border-top: none;
+    border-right: none;
+    padding-left: 10px;
+}
+.page_style ul li{
+    list-style: disc inside;
+    line-height: 30px;
+}
+.page_style ol li{
+    list-style: inside decimal;
+    line-height: 30px;
+}
+.page_style p{
+    margin: 0;
+}
+.page_style img{
+    margin: 10px 20px 10px 0;
+}
+.page_style p span{
+    font-size: 14px;
+}
+#edit_code{
+    margin-top: 10px;
+}
 
 
 
