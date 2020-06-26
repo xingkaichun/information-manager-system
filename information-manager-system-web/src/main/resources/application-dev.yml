@@ -4,16 +4,19 @@ application:
 server:
   tomcat:
     #长时间不进行上传操作，导致/tmp下面的tomcat临时文件目录被删除，上传文件时获取不到文件目录，导致报错
-    basedir: F:\temp\jiaochengshu\tomcat\information-manager-system-web-temp\
-
-upload:
-  fileDirectory: F:\temp\jiaochengshu\information-manager-system-files\
+    basedir: C:\workspace\temp-files\information-manager-system\information-manager-system-web-temp\
 
 spring:
   http:
     multipart:
       # 上传文件的临时目录
-      location: F:\temp\jiaochengshu\tomcat\information-manager-system-web-io\
+      location: C:\workspace\temp-files\information-manager-system\information-manager-system-web-io\
+
+upload:
+  fileDirectory: C:\workspace\temp-files\information-manager-system\information-manager-system-web-files\
+
+FileSystem:
+  UploadFileUrl: http://121.36.139.115:8080/UploadFile
 
 project:
   template:
@@ -21,6 +24,3 @@ project:
     articleTemplateProduceFileSaveDirectory: C:\workspace\githubjava\information-manager-system\information-manager-system-web\target\classes\static\article\
     bookTemplateFilePath: C:\workspace\githubjava\information-manager-system\information-manager-system-web\src\main\resources\static\template\bookTemplate.html
     bookTemplateProduceFileSaveDirectory: C:\workspace\githubjava\information-manager-system\information-manager-system-web\target\classes\static\
-
-FileSystem:
-  UploadFileUrl: http://121.36.139.115:8080/UploadFile
