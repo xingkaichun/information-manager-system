@@ -1,31 +1,26 @@
 package com.xingkaichun.information.controller;
 
 import com.xingkaichun.common.dto.base.FreshServiceResult;
-import com.xingkaichun.common.dto.base.ServiceCode;
 import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.dto.user.request.LoginRequest;
 import com.xingkaichun.information.dto.user.response.GetUserInfoResponse;
 import com.xingkaichun.information.dto.user.response.LoginResponse;
-import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
-import com.xingkaichun.utils.CommonUtils;
-import com.xingkaichun.utils.CommonUtilsCookie;
-import com.xingkaichun.utils.CommonUtilsMd5;
-import com.xingkaichun.utils.CommonUtilsSession;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
 
 @Api(value="用户controller",tags={"用户操作接口"})
 @Controller
@@ -40,85 +35,29 @@ public class UserController {
     @ApiOperation(value="添加用户", notes="添加用户")
     @ResponseBody
     @PostMapping("/AddUser")
-    public FreshServiceResult addUser(HttpServletRequest request, HttpServletResponse response,@RequestBody UserDto userDto){
-
+    public ServiceResult<UserInfo> addUser(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,@RequestBody UserDto userDto){
         try {
-            if(CommonUtils.isNUllOrEmpty(userDto.getVerificationCode())){
-                return FreshServiceResult.createFailFreshServiceResult("邀请码不能为空");
-            }
-            ServiceResult<UserInfo> userInfoServiceResult = userService.addUser(userDto);
-            if(userInfoServiceResult.getServiceCode()== ServiceCode.FAIL){
-                return FreshServiceResult.createFailFreshServiceResult(userInfoServiceResult.getMessage());
-            }
-            UserInfo userInfo = userInfoServiceResult.getResult();
-            UserDomain userDomain = userService.queryOneUserByUserId(userInfo.getUserId());
-
-            CommonUtilsSession.saveUser(request,userDomain);
-
-            String userToken = generateUserToken();
-            userDomain.setUserToken(userToken);
-            userService.updateUserToken(userDomain);
-            CommonUtilsCookie.saveUserToken(response,userToken);
+            ServiceResult<UserInfo> userInfoServiceResult = userService.addUser(httpServletRequest,httpServletResponse,userDto);
+            return userInfoServiceResult;
         } catch (Exception e) {
             String message = "新增用户出错";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
-        } finally {
         }
-        return FreshServiceResult.createSuccessFreshServiceResult("新增用户成功");
-    }
-
-    private String generatePassword(String password, String passwordSalt) {
-        return CommonUtilsMd5.MD5Encode(password+passwordSalt, CharEncoding.UTF_8,false);
-    }
-
-    private String generateUserToken() {
-        return CommonUtilsMd5.MD5Encode(String.valueOf(UUID.randomUUID())+String.valueOf(UUID.randomUUID()), CharEncoding.UTF_8,false);
     }
 
     @ApiOperation(value="登录", notes="登录")
     @ResponseBody
     @PostMapping("/Login")
-    public ServiceResult<LoginResponse> login(HttpServletRequest request, HttpServletResponse response,@RequestBody LoginRequest loginRequest){
+    public ServiceResult<LoginResponse> login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,@RequestBody LoginRequest loginRequest){
 
         try {
-            if(CommonUtils.isNUllOrEmpty(loginRequest.getEmail())){
-                return ServiceResult.createFailServiceResult("邮箱不能为空");
-            }
-            if(CommonUtils.isNUllOrEmpty(loginRequest.getPassword())){
-                return ServiceResult.createFailServiceResult("密码不能为空");
-            }
-
-            //检测邮箱是否存在
-            ServiceResult<UserInfo> userInfoServiceResult =  userService.queryOneUserByEmail(loginRequest.getEmail());
-            if(!ServiceResult.isSuccess(userInfoServiceResult)){
-                return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
-            }
-            //比较密码是否正确
-            UserInfo userInfo = userInfoServiceResult.getResult();
-            UserDomain userDomain = userService.queryOneUserByUserId(userInfo.getUserId());
-            loginRequest.setPassword(generatePassword(loginRequest.getPassword(),userDomain.getPasswordSalt()));
-            ServiceResult<UserInfo> ud = userService.queryUserByEmailAndPassword(loginRequest.getEmail(),loginRequest.getPassword());
-            if(!ServiceResult.isSuccess(ud)){
-                return ServiceResult.createFailServiceResult("登陆失败,请检测邮箱与密码");
-            }
-
-            CommonUtilsSession.saveUser(request,userDomain);
-
-            String userToken = generateUserToken();
-            userDomain.setUserToken(userToken);
-            userService.updateUserToken(userDomain);
-            CommonUtilsCookie.saveUserToken(response,userToken);
-
-            LoginResponse loginResponse = new LoginResponse();
-            loginResponse.setUserInfo(userInfo);
-
-            return ServiceResult.createSuccessServiceResult("用户登陆成功",loginResponse);
+            ServiceResult<LoginResponse> serviceResult = userService.login(httpServletRequest,httpServletResponse,loginRequest);
+            return serviceResult;
         } catch (Exception e) {
             String message = "用户登陆失败";
             LOGGER.error(message,e);
             return FreshServiceResult.createFailFreshServiceResult(message);
-        } finally {
         }
     }
 

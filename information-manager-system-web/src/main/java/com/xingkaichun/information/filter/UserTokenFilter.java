@@ -1,9 +1,7 @@
 package com.xingkaichun.information.filter;
 
-import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.service.UserService;
 import com.xingkaichun.utils.CommonUtils;
-import com.xingkaichun.utils.CommonUtilsCookie;
 import com.xingkaichun.utils.CommonUtilsSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -34,14 +32,7 @@ public class UserTokenFilter implements Filter {
 
 		//尝试登录
 		if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
-			//尝试使用UserToken登录
-			String userToken = CommonUtilsCookie.getUserToken(httpServletRequest);
-			if(!CommonUtils.isNUllOrEmpty(userToken)){
-				UserDomain userDomain = userService.queryOneUserByUserToken(userToken);
-				if(!CommonUtils.isNUll(userDomain)){
-					CommonUtilsSession.saveUser(httpServletRequest,userDomain);
-				}
-			}
+			userService.updateUserSession(httpServletRequest);
 		}
 
 		if(CommonUtils.isNUll(CommonUtilsSession.getUser(httpServletRequest))){
