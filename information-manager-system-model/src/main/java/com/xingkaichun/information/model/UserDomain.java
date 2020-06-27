@@ -12,6 +12,8 @@ public class UserDomain {
     private String passwordSalt;
     private String phone;
     private String userToken;
+    private Integer forbid;
+
 
     public UserDomain() {
     }

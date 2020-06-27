@@ -1,6 +1,5 @@
 package com.xingkaichun.information.service;
 
-import com.github.pagehelper.PageInfo;
 import com.xingkaichun.common.dto.base.ServiceResult;
 import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.UserInfo;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface UserService {
 
     ServiceResult<UserInfo> addUser(UserDto userDto);
-    PageInfo<UserDomain> findAllUser(int pageNum, int pageSize);
 
     UserDomain queryOneUserByUserId(String userId);
     UserInfo queryOneUserByUserId2(String userId);

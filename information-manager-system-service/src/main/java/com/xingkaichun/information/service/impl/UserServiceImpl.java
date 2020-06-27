@@ -1,17 +1,14 @@
 package com.xingkaichun.information.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.xingkaichun.information.dao.UserDao;
 import com.xingkaichun.common.dto.base.FreshServiceResult;
 import com.xingkaichun.common.dto.base.ServiceResult;
+import com.xingkaichun.information.dao.UserDao;
 import com.xingkaichun.information.dao.VerificationCodeDao;
 import com.xingkaichun.information.dto.user.UserDto;
 import com.xingkaichun.information.dto.user.UserInfo;
 import com.xingkaichun.information.model.UserDomain;
 import com.xingkaichun.information.model.VerificationCodeDomain;
 import com.xingkaichun.information.service.UserService;
-import com.xingkaichun.information.service.VerificationCodeService;
 import com.xingkaichun.utils.CommonUtils;
 import com.xingkaichun.utils.CommonUtilsMd5;
 import com.xingkaichun.utils.CommonUtilsSession;
@@ -20,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -94,21 +90,6 @@ public class UserServiceImpl implements UserService {
         userDomain.setPasswordSalt(userDto.getPasswordSalt());
         userDomain.setPhone(userDto.getPhone());
         return userDomain;
-    }
-
-    /*
-    * 这个方法中用到了我们开头配置依赖的分页插件pagehelper
-    * 很简单，只需要在service层传入参数，然后将参数传递给一个插件的一个静态方法即可；
-    * pageNum 开始页数
-    * pageSize 每页显示的数据条数
-    * */
-    @Override
-    public PageInfo<UserDomain> findAllUser(int pageNum, int pageSize) {
-        //将参数传给这个方法就可以实现物理分页了，非常简单。
-        PageHelper.startPage(pageNum, pageSize);
-        List<UserDomain> userDomains = userDao.selectUsers();
-        PageInfo result = new PageInfo(userDomains);
-        return result;
     }
 
     @Override
