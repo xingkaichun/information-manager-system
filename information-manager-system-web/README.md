@@ -4,4 +4,4 @@ mvn -Dmaven.test.skip=true clean package install spring-boot:repackage assembly:
 # swagger地址
 http://ip:host/swagger-ui.html
 # JVM参数
--Dspring.profiles.active=dev      -Dapollo.bootstrap.enabled=true -Dapollo.meta=http://139.9.125.122:8080/ -Dapp.id=information-manager-system-ysehf -Denv=DEV -Didc=default
+nohup java      -Xms256M -Xmx1024M -Xss512k -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -Xloggc:gc.log      -Dspring.profiles.active=dev -Dloader.path=libs/,config/,front-end/,/opt/data/information-manager-system-web-data/      -Dapollo.bootstrap.enabled=true -Dapollo.meta=http://121.36.139.115:8080/ -Dapp.id=information-manager-system-ysehf -Denv=DEV -Didc=dev      -jar $JAR_NAME &
