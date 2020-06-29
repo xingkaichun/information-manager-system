@@ -23,7 +23,7 @@ cd ${program_dir}
 
 echo `pwd`
 
-nohup java -Xms256M -Xmx1024M -Xss512k -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -Xloggc:gc.log -Dloader.path=libs/,config/,front-end/ -Dspring.profiles.active=pro -jar $JAR_NAME &
+nohup java      -Xms256M -Xmx1024M -Xss512k -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -Xloggc:gc.log      -Dspring.profiles.active=dev -Dloader.path=libs/,config/,front-end/,/opt/data/information-manager-system-web-data/      -Dapollo.bootstrap.enabled=true -Dapollo.meta=http://121.36.139.115:8080/ -Dapp.id=information-manager-system-ysehf -Denv=DEV -Didc=dev      -jar $JAR_NAME &
 
 
 echo "start success ."
